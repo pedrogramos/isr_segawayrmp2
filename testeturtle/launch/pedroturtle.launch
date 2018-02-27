@@ -1,0 +1,16 @@
+<launch>
+  <node
+    pkg="turtlesim"
+    name="turtlesim_node"
+    type="turtlesim_node"
+    />
+
+  <node
+    pkg="testeturtle"
+    name="velocity_turtle1_node"
+    type="velocity_turtle1_node"
+  />
+
+  <!-- Commonly you need to remap to just /cmd_vel from /<node_name>/cmd_vel -->
+  <remap from="~cmd_vel" to="/cmd_vel" />
+</launch>

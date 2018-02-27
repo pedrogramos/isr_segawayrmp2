@@ -1,0 +1,2 @@
+/usr/bin/ar qc /home/rmp/catkin_ws/src/segwayrmp-libsegwayrmp-81f7971/lib/libsegwayrmp.a  CMakeFiles/segwayrmp.dir/src/segwayrmp.cc.o CMakeFiles/segwayrmp.dir/src/impl/rmp_io.cc.o CMakeFiles/segwayrmp.dir/src/impl/rmp_serial.cc.o CMakeFiles/segwayrmp.dir/src/impl/rmp_ftd2xx.cc.o
+/usr/bin/ranlib /home/rmp/catkin_ws/src/segwayrmp-libsegwayrmp-81f7971/lib/libsegwayrmp.a

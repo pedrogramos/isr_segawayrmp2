@@ -1,0 +1,2 @@
+segway_rmp-master:segwayrmp-libsegwayrmp-81f7971:wiimote:wjwwood-serial-bdba3a8
+-DCMAKE_BUILD_TYPE=Release -G Unix Makefiles -DCATKIN_DEVEL_PREFIX=/home/rmp/catkin_ws/devel_isolated -DCMAKE_INSTALL_PREFIX=/home/rmp/catkin_ws/install_isolated

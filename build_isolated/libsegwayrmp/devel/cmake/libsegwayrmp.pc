@@ -1,0 +1,10 @@
+prefix=/home/rmp/catkin_ws/devel_isolated/libsegwayrmp
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+	
+Name: segwayrmp
+Description: A cross-platform, open source interface to Segway's Robotic Mobile Platforms. It provides access to the interface of the RMP50, 100, 200, and 400 series via either serial rs-232 (VCP) or ftdi usb mode (D2XX).
+Version: 0.2.8
+Libs: -L${libdir} -lsegwayrmp -lftd2xx -ldl
+Cflags: -I${includedir}

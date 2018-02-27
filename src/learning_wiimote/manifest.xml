@@ -1,0 +1,17 @@
+<package>
+  <description brief="learning_wiimote">
+
+     learning_wiimote
+
+  </description>
+  <author>RMP robot</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/learning_wiimote</url>
+  <depend package="roscpp"/>
+  <depend package="turtlesim"/>
+  <depend package="wiimote"/>
+
+</package>
+
+

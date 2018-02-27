@@ -1,0 +1,8 @@
+prefix=/home/rmp/catkin_ws/install_isolated
+
+Name: serial
+Description: Description of serial
+Version: 1.2.1
+Cflags: -I/home/rmp/catkin_ws/install_isolated/include
+Libs: -L/home/rmp/catkin_ws/install_isolated/lib -lserial -lrt -lpthread
+Requires: 

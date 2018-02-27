@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/rmp/catkin_ws/src/segwayrmp-libsegwayrmp-81f7971/examples/segwayrmp_example.cc
+iostream
+-
+string
+-
+algorithm
+-
+segwayrmp/segwayrmp.h
+/home/rmp/catkin_ws/src/segwayrmp-libsegwayrmp-81f7971/examples/segwayrmp/segwayrmp.h
+
+/home/rmp/catkin_ws/src/segwayrmp-libsegwayrmp-81f7971/include/segwayrmp/segwayrmp.h
+exception
+-
+sstream
+-
+queue
+-
+typeinfo
+-
+boost/function.hpp
+-
+boost/thread.hpp
+-
+stdint.h
+-
+

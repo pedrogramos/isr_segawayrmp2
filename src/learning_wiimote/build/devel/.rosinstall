@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/rmp/catkin_ws/src/sandbox/learning_wiimote/build/devel/setup.sh

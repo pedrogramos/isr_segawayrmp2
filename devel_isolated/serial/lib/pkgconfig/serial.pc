@@ -1,0 +1,8 @@
+prefix=/home/rmp/catkin_ws/devel_isolated/serial
+
+Name: serial
+Description: Description of serial
+Version: 1.2.1
+Cflags: -I/home/rmp/catkin_ws/src/wjwwood-serial-bdba3a8/include
+Libs: -L/home/rmp/catkin_ws/devel_isolated/serial/lib -lserial -lrt -lpthread
+Requires: 

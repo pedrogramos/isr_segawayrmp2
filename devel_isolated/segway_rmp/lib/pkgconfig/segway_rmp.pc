@@ -1,0 +1,8 @@
+prefix=/home/rmp/catkin_ws/devel_isolated/segway_rmp
+
+Name: segway_rmp
+Description: Description of segway_rmp
+Version: 0.1.2
+Cflags: -I/home/rmp/catkin_ws/devel_isolated/segway_rmp/include -I/home/rmp/catkin_ws/devel_isolated/libsegwayrmp/include
+Libs: -L/home/rmp/catkin_ws/devel_isolated/segway_rmp/lib /home/rmp/catkin_ws/devel_isolated/libsegwayrmp/lib/libsegwayrmp.a /home/rmp/catkin_ws/devel_isolated/libsegwayrmp/lib/libftd2xx.a -ldl
+Requires: geometry_msgs message_runtime nav_msgs roscpp serial std_msgs tf

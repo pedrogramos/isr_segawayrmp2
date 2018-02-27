@@ -1,0 +1,8 @@
+prefix=/home/rmp/catkin_ws/install
+
+Name: RMPISR
+Description: Description of RMPISR
+Version: 0.0.1
+Cflags: -I/home/rmp/catkin_ws/install/include
+Libs: -L/home/rmp/catkin_ws/install/lib 
+Requires: geometry_msgs message_runtime std_msgs std_srvs tf2 tf2_ros
