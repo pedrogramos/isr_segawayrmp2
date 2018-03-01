@@ -66,12 +66,12 @@ RMPISR/CMakeFiles/RMPISR_generate_messages_py: /home/rmp/catkin_ws/devel/lib/pyt
 
 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_stop.py: /opt/ros/kinetic/lib/genpy/gensrv_py.py
 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_stop.py: /home/rmp/catkin_ws/src/RMPISR/srv/stop.srv
-/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_stop.py: /opt/ros/kinetic/share/geometry_msgs/msg/Point.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python code from SRV RMPISR/stop"
 	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/rmp/catkin_ws/src/RMPISR/srv/stop.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv
 
 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_addpoint.py: /opt/ros/kinetic/lib/genpy/gensrv_py.py
 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_addpoint.py: /home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv
+/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_addpoint.py: /opt/ros/kinetic/share/geometry_msgs/msg/Point.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Python code from SRV RMPISR/addpoint"
 	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv
 

@@ -1,4 +1,4 @@
-float64 xf
-float64 yf
+geometry_msgs/Point[] pointArray
 bool type
+int32 size
 ---

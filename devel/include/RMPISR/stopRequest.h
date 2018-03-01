@@ -15,7 +15,6 @@
 #include <ros/builtin_message_traits.h>
 #include <ros/message_operations.h>
 
-#include <geometry_msgs/Point.h>
 
 namespace RMPISR
 {
@@ -25,22 +24,14 @@ struct stopRequest_
   typedef stopRequest_<ContainerAllocator> Type;
 
   stopRequest_()
-    : size(0)
-    , pointArray()  {
+    {
     }
   stopRequest_(const ContainerAllocator& _alloc)
-    : size(0)
-    , pointArray(_alloc)  {
+    {
   (void)_alloc;
     }
 
 
-
-   typedef uint8_t _size_type;
-  _size_type size;
-
-   typedef  ::geometry_msgs::Point_<ContainerAllocator>  _pointArray_type;
-  _pointArray_type pointArray;
 
 
 
@@ -119,12 +110,12 @@ struct MD5Sum< ::RMPISR::stopRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "5bbea48bfb057c91b7a5e97f25876fc2";
+    return "d41d8cd98f00b204e9800998ecf8427e";
   }
 
   static const char* value(const ::RMPISR::stopRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x5bbea48bfb057c91ULL;
-  static const uint64_t static_value2 = 0xb7a5e97f25876fc2ULL;
+  static const uint64_t static_value1 = 0xd41d8cd98f00b204ULL;
+  static const uint64_t static_value2 = 0xe9800998ecf8427eULL;
 };
 
 template<class ContainerAllocator>
@@ -143,15 +134,7 @@ struct Definition< ::RMPISR::stopRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "uint8 size\n\
-geometry_msgs/Point pointArray\n\
-\n\
-================================================================================\n\
-MSG: geometry_msgs/Point\n\
-# This contains the position of a point in free space\n\
-float64 x\n\
-float64 y\n\
-float64 z\n\
+    return "\n\
 ";
   }
 
@@ -168,11 +151,8 @@ namespace serialization
 
   template<class ContainerAllocator> struct Serializer< ::RMPISR::stopRequest_<ContainerAllocator> >
   {
-    template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
-    {
-      stream.next(m.size);
-      stream.next(m.pointArray);
-    }
+    template<typename Stream, typename T> inline static void allInOne(Stream&, T)
+    {}
 
     ROS_DECLARE_ALLINONE_SERIALIZER
   }; // struct stopRequest_
@@ -188,14 +168,8 @@ namespace message_operations
 template<class ContainerAllocator>
 struct Printer< ::RMPISR::stopRequest_<ContainerAllocator> >
 {
-  template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::RMPISR::stopRequest_<ContainerAllocator>& v)
-  {
-    s << indent << "size: ";
-    Printer<uint8_t>::stream(s, indent + "  ", v.size);
-    s << indent << "pointArray: ";
-    s << std::endl;
-    Printer< ::geometry_msgs::Point_<ContainerAllocator> >::stream(s, indent + "  ", v.pointArray);
-  }
+  template<typename Stream> static void stream(Stream&, const std::string&, const ::RMPISR::stopRequest_<ContainerAllocator>&)
+  {}
 };
 
 } // namespace message_operations

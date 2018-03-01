@@ -29,6 +29,8 @@ ros/builtin_message_traits.h
 -
 ros/message_operations.h
 -
+geometry_msgs/Point.h
+-
 
 /home/rmp/catkin_ws/devel/include/RMPISR/addpointResponse.h
 string
@@ -108,8 +110,6 @@ ros/serialization.h
 ros/builtin_message_traits.h
 -
 ros/message_operations.h
--
-geometry_msgs/Point.h
 -
 
 /home/rmp/catkin_ws/devel/include/RMPISR/stopResponse.h

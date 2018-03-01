@@ -15,6 +15,7 @@
 #include <ros/builtin_message_traits.h>
 #include <ros/message_operations.h>
 
+#include <geometry_msgs/Point.h>
 
 namespace RMPISR
 {
@@ -24,27 +25,27 @@ struct addpointRequest_
   typedef addpointRequest_<ContainerAllocator> Type;
 
   addpointRequest_()
-    : xf(0.0)
-    , yf(0.0)
-    , type(false)  {
+    : pointArray()
+    , type(false)
+    , size(0)  {
     }
   addpointRequest_(const ContainerAllocator& _alloc)
-    : xf(0.0)
-    , yf(0.0)
-    , type(false)  {
+    : pointArray(_alloc)
+    , type(false)
+    , size(0)  {
   (void)_alloc;
     }
 
 
 
-   typedef double _xf_type;
-  _xf_type xf;
-
-   typedef double _yf_type;
-  _yf_type yf;
+   typedef std::vector< ::geometry_msgs::Point_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::geometry_msgs::Point_<ContainerAllocator> >::other >  _pointArray_type;
+  _pointArray_type pointArray;
 
    typedef uint8_t _type_type;
   _type_type type;
+
+   typedef uint8_t _size_type;
+  _size_type size;
 
 
 
@@ -79,7 +80,7 @@ namespace message_traits
 
 
 
-// BOOLTRAITS {'IsFixedSize': True, 'IsMessage': True, 'HasHeader': False}
+// BOOLTRAITS {'IsFixedSize': False, 'IsMessage': True, 'HasHeader': False}
 // {'std_msgs': ['/opt/ros/kinetic/share/std_msgs/cmake/../msg'], 'geometry_msgs': ['/opt/ros/kinetic/share/geometry_msgs/cmake/../msg']}
 
 // !!!!!!!!!!! ['__class__', '__delattr__', '__dict__', '__doc__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_parsed_fields', 'constants', 'fields', 'full_name', 'has_header', 'header_present', 'names', 'package', 'parsed_fields', 'short_name', 'text', 'types']
@@ -89,12 +90,12 @@ namespace message_traits
 
 template <class ContainerAllocator>
 struct IsFixedSize< ::RMPISR::addpointRequest_<ContainerAllocator> >
-  : TrueType
+  : FalseType
   { };
 
 template <class ContainerAllocator>
 struct IsFixedSize< ::RMPISR::addpointRequest_<ContainerAllocator> const>
-  : TrueType
+  : FalseType
   { };
 
 template <class ContainerAllocator>
@@ -123,12 +124,12 @@ struct MD5Sum< ::RMPISR::addpointRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "2c13470f9a76d841f1bd464dbd411b07";
+    return "77e78fdbf22a409a15b41bafedb3fda3";
   }
 
   static const char* value(const ::RMPISR::addpointRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x2c13470f9a76d841ULL;
-  static const uint64_t static_value2 = 0xf1bd464dbd411b07ULL;
+  static const uint64_t static_value1 = 0x77e78fdbf22a409aULL;
+  static const uint64_t static_value2 = 0x15b41bafedb3fda3ULL;
 };
 
 template<class ContainerAllocator>
@@ -147,9 +148,16 @@ struct Definition< ::RMPISR::addpointRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "float64 xf\n\
-float64 yf\n\
+    return "geometry_msgs/Point[] pointArray\n\
 bool type\n\
+uint8 size\n\
+\n\
+================================================================================\n\
+MSG: geometry_msgs/Point\n\
+# This contains the position of a point in free space\n\
+float64 x\n\
+float64 y\n\
+float64 z\n\
 ";
   }
 
@@ -168,9 +176,9 @@ namespace serialization
   {
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
-      stream.next(m.xf);
-      stream.next(m.yf);
+      stream.next(m.pointArray);
       stream.next(m.type);
+      stream.next(m.size);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -189,12 +197,18 @@ struct Printer< ::RMPISR::addpointRequest_<ContainerAllocator> >
 {
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::RMPISR::addpointRequest_<ContainerAllocator>& v)
   {
-    s << indent << "xf: ";
-    Printer<double>::stream(s, indent + "  ", v.xf);
-    s << indent << "yf: ";
-    Printer<double>::stream(s, indent + "  ", v.yf);
+    s << indent << "pointArray[]" << std::endl;
+    for (size_t i = 0; i < v.pointArray.size(); ++i)
+    {
+      s << indent << "  pointArray[" << i << "]: ";
+      s << std::endl;
+      s << indent;
+      Printer< ::geometry_msgs::Point_<ContainerAllocator> >::stream(s, indent + "    ", v.pointArray[i]);
+    }
     s << indent << "type: ";
     Printer<uint8_t>::stream(s, indent + "  ", v.type);
+    s << indent << "size: ";
+    Printer<uint8_t>::stream(s, indent + "  ", v.size);
   }
 };
 

@@ -19,6 +19,8 @@
 #include "RMPISR/stop.h"
 
 #define PI 3.141592
+using namespace std;
+geometry_msgs::Point point;
 
 void go(ros::NodeHandle nh){
   ros::service::waitForService("go");
@@ -31,20 +33,18 @@ void stop(ros::NodeHandle nh){
   ros::service::waitForService("stop");
   ros::ServiceClient client2 =nh.serviceClient<RMPISR::go>("stop");
   RMPISR::stop stop_;
-
   client2.call(stop_);
 }
 
-void addpoint(ros::NodeHandle nh, float xf, float yf, bool type){
+void addpoint(ros::NodeHandle nh, geometry_msgs::Point point){
   ros::service::waitForService("addpoint");
   ros::ServiceClient client3 =nh.serviceClient<RMPISR::addpoint>("addpoint");
   RMPISR::addpoint addpoint_;
-  addpoint_.request.xf=xf;
-  addpoint_.request.yf=yf;
-  addpoint_.request.type=type;
+
+
   client3.call(addpoint_);
 }
-using namespace std;
+
 
 int main(int argc, char** argv){
   ros::init(argc, argv, "boss_node");
@@ -66,7 +66,8 @@ int main(int argc, char** argv){
   go(nh);*/
 
 //ROS_INFO("fez todos os addpoint");
-
+  point.x=1;
+  point.y=1;
 
 
 

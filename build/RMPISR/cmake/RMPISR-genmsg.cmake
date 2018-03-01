@@ -24,12 +24,12 @@ add_custom_target(_RMPISR_generate_messages_check_deps_${_filename}
 
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv" NAME_WE)
 add_custom_target(_RMPISR_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "RMPISR" "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv" "geometry_msgs/Point"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "RMPISR" "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv" ""
 )
 
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv" NAME_WE)
 add_custom_target(_RMPISR_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "RMPISR" "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "RMPISR" "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv" "geometry_msgs/Point"
 )
 
 #
@@ -49,13 +49,13 @@ _generate_srv_cpp(RMPISR
 _generate_srv_cpp(RMPISR
   "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/RMPISR
 )
 _generate_srv_cpp(RMPISR
   "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv"
   "${MSG_I_FLAGS}"
-  ""
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/RMPISR
 )
 
@@ -98,13 +98,13 @@ _generate_srv_eus(RMPISR
 _generate_srv_eus(RMPISR
   "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/RMPISR
 )
 _generate_srv_eus(RMPISR
   "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv"
   "${MSG_I_FLAGS}"
-  ""
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/RMPISR
 )
 
@@ -147,13 +147,13 @@ _generate_srv_lisp(RMPISR
 _generate_srv_lisp(RMPISR
   "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/RMPISR
 )
 _generate_srv_lisp(RMPISR
   "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv"
   "${MSG_I_FLAGS}"
-  ""
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/RMPISR
 )
 
@@ -196,13 +196,13 @@ _generate_srv_nodejs(RMPISR
 _generate_srv_nodejs(RMPISR
   "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/RMPISR
 )
 _generate_srv_nodejs(RMPISR
   "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv"
   "${MSG_I_FLAGS}"
-  ""
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/RMPISR
 )
 
@@ -245,13 +245,13 @@ _generate_srv_py(RMPISR
 _generate_srv_py(RMPISR
   "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/RMPISR
 )
 _generate_srv_py(RMPISR
   "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv"
   "${MSG_I_FLAGS}"
-  ""
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/RMPISR
 )
 

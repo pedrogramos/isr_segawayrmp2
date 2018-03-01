@@ -5,17 +5,25 @@ python3 = True if sys.hexversion > 0x03000000 else False
 import genpy
 import struct
 
+import geometry_msgs.msg
 
 class addpointRequest(genpy.Message):
-  _md5sum = "2c13470f9a76d841f1bd464dbd411b07"
+  _md5sum = "77e78fdbf22a409a15b41bafedb3fda3"
   _type = "RMPISR/addpointRequest"
   _has_header = False #flag to mark the presence of a Header object
-  _full_text = """float64 xf
-float64 yf
+  _full_text = """geometry_msgs/Point[] pointArray
 bool type
+uint8 size
+
+================================================================================
+MSG: geometry_msgs/Point
+# This contains the position of a point in free space
+float64 x
+float64 y
+float64 z
 """
-  __slots__ = ['xf','yf','type']
-  _slot_types = ['float64','float64','bool']
+  __slots__ = ['pointArray','type','size']
+  _slot_types = ['geometry_msgs/Point[]','bool','uint8']
 
   def __init__(self, *args, **kwds):
     """
@@ -25,7 +33,7 @@ bool type
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       xf,yf,type
+       pointArray,type,size
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -34,16 +42,16 @@ bool type
     if args or kwds:
       super(addpointRequest, self).__init__(*args, **kwds)
       #message fields cannot be None, assign default values for those that are
-      if self.xf is None:
-        self.xf = 0.
-      if self.yf is None:
-        self.yf = 0.
+      if self.pointArray is None:
+        self.pointArray = []
       if self.type is None:
         self.type = False
+      if self.size is None:
+        self.size = 0
     else:
-      self.xf = 0.
-      self.yf = 0.
+      self.pointArray = []
       self.type = False
+      self.size = 0
 
   def _get_types(self):
     """
@@ -57,8 +65,13 @@ bool type
     :param buff: buffer, ``StringIO``
     """
     try:
+      length = len(self.pointArray)
+      buff.write(_struct_I.pack(length))
+      for val1 in self.pointArray:
+        _x = val1
+        buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
       _x = self
-      buff.write(_get_struct_2dB().pack(_x.xf, _x.yf, _x.type))
+      buff.write(_get_struct_2B().pack(_x.type, _x.size))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -68,11 +81,24 @@ bool type
     :param str: byte array of serialized message, ``str``
     """
     try:
+      if self.pointArray is None:
+        self.pointArray = None
       end = 0
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      self.pointArray = []
+      for i in range(0, length):
+        val1 = geometry_msgs.msg.Point()
+        _x = val1
+        start = end
+        end += 24
+        (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
+        self.pointArray.append(val1)
       _x = self
       start = end
-      end += 17
-      (_x.xf, _x.yf, _x.type,) = _get_struct_2dB().unpack(str[start:end])
+      end += 2
+      (_x.type, _x.size,) = _get_struct_2B().unpack(str[start:end])
       self.type = bool(self.type)
       return self
     except struct.error as e:
@@ -86,8 +112,13 @@ bool type
     :param numpy: numpy python module
     """
     try:
+      length = len(self.pointArray)
+      buff.write(_struct_I.pack(length))
+      for val1 in self.pointArray:
+        _x = val1
+        buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
       _x = self
-      buff.write(_get_struct_2dB().pack(_x.xf, _x.yf, _x.type))
+      buff.write(_get_struct_2B().pack(_x.type, _x.size))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -98,11 +129,24 @@ bool type
     :param numpy: numpy python module
     """
     try:
+      if self.pointArray is None:
+        self.pointArray = None
       end = 0
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      self.pointArray = []
+      for i in range(0, length):
+        val1 = geometry_msgs.msg.Point()
+        _x = val1
+        start = end
+        end += 24
+        (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
+        self.pointArray.append(val1)
       _x = self
       start = end
-      end += 17
-      (_x.xf, _x.yf, _x.type,) = _get_struct_2dB().unpack(str[start:end])
+      end += 2
+      (_x.type, _x.size,) = _get_struct_2B().unpack(str[start:end])
       self.type = bool(self.type)
       return self
     except struct.error as e:
@@ -112,12 +156,18 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
-_struct_2dB = None
-def _get_struct_2dB():
-    global _struct_2dB
-    if _struct_2dB is None:
-        _struct_2dB = struct.Struct("<2dB")
-    return _struct_2dB
+_struct_2B = None
+def _get_struct_2B():
+    global _struct_2B
+    if _struct_2B is None:
+        _struct_2B = struct.Struct("<2B")
+    return _struct_2B
+_struct_3d = None
+def _get_struct_3d():
+    global _struct_3d
+    if _struct_3d is None:
+        _struct_3d = struct.Struct("<3d")
+    return _struct_3d
 # This Python file uses the following encoding: utf-8
 """autogenerated by genpy from RMPISR/addpointResponse.msg. Do not edit."""
 import sys
@@ -209,6 +259,6 @@ def _get_struct_I():
     return _struct_I
 class addpoint(object):
   _type          = 'RMPISR/addpoint'
-  _md5sum = '2c13470f9a76d841f1bd464dbd411b07'
+  _md5sum = '77e78fdbf22a409a15b41bafedb3fda3'
   _request_class  = addpointRequest
   _response_class = addpointResponse

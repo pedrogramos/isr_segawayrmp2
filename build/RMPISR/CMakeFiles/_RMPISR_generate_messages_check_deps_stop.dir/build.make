@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/rmp/catkin_ws/build
 include RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_stop.dir/progress.make
 
 RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_stop:
-	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py RMPISR /home/rmp/catkin_ws/src/RMPISR/srv/stop.srv geometry_msgs/Point
+	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py RMPISR /home/rmp/catkin_ws/src/RMPISR/srv/stop.srv 
 
 _RMPISR_generate_messages_check_deps_stop: RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_stop
 _RMPISR_generate_messages_check_deps_stop: RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_stop.dir/build.make

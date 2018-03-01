@@ -65,12 +65,12 @@ RMPISR/CMakeFiles/RMPISR_generate_messages_nodejs: /home/rmp/catkin_ws/devel/sha
 
 /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/stop.js: /opt/ros/kinetic/lib/gennodejs/gen_nodejs.py
 /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/stop.js: /home/rmp/catkin_ws/src/RMPISR/srv/stop.srv
-/home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/stop.js: /opt/ros/kinetic/share/geometry_msgs/msg/Point.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Javascript code from RMPISR/stop.srv"
 	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/rmp/catkin_ws/src/RMPISR/srv/stop.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv
 
 /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/addpoint.js: /opt/ros/kinetic/lib/gennodejs/gen_nodejs.py
 /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/addpoint.js: /home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv
+/home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/addpoint.js: /opt/ros/kinetic/share/geometry_msgs/msg/Point.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Javascript code from RMPISR/addpoint.srv"
 	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv
 

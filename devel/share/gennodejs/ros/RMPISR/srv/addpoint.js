@@ -11,6 +11,7 @@ const _deserializer = _ros_msg_utils.Deserialize;
 const _arrayDeserializer = _deserializer.Array;
 const _finder = _ros_msg_utils.Find;
 const _getByteLength = _ros_msg_utils.getByteLength;
+let geometry_msgs = _finder('geometry_msgs');
 
 //-----------------------------------------------------------
 
@@ -21,22 +22,16 @@ class addpointRequest {
   constructor(initObj={}) {
     if (initObj === null) {
       // initObj === null is a special case for deserialization where we don't initialize fields
-      this.xf = null;
-      this.yf = null;
+      this.pointArray = null;
       this.type = null;
+      this.size = null;
     }
     else {
-      if (initObj.hasOwnProperty('xf')) {
-        this.xf = initObj.xf
+      if (initObj.hasOwnProperty('pointArray')) {
+        this.pointArray = initObj.pointArray
       }
       else {
-        this.xf = 0.0;
-      }
-      if (initObj.hasOwnProperty('yf')) {
-        this.yf = initObj.yf
-      }
-      else {
-        this.yf = 0.0;
+        this.pointArray = [];
       }
       if (initObj.hasOwnProperty('type')) {
         this.type = initObj.type
@@ -44,17 +39,27 @@ class addpointRequest {
       else {
         this.type = false;
       }
+      if (initObj.hasOwnProperty('size')) {
+        this.size = initObj.size
+      }
+      else {
+        this.size = 0;
+      }
     }
   }
 
   static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type addpointRequest
-    // Serialize message field [xf]
-    bufferOffset = _serializer.float64(obj.xf, buffer, bufferOffset);
-    // Serialize message field [yf]
-    bufferOffset = _serializer.float64(obj.yf, buffer, bufferOffset);
+    // Serialize message field [pointArray]
+    // Serialize the length for message field [pointArray]
+    bufferOffset = _serializer.uint32(obj.pointArray.length, buffer, bufferOffset);
+    obj.pointArray.forEach((val) => {
+      bufferOffset = geometry_msgs.msg.Point.serialize(val, buffer, bufferOffset);
+    });
     // Serialize message field [type]
     bufferOffset = _serializer.bool(obj.type, buffer, bufferOffset);
+    // Serialize message field [size]
+    bufferOffset = _serializer.uint8(obj.size, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -62,17 +67,24 @@ class addpointRequest {
     //deserializes a message object of type addpointRequest
     let len;
     let data = new addpointRequest(null);
-    // Deserialize message field [xf]
-    data.xf = _deserializer.float64(buffer, bufferOffset);
-    // Deserialize message field [yf]
-    data.yf = _deserializer.float64(buffer, bufferOffset);
+    // Deserialize message field [pointArray]
+    // Deserialize array length for message field [pointArray]
+    len = _deserializer.uint32(buffer, bufferOffset);
+    data.pointArray = new Array(len);
+    for (let i = 0; i < len; ++i) {
+      data.pointArray[i] = geometry_msgs.msg.Point.deserialize(buffer, bufferOffset)
+    }
     // Deserialize message field [type]
     data.type = _deserializer.bool(buffer, bufferOffset);
+    // Deserialize message field [size]
+    data.size = _deserializer.uint8(buffer, bufferOffset);
     return data;
   }
 
   static getMessageSize(object) {
-    return 17;
+    let length = 0;
+    length += 24 * object.pointArray.length;
+    return length + 6;
   }
 
   static datatype() {
@@ -82,15 +94,22 @@ class addpointRequest {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '2c13470f9a76d841f1bd464dbd411b07';
+    return '77e78fdbf22a409a15b41bafedb3fda3';
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
-    float64 xf
-    float64 yf
+    geometry_msgs/Point[] pointArray
     bool type
+    uint8 size
+    
+    ================================================================================
+    MSG: geometry_msgs/Point
+    # This contains the position of a point in free space
+    float64 x
+    float64 y
+    float64 z
     
     `;
   }
@@ -101,18 +120,14 @@ class addpointRequest {
       msg = {};
     }
     const resolved = new addpointRequest(null);
-    if (msg.xf !== undefined) {
-      resolved.xf = msg.xf;
+    if (msg.pointArray !== undefined) {
+      resolved.pointArray = new Array(msg.pointArray.length);
+      for (let i = 0; i < resolved.pointArray.length; ++i) {
+        resolved.pointArray[i] = geometry_msgs.msg.Point.Resolve(msg.pointArray[i]);
+      }
     }
     else {
-      resolved.xf = 0.0
-    }
-
-    if (msg.yf !== undefined) {
-      resolved.yf = msg.yf;
-    }
-    else {
-      resolved.yf = 0.0
+      resolved.pointArray = []
     }
 
     if (msg.type !== undefined) {
@@ -120,6 +135,13 @@ class addpointRequest {
     }
     else {
       resolved.type = false
+    }
+
+    if (msg.size !== undefined) {
+      resolved.size = msg.size;
+    }
+    else {
+      resolved.size = 0
     }
 
     return resolved;
@@ -182,6 +204,6 @@ class addpointResponse {
 module.exports = {
   Request: addpointRequest,
   Response: addpointResponse,
-  md5sum() { return '2c13470f9a76d841f1bd464dbd411b07'; },
+  md5sum() { return '77e78fdbf22a409a15b41bafedb3fda3'; },
   datatype() { return 'RMPISR/addpoint'; }
 };

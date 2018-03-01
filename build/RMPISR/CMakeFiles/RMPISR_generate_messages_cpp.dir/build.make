@@ -67,7 +67,6 @@ RMPISR/CMakeFiles/RMPISR_generate_messages_cpp: /home/rmp/catkin_ws/devel/includ
 
 /home/rmp/catkin_ws/devel/include/RMPISR/stop.h: /opt/ros/kinetic/lib/gencpp/gen_cpp.py
 /home/rmp/catkin_ws/devel/include/RMPISR/stop.h: /home/rmp/catkin_ws/src/RMPISR/srv/stop.srv
-/home/rmp/catkin_ws/devel/include/RMPISR/stop.h: /opt/ros/kinetic/share/geometry_msgs/msg/Point.msg
 /home/rmp/catkin_ws/devel/include/RMPISR/stop.h: /opt/ros/kinetic/share/gencpp/msg.h.template
 /home/rmp/catkin_ws/devel/include/RMPISR/stop.h: /opt/ros/kinetic/share/gencpp/srv.h.template
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating C++ code from RMPISR/stop.srv"
@@ -75,6 +74,7 @@ RMPISR/CMakeFiles/RMPISR_generate_messages_cpp: /home/rmp/catkin_ws/devel/includ
 
 /home/rmp/catkin_ws/devel/include/RMPISR/addpoint.h: /opt/ros/kinetic/lib/gencpp/gen_cpp.py
 /home/rmp/catkin_ws/devel/include/RMPISR/addpoint.h: /home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv
+/home/rmp/catkin_ws/devel/include/RMPISR/addpoint.h: /opt/ros/kinetic/share/geometry_msgs/msg/Point.msg
 /home/rmp/catkin_ws/devel/include/RMPISR/addpoint.h: /opt/ros/kinetic/share/gencpp/msg.h.template
 /home/rmp/catkin_ws/devel/include/RMPISR/addpoint.h: /opt/ros/kinetic/share/gencpp/srv.h.template
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating C++ code from RMPISR/addpoint.srv"

@@ -1,8 +1,8 @@
 (cl:in-package RMPISR-srv)
-(cl:export '(XF-VAL
-          XF
-          YF-VAL
-          YF
+(cl:export '(POINTARRAY-VAL
+          POINTARRAY
           TYPE-VAL
           TYPE
+          SIZE-VAL
+          SIZE
 ))

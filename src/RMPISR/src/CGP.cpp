@@ -171,24 +171,29 @@ bool SendVelocity::def_addpoint(RMPISR::addpoint::Request  &req_addpoint, RMPISR
   // usar a lista neste serviço
 
   ROS_INFO("ENTROU ADD");
+for(int v=0;i<req_addpoint.size;i++){
+
 
   if(req_addpoint.type==true){
-
-    new_point.xf=req_addpoint.xf;
-    new_point.yf=req_addpoint.yf;
+    new_point.xf=req_addpoint.pointArray[v].x;
+    new_point.yf=req_addpoint.pointArray[v].y;
     fila_pontos.push(new_point);
+
+
   }
 
     
-
   if(req_addpoint.type==false){
     while (!fila_pontos.empty()) fila_pontos.pop();
-    new_point.xf=req_addpoint.xf;
-    new_point.yf=req_addpoint.yf;
+    new_point.xf=req_addpoint.pointArray[v].x;
+    new_point.yf=req_addpoint.pointArray[v].y;
     fila_pontos.push(new_point);
   }
 
-  // PRINTING QUEUE
+
+  }
+
+    // PRINTING QUEUE
   aux_q=fila_pontos;
   aux_s=aux_q.front();
   while (!aux_q.empty()){
@@ -197,7 +202,7 @@ bool SendVelocity::def_addpoint(RMPISR::addpoint::Request  &req_addpoint, RMPISR
     aux_q.pop();
   }
 
-  ROS_INFO("request: x=%f, y=%f, type=%i", (float)req_addpoint.xf,(float)req_addpoint.yf,req_addpoint.type);
+  //ROS_INFO("request: x=%f, y=%f, type=%i", (float)req_addpoint.xf,(float)req_addpoint.yf,req_addpoint.type);
   //ROS_INFO("sending back response: [%ld]", (long int)res_addpoint.sum);
   return true;
 }

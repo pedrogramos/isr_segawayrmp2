@@ -7,21 +7,21 @@
 ;//! \htmlinclude addpoint-request.msg.html
 
 (cl:defclass <addpoint-request> (roslisp-msg-protocol:ros-message)
-  ((xf
-    :reader xf
-    :initarg :xf
-    :type cl:float
-    :initform 0.0)
-   (yf
-    :reader yf
-    :initarg :yf
-    :type cl:float
-    :initform 0.0)
+  ((pointArray
+    :reader pointArray
+    :initarg :pointArray
+    :type (cl:vector geometry_msgs-msg:Point)
+   :initform (cl:make-array 0 :element-type 'geometry_msgs-msg:Point :initial-element (cl:make-instance 'geometry_msgs-msg:Point)))
    (type
     :reader type
     :initarg :type
     :type cl:boolean
-    :initform cl:nil))
+    :initform cl:nil)
+   (size
+    :reader size
+    :initarg :size
+    :type cl:fixnum
+    :initform 0))
 )
 
 (cl:defclass addpoint-request (<addpoint-request>)
@@ -32,65 +32,46 @@
   (cl:unless (cl:typep m 'addpoint-request)
     (roslisp-msg-protocol:msg-deprecation-warning "using old message class name RMPISR-srv:<addpoint-request> is deprecated: use RMPISR-srv:addpoint-request instead.")))
 
-(cl:ensure-generic-function 'xf-val :lambda-list '(m))
-(cl:defmethod xf-val ((m <addpoint-request>))
-  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader RMPISR-srv:xf-val is deprecated.  Use RMPISR-srv:xf instead.")
-  (xf m))
-
-(cl:ensure-generic-function 'yf-val :lambda-list '(m))
-(cl:defmethod yf-val ((m <addpoint-request>))
-  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader RMPISR-srv:yf-val is deprecated.  Use RMPISR-srv:yf instead.")
-  (yf m))
+(cl:ensure-generic-function 'pointArray-val :lambda-list '(m))
+(cl:defmethod pointArray-val ((m <addpoint-request>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader RMPISR-srv:pointArray-val is deprecated.  Use RMPISR-srv:pointArray instead.")
+  (pointArray m))
 
 (cl:ensure-generic-function 'type-val :lambda-list '(m))
 (cl:defmethod type-val ((m <addpoint-request>))
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader RMPISR-srv:type-val is deprecated.  Use RMPISR-srv:type instead.")
   (type m))
+
+(cl:ensure-generic-function 'size-val :lambda-list '(m))
+(cl:defmethod size-val ((m <addpoint-request>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader RMPISR-srv:size-val is deprecated.  Use RMPISR-srv:size instead.")
+  (size m))
 (cl:defmethod roslisp-msg-protocol:serialize ((msg <addpoint-request>) ostream)
   "Serializes a message object of type '<addpoint-request>"
-  (cl:let ((bits (roslisp-utils:encode-double-float-bits (cl:slot-value msg 'xf))))
-    (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 32) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 40) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 48) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 56) bits) ostream))
-  (cl:let ((bits (roslisp-utils:encode-double-float-bits (cl:slot-value msg 'yf))))
-    (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 32) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 40) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 48) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 56) bits) ostream))
+  (cl:let ((__ros_arr_len (cl:length (cl:slot-value msg 'pointArray))))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) __ros_arr_len) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) __ros_arr_len) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) __ros_arr_len) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) __ros_arr_len) ostream))
+  (cl:map cl:nil #'(cl:lambda (ele) (roslisp-msg-protocol:serialize ele ostream))
+   (cl:slot-value msg 'pointArray))
   (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:if (cl:slot-value msg 'type) 1 0)) ostream)
+  (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'size)) ostream)
 )
 (cl:defmethod roslisp-msg-protocol:deserialize ((msg <addpoint-request>) istream)
   "Deserializes a message object of type '<addpoint-request>"
-    (cl:let ((bits 0))
-      (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 32) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 40) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 48) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 56) bits) (cl:read-byte istream))
-    (cl:setf (cl:slot-value msg 'xf) (roslisp-utils:decode-double-float-bits bits)))
-    (cl:let ((bits 0))
-      (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 32) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 40) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 48) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 56) bits) (cl:read-byte istream))
-    (cl:setf (cl:slot-value msg 'yf) (roslisp-utils:decode-double-float-bits bits)))
+  (cl:let ((__ros_arr_len 0))
+    (cl:setf (cl:ldb (cl:byte 8 0) __ros_arr_len) (cl:read-byte istream))
+    (cl:setf (cl:ldb (cl:byte 8 8) __ros_arr_len) (cl:read-byte istream))
+    (cl:setf (cl:ldb (cl:byte 8 16) __ros_arr_len) (cl:read-byte istream))
+    (cl:setf (cl:ldb (cl:byte 8 24) __ros_arr_len) (cl:read-byte istream))
+  (cl:setf (cl:slot-value msg 'pointArray) (cl:make-array __ros_arr_len))
+  (cl:let ((vals (cl:slot-value msg 'pointArray)))
+    (cl:dotimes (i __ros_arr_len)
+    (cl:setf (cl:aref vals i) (cl:make-instance 'geometry_msgs-msg:Point))
+  (roslisp-msg-protocol:deserialize (cl:aref vals i) istream))))
     (cl:setf (cl:slot-value msg 'type) (cl:not (cl:zerop (cl:read-byte istream))))
+    (cl:setf (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'size)) (cl:read-byte istream))
   msg
 )
 (cl:defmethod roslisp-msg-protocol:ros-datatype ((msg (cl:eql '<addpoint-request>)))
@@ -101,28 +82,28 @@
   "RMPISR/addpointRequest")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<addpoint-request>)))
   "Returns md5sum for a message object of type '<addpoint-request>"
-  "2c13470f9a76d841f1bd464dbd411b07")
+  "77e78fdbf22a409a15b41bafedb3fda3")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'addpoint-request)))
   "Returns md5sum for a message object of type 'addpoint-request"
-  "2c13470f9a76d841f1bd464dbd411b07")
+  "77e78fdbf22a409a15b41bafedb3fda3")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<addpoint-request>)))
   "Returns full string definition for message of type '<addpoint-request>"
-  (cl:format cl:nil "float64 xf~%float64 yf~%bool type~%~%~%"))
+  (cl:format cl:nil "geometry_msgs/Point[] pointArray~%bool type~%uint8 size~%~%================================================================================~%MSG: geometry_msgs/Point~%# This contains the position of a point in free space~%float64 x~%float64 y~%float64 z~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'addpoint-request)))
   "Returns full string definition for message of type 'addpoint-request"
-  (cl:format cl:nil "float64 xf~%float64 yf~%bool type~%~%~%"))
+  (cl:format cl:nil "geometry_msgs/Point[] pointArray~%bool type~%uint8 size~%~%================================================================================~%MSG: geometry_msgs/Point~%# This contains the position of a point in free space~%float64 x~%float64 y~%float64 z~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <addpoint-request>))
   (cl:+ 0
-     8
-     8
+     4 (cl:reduce #'cl:+ (cl:slot-value msg 'pointArray) :key #'(cl:lambda (ele) (cl:declare (cl:ignorable ele)) (cl:+ (roslisp-msg-protocol:serialization-length ele))))
+     1
      1
 ))
 (cl:defmethod roslisp-msg-protocol:ros-message-to-list ((msg <addpoint-request>))
   "Converts a ROS message object to a list"
   (cl:list 'addpoint-request
-    (cl:cons ':xf (xf msg))
-    (cl:cons ':yf (yf msg))
+    (cl:cons ':pointArray (pointArray msg))
     (cl:cons ':type (type msg))
+    (cl:cons ':size (size msg))
 ))
 ;//! \htmlinclude addpoint-response.msg.html
 
@@ -152,10 +133,10 @@
   "RMPISR/addpointResponse")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<addpoint-response>)))
   "Returns md5sum for a message object of type '<addpoint-response>"
-  "2c13470f9a76d841f1bd464dbd411b07")
+  "77e78fdbf22a409a15b41bafedb3fda3")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'addpoint-response)))
   "Returns md5sum for a message object of type 'addpoint-response"
-  "2c13470f9a76d841f1bd464dbd411b07")
+  "77e78fdbf22a409a15b41bafedb3fda3")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<addpoint-response>)))
   "Returns full string definition for message of type '<addpoint-response>"
   (cl:format cl:nil "~%~%~%"))
