@@ -8,12 +8,12 @@ import struct
 import geometry_msgs.msg
 
 class addpointRequest(genpy.Message):
-  _md5sum = "77e78fdbf22a409a15b41bafedb3fda3"
+  _md5sum = "7da3ac5df9a593780eabd65b2f6b4ceb"
   _type = "RMPISR/addpointRequest"
   _has_header = False #flag to mark the presence of a Header object
   _full_text = """geometry_msgs/Point[] pointArray
 bool type
-uint8 size
+int32 size
 
 ================================================================================
 MSG: geometry_msgs/Point
@@ -23,7 +23,7 @@ float64 y
 float64 z
 """
   __slots__ = ['pointArray','type','size']
-  _slot_types = ['geometry_msgs/Point[]','bool','uint8']
+  _slot_types = ['geometry_msgs/Point[]','bool','int32']
 
   def __init__(self, *args, **kwds):
     """
@@ -71,7 +71,7 @@ float64 z
         _x = val1
         buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
       _x = self
-      buff.write(_get_struct_2B().pack(_x.type, _x.size))
+      buff.write(_get_struct_Bi().pack(_x.type, _x.size))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -97,8 +97,8 @@ float64 z
         self.pointArray.append(val1)
       _x = self
       start = end
-      end += 2
-      (_x.type, _x.size,) = _get_struct_2B().unpack(str[start:end])
+      end += 5
+      (_x.type, _x.size,) = _get_struct_Bi().unpack(str[start:end])
       self.type = bool(self.type)
       return self
     except struct.error as e:
@@ -118,7 +118,7 @@ float64 z
         _x = val1
         buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
       _x = self
-      buff.write(_get_struct_2B().pack(_x.type, _x.size))
+      buff.write(_get_struct_Bi().pack(_x.type, _x.size))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -145,8 +145,8 @@ float64 z
         self.pointArray.append(val1)
       _x = self
       start = end
-      end += 2
-      (_x.type, _x.size,) = _get_struct_2B().unpack(str[start:end])
+      end += 5
+      (_x.type, _x.size,) = _get_struct_Bi().unpack(str[start:end])
       self.type = bool(self.type)
       return self
     except struct.error as e:
@@ -156,12 +156,12 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
-_struct_2B = None
-def _get_struct_2B():
-    global _struct_2B
-    if _struct_2B is None:
-        _struct_2B = struct.Struct("<2B")
-    return _struct_2B
+_struct_Bi = None
+def _get_struct_Bi():
+    global _struct_Bi
+    if _struct_Bi is None:
+        _struct_Bi = struct.Struct("<Bi")
+    return _struct_Bi
 _struct_3d = None
 def _get_struct_3d():
     global _struct_3d
@@ -259,6 +259,6 @@ def _get_struct_I():
     return _struct_I
 class addpoint(object):
   _type          = 'RMPISR/addpoint'
-  _md5sum = '77e78fdbf22a409a15b41bafedb3fda3'
+  _md5sum = '7da3ac5df9a593780eabd65b2f6b4ceb'
   _request_class  = addpointRequest
   _response_class = addpointResponse

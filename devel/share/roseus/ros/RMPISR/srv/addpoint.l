@@ -56,8 +56,8 @@
     (apply #'+ (send-all _pointArray :serialization-length)) 4
     ;; bool _type
     1
-    ;; uint8 _size
-    1
+    ;; int32 _size
+    4
     ))
   (:serialize
    (&optional strm)
@@ -70,8 +70,8 @@
        )
      ;; bool _type
        (if _type (write-byte -1 s) (write-byte 0 s))
-     ;; uint8 _size
-       (write-byte _size s)
+     ;; int32 _size
+       (write-long _size s)
      ;;
      (if (null strm) (get-output-stream-string s))))
   (:deserialize
@@ -85,8 +85,8 @@
      ))
    ;; bool _type
      (setq _type (not (= 0 (sys::peek buf ptr- :char)))) (incf ptr- 1)
-   ;; uint8 _size
-     (setq _size (sys::peek buf ptr- :char)) (incf ptr- 1)
+   ;; int32 _size
+     (setq _size (sys::peek buf ptr- :integer)) (incf ptr- 4)
    ;;
    self)
   )
@@ -122,7 +122,7 @@
   :super ros::object
   :slots ())
 
-(setf (get RMPISR::addpoint :md5sum-) "77e78fdbf22a409a15b41bafedb3fda3")
+(setf (get RMPISR::addpoint :md5sum-) "7da3ac5df9a593780eabd65b2f6b4ceb")
 (setf (get RMPISR::addpoint :datatype-) "RMPISR/addpoint")
 (setf (get RMPISR::addpoint :request) RMPISR::addpointRequest)
 (setf (get RMPISR::addpoint :response) RMPISR::addpointResponse)
@@ -130,12 +130,12 @@
 (defmethod RMPISR::addpointRequest
   (:response () (instance RMPISR::addpointResponse :init)))
 
-(setf (get RMPISR::addpointRequest :md5sum-) "77e78fdbf22a409a15b41bafedb3fda3")
+(setf (get RMPISR::addpointRequest :md5sum-) "7da3ac5df9a593780eabd65b2f6b4ceb")
 (setf (get RMPISR::addpointRequest :datatype-) "RMPISR/addpointRequest")
 (setf (get RMPISR::addpointRequest :definition-)
       "geometry_msgs/Point[] pointArray
 bool type
-uint8 size
+int32 size
 
 ================================================================================
 MSG: geometry_msgs/Point
@@ -147,12 +147,12 @@ float64 z
 
 ")
 
-(setf (get RMPISR::addpointResponse :md5sum-) "77e78fdbf22a409a15b41bafedb3fda3")
+(setf (get RMPISR::addpointResponse :md5sum-) "7da3ac5df9a593780eabd65b2f6b4ceb")
 (setf (get RMPISR::addpointResponse :datatype-) "RMPISR/addpointResponse")
 (setf (get RMPISR::addpointResponse :definition-)
       "geometry_msgs/Point[] pointArray
 bool type
-uint8 size
+int32 size
 
 ================================================================================
 MSG: geometry_msgs/Point
@@ -166,6 +166,6 @@ float64 z
 
 
 
-(provide :RMPISR/addpoint "77e78fdbf22a409a15b41bafedb3fda3")
+(provide :RMPISR/addpoint "7da3ac5df9a593780eabd65b2f6b4ceb")
 
 

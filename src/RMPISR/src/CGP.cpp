@@ -171,12 +171,12 @@ bool SendVelocity::def_addpoint(RMPISR::addpoint::Request  &req_addpoint, RMPISR
   // usar a lista neste serviço
 
   ROS_INFO("ENTROU ADD");
-for(int v=0;i<req_addpoint.size;i++){
+for(int i=0;i<req_addpoint.size;i++){
 
 
   if(req_addpoint.type==true){
-    new_point.xf=req_addpoint.pointArray[v].x;
-    new_point.yf=req_addpoint.pointArray[v].y;
+    new_point.xf=req_addpoint.pointArray[i].x;
+    new_point.yf=req_addpoint.pointArray[i].y;
     fila_pontos.push(new_point);
 
 
@@ -185,8 +185,8 @@ for(int v=0;i<req_addpoint.size;i++){
     
   if(req_addpoint.type==false){
     while (!fila_pontos.empty()) fila_pontos.pop();
-    new_point.xf=req_addpoint.pointArray[v].x;
-    new_point.yf=req_addpoint.pointArray[v].y;
+    new_point.xf=req_addpoint.pointArray[i].x;
+    new_point.yf=req_addpoint.pointArray[i].y;
     fila_pontos.push(new_point);
   }
 

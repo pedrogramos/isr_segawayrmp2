@@ -20,7 +20,7 @@
    (size
     :reader size
     :initarg :size
-    :type cl:fixnum
+    :type cl:integer
     :initform 0))
 )
 
@@ -56,7 +56,12 @@
   (cl:map cl:nil #'(cl:lambda (ele) (roslisp-msg-protocol:serialize ele ostream))
    (cl:slot-value msg 'pointArray))
   (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:if (cl:slot-value msg 'type) 1 0)) ostream)
-  (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'size)) ostream)
+  (cl:let* ((signed (cl:slot-value msg 'size)) (unsigned (cl:if (cl:< signed 0) (cl:+ signed 4294967296) signed)))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) unsigned) ostream)
+    )
 )
 (cl:defmethod roslisp-msg-protocol:deserialize ((msg <addpoint-request>) istream)
   "Deserializes a message object of type '<addpoint-request>"
@@ -71,7 +76,12 @@
     (cl:setf (cl:aref vals i) (cl:make-instance 'geometry_msgs-msg:Point))
   (roslisp-msg-protocol:deserialize (cl:aref vals i) istream))))
     (cl:setf (cl:slot-value msg 'type) (cl:not (cl:zerop (cl:read-byte istream))))
-    (cl:setf (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'size)) (cl:read-byte istream))
+    (cl:let ((unsigned 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:slot-value msg 'size) (cl:if (cl:< unsigned 2147483648) unsigned (cl:- unsigned 4294967296))))
   msg
 )
 (cl:defmethod roslisp-msg-protocol:ros-datatype ((msg (cl:eql '<addpoint-request>)))
@@ -82,21 +92,21 @@
   "RMPISR/addpointRequest")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<addpoint-request>)))
   "Returns md5sum for a message object of type '<addpoint-request>"
-  "77e78fdbf22a409a15b41bafedb3fda3")
+  "7da3ac5df9a593780eabd65b2f6b4ceb")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'addpoint-request)))
   "Returns md5sum for a message object of type 'addpoint-request"
-  "77e78fdbf22a409a15b41bafedb3fda3")
+  "7da3ac5df9a593780eabd65b2f6b4ceb")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<addpoint-request>)))
   "Returns full string definition for message of type '<addpoint-request>"
-  (cl:format cl:nil "geometry_msgs/Point[] pointArray~%bool type~%uint8 size~%~%================================================================================~%MSG: geometry_msgs/Point~%# This contains the position of a point in free space~%float64 x~%float64 y~%float64 z~%~%~%"))
+  (cl:format cl:nil "geometry_msgs/Point[] pointArray~%bool type~%int32 size~%~%================================================================================~%MSG: geometry_msgs/Point~%# This contains the position of a point in free space~%float64 x~%float64 y~%float64 z~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'addpoint-request)))
   "Returns full string definition for message of type 'addpoint-request"
-  (cl:format cl:nil "geometry_msgs/Point[] pointArray~%bool type~%uint8 size~%~%================================================================================~%MSG: geometry_msgs/Point~%# This contains the position of a point in free space~%float64 x~%float64 y~%float64 z~%~%~%"))
+  (cl:format cl:nil "geometry_msgs/Point[] pointArray~%bool type~%int32 size~%~%================================================================================~%MSG: geometry_msgs/Point~%# This contains the position of a point in free space~%float64 x~%float64 y~%float64 z~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <addpoint-request>))
   (cl:+ 0
      4 (cl:reduce #'cl:+ (cl:slot-value msg 'pointArray) :key #'(cl:lambda (ele) (cl:declare (cl:ignorable ele)) (cl:+ (roslisp-msg-protocol:serialization-length ele))))
      1
-     1
+     4
 ))
 (cl:defmethod roslisp-msg-protocol:ros-message-to-list ((msg <addpoint-request>))
   "Converts a ROS message object to a list"
@@ -133,10 +143,10 @@
   "RMPISR/addpointResponse")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<addpoint-response>)))
   "Returns md5sum for a message object of type '<addpoint-response>"
-  "77e78fdbf22a409a15b41bafedb3fda3")
+  "7da3ac5df9a593780eabd65b2f6b4ceb")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'addpoint-response)))
   "Returns md5sum for a message object of type 'addpoint-response"
-  "77e78fdbf22a409a15b41bafedb3fda3")
+  "7da3ac5df9a593780eabd65b2f6b4ceb")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<addpoint-response>)))
   "Returns full string definition for message of type '<addpoint-response>"
   (cl:format cl:nil "~%~%~%"))

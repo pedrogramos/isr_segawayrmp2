@@ -44,7 +44,7 @@ struct addpointRequest_
    typedef uint8_t _type_type;
   _type_type type;
 
-   typedef uint8_t _size_type;
+   typedef int32_t _size_type;
   _size_type size;
 
 
@@ -124,12 +124,12 @@ struct MD5Sum< ::RMPISR::addpointRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "77e78fdbf22a409a15b41bafedb3fda3";
+    return "7da3ac5df9a593780eabd65b2f6b4ceb";
   }
 
   static const char* value(const ::RMPISR::addpointRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x77e78fdbf22a409aULL;
-  static const uint64_t static_value2 = 0x15b41bafedb3fda3ULL;
+  static const uint64_t static_value1 = 0x7da3ac5df9a59378ULL;
+  static const uint64_t static_value2 = 0x0eabd65b2f6b4cebULL;
 };
 
 template<class ContainerAllocator>
@@ -150,7 +150,7 @@ struct Definition< ::RMPISR::addpointRequest_<ContainerAllocator> >
   {
     return "geometry_msgs/Point[] pointArray\n\
 bool type\n\
-uint8 size\n\
+int32 size\n\
 \n\
 ================================================================================\n\
 MSG: geometry_msgs/Point\n\
@@ -208,7 +208,7 @@ struct Printer< ::RMPISR::addpointRequest_<ContainerAllocator> >
     s << indent << "type: ";
     Printer<uint8_t>::stream(s, indent + "  ", v.type);
     s << indent << "size: ";
-    Printer<uint8_t>::stream(s, indent + "  ", v.size);
+    Printer<int32_t>::stream(s, indent + "  ", v.size);
   }
 };
 

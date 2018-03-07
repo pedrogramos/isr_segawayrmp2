@@ -59,7 +59,7 @@ class addpointRequest {
     // Serialize message field [type]
     bufferOffset = _serializer.bool(obj.type, buffer, bufferOffset);
     // Serialize message field [size]
-    bufferOffset = _serializer.uint8(obj.size, buffer, bufferOffset);
+    bufferOffset = _serializer.int32(obj.size, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -77,14 +77,14 @@ class addpointRequest {
     // Deserialize message field [type]
     data.type = _deserializer.bool(buffer, bufferOffset);
     // Deserialize message field [size]
-    data.size = _deserializer.uint8(buffer, bufferOffset);
+    data.size = _deserializer.int32(buffer, bufferOffset);
     return data;
   }
 
   static getMessageSize(object) {
     let length = 0;
     length += 24 * object.pointArray.length;
-    return length + 6;
+    return length + 9;
   }
 
   static datatype() {
@@ -94,7 +94,7 @@ class addpointRequest {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '77e78fdbf22a409a15b41bafedb3fda3';
+    return '7da3ac5df9a593780eabd65b2f6b4ceb';
   }
 
   static messageDefinition() {
@@ -102,7 +102,7 @@ class addpointRequest {
     return `
     geometry_msgs/Point[] pointArray
     bool type
-    uint8 size
+    int32 size
     
     ================================================================================
     MSG: geometry_msgs/Point
@@ -204,6 +204,6 @@ class addpointResponse {
 module.exports = {
   Request: addpointRequest,
   Response: addpointResponse,
-  md5sum() { return '77e78fdbf22a409a15b41bafedb3fda3'; },
+  md5sum() { return '7da3ac5df9a593780eabd65b2f6b4ceb'; },
   datatype() { return 'RMPISR/addpoint'; }
 };

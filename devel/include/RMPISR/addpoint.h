@@ -40,7 +40,7 @@ template<>
 struct MD5Sum< ::RMPISR::addpoint > {
   static const char* value()
   {
-    return "77e78fdbf22a409a15b41bafedb3fda3";
+    return "7da3ac5df9a593780eabd65b2f6b4ceb";
   }
 
   static const char* value(const ::RMPISR::addpoint&) { return value(); }
