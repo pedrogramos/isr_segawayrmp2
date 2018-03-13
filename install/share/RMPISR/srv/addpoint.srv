@@ -1,0 +1,4 @@
+geometry_msgs/Point[] pointArray
+bool type
+int32 size
+---

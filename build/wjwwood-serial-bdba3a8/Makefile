@@ -166,21 +166,6 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-wjwwood-serial-bdba3a8/CMakeFiles/_catkin_empty_exported_target.dir/rule:
-	cd /home/rmp/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 wjwwood-serial-bdba3a8/CMakeFiles/_catkin_empty_exported_target.dir/rule
-.PHONY : wjwwood-serial-bdba3a8/CMakeFiles/_catkin_empty_exported_target.dir/rule
-
-# Convenience name for target.
-_catkin_empty_exported_target: wjwwood-serial-bdba3a8/CMakeFiles/_catkin_empty_exported_target.dir/rule
-
-.PHONY : _catkin_empty_exported_target
-
-# fast build rule for target.
-_catkin_empty_exported_target/fast:
-	cd /home/rmp/catkin_ws/build && $(MAKE) -f wjwwood-serial-bdba3a8/CMakeFiles/_catkin_empty_exported_target.dir/build.make wjwwood-serial-bdba3a8/CMakeFiles/_catkin_empty_exported_target.dir/build
-.PHONY : _catkin_empty_exported_target/fast
-
-# Convenience name for target.
 wjwwood-serial-bdba3a8/CMakeFiles/serial_example.dir/rule:
 	cd /home/rmp/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 wjwwood-serial-bdba3a8/CMakeFiles/serial_example.dir/rule
 .PHONY : wjwwood-serial-bdba3a8/CMakeFiles/serial_example.dir/rule
@@ -329,7 +314,6 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... test"
-	@echo "... _catkin_empty_exported_target"
 	@echo "... install"
 	@echo "... serial_example"
 	@echo "... serial"

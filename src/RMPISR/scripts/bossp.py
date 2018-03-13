@@ -26,7 +26,7 @@ import pygame
 
 
 #no ISR
-sys.path.insert(0,'/home/rmp/ownCloud/PedroRamosTese/Codigo/vstpPy/build/python')
+sys.path.insert(0,'/home/rmp/lib/python')
 #sys.path.insert(0,'/home/rmp/ownCloud/PedroRamosTese/Codigo/vstpPy/scr')
 import vstpPY
 
