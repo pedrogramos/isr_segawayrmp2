@@ -162,6 +162,7 @@ void SendVelocity::goTo(float xf, float yf,float limiar){
 bool SendVelocity::def_go(RMPISR::go::Request &req_go,RMPISR::go::Response &res_go)
 {
   state=GO;
+  res_go.state=1;
   //ROS_INFO("sending back response: [%ld]", (long int)res_go.var);
   return true;
 }
@@ -210,6 +211,7 @@ for(int i=0;i<req_addpoint.size;i++){
 bool SendVelocity::def_stop(RMPISR::stop::Request  &req_stop, RMPISR::stop::Response &res_stop)
 {
   state=STOPPING;
+  res_stop.state=0;
   //ROS_INFO("sending back response: [%ld]", (long int)res_stop.stop);
   return true;
 }

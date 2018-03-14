@@ -24,14 +24,17 @@ struct goResponse_
   typedef goResponse_<ContainerAllocator> Type;
 
   goResponse_()
-    {
+    : state(0)  {
     }
   goResponse_(const ContainerAllocator& _alloc)
-    {
+    : state(0)  {
   (void)_alloc;
     }
 
 
+
+   typedef int32_t _state_type;
+  _state_type state;
 
 
 
@@ -110,12 +113,12 @@ struct MD5Sum< ::RMPISR::goResponse_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "d41d8cd98f00b204e9800998ecf8427e";
+    return "7a2f37ef2ba405f0c7a15cc72663d6f0";
   }
 
   static const char* value(const ::RMPISR::goResponse_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xd41d8cd98f00b204ULL;
-  static const uint64_t static_value2 = 0xe9800998ecf8427eULL;
+  static const uint64_t static_value1 = 0x7a2f37ef2ba405f0ULL;
+  static const uint64_t static_value2 = 0xc7a15cc72663d6f0ULL;
 };
 
 template<class ContainerAllocator>
@@ -134,7 +137,8 @@ struct Definition< ::RMPISR::goResponse_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "\n\
+    return "int32 state\n\
+\n\
 ";
   }
 
@@ -151,8 +155,10 @@ namespace serialization
 
   template<class ContainerAllocator> struct Serializer< ::RMPISR::goResponse_<ContainerAllocator> >
   {
-    template<typename Stream, typename T> inline static void allInOne(Stream&, T)
-    {}
+    template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
+    {
+      stream.next(m.state);
+    }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
   }; // struct goResponse_
@@ -168,8 +174,11 @@ namespace message_operations
 template<class ContainerAllocator>
 struct Printer< ::RMPISR::goResponse_<ContainerAllocator> >
 {
-  template<typename Stream> static void stream(Stream&, const std::string&, const ::RMPISR::goResponse_<ContainerAllocator>&)
-  {}
+  template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::RMPISR::goResponse_<ContainerAllocator>& v)
+  {
+    s << indent << "state: ";
+    Printer<int32_t>::stream(s, indent + "  ", v.state);
+  }
 };
 
 } // namespace message_operations

@@ -47,27 +47,37 @@
 
 (defclass RMPISR::goResponse
   :super ros::object
-  :slots ())
+  :slots (_state ))
 
 (defmethod RMPISR::goResponse
   (:init
    (&key
+    ((:state __state) 0)
     )
    (send-super :init)
+   (setq _state (round __state))
    self)
+  (:state
+   (&optional __state)
+   (if __state (setq _state __state)) _state)
   (:serialization-length
    ()
    (+
-    0
+    ;; int32 _state
+    4
     ))
   (:serialize
    (&optional strm)
    (let ((s (if strm strm
               (make-string-output-stream (send self :serialization-length)))))
+     ;; int32 _state
+       (write-long _state s)
      ;;
      (if (null strm) (get-output-stream-string s))))
   (:deserialize
    (buf &optional (ptr- 0))
+   ;; int32 _state
+     (setq _state (sys::peek buf ptr- :integer)) (incf ptr- 4)
    ;;
    self)
   )
@@ -76,7 +86,7 @@
   :super ros::object
   :slots ())
 
-(setf (get RMPISR::go :md5sum-) "d41d8cd98f00b204e9800998ecf8427e")
+(setf (get RMPISR::go :md5sum-) "7a2f37ef2ba405f0c7a15cc72663d6f0")
 (setf (get RMPISR::go :datatype-) "RMPISR/go")
 (setf (get RMPISR::go :request) RMPISR::goRequest)
 (setf (get RMPISR::go :response) RMPISR::goResponse)
@@ -84,22 +94,24 @@
 (defmethod RMPISR::goRequest
   (:response () (instance RMPISR::goResponse :init)))
 
-(setf (get RMPISR::goRequest :md5sum-) "d41d8cd98f00b204e9800998ecf8427e")
+(setf (get RMPISR::goRequest :md5sum-) "7a2f37ef2ba405f0c7a15cc72663d6f0")
 (setf (get RMPISR::goRequest :datatype-) "RMPISR/goRequest")
 (setf (get RMPISR::goRequest :definition-)
       "---
+int32 state
 
 ")
 
-(setf (get RMPISR::goResponse :md5sum-) "d41d8cd98f00b204e9800998ecf8427e")
+(setf (get RMPISR::goResponse :md5sum-) "7a2f37ef2ba405f0c7a15cc72663d6f0")
 (setf (get RMPISR::goResponse :datatype-) "RMPISR/goResponse")
 (setf (get RMPISR::goResponse :definition-)
       "---
+int32 state
 
 ")
 
 
 
-(provide :RMPISR/go "d41d8cd98f00b204e9800998ecf8427e")
+(provide :RMPISR/go "7a2f37ef2ba405f0c7a15cc72663d6f0")
 
 
