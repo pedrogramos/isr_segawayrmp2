@@ -1,6 +1,7 @@
 # Hashes of file build rules.
 a53f88f252e2e629063068e9037b72a6 /home/rmp/catkin_ws/devel/include/RMPISR/addpoint.h
 9ee1b92b070bfd49d53973dbfa9233b2 /home/rmp/catkin_ws/devel/include/RMPISR/go.h
+d9282a26e343d0511a1582a78238a001 /home/rmp/catkin_ws/devel/include/RMPISR/resetrmp.h
 91f87c34c7d14728a83549bf9fd948da /home/rmp/catkin_ws/devel/include/RMPISR/stop.h
 f9437d93cc060326d41d544f8364fb22 /home/rmp/catkin_ws/devel/include/beginner_tutorials/AddTwoInts.h
 9cbad2b8df903cf23185dcf2ee8f20c2 /home/rmp/catkin_ws/devel/include/beginner_tutorials/Num.h
@@ -21,6 +22,7 @@ deca54b5d6d3e92da59acc45a02e2c9c /home/rmp/catkin_ws/devel/include/wiimote/State
 c0862a31c5222705dbb5fd35fb030c63 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/__init__.py
 30df6c6f35885424e28bd181f15ca2b2 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_addpoint.py
 2f923a57adac79c4c3afd0da6dec74d5 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_go.py
+777ca46c92437e81888576576ddfaf37 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_resetrmp.py
 9c11a47a96e835ead25616aa0639e0c7 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_stop.py
 14f98e27378c964b352b71e75eecbfd3 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/beginner_tutorials/msg/_Num.py
 d44ab1d227eeee59ced331d9eada35eb /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/beginner_tutorials/msg/__init__.py
@@ -50,6 +52,7 @@ c8d2943f8ef29ae811a48be1e598b9a8 /home/rmp/catkin_ws/devel/lib/python2.7/dist-pa
 e684e146e1446ad01f7bebbef0409de8 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/wiimote/msg/__init__.py
 2db17b3b8b0738183ebec698b4bf49ef /home/rmp/catkin_ws/devel/share/common-lisp/ros/RMPISR/srv/addpoint.lisp
 998e8fa503a8f84932553e1424672d9d /home/rmp/catkin_ws/devel/share/common-lisp/ros/RMPISR/srv/go.lisp
+c562d6db290008c8d17ab6d1a5748832 /home/rmp/catkin_ws/devel/share/common-lisp/ros/RMPISR/srv/resetrmp.lisp
 4bc0b06757d03e88166ce0d9cb4ad1cf /home/rmp/catkin_ws/devel/share/common-lisp/ros/RMPISR/srv/stop.lisp
 d71024c92e4af1278ca325d6422cd308 /home/rmp/catkin_ws/devel/share/common-lisp/ros/beginner_tutorials/msg/Num.lisp
 c3af0d288c388753a04a31e6502f4779 /home/rmp/catkin_ws/devel/share/common-lisp/ros/beginner_tutorials/srv/AddTwoInts.lisp
@@ -69,6 +72,7 @@ e2f82f20b1209c51bf0248198e6e59a3 /home/rmp/catkin_ws/devel/share/common-lisp/ros
 720560d574616d13153e9ac6c21f7a12 /home/rmp/catkin_ws/devel/share/common-lisp/ros/wiimote/msg/TimedSwitch.lisp
 6bce5757f0b88d91a11c3cea63752e38 /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/addpoint.js
 631f866caa0ae9e32548c6b1723966d3 /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/go.js
+688b807ab9c3d44a44190946f0dc8e8b /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/resetrmp.js
 016b628c90be5a917b60801bbfcceb48 /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/stop.js
 1138c3d77852b21410858310cdfd399c /home/rmp/catkin_ws/devel/share/gennodejs/ros/beginner_tutorials/msg/Num.js
 586f41af73a5a2940b684c88b030af40 /home/rmp/catkin_ws/devel/share/gennodejs/ros/beginner_tutorials/srv/AddTwoInts.js
@@ -89,6 +93,7 @@ ecfd21dfdde1bbd90f38b6dd7ff1fdf4 /home/rmp/catkin_ws/devel/share/gennodejs/ros/w
 ae407fdb25b8b04cf57e195c44ab05fd /home/rmp/catkin_ws/devel/share/roseus/ros/RMPISR/manifest.l
 9056bdae32fe5815ac6d06a5e3905e73 /home/rmp/catkin_ws/devel/share/roseus/ros/RMPISR/srv/addpoint.l
 a5be6b6d9b0d1a850329b62ba71638c9 /home/rmp/catkin_ws/devel/share/roseus/ros/RMPISR/srv/go.l
+1aca43a0503f7eccc7de52f2bbdf6bb1 /home/rmp/catkin_ws/devel/share/roseus/ros/RMPISR/srv/resetrmp.l
 3f65f5c819982a21438ba0a6c843251c /home/rmp/catkin_ws/devel/share/roseus/ros/RMPISR/srv/stop.l
 965990f0cdee7c3c37595c21bbb92dc7 /home/rmp/catkin_ws/devel/share/roseus/ros/beginner_tutorials/manifest.l
 653efb0fd757fcba23e1d4c0e89fc122 /home/rmp/catkin_ws/devel/share/roseus/ros/beginner_tutorials/msg/Num.l
@@ -120,6 +125,7 @@ b9797ee72594565c7f74ae08eeae5c0d RMPISR/CMakeFiles/RMPISR_generate_messages_node
 b9797ee72594565c7f74ae08eeae5c0d RMPISR/CMakeFiles/RMPISR_generate_messages_py
 5e8c914ad75628d90f86b17c7685d7bf RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_addpoint
 751aac0cf1a27300aba59595575d67da RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_go
+0e5cea3c8b9ec5841b98bc657233ed8a RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_resetrmp
 69ab5d80fb81b9b030e55d554049e965 RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_stop
 172903d0d1848c82ef5c05e804585cd1 beginner_tutorials/CMakeFiles/_beginner_tutorials_generate_messages_check_deps_AddTwoInts
 abcd9af0e023237c8f486af481e104a2 beginner_tutorials/CMakeFiles/_beginner_tutorials_generate_messages_check_deps_Num

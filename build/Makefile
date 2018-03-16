@@ -1648,19 +1648,6 @@ rosserial_server_udp_socket_node/fast:
 .PHONY : rosserial_server_udp_socket_node/fast
 
 #=============================================================================
-# Target rules for targets named std_srvs_generate_messages_nodejs
-
-# Build rule for target.
-std_srvs_generate_messages_nodejs: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 std_srvs_generate_messages_nodejs
-.PHONY : std_srvs_generate_messages_nodejs
-
-# fast build rule for target.
-std_srvs_generate_messages_nodejs/fast:
-	$(MAKE) -f RMPISR/CMakeFiles/std_srvs_generate_messages_nodejs.dir/build.make RMPISR/CMakeFiles/std_srvs_generate_messages_nodejs.dir/build
-.PHONY : std_srvs_generate_messages_nodejs/fast
-
-#=============================================================================
 # Target rules for targets named actionlib_msgs_generate_messages_py
 
 # Build rule for target.
@@ -1984,6 +1971,32 @@ RMPISR_generate_messages: cmake_check_build_system
 RMPISR_generate_messages/fast:
 	$(MAKE) -f RMPISR/CMakeFiles/RMPISR_generate_messages.dir/build.make RMPISR/CMakeFiles/RMPISR_generate_messages.dir/build
 .PHONY : RMPISR_generate_messages/fast
+
+#=============================================================================
+# Target rules for targets named std_srvs_generate_messages_nodejs
+
+# Build rule for target.
+std_srvs_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 std_srvs_generate_messages_nodejs
+.PHONY : std_srvs_generate_messages_nodejs
+
+# fast build rule for target.
+std_srvs_generate_messages_nodejs/fast:
+	$(MAKE) -f RMPISR/CMakeFiles/std_srvs_generate_messages_nodejs.dir/build.make RMPISR/CMakeFiles/std_srvs_generate_messages_nodejs.dir/build
+.PHONY : std_srvs_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named _RMPISR_generate_messages_check_deps_resetrmp
+
+# Build rule for target.
+_RMPISR_generate_messages_check_deps_resetrmp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _RMPISR_generate_messages_check_deps_resetrmp
+.PHONY : _RMPISR_generate_messages_check_deps_resetrmp
+
+# fast build rule for target.
+_RMPISR_generate_messages_check_deps_resetrmp/fast:
+	$(MAKE) -f RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_resetrmp.dir/build.make RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_resetrmp.dir/build
+.PHONY : _RMPISR_generate_messages_check_deps_resetrmp/fast
 
 #=============================================================================
 # Target rules for targets named _RMPISR_generate_messages_check_deps_addpoint
@@ -3269,7 +3282,6 @@ help:
 	@echo "... topic_tools_generate_messages_eus"
 	@echo "... rosserial_server_socket_node"
 	@echo "... rosserial_server_udp_socket_node"
-	@echo "... std_srvs_generate_messages_nodejs"
 	@echo "... actionlib_msgs_generate_messages_py"
 	@echo "... std_srvs_generate_messages_eus"
 	@echo "... geometry_msgs_generate_messages_cpp"
@@ -3295,6 +3307,8 @@ help:
 	@echo "... geometry_msgs_generate_messages_py"
 	@echo "... actionlib_generate_messages_lisp"
 	@echo "... RMPISR_generate_messages"
+	@echo "... std_srvs_generate_messages_nodejs"
+	@echo "... _RMPISR_generate_messages_check_deps_resetrmp"
 	@echo "... _RMPISR_generate_messages_check_deps_addpoint"
 	@echo "... actionlib_generate_messages_py"
 	@echo "... RMPISR_generate_messages_cpp"

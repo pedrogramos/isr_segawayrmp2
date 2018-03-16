@@ -1,27 +1,24 @@
 #!/usr/bin/env python
-import rospy
 import sys
-import numpy
-from RMPISR.srv import *
+import rospy
+from RMPISR.srv import resetrmp
 from geometry_msgs.msg import Pose2D
-from std_msgs.msg import Bool
 from nav_msgs.msg import Odometry
-from turtlesim.msg import Pose
 import tf
 
 class odomUpdater:
 
-	def __init__(self,trueodomX=0,trueodomY=0,trueodomTheta=0):
+	def __init__(self,trueodomX=0.22,trueodomY=0.33,trueodomTheta=0.314):
 		self.odomXrmp=0
 		self.odomYrmp=0
 		self.odomThetarmp=0
-		self.trueodomX=trueodomX
-		self.trueodomY=trueodomY
-		self.trueodomTheta=trueodomTheta
 		self.pose=Pose2D()
+		self.pose.x=trueodomX
+		self.pose.y=trueodomY
+		self.pose.theta=trueodomTheta
 		self.odomRMP_sub = rospy.Subscriber('/segway_rmp_node/odom', Odometry, self.callbackOdom)
 		self.odom_pub = rospy.Publisher('odomUpdater', Pose2D, queue_size=10)
-		s = rospy.Service('resetRMP_', resetRMP, handle_resetRMP)
+		self.service = rospy.Service('resetRMP', resetrmp, self.handle_resetRMP)
 
 	def handle_resetRMP(self, req):
 		self.pose.x=req.pose.x
@@ -54,13 +51,13 @@ class odomUpdater:
 		self.pose.y+=(self.odomYrmp-antY)
 		self.pose.theta+=(self.odomThetarmp-antTheta)
 
-		rospy.loginfo(pose)
+		#rospy.loginfo(self.pose)
 		self.odom_pub.publish(self.pose)
 
 
-		print"ODOM xRMP:%f yRMP:%f thetaRMP:%f"% (self.odomX,self.odomY,self.odomTheta)
+		print"Fake xRMP:%f yRMP:%f thetaRMP:%f"% (self.odomXrmp,self.odomYrmp,self.odomThetarmp)
 		#print"ODOM x:%f y:%f theta:%f"% (self.trueodomX,self.trueodomY,self.trueodomTheta)
-		print"ODOM x:%f y:%f theta:%f"% (self.pose.x,self.pose.y,self.pose.theta)
+		print"Real x:%f y:%f theta:%f"% (self.pose.x,self.pose.y,self.pose.theta)
 
 
 if __name__ == "__main__":

@@ -89,17 +89,6 @@ install/strip/fast: install/strip
 
 .PHONY : install/strip/fast
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: install/local
-
-.PHONY : install/local/fast
-
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
@@ -111,6 +100,17 @@ install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: install/local
+
+.PHONY : install/local/fast
 
 # Special rule for the target test
 test:
@@ -164,21 +164,6 @@ preinstall/fast:
 depend:
 	cd /home/rmp/catkin_ws/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
-
-# Convenience name for target.
-RMPISR/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule:
-	cd /home/rmp/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 RMPISR/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule
-.PHONY : RMPISR/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-std_srvs_generate_messages_nodejs: RMPISR/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule
-
-.PHONY : std_srvs_generate_messages_nodejs
-
-# fast build rule for target.
-std_srvs_generate_messages_nodejs/fast:
-	cd /home/rmp/catkin_ws/build && $(MAKE) -f RMPISR/CMakeFiles/std_srvs_generate_messages_nodejs.dir/build.make RMPISR/CMakeFiles/std_srvs_generate_messages_nodejs.dir/build
-.PHONY : std_srvs_generate_messages_nodejs/fast
 
 # Convenience name for target.
 RMPISR/CMakeFiles/actionlib_msgs_generate_messages_py.dir/rule:
@@ -556,6 +541,36 @@ RMPISR_generate_messages/fast:
 .PHONY : RMPISR_generate_messages/fast
 
 # Convenience name for target.
+RMPISR/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule:
+	cd /home/rmp/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 RMPISR/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule
+.PHONY : RMPISR/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+std_srvs_generate_messages_nodejs: RMPISR/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule
+
+.PHONY : std_srvs_generate_messages_nodejs
+
+# fast build rule for target.
+std_srvs_generate_messages_nodejs/fast:
+	cd /home/rmp/catkin_ws/build && $(MAKE) -f RMPISR/CMakeFiles/std_srvs_generate_messages_nodejs.dir/build.make RMPISR/CMakeFiles/std_srvs_generate_messages_nodejs.dir/build
+.PHONY : std_srvs_generate_messages_nodejs/fast
+
+# Convenience name for target.
+RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_resetrmp.dir/rule:
+	cd /home/rmp/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_resetrmp.dir/rule
+.PHONY : RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_resetrmp.dir/rule
+
+# Convenience name for target.
+_RMPISR_generate_messages_check_deps_resetrmp: RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_resetrmp.dir/rule
+
+.PHONY : _RMPISR_generate_messages_check_deps_resetrmp
+
+# fast build rule for target.
+_RMPISR_generate_messages_check_deps_resetrmp/fast:
+	cd /home/rmp/catkin_ws/build && $(MAKE) -f RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_resetrmp.dir/build.make RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_resetrmp.dir/build
+.PHONY : _RMPISR_generate_messages_check_deps_resetrmp/fast
+
+# Convenience name for target.
 RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_addpoint.dir/rule:
 	cd /home/rmp/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_addpoint.dir/rule
 .PHONY : RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_addpoint.dir/rule
@@ -842,7 +857,7 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... std_srvs_generate_messages_nodejs"
+	@echo "... install/strip"
 	@echo "... actionlib_msgs_generate_messages_py"
 	@echo "... std_srvs_generate_messages_eus"
 	@echo "... geometry_msgs_generate_messages_cpp"
@@ -854,7 +869,6 @@ help:
 	@echo "... tf2_msgs_generate_messages_lisp"
 	@echo "... actionlib_msgs_generate_messages_eus"
 	@echo "... std_srvs_generate_messages_py"
-	@echo "... install/strip"
 	@echo "... tf2_msgs_generate_messages_py"
 	@echo "... geometry_msgs_generate_messages_lisp"
 	@echo "... std_srvs_generate_messages_lisp"
@@ -869,6 +883,9 @@ help:
 	@echo "... geometry_msgs_generate_messages_py"
 	@echo "... actionlib_generate_messages_lisp"
 	@echo "... RMPISR_generate_messages"
+	@echo "... std_srvs_generate_messages_nodejs"
+	@echo "... _RMPISR_generate_messages_check_deps_resetrmp"
+	@echo "... install"
 	@echo "... _RMPISR_generate_messages_check_deps_addpoint"
 	@echo "... actionlib_generate_messages_py"
 	@echo "... RMPISR_generate_messages_cpp"
@@ -882,7 +899,6 @@ help:
 	@echo "... RMPISR_node"
 	@echo "... boss_node"
 	@echo "... install/local"
-	@echo "... install"
 	@echo "... actionlib_msgs_generate_messages_nodejs"
 	@echo "... actionlib_msgs_generate_messages_lisp"
 	@echo "... RMPISR_generate_messages_nodejs"

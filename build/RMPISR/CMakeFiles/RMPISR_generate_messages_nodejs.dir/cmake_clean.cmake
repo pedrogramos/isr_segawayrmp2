@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/RMPISR_generate_messages_nodejs"
+  "/home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/resetrmp.js"
   "/home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/go.js"
   "/home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/stop.js"
   "/home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/addpoint.js"

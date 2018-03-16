@@ -37,6 +37,7 @@ if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
     "/home/rmp/catkin_ws/src/RMPISR/srv/go.srv"
     "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv"
     "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv"
+    "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv"
     )
 endif()
 

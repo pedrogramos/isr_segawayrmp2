@@ -3,7 +3,7 @@ import rospy
 import sys
 import numpy
 from RMPISR.srv import *
-from geometry_msgs.msg import Point
+from geometry_msgs.msg import Point, Pose2D
 from std_msgs.msg import Bool
 from nav_msgs.msg import Odometry
 from turtlesim.msg import Pose
@@ -13,6 +13,9 @@ import threading
 import time
 import tf
 
+
+#to compile for ros
+#chmod +x scripts/coordinator.py
 
 #to launch the arduino rospy
 #rosrun rosserial_python serial_node.py /dev/ttyACM1
@@ -29,7 +32,7 @@ import vstpPY
 
 
 '''
-state table:
+STATE TABLE:
 0-Stop
 1-Go
 2-Add Point
@@ -43,17 +46,15 @@ class coordinator():
 		#self.odom_sub = rospy.Subscriber('/turtle1/pose', Pose, self.callbackOdom)
 		self.danger_sub = rospy.Subscriber('/sonarFlag', Bool, self.callbackSonar)
 		#para o segway
-		self.odom_sub = rospy.Subscriber('/segway_rmp_node/odom', Odometry, self.callbackOdom)
-		self.rate = rospy.Rate(10)
+		#self.odom_sub = rospy.Subscriber('/segway_rmp_node/odom', Odometry, self.callbackOdom)
+		self.odom_sub = rospy.Subscriber('/odomUpdater', Pose2D, self.callbackOdom)
 		self.robotRadius=robotRadius
 		self.gridResolution=gridResolution
 		self.idealDist=idealDist
 		self.maxDist=maxDist
 		self.segs_mapa=list()
 		self.traj_points=list()
-		self.odomX=0
-		self.odomY=0
-		self.odomTheta=0
+		self.pose=Pose2D()
 		self.trueodomX=0
 		self.trueodomY=0
 		self.trueodomTheta=0
@@ -62,31 +63,10 @@ class coordinator():
 
 	#Callback function implementing the pose value received
 	def callbackOdom(self, data):
-		'''
-		self.odomX=data.x;
-		self.odomY=data.y;
-		self.odomTheta=data.
-		'''
-		#getting the RMP odometry
-		self.odomY=data.pose.pose.position.y
-		self.odomX=data.pose.pose.position.x
-		(roll, pitch, self.odomTheta) = tf.transformations.euler_from_quaternion([data.pose.pose.orientation.x, data.pose.pose.orientation.y, data.pose.pose.orientation.z, data.pose.pose.orientation.w])
-		
-		#updating it
-		antX=self.odomX
-		antY=self.odomY
-		antTheta=self.odomTheta
-		self.trueodomX+=(self.odomX-antX)
-		self.trueodomY+=(self.odomY-antY)
-		self.trueodomTheta+=(self.odomTheta-antTheta)
+		self.trueodomX=data.x
+		self.trueodomY=data.y
+		self.trueodomTheta=data.theta
 
-		print"ODOM xRMP:%f yRMP:%f thetaRMP:%f"% (self.odomX,self.odomY,self.odomTheta)
-		print"ODOM x:%f y:%f theta:%f"% (self.trueodomX,self.trueodomY,self.trueodomTheta)
-		'''
-		if(time.clock()>last+3):
-			last=time.clock()
-			print"ODOM x:%f y:%f theta:%f"% (self.odomX,self.odomY,self.odomTheta)
-		'''
 	def callbackSonar(self,data):
 		self.danger=data.data;
 		if(self.danger==True and self.state != 0):
@@ -124,7 +104,12 @@ class coordinator():
 		rospy.wait_for_service('resetRMP')
 		try:
 			resetRMP_ = rospy.ServiceProxy('resetRMP', resetRMP)
-			resp1 = resetRMP_.call()
+
+			self.pose.x=0
+			self.pose.y=0
+			self.pose.theta=0
+
+			resp1 = resetRMP_.call(pose)
 			print "resetRMP Service called. State: %d" % self.state
 
 		except rospy.ServiceException, e:
@@ -240,7 +225,7 @@ class coordinator():
 				#pygame.draw.circle(screen, (255, 0, 0), [int(odomX/raciopixx), int(odomY/raciopixy)], int(0.74/raciopixx))
 
 
-				pygame.draw.circle(screen, (255, 0, 0), [int(self.odomX/raciopixx), int(self.odomY/raciopixy)], int(self.robotRadius/raciopixx))
+				pygame.draw.circle(screen, (255, 0, 0), [int(self.trueodomX/raciopixx), int(self.trueodomY/raciopixy)], int(self.robotRadius/raciopixx))
 				pygame.display.flip()
 				#print"circle px: %d py: %d", (int(self.odomX/raciopixx),int(self.odomY/raciopixy))
 				rate.sleep()
