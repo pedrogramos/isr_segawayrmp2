@@ -1,0 +1,7 @@
+<launch>
+ <!-- Turtlesim Node-->
+  <node pkg="turtlesim" type="turtlesim_node" name="sim" output="screen"/>
+
+  <node pkg="RMPISR" type="RMPISR_node" name="nav" output="screen"/>
+
+</launch>

@@ -1,7 +1,15 @@
 <launch>
- <!-- Turtlesim Node-->
-  <node pkg="turtlesim" type="turtlesim_node" name="sim" output="screen"/>
+ <!-- RMPfull Node-->
 
-  <node pkg="RMPISR" type="RMPISR_node" name="nav" output="screen"/>
+	<node name="serial_node" pkg="rosserial_python" type="serial_node.py">
+    	<param name="port" value="/dev/ttyACM0"/>
+        <param name="baud" value="57600" />
+	</node>
+
+	<include file="$(find /home/rmp/catkin_ws/src/segway_rmp-master/launch/)/segway_rmp.launch"/>
+
+	<node pkg="RMPISR" type="RMPISR_node" name="nav" output="screen"/>
+
+	<node pkg="RMPISR" type="coordinator.py" name="boss" output="screen"/>
 
 </launch>

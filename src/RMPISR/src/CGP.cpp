@@ -37,7 +37,10 @@ public:
   SendVelocity();
   void sendVel(double,double);
   void stopTurtle();
-  void odomCallback(const turtlesim::PoseConstPtr&);
+  //para a turtlesim
+  //void odomCallback(const turtlesim::PoseConstPtr&);
+  //para o segwayRMP
+  void odomCallback(const nav_msgs::Odometry::ConstPtr&);
   void infoOdom();
   void goTo(float,float,float);
   bool def_go(RMPISR::go::Request&, RMPISR::go::Response&);
@@ -57,11 +60,11 @@ private:
   //ros::Publisher vazio_pub;
   //ros::Subscriber vazio_sub;
   geometry_msgs::Twist vel;
-  double odomX;
-  double odomY;
-  double odomTheta;
+  double odomX, odomY, odomTheta;
+  double roll, pitch, yaw;
   // para ter sempre a odometria à mão
   turtlesim::PoseConstPtr aPose;
+  nav_msgs::Odometry::ConstPtr poseRMP;
   // variavel do tipo pose para as coordenadas de destino
   turtlesim::Pose gPose;
   
@@ -71,11 +74,11 @@ private:
 
 SendVelocity::SendVelocity(){
 
-  vel_pub = nh.advertise<geometry_msgs::Twist>("/turtle1/cmd_vel", 1);
-  odom_sub = nh.subscribe("/turtle1/pose",10,&SendVelocity::odomCallback,this);
+  //vel_pub = nh.advertise<geometry_msgs::Twist>("/turtle1/cmd_vel", 1);
+  //odom_sub = nh.subscribe("/turtle1/pose",10,&SendVelocity::odomCallback,this);
   // para o segway
-  //vel_pub = nh.advertise<geometry_msgs::Twist>("cmd_vel", 1);
-  //odom_sub = nh.subscribe("odom",10,&SendVelocity::odomCallback,this);
+  vel_pub = nh.advertise<geometry_msgs::Twist>("cmd_vel", 1);
+  odom_sub = nh.subscribe("/segway_rmp_node/odom",10,&SendVelocity::odomCallback,this);
   service0 = nh.advertiseService("go",&SendVelocity::def_go,this);
   service1 = nh.advertiseService("addpoint", &SendVelocity::def_addpoint, this);
   service2 = nh.advertiseService("stop",&SendVelocity::def_stop,this);
@@ -108,18 +111,43 @@ void SendVelocity::stopTurtle(){
   ROS_INFO("STOP!!");
 }
 
+/*
+void chatterCallback(const nav_msgs::Odometry::ConstPtr& msg)
+{
+  ROS_INFO("Seq: [%d]", msg->header.seq);
+  ROS_INFO("Position-> x: [%f], y: [%f], z: [%f]", msg->pose.pose.position.x,msg->pose.pose.position.y, msg->pose.pose.position.z);
+  ROS_INFO("Orientation-> x: [%f], y: [%f], z: [%f], w: [%f]", msg->pose.pose.orientation.x, msg->pose.pose.orientation.y, msg->pose.pose.orientation.z, msg->pose.pose.orientation.w);
+  ROS_INFO("Vel-> Linear: [%f], Angular: [%f]", msg->twist.twist.linear.x,msg->twist.twist.angular.z);
+}
+*/
 
+void SendVelocity::odomCallback(const nav_msgs::Odometry::ConstPtr& msg){
+  odomX = msg->pose.pose.position.x;
+  odomY = msg->pose.pose.position.y;
+  tf::Quaternion q(msg->pose.pose.orientation.x, msg->pose.pose.orientation.y, msg->pose.pose.orientation.z, msg->pose.pose.orientation.w);
+  tf::Matrix3x3 m(q);
+  m.getRPY(roll, pitch, yaw);
+  odomTheta = yaw;
+  poseRMP=msg;
+
+  //ROS_INFO("OdometriaFun: X= %f, Y= %f, e Theta= %f", odomX,odomY,odomTheta);
+
+}
+
+/*
 // rosmsg show [turtlesim/Pose] = msg1-> [x] 
 void SendVelocity::odomCallback(const turtlesim::PoseConstPtr& msg1){ 
   // nav_msgs::Odometry --> pose.pose.position.
+  //para a turtlesim
   odomX = msg1->x;
   odomY = msg1->y;
   odomTheta = msg1->theta;
   aPose=msg1;
 
-  //ROS_INFO("Odometria: X= %f, Y= %f, e Theta= %f", x,y,theta);
-}
 
+  ROS_INFO("Odometria: X= %f, Y= %f, e Theta= %f", odomX,odomY,odomTheta);
+}
+*/
 
 void SendVelocity::infoOdom(){
 
@@ -130,10 +158,12 @@ void SendVelocity::infoOdom(){
 void SendVelocity::goTo(float xf, float yf,float limiar){
   // calculo do módulo
   float d=sqrt(pow((xf-odomX),2)+pow((yf-odomY),2));
+  // calculo da circunferencia de bullseye
   float c=pow((xf-odomX),2)+pow((yf-odomY),2);
   ROS_INFO("Proximo ponto: X= %f e Y= %f.",xf, yf);
 
-  while (c>pow(limiar,2)){
+  //enquanto o RMP estiver fora do raio da circunferencia
+  while (c>pow(limiar,2)){ 
     c=pow((xf-odomX),2)+pow((yf-odomY),2);
     d=sqrt(pow((xf-odomX),2)+pow((yf-odomY),2));
     // vetores normalizados -> versor
