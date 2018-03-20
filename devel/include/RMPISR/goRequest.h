@@ -36,6 +36,7 @@ struct goRequest_
 
 
 
+
   typedef boost::shared_ptr< ::RMPISR::goRequest_<ContainerAllocator> > Ptr;
   typedef boost::shared_ptr< ::RMPISR::goRequest_<ContainerAllocator> const> ConstPtr;
 

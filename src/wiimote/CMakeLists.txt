@@ -16,7 +16,7 @@ set(CMAKE_SHARED_LINKER_FLAGS "-z noexecstack -z relro -z now ${CMAKE_SHARED_LIN
 
 # Load catkin and all dependencies required for this package
 set(CATKIN_DEPS geometry_msgs sensor_msgs std_msgs std_srvs rospy roscpp roslib genmsg)
-find_package(catkin REQUIRED ${CATKIN_DEPS} roslint)
+find_package(catkin REQUIRED ${CATKIN_DEPS} roslint RMPISR)
 
 catkin_python_setup()
 
@@ -66,6 +66,13 @@ add_executable(teleop_wiimote src/teleop_wiimote.cpp)
 target_link_libraries(teleop_wiimote ${catkin_LIBRARIES})
 add_dependencies(teleop_wiimote wiimote_generate_messages_cpp)
 ## End C++ Teleop for Wiimote Node
+
+## C++ Teleop for RMP Node: Declare cpp executables
+add_executable(segway_teleop_wiimote src/segway_teleop_wiimote.cpp)
+target_link_libraries(segway_teleop_wiimote ${catkin_LIBRARIES})
+#add_dependencies(segway_teleop_wiimote wiimote_generate_messages_cpp)
+add_dependencies(segway_teleop_wiimote ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+## End C++ RMP for Wiimote Node
 
 # Install launch files
 install(DIRECTORY launch/

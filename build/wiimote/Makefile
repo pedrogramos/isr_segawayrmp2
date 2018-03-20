@@ -211,6 +211,21 @@ wiimote_gencpp/fast:
 .PHONY : wiimote_gencpp/fast
 
 # Convenience name for target.
+wiimote/CMakeFiles/segway_teleop_wiimote.dir/rule:
+	cd /home/rmp/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 wiimote/CMakeFiles/segway_teleop_wiimote.dir/rule
+.PHONY : wiimote/CMakeFiles/segway_teleop_wiimote.dir/rule
+
+# Convenience name for target.
+segway_teleop_wiimote: wiimote/CMakeFiles/segway_teleop_wiimote.dir/rule
+
+.PHONY : segway_teleop_wiimote
+
+# fast build rule for target.
+segway_teleop_wiimote/fast:
+	cd /home/rmp/catkin_ws/build && $(MAKE) -f wiimote/CMakeFiles/segway_teleop_wiimote.dir/build.make wiimote/CMakeFiles/segway_teleop_wiimote.dir/build
+.PHONY : segway_teleop_wiimote/fast
+
+# Convenience name for target.
 wiimote/CMakeFiles/wiimote_generate_messages_lisp.dir/rule:
 	cd /home/rmp/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 wiimote/CMakeFiles/wiimote_generate_messages_lisp.dir/rule
 .PHONY : wiimote/CMakeFiles/wiimote_generate_messages_lisp.dir/rule
@@ -540,6 +555,33 @@ run_tests_wiimote_roslint_package/fast:
 	cd /home/rmp/catkin_ws/build && $(MAKE) -f wiimote/CMakeFiles/run_tests_wiimote_roslint_package.dir/build.make wiimote/CMakeFiles/run_tests_wiimote_roslint_package.dir/build
 .PHONY : run_tests_wiimote_roslint_package/fast
 
+src/segway_teleop_wiimote.o: src/segway_teleop_wiimote.cpp.o
+
+.PHONY : src/segway_teleop_wiimote.o
+
+# target to build an object file
+src/segway_teleop_wiimote.cpp.o:
+	cd /home/rmp/catkin_ws/build && $(MAKE) -f wiimote/CMakeFiles/segway_teleop_wiimote.dir/build.make wiimote/CMakeFiles/segway_teleop_wiimote.dir/src/segway_teleop_wiimote.cpp.o
+.PHONY : src/segway_teleop_wiimote.cpp.o
+
+src/segway_teleop_wiimote.i: src/segway_teleop_wiimote.cpp.i
+
+.PHONY : src/segway_teleop_wiimote.i
+
+# target to preprocess a source file
+src/segway_teleop_wiimote.cpp.i:
+	cd /home/rmp/catkin_ws/build && $(MAKE) -f wiimote/CMakeFiles/segway_teleop_wiimote.dir/build.make wiimote/CMakeFiles/segway_teleop_wiimote.dir/src/segway_teleop_wiimote.cpp.i
+.PHONY : src/segway_teleop_wiimote.cpp.i
+
+src/segway_teleop_wiimote.s: src/segway_teleop_wiimote.cpp.s
+
+.PHONY : src/segway_teleop_wiimote.s
+
+# target to generate assembly for a file
+src/segway_teleop_wiimote.cpp.s:
+	cd /home/rmp/catkin_ws/build && $(MAKE) -f wiimote/CMakeFiles/segway_teleop_wiimote.dir/build.make wiimote/CMakeFiles/segway_teleop_wiimote.dir/src/segway_teleop_wiimote.cpp.s
+.PHONY : src/segway_teleop_wiimote.cpp.s
+
 src/stat_vector_3d.o: src/stat_vector_3d.cpp.o
 
 .PHONY : src/stat_vector_3d.o
@@ -635,6 +677,7 @@ help:
 	@echo "... wiimote_node"
 	@echo "... wiimote_generate_messages_cpp"
 	@echo "... wiimote_gencpp"
+	@echo "... segway_teleop_wiimote"
 	@echo "... wiimote_generate_messages_lisp"
 	@echo "... clean_test_results_wiimote"
 	@echo "... wiimote_genlisp"
@@ -659,6 +702,9 @@ help:
 	@echo "... run_tests_wiimote_roslint"
 	@echo "... _run_tests_wiimote_roslint"
 	@echo "... run_tests_wiimote_roslint_package"
+	@echo "... src/segway_teleop_wiimote.o"
+	@echo "... src/segway_teleop_wiimote.i"
+	@echo "... src/segway_teleop_wiimote.s"
 	@echo "... src/stat_vector_3d.o"
 	@echo "... src/stat_vector_3d.i"
 	@echo "... src/stat_vector_3d.s"

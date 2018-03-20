@@ -90,7 +90,7 @@ rosserial_test_publish_subscribe_EXTERNAL_OBJECTS =
 
 /home/rmp/catkin_ws/devel/lib/rosserial_test/rosserial_test_publish_subscribe: rosserial/rosserial_test/CMakeFiles/rosserial_test_publish_subscribe.dir/src/publish_subscribe.cpp.o
 /home/rmp/catkin_ws/devel/lib/rosserial_test/rosserial_test_publish_subscribe: rosserial/rosserial_test/CMakeFiles/rosserial_test_publish_subscribe.dir/build.make
-/home/rmp/catkin_ws/devel/lib/rosserial_test/rosserial_test_publish_subscribe: gtest/libgtest.so
+/home/rmp/catkin_ws/devel/lib/rosserial_test/rosserial_test_publish_subscribe: gtest/gtest/libgtest.so
 /home/rmp/catkin_ws/devel/lib/rosserial_test/rosserial_test_publish_subscribe: /opt/ros/kinetic/lib/libtopic_tools.so
 /home/rmp/catkin_ws/devel/lib/rosserial_test/rosserial_test_publish_subscribe: /opt/ros/kinetic/lib/libroscpp.so
 /home/rmp/catkin_ws/devel/lib/rosserial_test/rosserial_test_publish_subscribe: /usr/lib/i386-linux-gnu/libboost_filesystem.so

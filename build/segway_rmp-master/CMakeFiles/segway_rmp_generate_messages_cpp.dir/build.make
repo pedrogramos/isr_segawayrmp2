@@ -61,7 +61,7 @@ segway_rmp-master/CMakeFiles/segway_rmp_generate_messages_cpp: /home/rmp/catkin_
 /home/rmp/catkin_ws/devel/include/segway_rmp/SegwayStatus.h: /home/rmp/catkin_ws/src/segway_rmp-master/msg/SegwayStatus.msg
 /home/rmp/catkin_ws/devel/include/segway_rmp/SegwayStatus.h: /opt/ros/kinetic/share/gencpp/msg.h.template
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code from segway_rmp/SegwayStatus.msg"
-	cd /home/rmp/catkin_ws/build/segway_rmp-master && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/rmp/catkin_ws/src/segway_rmp-master/msg/SegwayStatus.msg -Isegway_rmp:/home/rmp/catkin_ws/src/segway_rmp-master/msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p segway_rmp -o /home/rmp/catkin_ws/devel/include/segway_rmp -e /opt/ros/kinetic/share/gencpp/cmake/..
+	cd /home/rmp/catkin_ws/src/segway_rmp-master && /home/rmp/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/rmp/catkin_ws/src/segway_rmp-master/msg/SegwayStatus.msg -Isegway_rmp:/home/rmp/catkin_ws/src/segway_rmp-master/msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p segway_rmp -o /home/rmp/catkin_ws/devel/include/segway_rmp -e /opt/ros/kinetic/share/gencpp/cmake/..
 
 /home/rmp/catkin_ws/devel/include/segway_rmp/SegwayStatusStamped.h: /opt/ros/kinetic/lib/gencpp/gen_cpp.py
 /home/rmp/catkin_ws/devel/include/segway_rmp/SegwayStatusStamped.h: /home/rmp/catkin_ws/src/segway_rmp-master/msg/SegwayStatusStamped.msg
@@ -69,7 +69,7 @@ segway_rmp-master/CMakeFiles/segway_rmp_generate_messages_cpp: /home/rmp/catkin_
 /home/rmp/catkin_ws/devel/include/segway_rmp/SegwayStatusStamped.h: /opt/ros/kinetic/share/std_msgs/msg/Header.msg
 /home/rmp/catkin_ws/devel/include/segway_rmp/SegwayStatusStamped.h: /opt/ros/kinetic/share/gencpp/msg.h.template
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating C++ code from segway_rmp/SegwayStatusStamped.msg"
-	cd /home/rmp/catkin_ws/build/segway_rmp-master && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/rmp/catkin_ws/src/segway_rmp-master/msg/SegwayStatusStamped.msg -Isegway_rmp:/home/rmp/catkin_ws/src/segway_rmp-master/msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p segway_rmp -o /home/rmp/catkin_ws/devel/include/segway_rmp -e /opt/ros/kinetic/share/gencpp/cmake/..
+	cd /home/rmp/catkin_ws/src/segway_rmp-master && /home/rmp/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/rmp/catkin_ws/src/segway_rmp-master/msg/SegwayStatusStamped.msg -Isegway_rmp:/home/rmp/catkin_ws/src/segway_rmp-master/msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p segway_rmp -o /home/rmp/catkin_ws/devel/include/segway_rmp -e /opt/ros/kinetic/share/gencpp/cmake/..
 
 segway_rmp_generate_messages_cpp: segway_rmp-master/CMakeFiles/segway_rmp_generate_messages_cpp
 segway_rmp_generate_messages_cpp: /home/rmp/catkin_ws/devel/include/segway_rmp/SegwayStatus.h

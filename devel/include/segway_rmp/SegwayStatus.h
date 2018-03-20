@@ -127,13 +127,16 @@ struct SegwayStatus_
   _motors_enabled_type motors_enabled;
 
 
-    enum { LIGHT = 1 };
-     enum { TALL = 2 };
-     enum { HEAVY = 3 };
-     enum { BALANCE = 1 };
-     enum { TRACTOR = 2 };
-     enum { POWER_DOWN = 3 };
- 
+
+  enum {
+    LIGHT = 1,
+    TALL = 2,
+    HEAVY = 3,
+    BALANCE = 1,
+    TRACTOR = 2,
+    POWER_DOWN = 3,
+  };
+
 
   typedef boost::shared_ptr< ::segway_rmp::SegwayStatus_<ContainerAllocator> > Ptr;
   typedef boost::shared_ptr< ::segway_rmp::SegwayStatus_<ContainerAllocator> const> ConstPtr;

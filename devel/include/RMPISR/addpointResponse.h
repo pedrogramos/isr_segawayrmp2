@@ -36,6 +36,7 @@ struct addpointResponse_
 
 
 
+
   typedef boost::shared_ptr< ::RMPISR::addpointResponse_<ContainerAllocator> > Ptr;
   typedef boost::shared_ptr< ::RMPISR::addpointResponse_<ContainerAllocator> const> ConstPtr;
 

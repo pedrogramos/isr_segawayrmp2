@@ -1,0 +1,32 @@
+<segment>
+		<point><x>20.3</x><y>58.1</y></point>
+		<point><x>1.8</x><y>58.1</y></point>
+
+	</segment>
+	<segment>
+		<point><x>1.8</x><y>58.1</y></point>
+		<point><x>1.8</x><y>5.8</y></point>
+	</segment>
+
+
+	<segment>
+		<point><x>1.8</x><y>5.8</y></point>
+		<point><x>1.8</x><y></y></point>
+	</segment>
+
+	<segment>
+
+		<point><x></x><y></y></point>
+	</segment>
+	<segment>
+
+		<point><x></x><y></y></point>
+	</segment>
+	<segment>
+
+		<point><x></x><y></y></point>
+	</segment>
+	<segment>
+
+		<point><x></x><y></y></point>
+	</segment>

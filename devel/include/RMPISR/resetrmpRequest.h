@@ -40,6 +40,7 @@ struct resetrmpRequest_
 
 
 
+
   typedef boost::shared_ptr< ::RMPISR::resetrmpRequest_<ContainerAllocator> > Ptr;
   typedef boost::shared_ptr< ::RMPISR::resetrmpRequest_<ContainerAllocator> const> ConstPtr;
 

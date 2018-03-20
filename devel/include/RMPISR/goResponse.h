@@ -39,6 +39,7 @@ struct goResponse_
 
 
 
+
   typedef boost::shared_ptr< ::RMPISR::goResponse_<ContainerAllocator> > Ptr;
   typedef boost::shared_ptr< ::RMPISR::goResponse_<ContainerAllocator> const> ConstPtr;
 

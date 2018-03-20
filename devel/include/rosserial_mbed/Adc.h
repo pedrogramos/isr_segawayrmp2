@@ -64,6 +64,7 @@ struct Adc_
 
 
 
+
   typedef boost::shared_ptr< ::rosserial_mbed::Adc_<ContainerAllocator> > Ptr;
   typedef boost::shared_ptr< ::rosserial_mbed::Adc_<ContainerAllocator> const> ConstPtr;
 

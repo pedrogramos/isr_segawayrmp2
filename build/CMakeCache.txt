@@ -237,6 +237,9 @@ EMPY_EXECUTABLE:FILEPATH=/usr/bin/empy
 //Empy script
 EMPY_SCRIPT:STRING=/usr/bin/empy
 
+//The directory containing a CMake configuration file for GMock.
+GMock_DIR:PATH=GMock_DIR-NOTFOUND
+
 //Path to a file.
 GTEST_INCLUDE_DIR:PATH=/usr/include
 
@@ -276,6 +279,9 @@ Project_SOURCE_DIR:STATIC=/home/rmp/catkin_ws/src
 //Value Computed by CMake
 RMPISR_BINARY_DIR:STATIC=/home/rmp/catkin_ws/build/RMPISR
 
+//The directory containing a CMake configuration file for RMPISR.
+RMPISR_DIR:PATH=/home/rmp/catkin_ws/devel/share/RMPISR/cmake
+
 //Value Computed by CMake
 RMPISR_SOURCE_DIR:STATIC=/home/rmp/catkin_ws/src/RMPISR
 
@@ -299,6 +305,18 @@ _CATKIN_GTEST_SRC:FILEPATH=/usr/src/gtest/src/gtest.cc
 
 //Path to a file.
 _file_name:FILEPATH=/home/rmp/catkin_ws/src/rosserial/rosserial_test/test/rosserial_python_socket.test
+
+//Path to a file.
+_gmock_INCLUDES:FILEPATH=/usr/include/gmock/gmock.h
+
+//Path to a file.
+_gmock_SOURCES:FILEPATH=/usr/src/gmock/src/gmock.cc
+
+//Path to a file.
+_gtest_INCLUDES:FILEPATH=/usr/include/gtest/gtest.h
+
+//Path to a file.
+_gtest_SOURCES:FILEPATH=/usr/src/gtest/src/gtest.cc
 
 //The directory containing a CMake configuration file for actionlib.
 actionlib_DIR:PATH=/opt/ros/kinetic/share/actionlib/cmake
@@ -343,7 +361,22 @@ genpy_DIR:PATH=/opt/ros/kinetic/share/genpy/cmake
 geometry_msgs_DIR:PATH=/opt/ros/kinetic/share/geometry_msgs/cmake
 
 //Value Computed by CMake
-gtest_BINARY_DIR:STATIC=/home/rmp/catkin_ws/build/gtest
+gmock_BINARY_DIR:STATIC=/home/rmp/catkin_ws/build/gtest
+
+//Dependencies for the target
+gmock_LIB_DEPENDS:STATIC=general;-lpthread;
+
+//Value Computed by CMake
+gmock_SOURCE_DIR:STATIC=/usr/src/gmock
+
+//Build all of Google Mock's own tests.
+gmock_build_tests:BOOL=OFF
+
+//Dependencies for the target
+gmock_main_LIB_DEPENDS:STATIC=general;-lpthread;
+
+//Value Computed by CMake
+gtest_BINARY_DIR:STATIC=/home/rmp/catkin_ws/build/gtest/gtest
 
 //Dependencies for the target
 gtest_LIB_DEPENDS:STATIC=general;-lpthread;
@@ -374,7 +407,7 @@ learning_tf2_BINARY_DIR:STATIC=/home/rmp/catkin_ws/build/learning_tf2
 learning_tf2_SOURCE_DIR:STATIC=/home/rmp/catkin_ws/src/learning_tf2
 
 //Path to a library.
-lib:FILEPATH=/opt/ros/kinetic/lib/librospack.so
+lib:FILEPATH=/opt/ros/kinetic/lib/libmessage_filters.so
 
 //The directory containing a CMake configuration file for libsegwayrmp.
 libsegwayrmp_DIR:PATH=/usr/local/share/libsegwayrmp
@@ -710,7 +743,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=21
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=22
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -753,6 +786,11 @@ CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 FIND_PACKAGE_MESSAGE_DETAILS_PythonInterp:INTERNAL=[/usr/bin/python][v2.7.12()]
 //Details about finding Threads
 FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
+GMOCK_FROM_SOURCE_FOUND:INTERNAL=TRUE
+GMOCK_FROM_SOURCE_INCLUDE_DIRS:INTERNAL=/usr/include
+GMOCK_FROM_SOURCE_LIBRARIES:INTERNAL=gmock
+GMOCK_FROM_SOURCE_LIBRARY_DIRS:INTERNAL=/home/rmp/catkin_ws/build/gmock
+GMOCK_FROM_SOURCE_MAIN_LIBRARIES:INTERNAL=gmock_main
 GTEST_FROM_SOURCE_FOUND:INTERNAL=TRUE
 GTEST_FROM_SOURCE_INCLUDE_DIRS:INTERNAL=/usr/include
 GTEST_FROM_SOURCE_LIBRARIES:INTERNAL=gtest

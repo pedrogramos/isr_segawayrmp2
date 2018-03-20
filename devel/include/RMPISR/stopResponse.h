@@ -39,6 +39,7 @@ struct stopResponse_
 
 
 
+
   typedef boost::shared_ptr< ::RMPISR::stopResponse_<ContainerAllocator> > Ptr;
   typedef boost::shared_ptr< ::RMPISR::stopResponse_<ContainerAllocator> const> ConstPtr;
 

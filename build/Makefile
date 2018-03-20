@@ -231,6 +231,32 @@ download_extra_data/fast:
 .PHONY : download_extra_data/fast
 
 #=============================================================================
+# Target rules for targets named gmock
+
+# Build rule for target.
+gmock: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gmock
+.PHONY : gmock
+
+# fast build rule for target.
+gmock/fast:
+	$(MAKE) -f gtest/CMakeFiles/gmock.dir/build.make gtest/CMakeFiles/gmock.dir/build
+.PHONY : gmock/fast
+
+#=============================================================================
+# Target rules for targets named gmock_main
+
+# Build rule for target.
+gmock_main: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gmock_main
+.PHONY : gmock_main
+
+# fast build rule for target.
+gmock_main/fast:
+	$(MAKE) -f gtest/CMakeFiles/gmock_main.dir/build.make gtest/CMakeFiles/gmock_main.dir/build
+.PHONY : gmock_main/fast
+
+#=============================================================================
 # Target rules for targets named gtest
 
 # Build rule for target.
@@ -240,7 +266,7 @@ gtest: cmake_check_build_system
 
 # fast build rule for target.
 gtest/fast:
-	$(MAKE) -f gtest/CMakeFiles/gtest.dir/build.make gtest/CMakeFiles/gtest.dir/build
+	$(MAKE) -f gtest/gtest/CMakeFiles/gtest.dir/build.make gtest/gtest/CMakeFiles/gtest.dir/build
 .PHONY : gtest/fast
 
 #=============================================================================
@@ -253,7 +279,7 @@ gtest_main: cmake_check_build_system
 
 # fast build rule for target.
 gtest_main/fast:
-	$(MAKE) -f gtest/CMakeFiles/gtest_main.dir/build.make gtest/CMakeFiles/gtest_main.dir/build
+	$(MAKE) -f gtest/gtest/CMakeFiles/gtest_main.dir/build.make gtest/gtest/CMakeFiles/gtest_main.dir/build
 .PHONY : gtest_main/fast
 
 #=============================================================================
@@ -2870,6 +2896,19 @@ wiimote_gencpp/fast:
 .PHONY : wiimote_gencpp/fast
 
 #=============================================================================
+# Target rules for targets named segway_teleop_wiimote
+
+# Build rule for target.
+segway_teleop_wiimote: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 segway_teleop_wiimote
+.PHONY : segway_teleop_wiimote
+
+# fast build rule for target.
+segway_teleop_wiimote/fast:
+	$(MAKE) -f wiimote/CMakeFiles/segway_teleop_wiimote.dir/build.make wiimote/CMakeFiles/segway_teleop_wiimote.dir/build
+.PHONY : segway_teleop_wiimote/fast
+
+#=============================================================================
 # Target rules for targets named wiimote_generate_messages_lisp
 
 # Build rule for target.
@@ -3173,6 +3212,8 @@ help:
 	@echo "... test"
 	@echo "... install"
 	@echo "... install/strip"
+	@echo "... gmock"
+	@echo "... gmock_main"
 	@echo "... gtest"
 	@echo "... gtest_main"
 	@echo "... _catkin_empty_exported_target"
@@ -3376,6 +3417,7 @@ help:
 	@echo "... wiimote_node"
 	@echo "... wiimote_generate_messages_cpp"
 	@echo "... wiimote_gencpp"
+	@echo "... segway_teleop_wiimote"
 	@echo "... wiimote_generate_messages_lisp"
 	@echo "... clean_test_results_wiimote"
 	@echo "... wiimote_genlisp"

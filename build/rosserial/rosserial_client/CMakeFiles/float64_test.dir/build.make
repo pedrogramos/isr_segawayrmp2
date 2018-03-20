@@ -90,7 +90,7 @@ float64_test_EXTERNAL_OBJECTS =
 
 /home/rmp/catkin_ws/devel/lib/rosserial_client/float64_test: rosserial/rosserial_client/CMakeFiles/float64_test.dir/test/float64_test.cpp.o
 /home/rmp/catkin_ws/devel/lib/rosserial_client/float64_test: rosserial/rosserial_client/CMakeFiles/float64_test.dir/build.make
-/home/rmp/catkin_ws/devel/lib/rosserial_client/float64_test: gtest/libgtest.so
+/home/rmp/catkin_ws/devel/lib/rosserial_client/float64_test: gtest/gtest/libgtest.so
 /home/rmp/catkin_ws/devel/lib/rosserial_client/float64_test: rosserial/rosserial_client/CMakeFiles/float64_test.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable /home/rmp/catkin_ws/devel/lib/rosserial_client/float64_test"
 	cd /home/rmp/catkin_ws/build/rosserial/rosserial_client && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/float64_test.dir/link.txt --verbose=$(VERBOSE)

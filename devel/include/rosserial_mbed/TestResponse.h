@@ -39,6 +39,7 @@ struct TestResponse_
 
 
 
+
   typedef boost::shared_ptr< ::rosserial_mbed::TestResponse_<ContainerAllocator> > Ptr;
   typedef boost::shared_ptr< ::rosserial_mbed::TestResponse_<ContainerAllocator> const> ConstPtr;
 

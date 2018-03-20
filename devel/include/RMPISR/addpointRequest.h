@@ -50,6 +50,7 @@ struct addpointRequest_
 
 
 
+
   typedef boost::shared_ptr< ::RMPISR::addpointRequest_<ContainerAllocator> > Ptr;
   typedef boost::shared_ptr< ::RMPISR::addpointRequest_<ContainerAllocator> const> ConstPtr;
 

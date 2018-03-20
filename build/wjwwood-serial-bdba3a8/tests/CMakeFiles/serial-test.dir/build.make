@@ -90,7 +90,7 @@ serial__test_EXTERNAL_OBJECTS =
 
 /home/rmp/catkin_ws/devel/lib/serial/serial-test: wjwwood-serial-bdba3a8/tests/CMakeFiles/serial-test.dir/unix_serial_tests.cc.o
 /home/rmp/catkin_ws/devel/lib/serial/serial-test: wjwwood-serial-bdba3a8/tests/CMakeFiles/serial-test.dir/build.make
-/home/rmp/catkin_ws/devel/lib/serial/serial-test: gtest/libgtest.so
+/home/rmp/catkin_ws/devel/lib/serial/serial-test: gtest/gtest/libgtest.so
 /home/rmp/catkin_ws/devel/lib/serial/serial-test: /home/rmp/catkin_ws/devel/lib/libserial.so
 /home/rmp/catkin_ws/devel/lib/serial/serial-test: wjwwood-serial-bdba3a8/tests/CMakeFiles/serial-test.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable /home/rmp/catkin_ws/devel/lib/serial/serial-test"

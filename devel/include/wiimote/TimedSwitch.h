@@ -47,12 +47,15 @@ struct TimedSwitch_
   _pulse_pattern_type pulse_pattern;
 
 
-    enum { ON = 1 };
-     enum { OFF = 0 };
-     enum { NO_CHANGE = -2 };
-     enum { REPEAT = -1 };
-     enum { FOREVER = -1 };
- 
+
+  enum {
+    ON = 1,
+    OFF = 0,
+    NO_CHANGE = -2,
+    REPEAT = -1,
+    FOREVER = -1,
+  };
+
 
   typedef boost::shared_ptr< ::wiimote::TimedSwitch_<ContainerAllocator> > Ptr;
   typedef boost::shared_ptr< ::wiimote::TimedSwitch_<ContainerAllocator> const> ConstPtr;

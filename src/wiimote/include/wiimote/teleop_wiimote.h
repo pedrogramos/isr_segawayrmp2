@@ -62,6 +62,9 @@ private:
   ros::Publisher joy_pub_;
   ros::Subscriber joy_sub_;
   ros::Subscriber wiimote_sub_;
+  ros::ServiceClient client1;
+  ros::ServiceClient client2;
+
 
   bool dpad_in_use_ = false;
   bool njoy_in_use_ = false;

@@ -10,8 +10,8 @@ from turtlesim.msg import Pose
 from random import randint
 import pygame
 import threading
-import time
 import tf
+from vstptest import robotTrajectory
 
 
 #to compile for ros
@@ -26,15 +26,10 @@ import tf
 
 #no ISR
 sys.path.insert(0,'/home/rmp/lib/python')
-MAP='/home/rmp/ownCloud/PedroRamosTese/Codigo/python_vstp_ros/mapISR1.xml'
+MAP='/home/rmp/ownCloud/PedroRamosTese/Codigo/python_vstp_ros/novo.xml'
 #sys.path.insert(0,'/home/rmp/ownCloud/PedroRamosTese/Codigo/vstpPy/build/python')
 #sys.path.insert(0,'/home/rmp/ownCloud/PedroRamosTese/Codigo/vstpPy/scr')
 import vstpPY
-FPS=30
-BLACK = (  0,   0,   0)
-WHITE = (255, 255, 255)
-RED   = (255,   0,   0)
-GREEN = (0, 255, 0)
 
 
 '''
@@ -129,7 +124,7 @@ class coordinator():
 			pointArray=list()
 			
 			#code for random numbers
-			'''
+			
 			for elem in range(10):
 				toappend = Point()
 				toappend.x=randint(0, 9)
@@ -140,7 +135,8 @@ class coordinator():
 
 
 			#print pointArray
-			size=len(pointArray)9
+			size=len(pointArray) #9
+			
 			'''
 
 			#code for vstp trajectory points
@@ -153,6 +149,7 @@ class coordinator():
 				pointArray.append(toappend)
 			
 			#print "new point: " , pointArray
+			'''
 
 			resp1 = addpoint_.call(pointArray, True, size)
 
@@ -164,155 +161,12 @@ class coordinator():
 
 ## ------------------------------ ##
 
-	def initScreen(self,dx=640,dy=480,cap="Representacao da posicao do modulo RMP"):
-			pygame.init()
-			self.displayx=dx
-			self.displayy=dy
-			self.caption=cap
-			self.screen = pygame.display.set_mode((dx, dy))
-			pygame.display.set_caption(cap)
-			self.dispoffx=2
-			self.dispoffy=2
-
-	def computeMapLimits(self):
-			minx=0
-			maxx=0
-			miny=0
-			maxy=0
-			
-			for i in range(len(self.mapsegs)):
-				#min X
-				if (self.mapsegs[i].x0 or self.mapsegs[i].x1) < minx:
-						if (self.mapsegs[i].x0 < self.mapsegs[i].x1): #1st lower
-								minx=self.mapsegs[i].x0 
-						else: minx=self.mapsegs[i].x1 #equal to 2nd
-				#MAX X
-				if (self.mapsegs[i].x0 or self.mapsegs[i].x1) > maxx:
-						if (self.mapsegs[i].x0 > self.mapsegs[i].x1): #1st higher
-								maxx=self.mapsegs[i].x0 
-						else: maxx=self.mapsegs[i].x1 #equal to 2nd
-				#min Y
-				if (self.mapsegs[i].y0 or self.mapsegs[i].y1) < miny:
-						if self.mapsegs[i].y0 < self.mapsegs[i].y1: #1st higher
-								miny=self.mapsegs[i].y0 
-						else: miny=self.mapsegs[i].y1 #equal to 2nd
-						#MAX Y
-				if (self.mapsegs[i].y0 or self.mapsegs[i].y1) > maxy:
-						if (self.mapsegs[i].y0 > self.mapsegs[i].y1): #1st higher
-								maxy=self.mapsegs[i].y0 
-						else: maxy=self.mapsegs[i].y1 #equal to 2nd
-			self.mapminx=minx
-			self.mapminy=miny
-			self.mapmaxx=maxx
-			self.mapmaxy=maxy
-
-
-	def mapDraw(self):
-			#representation of the map segments on the window
-			for i in range(len(self.mapsegs)):
-					pygame.draw.line(self.screen, (255, 255, 255),
-									 ((self.mapsegs[i].x0-self.mapminx)*self.raciox+self.dispoffx,(self.mapsegs[i].y0-self.mapminy)*self.racioy+self.dispoffy),
-									 ((self.mapsegs[i].x1-self.mapminx)*self.raciox+self.dispoffx, (self.mapsegs[i].y1-self.mapminy)*self.racioy+self.dispoffy))
-
-					
-	def trajDraw(self):
-			for i in range(1,len(self.traj_points)):
-					# print (i,traj_points[i-1].x,traj_points[i-1].y)                                 
-					# print (i,traj_points[i].x,traj_points[i].y)
-					
-					pygame.draw.line(self.screen, (0, 255,255),
-									 ((self.traj_points[i-1].x-self.mapminx)*self.raciox+self.dispoffx, (self.traj_points[i-1].y-self.mapminy)*self.racioy+self.dispoffy),
-									 ((self.traj_points[i].x-self.mapminx)*self.raciox+self.dispoffx, (self.traj_points[i].y-self.mapminy)*self.racioy+self.dispoffy))
-					
-
-
-	def loadMapNRobot(self,mpath,rradius=30,gridres=20,idist=10,maxdist=1000):
-			self.robotradius=rradius
-			self.vstp=vstpPY.VSTP()
-			self.gridres=gridres
-			self.idealdist=idist
-			self.maxdist=maxdist
-			self.vstp.init(rradius,gridres,idist,maxdist)
-			self.mapsegs = self.vstp.loadMap(mpath)
-
-			self.computeMapLimits()
-
-			self.raciox=(self.displayx-5)/(self.mapmaxx-self.mapminx)
-			self.racioy=(self.displayy-5)/(self.mapmaxy-self.mapminy)
-
-
-	def go(self):                        
-		
-		#        segs_mapa, traj_points=vstpFunc(502,10,370,210,7.5,3,7,10)
-		#       desenhaMapa(segs_mapa,traj_points)
-
-		
-		running = True
-
-		while running:                
-				# - events -                
-				for event in pygame.event.get():
-						if event.type == pygame.QUIT:
-								running = False                                
-						elif event.type == pygame.MOUSEBUTTONDOWN:
-								if event.button == 1:            
-										if self.rectorig.collidepoint(event.pos):
-												print("Na origem")
-												self.rectorig_draging = True
-												mouse_x, mouse_y = event.pos
-												offset_x = self.rectorig.x - mouse_x
-												offset_y = self.rectorig.y - mouse_y
-										elif self.rectdest.collidepoint(event.pos):
-												print("no destino")
-												self.rectdest_draging = True
-												mouse_x, mouse_y = event.pos
-												offset_x = self.rectdest.x - mouse_x
-												offset_y = self.rectdest.y - mouse_y
-						elif event.type == pygame.MOUSEBUTTONUP:
-								if event.button == 1:            
-										if self.rectorig_draging or self.rectdest_draging:
-												self.traj_points = self.vstp.planTrajectory((self.rectorig.x-self.dispoffx)/self.raciox+self.mapminx,
-																							(self.rectorig.y-self.dispoffy)/self.racioy+self.mapminy,
-																							(self.rectdest.x-self.dispoffx)/self.raciox + self.mapminx,
-																							(self.rectdest.y - self.mapminy)/self.racioy+self.mapminy,False)
-												self.rectorig_draging = False
-												self.rectdest_draging = False
-												
-						elif event.type == pygame.MOUSEMOTION:
-								if self.rectorig_draging:
-										mouse_x, mouse_y = event.pos
-										self.rectorig.x = mouse_x + offset_x
-										self.rectorig.y = mouse_y + offset_y
-								elif self.rectdest_draging:
-										mouse_x, mouse_y = event.pos
-										self.rectdest.x = mouse_x + offset_x
-										self.rectdest.y = mouse_y + offset_y
-												
-						# - updates (without draws) -
-						
-						# empty
-						
-						# - draws (without updates) -
-												
-						self.screen.fill(BLACK)
-						self.mapDraw()
-						if len(self.traj_points)>0:
-								self.trajDraw()
-						
-						pygame.draw.rect(self.screen, RED, self.rectorig)
-						pygame.draw.rect(self.screen, GREEN, self.rectdest)
-												
-						pygame.display.flip()
-												
-						# - constant game speed / FPS -
-						
-						#clock.tick(FPS)
-												
-												# - end -
-									 
-
 	def toThread(self):
-		mapThread = threading.Thread(target=self.go)
+		pm=robotTrajectory()
+		pm.initScreen(800,600)
+		pm.loadMapNRobot(MAP)
+
+		mapThread = threading.Thread(target=pm.go)
 		mapThread.daemon=True
 		mapThread.start()
 		#mapThread.join()
@@ -429,9 +283,8 @@ if __name__ == "__main__":
 	rospy.init_node("coordinator_node",anonymous=True)
 	print "entrou"
 	boss=coordinator()
-	boss.initScreen(800,600)
-	boss.loadMapNRobot(MAP)
-	boss.toThread()
+	#boss.toThread()
+	boss.addpoint_client()
 	#pygame.quit()
 
 	#boss.vstpFunc(0,0,55,0)

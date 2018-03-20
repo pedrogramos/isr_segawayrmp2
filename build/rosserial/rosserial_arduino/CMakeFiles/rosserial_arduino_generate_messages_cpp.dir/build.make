@@ -61,14 +61,14 @@ rosserial/rosserial_arduino/CMakeFiles/rosserial_arduino_generate_messages_cpp: 
 /home/rmp/catkin_ws/devel/include/rosserial_arduino/Adc.h: /home/rmp/catkin_ws/src/rosserial/rosserial_arduino/msg/Adc.msg
 /home/rmp/catkin_ws/devel/include/rosserial_arduino/Adc.h: /opt/ros/kinetic/share/gencpp/msg.h.template
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code from rosserial_arduino/Adc.msg"
-	cd /home/rmp/catkin_ws/build/rosserial/rosserial_arduino && ../../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/rmp/catkin_ws/src/rosserial/rosserial_arduino/msg/Adc.msg -Irosserial_arduino:/home/rmp/catkin_ws/src/rosserial/rosserial_arduino/msg -p rosserial_arduino -o /home/rmp/catkin_ws/devel/include/rosserial_arduino -e /opt/ros/kinetic/share/gencpp/cmake/..
+	cd /home/rmp/catkin_ws/src/rosserial/rosserial_arduino && /home/rmp/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/rmp/catkin_ws/src/rosserial/rosserial_arduino/msg/Adc.msg -Irosserial_arduino:/home/rmp/catkin_ws/src/rosserial/rosserial_arduino/msg -p rosserial_arduino -o /home/rmp/catkin_ws/devel/include/rosserial_arduino -e /opt/ros/kinetic/share/gencpp/cmake/..
 
 /home/rmp/catkin_ws/devel/include/rosserial_arduino/Test.h: /opt/ros/kinetic/lib/gencpp/gen_cpp.py
 /home/rmp/catkin_ws/devel/include/rosserial_arduino/Test.h: /home/rmp/catkin_ws/src/rosserial/rosserial_arduino/srv/Test.srv
 /home/rmp/catkin_ws/devel/include/rosserial_arduino/Test.h: /opt/ros/kinetic/share/gencpp/msg.h.template
 /home/rmp/catkin_ws/devel/include/rosserial_arduino/Test.h: /opt/ros/kinetic/share/gencpp/srv.h.template
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating C++ code from rosserial_arduino/Test.srv"
-	cd /home/rmp/catkin_ws/build/rosserial/rosserial_arduino && ../../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/rmp/catkin_ws/src/rosserial/rosserial_arduino/srv/Test.srv -Irosserial_arduino:/home/rmp/catkin_ws/src/rosserial/rosserial_arduino/msg -p rosserial_arduino -o /home/rmp/catkin_ws/devel/include/rosserial_arduino -e /opt/ros/kinetic/share/gencpp/cmake/..
+	cd /home/rmp/catkin_ws/src/rosserial/rosserial_arduino && /home/rmp/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/rmp/catkin_ws/src/rosserial/rosserial_arduino/srv/Test.srv -Irosserial_arduino:/home/rmp/catkin_ws/src/rosserial/rosserial_arduino/msg -p rosserial_arduino -o /home/rmp/catkin_ws/devel/include/rosserial_arduino -e /opt/ros/kinetic/share/gencpp/cmake/..
 
 rosserial_arduino_generate_messages_cpp: rosserial/rosserial_arduino/CMakeFiles/rosserial_arduino_generate_messages_cpp
 rosserial_arduino_generate_messages_cpp: /home/rmp/catkin_ws/devel/include/rosserial_arduino/Adc.h

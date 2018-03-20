@@ -23,14 +23,12 @@
 #include "wiimote/teleop_wiimote.h"
 #include "geometry_msgs/Twist.h"
 #include "sensor_msgs/JoyFeedbackArray.h"
-#include <tf/transform_broadcaster.h>
-#include "geometry_msgs/Twist.h"
-#include "nav_msgs/Odometry.h"
-#include "segway_rmp/SegwayStatusStamped.h"
-
 #include <string>
+#include "RMPISR/addpoint.h"
+#include "RMPISR/go.h"
+#include "RMPISR/stop.h"
 
-segway_teleop_wiimote::segway_teleop_wiimote()
+TeleopWiimote::TeleopWiimote()
 {
   ros::NodeHandle nh_private("~");
   ros::NodeHandle nh;
@@ -118,14 +116,14 @@ segway_teleop_wiimote::segway_teleop_wiimote()
   //vel_pub_ = nh.advertise<geometry_msgs::Twist>("/cmd_vel", 1);
   joy_pub_ = nh.advertise<sensor_msgs::JoyFeedbackArray>("joy/set_feedback", 1);
 
-  joy_sub_ = nh.subscribe<sensor_msgs::Joy>("wiimote/nunchuk", 10, &segway_teleop_wiimote::joyCallback, this);
-  wiimote_sub_ = nh.subscribe<wiimote::State>("wiimote/state", 10, &segway_teleop_wiimote::wiimoteStateCallback, this);
-
+  wiimote_sub_ = nh.subscribe<wiimote::State>("wiimote/state", 10, &TeleopWiimote::wiimoteStateCallback, this);
+  client1 = nh.serviceClient<RMPISR::go>("go");
+  client2 = nh.serviceClient<RMPISR::stop>("stop");
   dpad_in_use_ = false;
   njoy_in_use_ = false;
 }
 
-void segway_teleop_wiimote::setLEDFeedback(double value)
+void TeleopWiimote::setLEDFeedback(double value)
 {
   sensor_msgs::JoyFeedbackArray joy_feedback_array;
   sensor_msgs::JoyFeedback fb_led0;
@@ -171,7 +169,7 @@ void segway_teleop_wiimote::setLEDFeedback(double value)
   joy_pub_.publish(joy_feedback_array);
 }
 
-void segway_teleop_wiimote::rumbleFeedback(int useconds)
+void TeleopWiimote::rumbleFeedback(int useconds)
 {
   sensor_msgs::JoyFeedbackArray joy_feedback_array;
   sensor_msgs::JoyFeedback fb_rumble;
@@ -192,107 +190,13 @@ void segway_teleop_wiimote::rumbleFeedback(int useconds)
   joy_pub_.publish(joy_feedback_array);
 }
 
-void segway_teleop_wiimote::joyCallback(const sensor_msgs::Joy::ConstPtr& joy)
-{
-  geometry_msgs::Twist vel;
 
-  static const int MSG_BTN_Z     = 0;
-  static const int MSG_BTN_C     = 1;
-
-  if (dpad_in_use_)
-  {
-    return;
-  }
-
-  float x = joy->axes[0];
-  float y = joy->axes[1];
-  float const abs_error = 0.000001;
-
-  if (fabs(x) > abs_error || fabs(y) > abs_error)
-  {
-    njoy_in_use_ = true;
-
-    float boost = 1.0;
-
-    ROS_INFO("nunchuk: x: %f, y: %f", x, y);
-
-    if (joy->buttons[MSG_BTN_Z] ||
-        joy->buttons[MSG_BTN_C])
-    {
-      ROS_INFO("buttons[]: Z: %d, C: %d",
-          joy->buttons[MSG_BTN_Z],
-          joy->buttons[MSG_BTN_C]);
-
-      // Z-Button is thrusters on!
-      if (joy->buttons[MSG_BTN_Z])
-      {
-        boost = 2.0;
-      }
-
-      // C-Button is easy does it.
-      if (joy->buttons[MSG_BTN_C])
-      {
-        boost = 0.25;
-      }
-    }
-
-    if (y >= 0.0)
-    {
-      vel.linear.x = fmin((y * boost * (linear_x_max_velocity_ * percent_linear_throttle_)),
-          linear_x_max_velocity_);
-
-      if (x >= 0.0)
-      {
-        vel.angular.z = fmin((x * boost * (angular_z_max_velocity_ * percent_angular_throttle_)),
-            angular_z_max_velocity_);
-      }
-      else
-      {
-        vel.angular.z = fmax((fabs(x) * boost * (angular_z_min_velocity_ * percent_angular_throttle_)),
-            angular_z_min_velocity_);
-      }
-    }
-    else
-    {
-      vel.linear.x = fmax((fabs(y) * boost * (linear_x_min_velocity_ * percent_linear_throttle_)),
-          linear_x_min_velocity_);
-
-      if (x > 0.0)
-      {
-        vel.angular.z = fmax((x * boost * (angular_z_min_velocity_ * percent_angular_throttle_)),
-            angular_z_min_velocity_);
-      }
-      else
-      {
-        vel.angular.z = fmin((fabs(x) * boost * (angular_z_max_velocity_ * percent_angular_throttle_)),
-            angular_z_max_velocity_);
-      }
-    }
-
-    // In order to spin-in-place left or right, we need full angular with NO linear component.
-    // To enable this, we will publish no linear motion if nunchuk joystick Y value is
-    // "really small" as the joy stick isn't 100 accurate.
-    if (fabs(y) < 0.01)
-    {
-      vel.linear.x = 0;
-    }
-
-    vel_pub_.publish(vel);
-  }
-  else
-  {
-    if (njoy_in_use_)
-    {
-      vel_pub_.publish(vel);
-
-      njoy_in_use_ = false;
-    }
-  }
-}
-void segway_teleop_wiimote::wiimoteStateCallback(const wiimote::State::ConstPtr& wiistate)
+void TeleopWiimote::wiimoteStateCallback(const wiimote::State::ConstPtr& wiistate)
 {
   ros::NodeHandle nh_private("~");
   geometry_msgs::Twist vel;
+  RMPISR::go GO_handler;
+  RMPISR::stop STOP_handler;
 
   static const int MSG_BTN_1     = 0;
   static const int MSG_BTN_2     = 1;
@@ -319,12 +223,11 @@ void segway_teleop_wiimote::wiimoteStateCallback(const wiimote::State::ConstPtr&
   // Wiimote uses a short Rumble when the minimum or
   // maximum is reached.
   // +-Button increases; --Button decreases while hold 1-Button
-  if (wiistate->buttons[MSG_BTN_1])
-  {
-    if (wiistate->buttons[MSG_BTN_PLUS])
-    {
-      if (!plus_depressed)
-      {
+  if (wiistate->buttons[MSG_BTN_1]){
+
+    if (wiistate->buttons[MSG_BTN_PLUS]){
+
+      if (!plus_depressed){
         percent_linear_throttle_ += 0.05;
         if (percent_linear_throttle_ >= 1.0)
         {
@@ -377,6 +280,10 @@ void segway_teleop_wiimote::wiimoteStateCallback(const wiimote::State::ConstPtr&
       one_depressed = true;
     }
   }
+
+
+
+
   // 2-Button used to set the amount of Angular Throttle
   // Same function and feedbacks as 1-Button (see above)
   else if (wiistate->buttons[MSG_BTN_2])
@@ -437,6 +344,8 @@ void segway_teleop_wiimote::wiimoteStateCallback(const wiimote::State::ConstPtr&
       two_depressed = true;
     }
   }
+
+
   else
   {
     if (one_depressed || two_depressed)
@@ -469,6 +378,10 @@ void segway_teleop_wiimote::wiimoteStateCallback(const wiimote::State::ConstPtr&
       home_depressed = false;
     }
   }
+
+
+
+  //BUTÕES DAS SETAS
 
   if (!njoy_in_use_ &&
       (wiistate->buttons[MSG_BTN_RIGHT] ||
@@ -532,12 +445,30 @@ void segway_teleop_wiimote::wiimoteStateCallback(const wiimote::State::ConstPtr&
       dpad_in_use_ = false;
     }
   }
+
+
+
+  //MEUS COMANDOS
+
+  if (wiistate->buttons[MSG_BTN_PLUS]){
+
+    ros::Duration(0.5).sleep();
+    client1.call(GO_handler);
+  }
+
+  if (wiistate->buttons[MSG_BTN_MINUS]){
+
+    ros::Duration(0.5).sleep();
+    client1.call(STOP_handler);
+  }
 }
+
+
 
 int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "segway_teleop_wiimote");
-  segway_teleop_wiimote segway_teleop_wiimote;
+  ros::init(argc, argv, "segway_wii");
+  TeleopWiimote teleop_wiimote;
 
   ros::spin();
 }

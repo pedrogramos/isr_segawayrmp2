@@ -23,11 +23,6 @@
 #include "wiimote/teleop_wiimote.h"
 #include "geometry_msgs/Twist.h"
 #include "sensor_msgs/JoyFeedbackArray.h"
-#include <tf/transform_broadcaster.h>
-#include "geometry_msgs/Twist.h"
-#include "nav_msgs/Odometry.h"
-#include "segway_rmp/SegwayStatusStamped.h"
-
 #include <string>
 
 TeleopWiimote::TeleopWiimote()

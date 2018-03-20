@@ -1,17 +1,5 @@
 <launch>
-  <node
-    name="segway_rmp_node"
-    pkg="segway_rmp" 
-    type="segway_rmp_node" 
-    output="screen" 
-    required="true"
-    />
-
-  <node
-    pkg="wiimote"
-    name="teleop_wiimote"
-    type="teleop_wiimote"
-  />
+  <include file="$(find /home/rmp/catkin_ws/src/segway_rmp-master/launch/)/segway_rmp.launch"/>
 
   <node
     pkg="wiimote"
@@ -20,6 +8,15 @@
     output="screen"
     required="true"
   />
+
+  <node
+    pkg="wiimote"
+    name="seg_wiimote"
+    type="segway_teleop_wiimote"
+    output="screen"
+  />
+
+
 </launch>
 
 
