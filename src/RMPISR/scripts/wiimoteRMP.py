@@ -25,6 +25,7 @@ class wii:
 
 	def __init__(self):
 		self.buttonState = [False,False,False,False,False,False,False,False,False,False]
+		#testar com self.buttonState = State()
 		self.odom_sub = rospy.Subscriber('/wiimote/state', State, self.callbackState)
 		self.vel_pub = rospy.Publisher('cmd_vel', Twist, queue_size=10)
 		#print self.buttonState

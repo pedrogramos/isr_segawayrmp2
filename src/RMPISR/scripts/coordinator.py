@@ -12,6 +12,7 @@ import pygame
 import threading
 import tf
 from vstptest import robotTrajectory
+import csv
 
 
 #to compile for ros
@@ -27,9 +28,9 @@ from vstptest import robotTrajectory
 #no ISR
 sys.path.insert(0,'/home/rmp/lib/python')
 MAP='/home/rmp/ownCloud/PedroRamosTese/Codigo/python_vstp_ros/novo.xml'
-#sys.path.insert(0,'/home/rmp/ownCloud/PedroRamosTese/Codigo/vstpPy/build/python')
-#sys.path.insert(0,'/home/rmp/ownCloud/PedroRamosTese/Codigo/vstpPy/scr')
 import vstpPY
+
+traj1='/home/rmp/catkin_ws/src/RMPISR/scripts/DemonstrationPoints.csv'
 
 
 '''
@@ -122,7 +123,17 @@ class coordinator():
 			addpoint_ = rospy.ServiceProxy('addpoint', addpoint)
 
 			pointArray=list()
+			size=len(self.myList)
+
+			for elem in range(size):
+				toappend = Point()
+				toappend.x = float(self.myList[elem]['x'])
+				toappend.y = float(self.myList[elem]['y'])
+				pointArray.append(toappend)
+
+			print pointArray
 			
+			'''
 			#code for random numbers
 			
 			for elem in range(10):
@@ -136,7 +147,9 @@ class coordinator():
 
 			#print pointArray
 			size=len(pointArray) #9
-			
+			'''
+
+
 			'''
 
 			#code for vstp trajectory points
@@ -157,6 +170,18 @@ class coordinator():
 		except rospy.ServiceException, e:
 			print "Service call failed: %s"%e
 
+
+	def readFile(self,filename):
+		self.myList = []
+		with open (filename,'r') as rf:
+			csv_DictReader = csv.DictReader(rf) 
+			for row in csv_DictReader:
+				self.myList.append(row)
+
+		print self.myList
+		print len(self.myList)
+
+		print float(self.myList[5]['x'])
 
 
 ## ------------------------------ ##
@@ -284,9 +309,16 @@ if __name__ == "__main__":
 	print "entrou"
 	boss=coordinator()
 	#boss.toThread()
+	#boss.addpoint_client()
+	boss.readFile(traj1)
 	boss.addpoint_client()
-	#pygame.quit()
+	rospy.spin()
 
+
+
+
+
+	'''
 	#boss.vstpFunc(0,0,55,0)
 
 	#boss.vstpFunc(1,1,55,3)
@@ -296,5 +328,4 @@ if __name__ == "__main__":
 
 	#rospy.sleep(2.)	
 	#boss.go_client()
-
-	rospy.spin()
+	'''
