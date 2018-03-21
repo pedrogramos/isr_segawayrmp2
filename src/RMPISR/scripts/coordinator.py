@@ -178,11 +178,6 @@ class coordinator():
 			for row in csv_DictReader:
 				self.myList.append(row)
 
-		print self.myList
-		print len(self.myList)
-
-		print float(self.myList[5]['x'])
-
 
 ## ------------------------------ ##
 

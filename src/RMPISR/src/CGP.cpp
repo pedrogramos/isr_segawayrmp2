@@ -25,7 +25,7 @@ using namespace std;
 
 #define PI 3.141592
 #define Kl 0.3
-#define Kw 0.3 //0.6
+#define Kw 0.6 //0.6
 enum states{GO,STOP,STOPPING,ADDPOINT};
 enum states state=GO;
 struct point { float xf; float yf;} new_point, aux_s;
@@ -39,9 +39,9 @@ public:
   void sendVel(double,double);
   void stopTurtle();
   //para a turtlesim
-  //void odomCallback(const turtlesim::PoseConstPtr&);
+  void odomCallback(const turtlesim::PoseConstPtr&);
   //para o segwayRMP
-  void odomCallback(const nav_msgs::Odometry::ConstPtr&);
+  //void odomCallback(const nav_msgs::Odometry::ConstPtr&);
   //void odomCallback(const geometry_msgs::Pose2D::ConstPtr&);
   void infoOdom();
   void goTo(float,float,float);
@@ -77,11 +77,11 @@ private:
 
 SendVelocity::SendVelocity(){
 
-  //vel_pub = nh.advertise<geometry_msgs::Twist>("/turtle1/cmd_vel", 1);
-  //odom_sub = nh.subscribe("/turtle1/pose",10,&SendVelocity::odomCallback,this);
+  vel_pub = nh.advertise<geometry_msgs::Twist>("/turtle1/cmd_vel", 1);
+  odom_sub = nh.subscribe("/turtle1/pose",10,&SendVelocity::odomCallback,this);
   // para o segway
-  vel_pub = nh.advertise<geometry_msgs::Twist>("cmd_vel", 1);
-  odom_sub = nh.subscribe("/segway_rmp_node/odom",10,&SendVelocity::odomCallback,this);
+  //vel_pub = nh.advertise<geometry_msgs::Twist>("cmd_vel", 1);
+  //odom_sub = nh.subscribe("/segway_rmp_node/odom",10,&SendVelocity::odomCallback,this);
   //odom_sub =  nh.subscribe("odomUpdater",10,&SendVelocity::odomCallback,this);
   service0 = nh.advertiseService("go",&SendVelocity::def_go,this);
   service1 = nh.advertiseService("addpoint", &SendVelocity::def_addpoint, this);
@@ -125,7 +125,7 @@ void chatterCallback(const nav_msgs::Odometry::ConstPtr& msg)
 }
 */
 
-
+/*
 void SendVelocity::odomCallback(const nav_msgs::Odometry::ConstPtr& msg){
   odomX = msg->pose.pose.position.x;
   odomY = msg->pose.pose.position.y;
@@ -137,7 +137,7 @@ void SendVelocity::odomCallback(const nav_msgs::Odometry::ConstPtr& msg){
 
   //ROS_INFO("OdometriaFun: X= %f, Y= %f, e Theta= %f", odomX,odomY,odomTheta);
 
-}
+}*/
 
 /*
 // já é a minha função de odometria implemtada
@@ -150,7 +150,7 @@ odomTheta=msg->theta;
 }*/
 
 
-/*
+
 // rosmsg show [turtlesim/Pose] = msg1-> [x] 
 void SendVelocity::odomCallback(const turtlesim::PoseConstPtr& msg1){ 
   // nav_msgs::Odometry --> pose.pose.position.
@@ -161,9 +161,9 @@ void SendVelocity::odomCallback(const turtlesim::PoseConstPtr& msg1){
   aPose=msg1;
 
 
-  ROS_INFO("Odometria: X= %f, Y= %f, e Theta= %f", odomX,odomY,odomTheta);
+  //ROS_INFO("Odometria: X= %f, Y= %f, e Theta= %f", odomX,odomY,odomTheta);
 }
-*/
+
 
 void SendVelocity::infoOdom(){
 

@@ -11,7 +11,7 @@ PI=3.14159265359
 
 class odomUpdater:
 
-	def __init__(self,trueodomX=5.544445,trueodomY=5.544445,trueodomTheta=0.0):
+	def __init__(self,trueodomX=0.0,trueodomY=0.0,trueodomTheta=0.0):
 		self.trueodomX = trueodomX
 		self.trueodomY = trueodomY
 		self.trueodomTheta = trueodomTheta
