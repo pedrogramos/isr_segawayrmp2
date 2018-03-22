@@ -19,7 +19,9 @@ import csv
 #chmod +x scripts/coordinator.py
 
 #to launch the arduino rospy
-#rosrun rosserial_python serial_node.py /dev/ttyACM1
+#ls -l /dev/ttyACM*
+#sudo chmod a+rw /dev/ttyACM0
+#rosrun rosserial_python serial_node.py /dev/ttyACM0
 
 #no meu pc
 #sys.path.insert(0,'/home/pedrogramos/Desktop/Thesis/vstpPy/build/python')
@@ -43,8 +45,6 @@ STATE TABLE:
 class coordinator():
 
 	def __init__(self,robotRadius=0.74,gridResolution=0.6,idealDist=0.1,maxDist=0.1):
-		#self.velocity_publisher = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size=10)
-		#self.pose = Pose()
 		#self.odom_sub = rospy.Subscriber('/turtle1/pose', Pose, self.callbackOdom)
 		self.danger_sub = rospy.Subscriber('/sonarFlag', Bool, self.callbackSonar)
 		#para o segway
@@ -56,10 +56,10 @@ class coordinator():
 		self.trueodomTheta=0
 		self.danger= Bool()
 		self.state=0
-		self.rectorig = pygame.rect.Rect(10,10,10,10)
-		self.rectorig_draging=False;
-		self.rectdest = pygame.rect.Rect(20,10,10,10)
-		self.rectdest_draging=False;
+		#self.rectorig = pygame.rect.Rect(10,10,10,10)
+		#self.rectorig_draging=False;
+		#self.rectdest = pygame.rect.Rect(20,10,10,10)
+		#self.rectdest_draging=False;
 		self.traj_points=[]
 
 
@@ -73,7 +73,7 @@ class coordinator():
 		self.danger=data.data;
 		if(self.danger==True and self.state != 0):
 			self.stop_client()
-			#print "devia chamar stop"
+			print "devia chamar stop"
 		#if(self.danger==False and self.state != 1):
 		#	self.go_client()
 			#print "devia chamar go"
@@ -102,20 +102,26 @@ class coordinator():
 		except rospy.ServiceException, e:
 			print "Service call failed: %s" % e
 
+
+##########################################################################
+
 	def reset_odom(self):
 		rospy.wait_for_service('resetRMP')
 		try:
 			resetRMP_ = rospy.ServiceProxy('resetRMP', resetRMP)
+			poseService=Pose2D()
 
-			self.pose.x=0
-			self.pose.y=0
-			self.pose.theta=0
+			poseService.x=0
+			poseService.y=0
+			poseService.theta=0
 
-			resp1 = resetRMP_.call(pose)
+			resp1 = resetRMP_.call(poseService)
 			print "resetRMP Service called. State: %d" % self.state
 
 		except rospy.ServiceException, e:
 			print "Service call failed: %s" % e
+
+##########################################################################
 
 	def addpoint_client(self):
 		rospy.wait_for_service('addpoint')
@@ -307,6 +313,7 @@ if __name__ == "__main__":
 	#boss.addpoint_client()
 	boss.readFile(traj1)
 	boss.addpoint_client()
+	boss.reset_odom()
 	rospy.spin()
 
 

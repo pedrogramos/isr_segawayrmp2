@@ -132,8 +132,7 @@ class resetrmpResponse(genpy.Message):
   _md5sum = "d41d8cd98f00b204e9800998ecf8427e"
   _type = "RMPISR/resetrmpResponse"
   _has_header = False #flag to mark the presence of a Header object
-  _full_text = """
-"""
+  _full_text = """"""
   __slots__ = []
   _slot_types = []
 

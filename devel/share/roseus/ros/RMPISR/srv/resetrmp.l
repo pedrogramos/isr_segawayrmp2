@@ -112,7 +112,6 @@ MSG: geometry_msgs/Pose2D
 float64 x
 float64 y
 ---
-
 ")
 
 (setf (get RMPISR::resetrmpResponse :md5sum-) "271cb12677c4cd9bccbc642cd9258d1f")
@@ -127,7 +126,6 @@ MSG: geometry_msgs/Pose2D
 float64 x
 float64 y
 ---
-
 ")
 
 

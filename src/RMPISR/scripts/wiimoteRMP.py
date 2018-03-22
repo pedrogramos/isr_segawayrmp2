@@ -32,7 +32,7 @@ class wii:
 
 	def callbackState(self,data):
 		self.buttonState = data.buttons
-		print "Button: %s " % self.buttonState
+		#print "Button: %s " % self.buttonState
 
 	def stop_client(self):
 		rospy.wait_for_service('stop')

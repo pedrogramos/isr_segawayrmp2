@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 import sys
 import rospy
-from RMPISR.srv import resetrmp
+from RMPISR.srv import *
 from geometry_msgs.msg import Pose2D
 from nav_msgs.msg import Odometry
 import tf
 from turtlesim.msg import Pose
 
 PI=3.14159265359
+PI_2=6.28318530718
 
 class odomUpdater:
 
@@ -18,21 +19,35 @@ class odomUpdater:
 		self.odomXrmp = 0
 		self.odomYrmp = 0
 		self.odomThetarmp = 0
+		self.iniXrmp=0
+		self.iniYrmp=0
+		self.iniThetarmp=0
 		self.save=True
-		#self.pose=Pose2D()
-		self.pose=Pose()
-		#self.odomRMP_sub = rospy.Subscriber('/segway_rmp_node/odom', Odometry, self.callbackOdom)
-		self.odom_sub = rospy.Subscriber('/turtle1/pose', Pose, self.callbackOdom)
-		#self.odom_pub = rospy.Publisher('odomUpdater', Pose2D, queue_size=10)
-		self.odom_pub = rospy.Publisher('odomUpdater', Pose, queue_size=10)
+		self.pose=Pose2D()
+		#self.pose=Pose()
+		self.odomRMP_sub = rospy.Subscriber('/segway_rmp_node/odom', Odometry, self.callbackOdom)
+		#self.odom_sub = rospy.Subscriber('/turtle1/pose', Pose, self.callbackOdom)
+		self.odom_pub = rospy.Publisher('odomUpdater', Pose2D, queue_size=10)
+		#self.odom_pub = rospy.Publisher('odomUpdater', Pose, queue_size=10)
 		self.service = rospy.Service('resetRMP', resetrmp, self.handle_resetRMP)
 
-	def handle_resetRMP(self, req):
-		self.pose.x=req.pose.x
-		self.pose.y=req.pose.y
-		self.pose.theta=req.pose.theta
+	def handle_resetRMP(self,req):
+		
+		#geometry_msgs/Pose2D pose
+		self.trueodomX=req.pose.x
+		self.trueodomY=req.pose.y
+		self.trueodomTheta=req.pose.theta
+
+		self.save=True
+
+		return []
 
 
+
+
+
+	'''
+	#para a turtle
 	def callbackOdom(self, data):
 
 		#guarda a primeira posicao do robo para depois utilizar 
@@ -52,12 +67,29 @@ class odomUpdater:
 		#self.odomYrmp=data.pose.pose.position.y
 		#self.odomXrmp=data.pose.pose.position.x
 		#(roll, pitch, self.odomThetarmp) = tf.transformations.euler_from_quaternion([data.pose.pose.orientation.x, data.pose.pose.orientation.y, data.pose.pose.orientation.z, data.pose.pose.orientation.w])
+	'''
 
+	def callbackOdom(self, data):
+
+		#guarda a primeira posicao do robo para depois utilizar 
+		#no calculo do deslocamento
+		if(self.save == True):
+			self.iniXrmp = data.pose.pose.position.x
+			self.iniYrmp = data.pose.pose.position.y
+			(roll, pitch, self.iniThetarmp) = tf.transformations.euler_from_quaternion([data.pose.pose.orientation.x, data.pose.pose.orientation.y, data.pose.pose.orientation.z, data.pose.pose.orientation.w])
+			self.save = False
+
+		#getting the false RMP odometry
+		self.odomXrmp=data.pose.pose.position.x
+		self.odomYrmp=data.pose.pose.position.y
+		(roll, pitch, self.odomThetarmp) = tf.transformations.euler_from_quaternion([data.pose.pose.orientation.x, data.pose.pose.orientation.y, data.pose.pose.orientation.z, data.pose.pose.orientation.w])
 
 	def correctOdom(self):
 
-		if (self.pose.theta > 2*PI):
-			self.pose.theta=self.pose.theta - 2*PI
+		if (self.pose.theta > PI_2):
+			self.pose.theta=self.pose.theta - PI_2
+		elif (self.pose.theta < PI_2):
+			self.pose.theta=self.pose.theta + PI_2
 
 		self.pose.x = self.trueodomX + (self.odomXrmp - self.iniXrmp)
 		self.pose.y = self.trueodomY + (self.odomYrmp - self.iniYrmp)
@@ -66,7 +98,9 @@ class odomUpdater:
 		#rospy.loginfo(self.pose)
 		self.odom_pub.publish(self.pose)
 
-
+	def printScreen(self):
+		#minha posicao
+		print "MyOwn: X: %f Y: %f Theta: %f" % (self.trueodomX,self.trueodomY,self.trueodomTheta) 
 		#inicial
 		print "INITIAL: X: %f Y: %f Theta: %f" % (self.iniXrmp,self.iniYrmp,self.iniThetarmp)
 		#odom proveniente do robot
@@ -74,50 +108,16 @@ class odomUpdater:
 		#odom que eu estou a calcular
 		print "REAL: x:%f y:%f theta:%f"% (self.pose.x,self.pose.y,self.pose.theta)
  
-	'''
-	def correctOdom(self):
-
-		#updating it
-		antX=self.odomXrmp
-		antY=self.odomYrmp
-		antTheta=self.odomThetarmp
-
-		print"Fake1 xRMP:%f yRMP:%f thetaRMP:%f" % (self.odomXrmp,self.odomYrmp,self.odomThetarmp)
-		print"antX:%f antY:%f antTheta:%f" % (antX,antY,antTheta)
-
-	
-		self.trueodomX+=(self.odomX-antX)
-		self.trueodomY+=(self.odomY-antY)
-		self.trueodomTheta+=(self.odomTheta-antTheta)
-	
-
-		if (self.pose.theta > 2*PI):
-			self.pose.theta=self.pose.theta - 2*PI
-
-		self.pose.x = self.pose.x + (self.odomXrmp - antX)
-		self.pose.y = self.pose.y + (self.odomYrmp - antY)
-		self.pose.theta = self.pose.theta + (self.odomThetarmp - antTheta)
-
-		#rospy.loginfo(self.pose)
-		self.odom_pub.publish(self.pose)
-
-
-		print"Fake2 xRMP:%f yRMP:%f thetaRMP:%f"% (self.odomXrmp,self.odomYrmp,self.odomThetarmp)
-		#print"ODOM x:%f y:%f theta:%f"% (self.trueodomX,self.trueodomY,self.trueodomTheta)
-		print"Real x:%f y:%f theta:%f"% (self.pose.x,self.pose.y,self.pose.theta)
-	'''
-	
-
 if __name__ == "__main__":
 	rospy.init_node("odomUpdater_node",anonymous=True)
-	print "entrou updater"
+	print "Odom Updater Initialization ..."
 	update=odomUpdater()
-	rospy.sleep(2)
+	rospy.sleep(1)
 
 	while not rospy.is_shutdown():
 		try:
 			update.correctOdom()
-		except rospy.ROSInterruptException:
-			pass
+			#update.printScreen()
 
-
+		except rospy.ServiceException, e:
+			print "correctOdom fucntion call failed: %s" % e

@@ -96,10 +96,10 @@
   "271cb12677c4cd9bccbc642cd9258d1f")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<resetrmp-response>)))
   "Returns full string definition for message of type '<resetrmp-response>"
-  (cl:format cl:nil "~%~%~%"))
+  (cl:format cl:nil "~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'resetrmp-response)))
   "Returns full string definition for message of type 'resetrmp-response"
-  (cl:format cl:nil "~%~%~%"))
+  (cl:format cl:nil "~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <resetrmp-response>))
   (cl:+ 0
 ))

@@ -135,7 +135,6 @@ class resetrmpResponse {
     // Returns full string definition for message
     return `
     
-    
     `;
   }
 

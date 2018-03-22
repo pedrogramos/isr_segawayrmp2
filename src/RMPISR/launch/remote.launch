@@ -1,13 +1,19 @@
 <launch>
-  <include file="$(find /home/rmp/catkin_ws/src/segway_rmp-master/launch/)/segway_rmp.launch"/>
 
-  <node
-    pkg="wiimote"
-    type="wiimote_node"
-    name="wiimote_controller"
-    output="screen"
-    required="true"
-  />
+ 	<node name="serial_node" pkg="rosserial_python" type="serial_node.py">
+    	<param name="port" value="/dev/ttyACM0"/>
+        <param name="baud" value="57600" />
+	</node>
 
-  <node pkg="RMPISR" type="wiimoteRMP.py" name="remote_control" output="screen"/>
+	<node
+	pkg="wiimote"
+	type="wiimote_node"
+	name="wiimote_controller"
+	output="screen"
+	required="true"
+	/>
+
+	<node pkg="RMPISR" type="wiimoteRMP.py" name="remote_control" output="screen"/>
+
+
 </launch>
