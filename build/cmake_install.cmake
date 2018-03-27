@@ -134,6 +134,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/rmp/catkin_ws/build/rosserial/rosserial_windows/cmake_install.cmake")
   include("/home/rmp/catkin_ws/build/segway_rmp-master/cmake_install.cmake")
   include("/home/rmp/catkin_ws/build/learning_tf2/cmake_install.cmake")
+  include("/home/rmp/catkin_ws/build/visual_markers/cmake_install.cmake")
   include("/home/rmp/catkin_ws/build/wiimote/cmake_install.cmake")
 
 endif()

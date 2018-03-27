@@ -237,6 +237,12 @@ EMPY_EXECUTABLE:FILEPATH=/usr/bin/empy
 //Empy script
 EMPY_SCRIPT:STRING=/usr/bin/empy
 
+//Path to a file.
+GLEW_INCLUDE_DIR:PATH=/usr/include
+
+//Path to a library.
+GLEW_LIBRARY:FILEPATH=/usr/lib/i386-linux-gnu/libGLEW.so
+
 //The directory containing a CMake configuration file for GMock.
 GMock_DIR:PATH=GMock_DIR-NOTFOUND
 
@@ -255,6 +261,48 @@ GTEST_MAIN_LIBRARY:FILEPATH=GTEST_MAIN_LIBRARY-NOTFOUND
 //Path to a library.
 GTEST_MAIN_LIBRARY_DEBUG:FILEPATH=GTEST_MAIN_LIBRARY_DEBUG-NOTFOUND
 
+//Path to the ImageMagick binary directory.
+IMAGEMAGICK_BINARY_PATH:PATH=/usr/bin
+
+//Path to ImageMagick's composite executable.
+IMAGEMAGICK_COMPOSITE_EXECUTABLE:FILEPATH=/usr/bin/composite
+
+//Path to ImageMagick's convert executable.
+IMAGEMAGICK_CONVERT_EXECUTABLE:FILEPATH=/usr/bin/convert
+
+//Path to ImageMagick's import executable.
+IMAGEMAGICK_IMPORT_EXECUTABLE:FILEPATH=/usr/bin/import
+
+//Path to ImageMagick's mogrify executable.
+IMAGEMAGICK_MOGRIFY_EXECUTABLE:FILEPATH=/usr/bin/mogrify
+
+//Path to ImageMagick's montage executable.
+IMAGEMAGICK_MONTAGE_EXECUTABLE:FILEPATH=/usr/bin/montage
+
+//Path to a file.
+IS_RASPBIAN:PATH=IS_RASPBIAN-NOTFOUND
+
+//Path to the ImageMagick binary directory.
+ImageMagick_EXECUTABLE_DIR:PATH=/usr/bin
+
+//Path to the ImageMagick arch-specific include dir.
+ImageMagick_Magick++_ARCH_INCLUDE_DIR:PATH=/usr/include/i386-linux-gnu/ImageMagick-6
+
+//Path to the ImageMagick arch-independent include dir.
+ImageMagick_Magick++_INCLUDE_DIR:PATH=/usr/include/ImageMagick-6
+
+//Path to the ImageMagick Magick++ library.
+ImageMagick_Magick++_LIBRARY:FILEPATH=/usr/lib/i386-linux-gnu/libMagick++-6.Q16.so
+
+//Path to the ImageMagick arch-specific include dir.
+ImageMagick_MagickCore_ARCH_INCLUDE_DIR:PATH=/usr/include/i386-linux-gnu/ImageMagick-6
+
+//Path to the ImageMagick arch-independent include dir.
+ImageMagick_MagickCore_INCLUDE_DIR:PATH=/usr/include/ImageMagick-6
+
+//Path to the ImageMagick Magick++ library.
+ImageMagick_MagickCore_LIBRARY:FILEPATH=/usr/lib/i386-linux-gnu/libMagickCore-6.Q16.so
+
 //lsb_release executable was found
 LSB_FOUND:BOOL=TRUE
 
@@ -263,6 +311,24 @@ LSB_RELEASE_EXECUTABLE:FILEPATH=/usr/bin/lsb_release
 
 //Path to a program.
 NOSETESTS:FILEPATH=/usr/bin/nosetests-2.7
+
+//Path to a file.
+OPENGL_INCLUDE_DIR:PATH=/usr/include
+
+//Path to a library.
+OPENGL_gl_LIBRARY:FILEPATH=/usr/lib/i386-linux-gnu/libGL.so
+
+//Path to a library.
+OPENGL_glu_LIBRARY:FILEPATH=/usr/lib/i386-linux-gnu/libGLU.so
+
+//Path to a file.
+OPENGL_xmesa_INCLUDE_DIR:PATH=OPENGL_xmesa_INCLUDE_DIR-NOTFOUND
+
+//The directory containing a CMake configuration file for OpenAR.
+OpenAR_DIR:PATH=/home/rmp/openar/lib/CMake/OpenAR
+
+//pkg-config executable
+PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/bin/pkg-config
 
 //Path to a program.
 PYTHON_EXECUTABLE:FILEPATH=/usr/bin/python
@@ -605,6 +671,12 @@ topic_tools_DIR:PATH=/opt/ros/kinetic/share/topic_tools/cmake
 turtlesim_DIR:PATH=/opt/ros/kinetic/share/turtlesim/cmake
 
 //Value Computed by CMake
+visual_markers_BINARY_DIR:STATIC=/home/rmp/catkin_ws/build/visual_markers
+
+//Value Computed by CMake
+visual_markers_SOURCE_DIR:STATIC=/home/rmp/catkin_ws/src/visual_markers
+
+//Value Computed by CMake
 wiimote_BINARY_DIR:STATIC=/home/rmp/catkin_ws/build/wiimote
 
 //Value Computed by CMake
@@ -743,7 +815,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=22
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=23
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -782,10 +854,22 @@ CMAKE_STRIP-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//Details about finding ImageMagick
+FIND_PACKAGE_MESSAGE_DETAILS_ImageMagick:INTERNAL=[/usr/lib/i386-linux-gnu/libMagick++-6.Q16.so][/usr/lib/i386-linux-gnu/libMagickCore-6.Q16.so][v6.8.9-9()]
+//Details about finding OpenAR
+FIND_PACKAGE_MESSAGE_DETAILS_OpenAR:INTERNAL=[openar][/home/rmp/openar/lib/CMake/OpenAR/../../../include;][v()]
+//Details about finding OpenGL
+FIND_PACKAGE_MESSAGE_DETAILS_OpenGL:INTERNAL=[/usr/lib/i386-linux-gnu/libGL.so][/usr/include][v()]
+//Details about finding PkgConfig
+FIND_PACKAGE_MESSAGE_DETAILS_PkgConfig:INTERNAL=[/usr/bin/pkg-config][v0.29.1()]
 //Details about finding PythonInterp
 FIND_PACKAGE_MESSAGE_DETAILS_PythonInterp:INTERNAL=[/usr/bin/python][v2.7.12()]
 //Details about finding Threads
 FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
+//ADVANCED property for variable: GLEW_INCLUDE_DIR
+GLEW_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: GLEW_LIBRARY
+GLEW_LIBRARY-ADVANCED:INTERNAL=1
 GMOCK_FROM_SOURCE_FOUND:INTERNAL=TRUE
 GMOCK_FROM_SOURCE_INCLUDE_DIRS:INTERNAL=/usr/include
 GMOCK_FROM_SOURCE_LIBRARIES:INTERNAL=gmock
@@ -806,12 +890,228 @@ GTEST_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 GTEST_MAIN_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: GTEST_MAIN_LIBRARY_DEBUG
 GTEST_MAIN_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: IMAGEMAGICK_BINARY_PATH
+IMAGEMAGICK_BINARY_PATH-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: IMAGEMAGICK_COMPOSITE_EXECUTABLE
+IMAGEMAGICK_COMPOSITE_EXECUTABLE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: IMAGEMAGICK_CONVERT_EXECUTABLE
+IMAGEMAGICK_CONVERT_EXECUTABLE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: IMAGEMAGICK_IMPORT_EXECUTABLE
+IMAGEMAGICK_IMPORT_EXECUTABLE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: IMAGEMAGICK_MOGRIFY_EXECUTABLE
+IMAGEMAGICK_MOGRIFY_EXECUTABLE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: IMAGEMAGICK_MONTAGE_EXECUTABLE
+IMAGEMAGICK_MONTAGE_EXECUTABLE-ADVANCED:INTERNAL=1
+OPENAR_CFLAGS:INTERNAL=
+OPENAR_CFLAGS_I:INTERNAL=
+OPENAR_CFLAGS_OTHER:INTERNAL=
+OPENAR_FOUND:INTERNAL=
+OPENAR_INCLUDEDIR:INTERNAL=
+OPENAR_LIBDIR:INTERNAL=
+OPENAR_LIBS:INTERNAL=
+OPENAR_LIBS_L:INTERNAL=
+OPENAR_LIBS_OTHER:INTERNAL=
+OPENAR_LIBS_PATHS:INTERNAL=
+OPENAR_PREFIX:INTERNAL=
+OPENAR_STATIC_CFLAGS:INTERNAL=
+OPENAR_STATIC_CFLAGS_I:INTERNAL=
+OPENAR_STATIC_CFLAGS_OTHER:INTERNAL=
+OPENAR_STATIC_LIBDIR:INTERNAL=
+OPENAR_STATIC_LIBS:INTERNAL=
+OPENAR_STATIC_LIBS_L:INTERNAL=
+OPENAR_STATIC_LIBS_OTHER:INTERNAL=
+OPENAR_STATIC_LIBS_PATHS:INTERNAL=
+OPENAR_VERSION:INTERNAL=
+OPENAR_openar_INCLUDEDIR:INTERNAL=
+OPENAR_openar_LIBDIR:INTERNAL=
+OPENAR_openar_PREFIX:INTERNAL=
+OPENAR_openar_VERSION:INTERNAL=
+OPENCV_CFLAGS:INTERNAL=-I/usr/include/opencv
+OPENCV_CFLAGS_I:INTERNAL=
+OPENCV_CFLAGS_OTHER:INTERNAL=
+OPENCV_FOUND:INTERNAL=1
+OPENCV_INCLUDEDIR:INTERNAL=
+OPENCV_INCLUDE_DIRS:INTERNAL=/usr/include/opencv
+OPENCV_LDFLAGS:INTERNAL=/usr/lib/i386-linux-gnu/libopencv_calib3d.so;-lopencv_calib3d;/usr/lib/i386-linux-gnu/libopencv_contrib.so;-lopencv_contrib;/usr/lib/i386-linux-gnu/libopencv_core.so;-lopencv_core;/usr/lib/i386-linux-gnu/libopencv_features2d.so;-lopencv_features2d;/usr/lib/i386-linux-gnu/libopencv_flann.so;-lopencv_flann;/usr/lib/i386-linux-gnu/libopencv_gpu.so;-lopencv_gpu;/usr/lib/i386-linux-gnu/libopencv_highgui.so;-lopencv_highgui;/usr/lib/i386-linux-gnu/libopencv_imgproc.so;-lopencv_imgproc;/usr/lib/i386-linux-gnu/libopencv_legacy.so;-lopencv_legacy;/usr/lib/i386-linux-gnu/libopencv_ml.so;-lopencv_ml;/usr/lib/i386-linux-gnu/libopencv_objdetect.so;-lopencv_objdetect;/usr/lib/i386-linux-gnu/libopencv_ocl.so;-lopencv_ocl;/usr/lib/i386-linux-gnu/libopencv_photo.so;-lopencv_photo;/usr/lib/i386-linux-gnu/libopencv_stitching.so;-lopencv_stitching;/usr/lib/i386-linux-gnu/libopencv_superres.so;-lopencv_superres;/usr/lib/i386-linux-gnu/libopencv_ts.so;-lopencv_ts;/usr/lib/i386-linux-gnu/libopencv_video.so;-lopencv_video;/usr/lib/i386-linux-gnu/libopencv_videostab.so;-lopencv_videostab
+OPENCV_LDFLAGS_OTHER:INTERNAL=/usr/lib/i386-linux-gnu/libopencv_calib3d.so;/usr/lib/i386-linux-gnu/libopencv_contrib.so;/usr/lib/i386-linux-gnu/libopencv_core.so;/usr/lib/i386-linux-gnu/libopencv_features2d.so;/usr/lib/i386-linux-gnu/libopencv_flann.so;/usr/lib/i386-linux-gnu/libopencv_gpu.so;/usr/lib/i386-linux-gnu/libopencv_highgui.so;/usr/lib/i386-linux-gnu/libopencv_imgproc.so;/usr/lib/i386-linux-gnu/libopencv_legacy.so;/usr/lib/i386-linux-gnu/libopencv_ml.so;/usr/lib/i386-linux-gnu/libopencv_objdetect.so;/usr/lib/i386-linux-gnu/libopencv_ocl.so;/usr/lib/i386-linux-gnu/libopencv_photo.so;/usr/lib/i386-linux-gnu/libopencv_stitching.so;/usr/lib/i386-linux-gnu/libopencv_superres.so;/usr/lib/i386-linux-gnu/libopencv_ts.so;/usr/lib/i386-linux-gnu/libopencv_video.so;/usr/lib/i386-linux-gnu/libopencv_videostab.so
+OPENCV_LIBDIR:INTERNAL=/usr/lib/i386-linux-gnu
+OPENCV_LIBRARIES:INTERNAL=opencv_calib3d;opencv_contrib;opencv_core;opencv_features2d;opencv_flann;opencv_gpu;opencv_highgui;opencv_imgproc;opencv_legacy;opencv_ml;opencv_objdetect;opencv_ocl;opencv_photo;opencv_stitching;opencv_superres;opencv_ts;opencv_video;opencv_videostab
+OPENCV_LIBRARY_DIRS:INTERNAL=
+OPENCV_LIBS:INTERNAL=
+OPENCV_LIBS_L:INTERNAL=
+OPENCV_LIBS_OTHER:INTERNAL=
+OPENCV_LIBS_PATHS:INTERNAL=
+OPENCV_PREFIX:INTERNAL=/usr
+OPENCV_STATIC_CFLAGS:INTERNAL=-I/usr/include/opencv
+OPENCV_STATIC_CFLAGS_I:INTERNAL=
+OPENCV_STATIC_CFLAGS_OTHER:INTERNAL=
+OPENCV_STATIC_INCLUDE_DIRS:INTERNAL=/usr/include/opencv
+OPENCV_STATIC_LDFLAGS:INTERNAL=/usr/lib/i386-linux-gnu/libopencv_calib3d.so;-lopencv_calib3d;/usr/lib/i386-linux-gnu/libopencv_contrib.so;-lopencv_contrib;/usr/lib/i386-linux-gnu/libopencv_core.so;-lopencv_core;/usr/lib/i386-linux-gnu/libopencv_features2d.so;-lopencv_features2d;/usr/lib/i386-linux-gnu/libopencv_flann.so;-lopencv_flann;/usr/lib/i386-linux-gnu/libopencv_gpu.so;-lopencv_gpu;/usr/lib/i386-linux-gnu/libopencv_highgui.so;-lopencv_highgui;/usr/lib/i386-linux-gnu/libopencv_imgproc.so;-lopencv_imgproc;/usr/lib/i386-linux-gnu/libopencv_legacy.so;-lopencv_legacy;/usr/lib/i386-linux-gnu/libopencv_ml.so;-lopencv_ml;/usr/lib/i386-linux-gnu/libopencv_objdetect.so;-lopencv_objdetect;/usr/lib/i386-linux-gnu/libopencv_ocl.so;-lopencv_ocl;/usr/lib/i386-linux-gnu/libopencv_photo.so;-lopencv_photo;/usr/lib/i386-linux-gnu/libopencv_stitching.so;-lopencv_stitching;/usr/lib/i386-linux-gnu/libopencv_superres.so;-lopencv_superres;/usr/lib/i386-linux-gnu/libopencv_ts.so;-lopencv_ts;/usr/lib/i386-linux-gnu/libopencv_video.so;-lopencv_video;/usr/lib/i386-linux-gnu/libopencv_videostab.so;-lopencv_videostab
+OPENCV_STATIC_LDFLAGS_OTHER:INTERNAL=/usr/lib/i386-linux-gnu/libopencv_calib3d.so;/usr/lib/i386-linux-gnu/libopencv_contrib.so;/usr/lib/i386-linux-gnu/libopencv_core.so;/usr/lib/i386-linux-gnu/libopencv_features2d.so;/usr/lib/i386-linux-gnu/libopencv_flann.so;/usr/lib/i386-linux-gnu/libopencv_gpu.so;/usr/lib/i386-linux-gnu/libopencv_highgui.so;/usr/lib/i386-linux-gnu/libopencv_imgproc.so;/usr/lib/i386-linux-gnu/libopencv_legacy.so;/usr/lib/i386-linux-gnu/libopencv_ml.so;/usr/lib/i386-linux-gnu/libopencv_objdetect.so;/usr/lib/i386-linux-gnu/libopencv_ocl.so;/usr/lib/i386-linux-gnu/libopencv_photo.so;/usr/lib/i386-linux-gnu/libopencv_stitching.so;/usr/lib/i386-linux-gnu/libopencv_superres.so;/usr/lib/i386-linux-gnu/libopencv_ts.so;/usr/lib/i386-linux-gnu/libopencv_video.so;/usr/lib/i386-linux-gnu/libopencv_videostab.so
+OPENCV_STATIC_LIBDIR:INTERNAL=
+OPENCV_STATIC_LIBRARIES:INTERNAL=opencv_calib3d;opencv_contrib;opencv_core;opencv_features2d;opencv_flann;opencv_gpu;opencv_highgui;opencv_imgproc;opencv_legacy;opencv_ml;opencv_objdetect;opencv_ocl;opencv_photo;opencv_stitching;opencv_superres;opencv_ts;opencv_video;opencv_videostab
+OPENCV_STATIC_LIBRARY_DIRS:INTERNAL=
+OPENCV_STATIC_LIBS:INTERNAL=
+OPENCV_STATIC_LIBS_L:INTERNAL=
+OPENCV_STATIC_LIBS_OTHER:INTERNAL=
+OPENCV_STATIC_LIBS_PATHS:INTERNAL=
+OPENCV_VERSION:INTERNAL=2.4.9.1
+OPENCV_opencv_INCLUDEDIR:INTERNAL=
+OPENCV_opencv_LIBDIR:INTERNAL=
+OPENCV_opencv_PREFIX:INTERNAL=
+OPENCV_opencv_VERSION:INTERNAL=
+//ADVANCED property for variable: OPENGL_INCLUDE_DIR
+OPENGL_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: OPENGL_gl_LIBRARY
+OPENGL_gl_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: OPENGL_glu_LIBRARY
+OPENGL_glu_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: OPENGL_xmesa_INCLUDE_DIR
+OPENGL_xmesa_INCLUDE_DIR-ADVANCED:INTERNAL=1
+PC_Magick++_CFLAGS:INTERNAL=-fopenmp;-DMAGICKCORE_HDRI_ENABLE=0;-DMAGICKCORE_QUANTUM_DEPTH=16;-fopenmp;-DMAGICKCORE_HDRI_ENABLE=0;-DMAGICKCORE_QUANTUM_DEPTH=16;-fopenmp;-DMAGICKCORE_HDRI_ENABLE=0;-DMAGICKCORE_QUANTUM_DEPTH=16;-I/usr/include/i386-linux-gnu//ImageMagick-6;-I/usr/include/ImageMagick-6;-I/usr/include/i386-linux-gnu//ImageMagick-6;-I/usr/include/ImageMagick-6;-I/usr/include/i386-linux-gnu//ImageMagick-6;-I/usr/include/ImageMagick-6
+PC_Magick++_CFLAGS_I:INTERNAL=
+PC_Magick++_CFLAGS_OTHER:INTERNAL=-fopenmp;-DMAGICKCORE_HDRI_ENABLE=0;-DMAGICKCORE_QUANTUM_DEPTH=16;-fopenmp;-DMAGICKCORE_HDRI_ENABLE=0;-DMAGICKCORE_QUANTUM_DEPTH=16;-fopenmp;-DMAGICKCORE_HDRI_ENABLE=0;-DMAGICKCORE_QUANTUM_DEPTH=16
+PC_Magick++_FOUND:INTERNAL=1
+PC_Magick++_INCLUDEDIR:INTERNAL=/usr/include/ImageMagick-6
+PC_Magick++_INCLUDE_DIRS:INTERNAL=/usr/include/i386-linux-gnu//ImageMagick-6;/usr/include/ImageMagick-6;/usr/include/i386-linux-gnu//ImageMagick-6;/usr/include/ImageMagick-6;/usr/include/i386-linux-gnu//ImageMagick-6;/usr/include/ImageMagick-6
+PC_Magick++_LDFLAGS:INTERNAL=-lMagick++-6.Q16;-lMagickWand-6.Q16;-lMagickCore-6.Q16
+PC_Magick++_LDFLAGS_OTHER:INTERNAL=
+PC_Magick++_LIBDIR:INTERNAL=/usr/lib/i386-linux-gnu
+PC_Magick++_LIBRARIES:INTERNAL=Magick++-6.Q16;MagickWand-6.Q16;MagickCore-6.Q16
+PC_Magick++_LIBRARY_DIRS:INTERNAL=
+PC_Magick++_LIBS:INTERNAL=
+PC_Magick++_LIBS_L:INTERNAL=
+PC_Magick++_LIBS_OTHER:INTERNAL=
+PC_Magick++_LIBS_PATHS:INTERNAL=
+PC_Magick++_Magick++_INCLUDEDIR:INTERNAL=
+PC_Magick++_Magick++_LIBDIR:INTERNAL=
+PC_Magick++_Magick++_PREFIX:INTERNAL=
+PC_Magick++_Magick++_VERSION:INTERNAL=
+PC_Magick++_PREFIX:INTERNAL=/usr
+PC_Magick++_STATIC_CFLAGS:INTERNAL=-fopenmp;-DMAGICKCORE_HDRI_ENABLE=0;-DMAGICKCORE_QUANTUM_DEPTH=16;-fopenmp;-DMAGICKCORE_HDRI_ENABLE=0;-DMAGICKCORE_QUANTUM_DEPTH=16;-fopenmp;-DMAGICKCORE_HDRI_ENABLE=0;-DMAGICKCORE_QUANTUM_DEPTH=16;-I/usr/include/i386-linux-gnu//ImageMagick-6;-I/usr/include/ImageMagick-6;-I/usr/include/i386-linux-gnu//ImageMagick-6;-I/usr/include/ImageMagick-6;-I/usr/include/i386-linux-gnu//ImageMagick-6;-I/usr/include/ImageMagick-6
+PC_Magick++_STATIC_CFLAGS_I:INTERNAL=
+PC_Magick++_STATIC_CFLAGS_OTHER:INTERNAL=-fopenmp;-DMAGICKCORE_HDRI_ENABLE=0;-DMAGICKCORE_QUANTUM_DEPTH=16;-fopenmp;-DMAGICKCORE_HDRI_ENABLE=0;-DMAGICKCORE_QUANTUM_DEPTH=16;-fopenmp;-DMAGICKCORE_HDRI_ENABLE=0;-DMAGICKCORE_QUANTUM_DEPTH=16
+PC_Magick++_STATIC_INCLUDE_DIRS:INTERNAL=/usr/include/i386-linux-gnu//ImageMagick-6;/usr/include/ImageMagick-6;/usr/include/i386-linux-gnu//ImageMagick-6;/usr/include/ImageMagick-6;/usr/include/i386-linux-gnu//ImageMagick-6;/usr/include/ImageMagick-6
+PC_Magick++_STATIC_LDFLAGS:INTERNAL=-lMagick++-6.Q16;-llcms2;-lfreetype;-llqr-1;-lglib-2.0;-lfftw3;-lfontconfig;-lfreetype;-lXext;-lSM;-lICE;-lX11;-lXt;-llzma;-lbz2;-lz;-lltdl;-lm;-lgomp;-lm;-lMagickWand-6.Q16;-llcms2;-lfreetype;-llqr-1;-lglib-2.0;-lfftw3;-lfontconfig;-lfreetype;-lXext;-lSM;-lICE;-lX11;-lXt;-llzma;-lbz2;-lz;-lltdl;-lm;-lgomp;-lm;-lMagickCore-6.Q16;-llcms2;-lfreetype;-llqr-1;-lglib-2.0;-lfftw3;-lfontconfig;-lfreetype;-lXext;-lSM;-lICE;-lX11;-lXt;-llzma;-lbz2;-lz;-lltdl;-lm;-lgomp;-lm
+PC_Magick++_STATIC_LDFLAGS_OTHER:INTERNAL=
+PC_Magick++_STATIC_LIBDIR:INTERNAL=
+PC_Magick++_STATIC_LIBRARIES:INTERNAL=Magick++-6.Q16;lcms2;freetype;lqr-1;glib-2.0;fftw3;fontconfig;freetype;Xext;SM;ICE;X11;Xt;lzma;bz2;z;ltdl;m;gomp;m;MagickWand-6.Q16;lcms2;freetype;lqr-1;glib-2.0;fftw3;fontconfig;freetype;Xext;SM;ICE;X11;Xt;lzma;bz2;z;ltdl;m;gomp;m;MagickCore-6.Q16;lcms2;freetype;lqr-1;glib-2.0;fftw3;fontconfig;freetype;Xext;SM;ICE;X11;Xt;lzma;bz2;z;ltdl;m;gomp;m
+PC_Magick++_STATIC_LIBRARY_DIRS:INTERNAL=
+PC_Magick++_STATIC_LIBS:INTERNAL=
+PC_Magick++_STATIC_LIBS_L:INTERNAL=
+PC_Magick++_STATIC_LIBS_OTHER:INTERNAL=
+PC_Magick++_STATIC_LIBS_PATHS:INTERNAL=
+PC_Magick++_VERSION:INTERNAL=6.8.9
+PC_MagickCore_CFLAGS:INTERNAL=-fopenmp;-DMAGICKCORE_HDRI_ENABLE=0;-DMAGICKCORE_QUANTUM_DEPTH=16;-I/usr/include/i386-linux-gnu//ImageMagick-6;-I/usr/include/ImageMagick-6
+PC_MagickCore_CFLAGS_I:INTERNAL=
+PC_MagickCore_CFLAGS_OTHER:INTERNAL=-fopenmp;-DMAGICKCORE_HDRI_ENABLE=0;-DMAGICKCORE_QUANTUM_DEPTH=16
+PC_MagickCore_FOUND:INTERNAL=1
+PC_MagickCore_INCLUDEDIR:INTERNAL=/usr/include/ImageMagick-6
+PC_MagickCore_INCLUDE_DIRS:INTERNAL=/usr/include/i386-linux-gnu//ImageMagick-6;/usr/include/ImageMagick-6
+PC_MagickCore_LDFLAGS:INTERNAL=-lMagickCore-6.Q16
+PC_MagickCore_LDFLAGS_OTHER:INTERNAL=
+PC_MagickCore_LIBDIR:INTERNAL=/usr/lib/i386-linux-gnu
+PC_MagickCore_LIBRARIES:INTERNAL=MagickCore-6.Q16
+PC_MagickCore_LIBRARY_DIRS:INTERNAL=
+PC_MagickCore_LIBS:INTERNAL=
+PC_MagickCore_LIBS_L:INTERNAL=
+PC_MagickCore_LIBS_OTHER:INTERNAL=
+PC_MagickCore_LIBS_PATHS:INTERNAL=
+PC_MagickCore_MagickCore_INCLUDEDIR:INTERNAL=
+PC_MagickCore_MagickCore_LIBDIR:INTERNAL=
+PC_MagickCore_MagickCore_PREFIX:INTERNAL=
+PC_MagickCore_MagickCore_VERSION:INTERNAL=
+PC_MagickCore_PREFIX:INTERNAL=/usr
+PC_MagickCore_STATIC_CFLAGS:INTERNAL=-fopenmp;-DMAGICKCORE_HDRI_ENABLE=0;-DMAGICKCORE_QUANTUM_DEPTH=16;-I/usr/include/i386-linux-gnu//ImageMagick-6;-I/usr/include/ImageMagick-6
+PC_MagickCore_STATIC_CFLAGS_I:INTERNAL=
+PC_MagickCore_STATIC_CFLAGS_OTHER:INTERNAL=-fopenmp;-DMAGICKCORE_HDRI_ENABLE=0;-DMAGICKCORE_QUANTUM_DEPTH=16
+PC_MagickCore_STATIC_INCLUDE_DIRS:INTERNAL=/usr/include/i386-linux-gnu//ImageMagick-6;/usr/include/ImageMagick-6
+PC_MagickCore_STATIC_LDFLAGS:INTERNAL=-lMagickCore-6.Q16;-llcms2;-lfreetype;-llqr-1;-lglib-2.0;-lfftw3;-lfontconfig;-lfreetype;-lXext;-lSM;-lICE;-lX11;-lXt;-llzma;-lbz2;-lz;-lltdl;-lm;-lgomp;-lm
+PC_MagickCore_STATIC_LDFLAGS_OTHER:INTERNAL=
+PC_MagickCore_STATIC_LIBDIR:INTERNAL=
+PC_MagickCore_STATIC_LIBRARIES:INTERNAL=MagickCore-6.Q16;lcms2;freetype;lqr-1;glib-2.0;fftw3;fontconfig;freetype;Xext;SM;ICE;X11;Xt;lzma;bz2;z;ltdl;m;gomp;m
+PC_MagickCore_STATIC_LIBRARY_DIRS:INTERNAL=
+PC_MagickCore_STATIC_LIBS:INTERNAL=
+PC_MagickCore_STATIC_LIBS_L:INTERNAL=
+PC_MagickCore_STATIC_LIBS_OTHER:INTERNAL=
+PC_MagickCore_STATIC_LIBS_PATHS:INTERNAL=
+PC_MagickCore_VERSION:INTERNAL=6.8.9
+//ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
+PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PYTHON_EXECUTABLE
 PYTHON_EXECUTABLE-ADVANCED:INTERNAL=1
 //This needs to be in PYTHONPATH when 'setup.py install' is called.
 //  And it needs to match.  But setuptools won't tell us where
 // it will install things.
 PYTHON_INSTALL_DIR:INTERNAL=lib/python2.7/dist-packages
+SDL2_CFLAGS:INTERNAL=-D_REENTRANT;-I/usr/include/SDL2
+SDL2_CFLAGS_I:INTERNAL=
+SDL2_CFLAGS_OTHER:INTERNAL=-D_REENTRANT
+SDL2_FOUND:INTERNAL=1
+SDL2_INCLUDEDIR:INTERNAL=/usr/include
+SDL2_INCLUDE_DIRS:INTERNAL=/usr/include/SDL2
+SDL2_LDFLAGS:INTERNAL=-lSDL2
+SDL2_LDFLAGS_OTHER:INTERNAL=
+SDL2_LIBDIR:INTERNAL=/usr/lib/i386-linux-gnu
+SDL2_LIBRARIES:INTERNAL=SDL2
+SDL2_LIBRARY_DIRS:INTERNAL=
+SDL2_LIBS:INTERNAL=
+SDL2_LIBS_L:INTERNAL=
+SDL2_LIBS_OTHER:INTERNAL=
+SDL2_LIBS_PATHS:INTERNAL=
+SDL2_PREFIX:INTERNAL=/usr
+SDL2_STATIC_CFLAGS:INTERNAL=-D_REENTRANT;-I/usr/include/SDL2
+SDL2_STATIC_CFLAGS_I:INTERNAL=
+SDL2_STATIC_CFLAGS_OTHER:INTERNAL=-D_REENTRANT
+SDL2_STATIC_INCLUDE_DIRS:INTERNAL=/usr/include/SDL2
+SDL2_STATIC_LDFLAGS:INTERNAL=-lSDL2;-Wl,--no-undefined;-lm;-ldl;-lasound;-lm;-ldl;-lpthread;-lpulse-simple;-lpulse;-lsndio;-lX11;-lXext;-lXcursor;-lXinerama;-lXi;-lXrandr;-lXss;-lXxf86vm;-lwayland-egl;-lwayland-client;-lwayland-cursor;-lxkbcommon;-lpthread;-lrt
+SDL2_STATIC_LDFLAGS_OTHER:INTERNAL=-Wl,--no-undefined
+SDL2_STATIC_LIBDIR:INTERNAL=
+SDL2_STATIC_LIBRARIES:INTERNAL=SDL2;m;dl;asound;m;dl;pthread;pulse-simple;pulse;sndio;X11;Xext;Xcursor;Xinerama;Xi;Xrandr;Xss;Xxf86vm;wayland-egl;wayland-client;wayland-cursor;xkbcommon;pthread;rt
+SDL2_STATIC_LIBRARY_DIRS:INTERNAL=
+SDL2_STATIC_LIBS:INTERNAL=
+SDL2_STATIC_LIBS_L:INTERNAL=
+SDL2_STATIC_LIBS_OTHER:INTERNAL=
+SDL2_STATIC_LIBS_PATHS:INTERNAL=
+SDL2_VERSION:INTERNAL=2.0.4
+SDL2_sdl2_INCLUDEDIR:INTERNAL=
+SDL2_sdl2_LIBDIR:INTERNAL=
+SDL2_sdl2_PREFIX:INTERNAL=
+SDL2_sdl2_VERSION:INTERNAL=
+SDL_CFLAGS:INTERNAL=-D_REENTRANT;-I/usr/include/SDL2
+SDL_CFLAGS_I:INTERNAL=
+SDL_CFLAGS_OTHER:INTERNAL=-D_REENTRANT
+SDL_FOUND:INTERNAL=1
+SDL_INCLUDEDIR:INTERNAL=/usr/include
+SDL_INCLUDE_DIRS:INTERNAL=/usr/include/SDL2
+SDL_LDFLAGS:INTERNAL=-lSDL2
+SDL_LDFLAGS_OTHER:INTERNAL=
+SDL_LIBDIR:INTERNAL=/usr/lib/i386-linux-gnu
+SDL_LIBRARIES:INTERNAL=SDL2
+SDL_LIBRARY_DIRS:INTERNAL=
+SDL_LIBS:INTERNAL=
+SDL_LIBS_L:INTERNAL=
+SDL_LIBS_OTHER:INTERNAL=
+SDL_LIBS_PATHS:INTERNAL=
+SDL_PREFIX:INTERNAL=/usr
+SDL_STATIC_CFLAGS:INTERNAL=-D_REENTRANT;-I/usr/include/SDL2
+SDL_STATIC_CFLAGS_I:INTERNAL=
+SDL_STATIC_CFLAGS_OTHER:INTERNAL=-D_REENTRANT
+SDL_STATIC_INCLUDE_DIRS:INTERNAL=/usr/include/SDL2
+SDL_STATIC_LDFLAGS:INTERNAL=-lSDL2;-Wl,--no-undefined;-lm;-ldl;-lasound;-lm;-ldl;-lpthread;-lpulse-simple;-lpulse;-lsndio;-lX11;-lXext;-lXcursor;-lXinerama;-lXi;-lXrandr;-lXss;-lXxf86vm;-lwayland-egl;-lwayland-client;-lwayland-cursor;-lxkbcommon;-lpthread;-lrt
+SDL_STATIC_LDFLAGS_OTHER:INTERNAL=-Wl,--no-undefined
+SDL_STATIC_LIBDIR:INTERNAL=
+SDL_STATIC_LIBRARIES:INTERNAL=SDL2;m;dl;asound;m;dl;pthread;pulse-simple;pulse;sndio;X11;Xext;Xcursor;Xinerama;Xi;Xrandr;Xss;Xxf86vm;wayland-egl;wayland-client;wayland-cursor;xkbcommon;pthread;rt
+SDL_STATIC_LIBRARY_DIRS:INTERNAL=
+SDL_STATIC_LIBS:INTERNAL=
+SDL_STATIC_LIBS_L:INTERNAL=
+SDL_STATIC_LIBS_OTHER:INTERNAL=
+SDL_STATIC_LIBS_PATHS:INTERNAL=
+SDL_VERSION:INTERNAL=2.0.4
+SDL_sdl2_INCLUDEDIR:INTERNAL=
+SDL_sdl2_LIBDIR:INTERNAL=
+SDL_sdl2_PREFIX:INTERNAL=
+SDL_sdl2_VERSION:INTERNAL=
 //Components requested for this build tree.
 _Boost_COMPONENTS_SEARCHED:INTERNAL=atomic;chrono;date_time;system;thread
 //Last used Boost_INCLUDE_DIR value.
@@ -824,4 +1124,10 @@ _Boost_LIBRARY_DIR_RELEASE_LAST:INTERNAL=/usr/lib/i386-linux-gnu
 _Boost_NAMESPACE_LAST:INTERNAL=boost
 //Last used Boost_USE_MULTITHREADED value.
 _Boost_USE_MULTITHREADED_LAST:INTERNAL=TRUE
+__pkg_config_checked_OPENCV:INTERNAL=1
+__pkg_config_checked_PC_Magick++:INTERNAL=1
+__pkg_config_checked_PC_MagickCore:INTERNAL=1
+__pkg_config_checked_SDL:INTERNAL=1
+__pkg_config_checked_SDL2:INTERNAL=1
+prefix_result:INTERNAL=/usr/lib/i386-linux-gnu
 

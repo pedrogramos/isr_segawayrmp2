@@ -37,7 +37,7 @@ class SendVelocity
 public:
   SendVelocity();
   void sendVel(double,double);
-  void stopTurtle();
+  void stopRMP();
   //para a turtlesim
   //void odomCallback(const turtlesim::PoseConstPtr&);
   //para o segwayRMP
@@ -64,12 +64,9 @@ private:
   geometry_msgs::Twist vel;
   double odomX, odomY, odomTheta;
   double roll, pitch, yaw;
-  // para ter sempre a odometria à mão
-  turtlesim::PoseConstPtr aPose;
   nav_msgs::Odometry::ConstPtr poseRMP;
   geometry_msgs::Pose2D::ConstPtr pose;
-  // variavel do tipo pose para as coordenadas de destino
-  turtlesim::Pose gPose;
+
   
 
   
@@ -110,7 +107,7 @@ void SendVelocity::sendVel(double line_x, double ang_z){
 }
 
 
-void SendVelocity::stopTurtle(){
+void SendVelocity::stopRMP(){
 
   sendVel(0.0,0.0);
   ROS_INFO("STOP!!");
@@ -126,6 +123,7 @@ void chatterCallback(const nav_msgs::Odometry::ConstPtr& msg)
 }
 */
 
+//RMP ROS Package
 /*
 void SendVelocity::odomCallback(const nav_msgs::Odometry::ConstPtr& msg){
   odomX = msg->pose.pose.position.x;
@@ -150,7 +148,7 @@ odomTheta=msg->theta;
 //ROS_INFO("OdometriaFun: X= %f, Y= %f, e Theta= %f", odomX,odomY,odomTheta);
 }
 
-
+//turtlesim odom
 /*
 // rosmsg show [turtlesim/Pose] = msg1-> [x] 
 void SendVelocity::odomCallback(const turtlesim::PoseConstPtr& msg1){ 
@@ -271,7 +269,7 @@ int main(int argc, char** argv)
   // nome igual ao do ficheiro
   ros::init(argc, argv, "velocityturtle1_node");
   // criação do objecto da classe
-  SendVelocity turtle1;
+  SendVelocity rmp;
 
 
   state=STOP;
@@ -284,7 +282,7 @@ int main(int argc, char** argv)
 
       while(!fila_pontos.empty() && state==GO){
         aux_s=fila_pontos.front();
-        turtle1.goTo(aux_s.xf,aux_s.yf,0.3);
+        rmp.goTo(aux_s.xf,aux_s.yf,0.3);
       }
 
   
@@ -295,7 +293,7 @@ int main(int argc, char** argv)
 
       case STOPPING:{
       ROS_INFO("state = STOPPING");
-      turtle1.stopTurtle();
+      rmp.stopRMP();
 
       state=STOP;
       break;
@@ -333,7 +331,7 @@ ifstream myReadFile;
       myReadFile.close();
 
        while(state==GO && j<i-2){
-        turtle1.goTo(xf[j],yf[j],0.3);
+        rmp.goTo(xf[j],yf[j],0.3);
         j++;
         }
 */
