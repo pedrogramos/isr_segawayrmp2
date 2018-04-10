@@ -56,6 +56,7 @@ class coordinator():
 		self.trueodomTheta=0
 		self.danger= Bool()
 		self.state=0
+		self.son=bool()
 		#self.rectorig = pygame.rect.Rect(10,10,10,10)
 		#self.rectorig_draging=False;
 		#self.rectdest = pygame.rect.Rect(20,10,10,10)
@@ -68,16 +69,25 @@ class coordinator():
 		self.trueodomX=data.x
 		self.trueodomY=data.y
 		self.trueodomTheta=data.theta
+		#print "estou a receber a odom"
 
 	def callbackSonar(self,data):
 		self.danger=data.data;
-		if(self.danger==True and self.state != 0):
+		#if(self.danger==True and self.state != 0):
+		if(self.danger==True ):
 			self.stop_client()
 			print "devia chamar stop"
+			self.son=True;
 		#if(self.danger==False and self.state != 1):
 		#	self.go_client()
 			#print "devia chamar go"
-		#print "sonarFlag: %s " % (self.danger)
+		'''
+		if (self.danger==False and self.son ==True):
+			self.go_client()
+			self.son=False
+		print "sonarFlag: %s " % (self.danger)
+		print "State %d" % (self.state)
+		'''
 
 	def stop_client(self):
 		rospy.wait_for_service('stop')
@@ -104,7 +114,7 @@ class coordinator():
 
 
 ##########################################################################
-
+	'''
 	def reset_odom(self):
 		rospy.wait_for_service('resetRMP')
 		try:
@@ -120,7 +130,7 @@ class coordinator():
 
 		except rospy.ServiceException, e:
 			print "Service call failed: %s" % e
-
+	'''
 ##########################################################################
 
 	def addpoint_client(self):
@@ -313,7 +323,7 @@ if __name__ == "__main__":
 	#boss.addpoint_client()
 	boss.readFile(traj1)
 	boss.addpoint_client()
-	boss.reset_odom()
+	#boss.reset_odom()
 	rospy.spin()
 
 

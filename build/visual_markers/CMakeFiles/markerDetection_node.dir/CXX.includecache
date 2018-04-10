@@ -93,6 +93,14 @@ gridloc.h
 /home/rmp/catkin_ws/src/visual_markers/src/gridloc.h
 bploc.h
 /home/rmp/catkin_ws/src/visual_markers/src/bploc.h
+glm/glm.hpp
+-
+glm/gtx/transform.hpp
+-
+glm/ext.hpp
+/home/rmp/catkin_ws/src/visual_markers/src/glm/ext.hpp
+pose.h
+/home/rmp/catkin_ws/src/visual_markers/src/pose.h
 ros/ros.h
 -
 signal.h
