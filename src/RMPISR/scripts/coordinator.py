@@ -11,7 +11,7 @@ from random import randint
 import pygame
 import threading
 import tf
-from vstptest import robotTrajectory
+#from vstptest import robotTrajectory
 import csv
 
 
@@ -23,13 +23,10 @@ import csv
 #sudo chmod a+rw /dev/ttyACM0
 #rosrun rosserial_python serial_node.py /dev/ttyACM0
 
-#no meu pc
-#sys.path.insert(0,'/home/pedrogramos/Desktop/Thesis/vstpPy/build/python')
-
 
 #no ISR
 sys.path.insert(0,'/home/rmp/lib/python')
-MAP='/home/rmp/ownCloud/PedroRamosTese/Codigo/python_vstp_ros/novo.xml'
+MAP='/home/rmp/catkin_ws/src/RMPISR/scripts/ISRfile2.xml'
 import vstpPY
 
 traj1='/home/rmp/catkin_ws/src/RMPISR/scripts/DemonstrationPoints.csv'
@@ -44,7 +41,11 @@ STATE TABLE:
 
 class coordinator():
 
-	def __init__(self,robotRadius=0.74,gridResolution=0.6,idealDist=0.1,maxDist=0.1):
+	def __init__(self,robotRadius=0.74,gridResolution=0.2,idealDist=0.8,maxDist=1):
+		self.robotRadius=robotRadius
+		self.gridResolution=gridResolution
+		self.idealDist=idealDist
+		self.maxDist=maxDist
 		#self.odom_sub = rospy.Subscriber('/turtle1/pose', Pose, self.callbackOdom)
 		self.danger_sub = rospy.Subscriber('/sonarFlag', Bool, self.callbackSonar)
 		#para o segway
@@ -57,11 +58,8 @@ class coordinator():
 		self.danger= Bool()
 		self.state=0
 		self.son=bool()
-		#self.rectorig = pygame.rect.Rect(10,10,10,10)
-		#self.rectorig_draging=False;
-		#self.rectdest = pygame.rect.Rect(20,10,10,10)
-		#self.rectdest_draging=False;
 		self.traj_points=[]
+		self.rectorig = pygame.rect.Rect(10,10,10,10)
 
 
 	#Callback function implementing the pose value received
@@ -69,14 +67,13 @@ class coordinator():
 		self.trueodomX=data.x
 		self.trueodomY=data.y
 		self.trueodomTheta=data.theta
-		#print "estou a receber a odom"
-
+		
 	def callbackSonar(self,data):
 		self.danger=data.data;
 		#if(self.danger==True and self.state != 0):
 		if(self.danger==True ):
 			self.stop_client()
-			print "devia chamar stop"
+			print "Parei devido a um obstaculo!"
 			self.son=True;
 		#if(self.danger==False and self.state != 1):
 		#	self.go_client()
@@ -113,31 +110,12 @@ class coordinator():
 			print "Service call failed: %s" % e
 
 
-##########################################################################
-	'''
-	def reset_odom(self):
-		rospy.wait_for_service('resetRMP')
-		try:
-			resetRMP_ = rospy.ServiceProxy('resetRMP', resetRMP)
-			poseService=Pose2D()
-
-			poseService.x=0
-			poseService.y=0
-			poseService.theta=0
-
-			resp1 = resetRMP_.call(poseService)
-			print "resetRMP Service called. State: %d" % self.state
-
-		except rospy.ServiceException, e:
-			print "Service call failed: %s" % e
-	'''
-##########################################################################
-
 	def addpoint_client(self):
 		rospy.wait_for_service('addpoint')
 		try:
 			addpoint_ = rospy.ServiceProxy('addpoint', addpoint)
 
+			#code for file reading
 			pointArray=list()
 			size=len(self.myList)
 
@@ -148,6 +126,20 @@ class coordinator():
 				pointArray.append(toappend)
 
 			print pointArray
+
+			'''
+
+			#code for vstp trajectory points
+			size=len(self.traj_points)
+
+			for i in range(size):
+				toappend = Point()
+				toappend.x=self.traj_points[i].x
+				toappend.y=self.traj_points[i].y
+				pointArray.append(toappend)
+			
+			#print "new point: " , pointArray
+			'''
 			
 			'''
 			#code for random numbers
@@ -166,19 +158,7 @@ class coordinator():
 			'''
 
 
-			'''
-
-			#code for vstp trajectory points
-			size=len(self.traj_points)
-
-			for i in range(size):
-				toappend = Point()
-				toappend.x=self.traj_points[i].x
-				toappend.y=self.traj_points[i].y
-				pointArray.append(toappend)
 			
-			#print "new point: " , pointArray
-			'''
 
 			resp1 = addpoint_.call(pointArray, True, size)
 
@@ -195,64 +175,48 @@ class coordinator():
 				self.myList.append(row)
 
 
-## ------------------------------ ##
-
-	def toThread(self):
-		pm=robotTrajectory()
-		pm.initScreen(800,600)
-		pm.loadMapNRobot(MAP)
-
-		mapThread = threading.Thread(target=pm.go)
-		mapThread.daemon=True
-		mapThread.start()
-		#mapThread.join()
-
-
-## ------------------------------------ ##
-'''			
-	def criaMapa(self,displayx=640,displayy=400):
-		minx=0
-		maxx=0
-		miny=0
-		maxy=0
-		for i in range(len(self.segs_mapa)):
-			#min X
-			if (self.segs_mapa[i].x0 or self.segs_mapa[i].x1) < minx:
-				if (self.segs_mapa[i].x0 < self.segs_mapa[i].x1): #1st lower
-					minx=self.segs_mapa[i].x0 
-				else: minx=self.segs_mapa[i].x1 #equal to 2nd
-			#MAX X
-			if (self.segs_mapa[i].x0 or self.segs_mapa[i].x1) > maxx:
-				if (self.segs_mapa[i].x0 > self.segs_mapa[i].x1): #1st higher
-					maxx=self.segs_mapa[i].x0 
-				else: maxx=self.segs_mapa[i].x1 #equal to 2nd
-			#min Y
-			if (self.segs_mapa[i].y0 or self.segs_mapa[i].y1) < miny:
-				if self.segs_mapa[i].y0 < self.segs_mapa[i].y1: #1st lower
-					miny=self.segs_mapa[i].y0 
-				else: miny=self.segs_mapa[i].y1 #equal to 2nd
-			#MAX Y
-			if (self.segs_mapa[i].y0 or self.segs_mapa[i].y1) > maxy:
-				if (self.segs_mapa[i].y0 > self.segs_mapa[i].y1): #1st higher
-					maxy=self.segs_mapa[i].y0 
-				else: maxy=self.segs_mapa[i].y1 #equal to 2nd
-
-
-		#print "minX: %f, minY: %f, MAXX: %f, MAXY: %f" % (minx,miny,maxx,maxy)
-		#maxy=25.1
-		#maxx=61.8
-		#minx=-5.8
-		#miny=0
-		raciox=((displayx-5)/maxx)
-		racioy=((displayy-5)/maxy)
-		raciopixx=maxx/displayx
-		raciopixy=maxy/displayy
-		#print minx
-		print "minX: %f, minY: %f, MAXX: %f, MAXY: %f" % (minx,miny,maxx,maxy)
-		#print "x %f Y %f" % (raciox,racioy)
+	def computeMapLimits(self):
+		minx=10000
+		maxx=-10000
+		miny=100000
+		maxy=-100000
 		
+		for i in range(len(self.mapsegs)):
+			#min X
+			if (self.mapsegs[i].x0 or self.mapsegs[i].x1) < minx:
+				if (self.mapsegs[i].x0 < self.mapsegs[i].x1): #1st lower
+					minx=self.mapsegs[i].x0 
+				else: minx=self.mapsegs[i].x1 #equal to 2nd
+			#MAX X
+			if (self.mapsegs[i].x0 or self.mapsegs[i].x1) > maxx:
+				if (self.mapsegs[i].x0 > self.mapsegs[i].x1): #1st higher
+					maxx=self.mapsegs[i].x0 
+				else: maxx=self.mapsegs[i].x1 #equal to 2nd
+			#min Y
+			if (self.mapsegs[i].y0 or self.mapsegs[i].y1) < miny:
+				if self.mapsegs[i].y0 < self.mapsegs[i].y1: #1st higher
+					miny=self.mapsegs[i].y0 
+				else: miny=self.mapsegs[i].y1 #equal to 2nd
+			#MAX Y
+			if (self.mapsegs[i].y0 or self.mapsegs[i].y1) > maxy:
+				if (self.mapsegs[i].y0 > self.mapsegs[i].y1): #1st higher
+					maxy=self.mapsegs[i].y0 
+				else: maxy=self.mapsegs[i].y1 #equal to 2nd
+
+		self.mapminx=minx
+		self.mapminy=miny
+		self.mapmaxx=maxx
+		self.mapmaxy=maxy
+		print "minX: %f, minY: %f, MAXX: %f, MAXY: %f" % (self.mapminx,self.mapminy,self.mapmaxx,self.mapmaxy)
+		
+	def criaMapa(self,displayx=800,displayy=480):
+		
+		raciox=(displayx-5)/(self.mapmaxx-self.mapminx)
+		racioy=(displayy-5)/(self.mapmaxy-self.mapminy)
+
 		#gamepy inicialization window
 		screen = pygame.display.set_mode((displayx, displayy))
+
 		pygame.display.set_caption("Representacao da posicao do modulo RMP")
 
 		rate = rospy.Rate(5)
@@ -260,70 +224,67 @@ class coordinator():
 		
 			try:
 				screen.fill((0,0,0))
-				#representation of the map segments on the window
-				for i in range(len(self.segs_mapa)):
-					pygame.draw.line(screen, (255, 255, 255), (self.segs_mapa[i].x0*raciox, self.segs_mapa[i].y0*racioy),  (self.segs_mapa[i].x1*raciox, self.segs_mapa[i].y1*racioy))
-					#pygame.draw.line(screen, (255, 255, 255), (segs_mapa[i].x0/raciopixx, segs_mapa[i].y0/raciopixy),  (segs_mapa[i].x1/raciopixx, segs_mapa[i].y1/raciopixy))
-					#pygame.display.flip()
+				#map segments representation
+				for i in range(len(self.mapsegs)):
+					pygame.draw.line(screen, (255, 255, 255), ((self.mapsegs[i].x0-self.mapminx)*raciox, (self.mapsegs[i].y0-self.mapminy)*racioy),  ((self.mapsegs[i].x1-self.mapminx)*raciox, (self.mapsegs[i].y1-self.mapminy)*racioy))
+
 
 				#trajectory representation
 				for i in range(1,len(self.traj_points)):
-					
-					print "inicio"
-					print (i,self.traj_points[i-1].x,self.traj_points[i-1].y)
-					print "fim"
-					print (i,self.traj_points[i].x,self.traj_points[i].y)
-					
-					pygame.draw.line(screen, (0, 255,255), (self.traj_points[i-1].x*raciox, self.traj_points[i-1].y*racioy),  (self.traj_points[i].x*raciox, self.traj_points[i].y*racioy))
-					#pygame.display.flip()
+					pygame.draw.line(screen, (0, 255,255), ((self.traj_points[i-1].x-self.mapminx)*raciox, (self.traj_points[i-1].y-self.mapminy)*racioy),  ((self.traj_points[i].x-self.mapminx)*raciox, (self.traj_points[i].y-self.mapminy)*racioy))
 
 				
 				#odometry representation
-				#pygame.draw.circle(screen, (255, 0, 0), [int(odomX/raciopixx), int(odomY/raciopixy)], int(0.74/raciopixx))
+				pygame.draw.circle(screen, (255, 0, 0), [int((self.trueodomX-self.mapminx)*raciox), int((self.trueodomY-self.mapminy)*racioy)], int(self.robotRadius*raciox))
+				
 
-
-				pygame.draw.circle(screen, (255, 0, 0), [int(self.trueodomX/raciopixx), int(self.trueodomY/raciopixy)], int(self.robotRadius/raciopixx))
+				screen2 = pygame.transform.flip(screen,0,1)
 				pygame.display.flip()
-				#print"circle px: %d py: %d", (int(self.odomX/raciopixx),int(self.odomY/raciopixy))
 				rate.sleep()
 
 
 			except (KeyboardInterrupt, SystemExit, rospy.is_shutdown()):
 				cleanup_stop_thread()
+				pygame.quit()
 				sys.exit()
 		
 			
-
+	#thread para a const actualizacao da posicao do robot no display
 	def toThread(self):
 		mapThread = threading.Thread(target=self.criaMapa)
 		mapThread.daemon=True
 		mapThread.start()
 		#mapThread.join()
 
-
+	#funcao que quando chamada retorna a trajetoria de pontos
 	def vstpFunc(self,iniX,iniY,goalx,goaly):
+		#coordenadas de partida (inicio)
 		print "odomx: %f odomy: %f" % (iniX,iniY)
+		#coordenadas de destino (fim)
 		print "goalx: %f goaly: %f" % (goaly,goaly)
 
-		v=vstpPY.VSTP()
+		v=vstpPY.VSTP() #criacao do objeto
 		v.init(self.robotRadius,self.gridResolution,self.idealDist,self.maxDist)
-		self.segs_mapa = v.loadMap("/home/rmp/catkin_ws/src/RMPISR/scripts/ISRfile2.xml")
-		self.traj_points =v.planTrajectory(iniX,iniY,goalx,goaly,False)
+		self.mapsegs = v.loadMap(MAP)
+		self.computeMapLimits();
+		self.traj_points =v.planTrajectory(iniX,iniY,goalx,goaly,True)
+		#chamada a criacao do threado do mapa
+		self.toThread()
+		#chamada servico para adicionar os pontos ao modulo de navegacao
 		self.addpoint_client()
 		
-		self.toThread()
-'''
+		
+
 
 
 if __name__ == "__main__":
 	rospy.init_node("coordinator_node",anonymous=True)
 	print "entrou"
 	boss=coordinator()
-	#boss.toThread()
-	#boss.addpoint_client()
 	boss.readFile(traj1)
-	boss.addpoint_client()
-	#boss.reset_odom()
+	boss.vstpFunc(1,1,55,3)
+	#boss.addpoint_client()
+
 	rospy.spin()
 
 

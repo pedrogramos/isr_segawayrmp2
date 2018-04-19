@@ -113,6 +113,7 @@ if __name__ == "__main__":
 	print "Odom Updater Initialization ..."
 	update=odomUpdater()
 	rospy.sleep(1)
+	print "Done!"
 
 	while not rospy.is_shutdown():
 		try:

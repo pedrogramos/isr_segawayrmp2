@@ -1570,6 +1570,149 @@ beginner_tutorials_geneus/fast:
 .PHONY : beginner_tutorials_geneus/fast
 
 #=============================================================================
+# Target rules for targets named _run_tests_camera_calibration_nosetests_test.multiple_boards.py
+
+# Build rule for target.
+_run_tests_camera_calibration_nosetests_test.multiple_boards.py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _run_tests_camera_calibration_nosetests_test.multiple_boards.py
+.PHONY : _run_tests_camera_calibration_nosetests_test.multiple_boards.py
+
+# fast build rule for target.
+_run_tests_camera_calibration_nosetests_test.multiple_boards.py/fast:
+	$(MAKE) -f camera_calibration/CMakeFiles/_run_tests_camera_calibration_nosetests_test.multiple_boards.py.dir/build.make camera_calibration/CMakeFiles/_run_tests_camera_calibration_nosetests_test.multiple_boards.py.dir/build
+.PHONY : _run_tests_camera_calibration_nosetests_test.multiple_boards.py/fast
+
+#=============================================================================
+# Target rules for targets named _run_tests_camera_calibration_nosetests
+
+# Build rule for target.
+_run_tests_camera_calibration_nosetests: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _run_tests_camera_calibration_nosetests
+.PHONY : _run_tests_camera_calibration_nosetests
+
+# fast build rule for target.
+_run_tests_camera_calibration_nosetests/fast:
+	$(MAKE) -f camera_calibration/CMakeFiles/_run_tests_camera_calibration_nosetests.dir/build.make camera_calibration/CMakeFiles/_run_tests_camera_calibration_nosetests.dir/build
+.PHONY : _run_tests_camera_calibration_nosetests/fast
+
+#=============================================================================
+# Target rules for targets named run_tests_camera_calibration_nosetests_test.multiple_boards.py
+
+# Build rule for target.
+run_tests_camera_calibration_nosetests_test.multiple_boards.py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 run_tests_camera_calibration_nosetests_test.multiple_boards.py
+.PHONY : run_tests_camera_calibration_nosetests_test.multiple_boards.py
+
+# fast build rule for target.
+run_tests_camera_calibration_nosetests_test.multiple_boards.py/fast:
+	$(MAKE) -f camera_calibration/CMakeFiles/run_tests_camera_calibration_nosetests_test.multiple_boards.py.dir/build.make camera_calibration/CMakeFiles/run_tests_camera_calibration_nosetests_test.multiple_boards.py.dir/build
+.PHONY : run_tests_camera_calibration_nosetests_test.multiple_boards.py/fast
+
+#=============================================================================
+# Target rules for targets named run_tests_camera_calibration_nosetests
+
+# Build rule for target.
+run_tests_camera_calibration_nosetests: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 run_tests_camera_calibration_nosetests
+.PHONY : run_tests_camera_calibration_nosetests
+
+# fast build rule for target.
+run_tests_camera_calibration_nosetests/fast:
+	$(MAKE) -f camera_calibration/CMakeFiles/run_tests_camera_calibration_nosetests.dir/build.make camera_calibration/CMakeFiles/run_tests_camera_calibration_nosetests.dir/build
+.PHONY : run_tests_camera_calibration_nosetests/fast
+
+#=============================================================================
+# Target rules for targets named _run_tests_camera_calibration
+
+# Build rule for target.
+_run_tests_camera_calibration: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _run_tests_camera_calibration
+.PHONY : _run_tests_camera_calibration
+
+# fast build rule for target.
+_run_tests_camera_calibration/fast:
+	$(MAKE) -f camera_calibration/CMakeFiles/_run_tests_camera_calibration.dir/build.make camera_calibration/CMakeFiles/_run_tests_camera_calibration.dir/build
+.PHONY : _run_tests_camera_calibration/fast
+
+#=============================================================================
+# Target rules for targets named run_tests_camera_calibration
+
+# Build rule for target.
+run_tests_camera_calibration: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 run_tests_camera_calibration
+.PHONY : run_tests_camera_calibration
+
+# fast build rule for target.
+run_tests_camera_calibration/fast:
+	$(MAKE) -f camera_calibration/CMakeFiles/run_tests_camera_calibration.dir/build.make camera_calibration/CMakeFiles/run_tests_camera_calibration.dir/build
+.PHONY : run_tests_camera_calibration/fast
+
+#=============================================================================
+# Target rules for targets named run_tests_camera_calibration_nosetests_test.directed.py
+
+# Build rule for target.
+run_tests_camera_calibration_nosetests_test.directed.py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 run_tests_camera_calibration_nosetests_test.directed.py
+.PHONY : run_tests_camera_calibration_nosetests_test.directed.py
+
+# fast build rule for target.
+run_tests_camera_calibration_nosetests_test.directed.py/fast:
+	$(MAKE) -f camera_calibration/CMakeFiles/run_tests_camera_calibration_nosetests_test.directed.py.dir/build.make camera_calibration/CMakeFiles/run_tests_camera_calibration_nosetests_test.directed.py.dir/build
+.PHONY : run_tests_camera_calibration_nosetests_test.directed.py/fast
+
+#=============================================================================
+# Target rules for targets named _run_tests_camera_calibration_nosetests_test.directed.py
+
+# Build rule for target.
+_run_tests_camera_calibration_nosetests_test.directed.py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _run_tests_camera_calibration_nosetests_test.directed.py
+.PHONY : _run_tests_camera_calibration_nosetests_test.directed.py
+
+# fast build rule for target.
+_run_tests_camera_calibration_nosetests_test.directed.py/fast:
+	$(MAKE) -f camera_calibration/CMakeFiles/_run_tests_camera_calibration_nosetests_test.directed.py.dir/build.make camera_calibration/CMakeFiles/_run_tests_camera_calibration_nosetests_test.directed.py.dir/build
+.PHONY : _run_tests_camera_calibration_nosetests_test.directed.py/fast
+
+#=============================================================================
+# Target rules for targets named clean_test_results_camera_calibration
+
+# Build rule for target.
+clean_test_results_camera_calibration: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 clean_test_results_camera_calibration
+.PHONY : clean_test_results_camera_calibration
+
+# fast build rule for target.
+clean_test_results_camera_calibration/fast:
+	$(MAKE) -f camera_calibration/CMakeFiles/clean_test_results_camera_calibration.dir/build.make camera_calibration/CMakeFiles/clean_test_results_camera_calibration.dir/build
+.PHONY : clean_test_results_camera_calibration/fast
+
+#=============================================================================
+# Target rules for targets named camera_calibration.tar.gz
+
+# Build rule for target.
+camera_calibration.tar.gz: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 camera_calibration.tar.gz
+.PHONY : camera_calibration.tar.gz
+
+# fast build rule for target.
+camera_calibration.tar.gz/fast:
+	$(MAKE) -f camera_calibration/CMakeFiles/camera_calibration.tar.gz.dir/build.make camera_calibration/CMakeFiles/camera_calibration.tar.gz.dir/build
+.PHONY : camera_calibration.tar.gz/fast
+
+#=============================================================================
+# Target rules for targets named multi_board_calibration.tar.gz
+
+# Build rule for target.
+multi_board_calibration.tar.gz: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 multi_board_calibration.tar.gz
+.PHONY : multi_board_calibration.tar.gz
+
+# fast build rule for target.
+multi_board_calibration.tar.gz/fast:
+	$(MAKE) -f camera_calibration/CMakeFiles/multi_board_calibration.tar.gz.dir/build.make camera_calibration/CMakeFiles/multi_board_calibration.tar.gz.dir/build
+.PHONY : multi_board_calibration.tar.gz/fast
+
+#=============================================================================
 # Target rules for targets named topic_tools_generate_messages_lisp
 
 # Build rule for target.
@@ -3471,6 +3614,17 @@ help:
 	@echo "... beginner_tutorials_gencpp"
 	@echo "... std_msgs_generate_messages_nodejs"
 	@echo "... beginner_tutorials_geneus"
+	@echo "... _run_tests_camera_calibration_nosetests_test.multiple_boards.py"
+	@echo "... _run_tests_camera_calibration_nosetests"
+	@echo "... run_tests_camera_calibration_nosetests_test.multiple_boards.py"
+	@echo "... run_tests_camera_calibration_nosetests"
+	@echo "... _run_tests_camera_calibration"
+	@echo "... run_tests_camera_calibration"
+	@echo "... run_tests_camera_calibration_nosetests_test.directed.py"
+	@echo "... _run_tests_camera_calibration_nosetests_test.directed.py"
+	@echo "... clean_test_results_camera_calibration"
+	@echo "... camera_calibration.tar.gz"
+	@echo "... multi_board_calibration.tar.gz"
 	@echo "... topic_tools_generate_messages_lisp"
 	@echo "... topic_tools_generate_messages_nodejs"
 	@echo "... topic_tools_generate_messages_cpp"

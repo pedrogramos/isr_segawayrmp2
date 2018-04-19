@@ -1,0 +1,14 @@
+<launch>
+
+	<node
+	pkg="wiimote"
+	type="wiimote_node"
+	name="wiimote_controller"
+	output="screen"
+	required="true"
+	/>
+
+	<node pkg="RMPISR" type="wiimoteRMP.py" name="remote_control" output="screen"/>
+
+
+</launch>

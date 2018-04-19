@@ -9,11 +9,13 @@ BLACK = (  0,   0,   0)
 WHITE = (255, 255, 255)
 RED   = (255,   0,   0)
 GREEN = (0, 255, 0)
+YELLOW =  (255,255,0)
+
 #MAP = "/home/pm/CloudISR/AlunosMSc/PedroRamosTese/Codigo/python_vstp_ros/ISR_map.xml"
 #MAP = "ISRfile2.xml"
 #MAP = "goodmap.xml"
-MAP="exmap.xml"
-#MAP="novo.xml"
+#MAP="exmap.xml"
+MAP="novo.xml"
 
 FPS = 30
 
@@ -95,13 +97,13 @@ class robotTrajectory:
                         # print (i,traj_points[i-1].x,traj_points[i-1].y)                                 
                         # print (i,traj_points[i].x,traj_points[i].y)
                         
-                        pygame.draw.line(self.screen, (0, 255,255),
+                        pygame.draw.line(self.screen, (255, 255,0),
                                          ((self.traj_points[i-1].x-self.mapminx)*self.raciox+self.dispoffx, (self.traj_points[i-1].y-self.mapminy)*self.racioy+self.dispoffy),
                                          ((self.traj_points[i].x-self.mapminx)*self.raciox+self.dispoffx, (self.traj_points[i].y-self.mapminy)*self.racioy+self.dispoffy))
                         
 
 
-        def loadMapNRobot(self,mpath,rradius=0.30,gridres=0.10,idist=0.40,maxdist=1):
+        def loadMapNRobot(self,mpath,rradius=0.35,gridres=0.10,idist=0.5,maxdist=1):
                 self.robotradius=rradius
                 self.vstp=vstpPY.VSTP()
                 self.gridres=gridres
@@ -145,10 +147,10 @@ class robotTrajectory:
                                 elif event.type == pygame.MOUSEBUTTONUP:
                                         if event.button == 1:            
                                                 if self.rectorig_draging or self.rectdest_draging:
-                                                        self.traj_points = self.vstp.planTrajectory((self.rectorig.x-self.dispoffx)/self.raciox+self.mapminx,
-                                                                                                    (self.rectorig.y-self.dispoffy)/self.racioy+self.mapminy,
+                                                        self.traj_points = self.vstp.planTrajectory((self.rectorig.x-self.dispoffx)/self.raciox + self.mapminx,
+                                                                                                    (self.rectorig.y-self.dispoffy)/self.racioy + self.mapminy,
                                                                                                     (self.rectdest.x-self.dispoffx)/self.raciox + self.mapminx,
-                                                                                                    (self.rectdest.y - self.mapminy)/self.racioy+self.mapminy,False)
+                                                                                                    (self.rectdest.y- self.dispoffy)/self.racioy+self.mapminy,True)
                                                         self.rectorig_draging = False
                                                         self.rectdest_draging = False
                                                         
