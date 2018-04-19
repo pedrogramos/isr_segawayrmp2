@@ -152,6 +152,7 @@ int main(int argc, char **argv){
   cv::Mat  frame;
   cv::Mat  img;
   cv::Mat  img2;
+  bool doundistort=false;
 
 
 //-----------------------------------------------------//
@@ -168,12 +169,12 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
   rmpTc[0] = glm::vec4(1.0,0.0,0.0,0.0);
   rmpTc[1] = glm::vec4(0.0,0.0,-1.0,0.0);
   rmpTc[2] = glm::vec4(0.0,1.0,0.0,0.0);
-  rmpTc[3] = glm::vec4(0.0,325.0,730.0,1.0);
+  rmpTc[3] = glm::vec4(0.0,302.5,730.0,1.0);
   glm::mat4 cTm,rmpTm, mTrmp, wTrmp;
 
   glm::mat4 wTc,inv_cTm;
 
-  bool doundistort=false;
+
 
 
 //-----------------------------------------------------//
@@ -242,6 +243,7 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
 
   CvFont font;
   char msg[80];
+  char msg3[80];
   //cvInitFont( &font, CV_FONT_HERSHEY_COMPLEX, 1, 1, 0.0, 5, CV_AA );
   // engine.SetViewingAngle(30);
   viewangle=30;
@@ -250,7 +252,7 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
  
   window.SetViewingAngle(glm::radians((float)viewangle));
 
-  window.SetWindowTitle("MarkerLocator Demo");
+  window.SetWindowTitle("MarkerLocator");
 
   start = System::GetTicks();
   //SDL_EnableKeyRepeat(50, 50);
@@ -298,12 +300,11 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
 
   // the main cycle
   // capture -> process -> display & process events
-  sprintf(msg,"g - gridloc, b - bploc");
+
 
     if (locator)
   delete locator;
     locator=startbploc(&cammodel);
-    sprintf(msg,"Using bploc");
 
 
 
@@ -339,6 +340,10 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
           pose=locator->getMarkerPose(lk);
           id=locator->getMarkerId(lk);
 
+          sprintf(msg3,"Measure to marker center: %f",pose.position.norm());
+          cv::putText(frame,msg3,cvPoint(0,50),cv::FONT_HERSHEY_SIMPLEX,1,cv::Scalar::all(100),3,8);
+          M_use=Ma;
+
           if (id==111){
             M_use=Ma;
             printf("Detectou o n 111\n");
@@ -361,7 +366,7 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
           
           inv_cTm=glm::inverse(cTm);
 
-          //wTrmp=M_use*inv_cTm;
+          wTc=M_use*inv_cTm;
           
           
           rmpTm=rmpTc*cTm;
@@ -373,6 +378,7 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
           poseRMP.y = (wTrmp[3][1])/1000;
           poseRMP.theta = atan2((wTrmp[0][1]),(wTrmp[0][0]));
 
+        printf("Xcam=  %f Ycam=  %f ThCam=  %f \n",(wTc[3][0])/1000, (wTc[3][1])/1000, atan2((wTc[0][1]),(wTc[0][0])) );
         printf("x=  %f y=  %f theta=  %f \n",poseRMP.x, poseRMP.y, poseRMP.theta );
 
         //printf("M_use %s \n", glm::to_string(M_use).c_str() );
@@ -432,13 +438,30 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
           printf("\n\n" );
         }
   
-  cv::putText(frame,msg,cvPoint(10,50),cv::FONT_HERSHEY_SCRIPT_SIMPLEX,2, cv::Scalar::all(255),3,8);
+  //cv::putText(frame,msg,cvPoint(10,50),cv::FONT_HERSHEY_SIMPLEX,1, cv::Scalar::all(255),3,8);
   // set it as the opengl scene background
 
   engine.SetBGImage(frame);
   
 
   engine.renderScene(&window);
+/*
+  SDL_Event ev;
+  while(SDL_PollEvent(&ev)) {
+    switch(ev.type) {
+      case SDL_QUIT:
+        return 0;
+      break;
+
+      case SDLK_q:
+        return 0;
+
+      default:
+        std::cout << "key"<< std::endl;
+      break;
+    }
+    break;
+  }*/
 
 
   }
