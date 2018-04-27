@@ -126,12 +126,12 @@ int main(int argc, char **argv){
   client = nh.serviceClient<RMPISR::resetrmp>("resetRMP");
   RMPISR::resetrmp srv;
   geometry_msgs::Pose2D poseRMP;
-  //var to use with time control
-  float nowTime;
-  ros::Time lastTime;
-  ros::Duration interval (5, 0);
   bool entrar = true;
   std::vector<float> setValues;
+  std::ofstream outfile ("test.txt");
+  time_t rawtime;
+  struct tm * timeinfo;
+
 
 
 
@@ -169,7 +169,7 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
   rmpTc[0] = glm::vec4(1.0,0.0,0.0,0.0);
   rmpTc[1] = glm::vec4(0.0,0.0,-1.0,0.0);
   rmpTc[2] = glm::vec4(0.0,1.0,0.0,0.0);
-  rmpTc[3] = glm::vec4(0.0,302.5,730.0,1.0);
+  rmpTc[3] = glm::vec4(0.0,350.0,730.0,1.0);
   glm::mat4 cTm,rmpTm, mTrmp, wTrmp;
 
   glm::mat4 wTc,inv_cTm;
@@ -205,7 +205,7 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
 
 
   //para a demostração
-  glm::mat4 Ma, Mb, Mc;
+  glm::mat4 Ma, Mb, Mc, Md, Mc2, novo;
 
   //para o teste:
   //1º ponto - Marker nº 111
@@ -220,11 +220,23 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
   Mb[2] = glm::vec4(0.0,-1.0,0.0,0.0);
   Mb[3] = glm::vec4(setValues.at(4),setValues.at(5),setValues.at(6),1.0);
 
-  //3º ponto - Marker nº 150
+  //4º ponto - Marker nº 150
   Mc[0] = glm::vec4(0.0,1.0,0.0,0.0);
   Mc[1] = glm::vec4(0.0,0.0,1.0,0.0);
   Mc[2] = glm::vec4(1.0,0.0,0.0,0.0);
   Mc[3] = glm::vec4(setValues.at(7),setValues.at(8),setValues.at(9),1.0);
+
+  Mc2[0] = glm::vec4(-1.0,0.0,0.0,0.0);
+  Mc2[1] = glm::vec4(0.0,0.0,-1.0,0.0);
+  Mc2[2] = glm::vec4(0.0,-1.0,0.0,0.0);
+  Mc2[3] = glm::vec4(setValues.at(10),setValues.at(11),setValues.at(12),1.0);
+
+
+  //3º ponto - Marker nº 200
+  Md[0] = glm::vec4(0.0,1.0,0.0,0.0);
+  Md[1] = glm::vec4(0.0,0.0,1.0,0.0);
+  Md[2] = glm::vec4(1.0,0.0,0.0,0.0);
+  Md[3] = glm::vec4(setValues.at(10),setValues.at(11),setValues.at(12),1.0);
 
 
   // This part corresponds to the typical initialization of an application
@@ -340,9 +352,15 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
           pose=locator->getMarkerPose(lk);
           id=locator->getMarkerId(lk);
 
+          /*
+          if (i!=0){
+            outfile << "Odom " << i << "-> X: "<< odomX << "Y: "<< odomY << "theta: " << odomTheta << std::endl;
+            i--;
+          }*/
+
           sprintf(msg3,"Measure to marker center: %f",pose.position.norm());
           cv::putText(frame,msg3,cvPoint(0,50),cv::FONT_HERSHEY_SIMPLEX,1,cv::Scalar::all(100),3,8);
-          M_use=Ma;
+          //M_use=Ma;
 
           if (id==111){
             M_use=Ma;
@@ -356,11 +374,19 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
             if(id_ant != 127) entrar=true;
           }
 
+          else if (id==200){
+            M_use=Md;
+            printf("Detectou o n 200\n");
+            if(id_ant != 200) entrar=true;
+
+          }
+
           else if (id==150){
             M_use=Mc;
             printf("Detectou o n 150\n");
             if(id_ant != 150) entrar=true;
           }
+
 
           cTm = pose.getRT();
           
@@ -372,14 +398,16 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
           rmpTm=rmpTc*cTm;
           mTrmp=glm::inverse(rmpTm);
           wTrmp=M_use*mTrmp;
+          novo=Mc2*mTrmp;
           
 
           poseRMP.x = (wTrmp[3][0])/1000;
           poseRMP.y = (wTrmp[3][1])/1000;
           poseRMP.theta = atan2((wTrmp[0][1]),(wTrmp[0][0]));
 
-        printf("Xcam=  %f Ycam=  %f ThCam=  %f \n",(wTc[3][0])/1000, (wTc[3][1])/1000, atan2((wTc[0][1]),(wTc[0][0])) );
-        printf("x=  %f y=  %f theta=  %f \n",poseRMP.x, poseRMP.y, poseRMP.theta );
+        //printf("Xcam=  %f Ycam=  %f ThCam=  %f \n",(wTc[3][0])/1000, (wTc[3][1])/1000, atan2((wTc[0][1]),(wTc[0][0])) );
+        printf("OLD: x=  %f y=  %f theta=  %f \n",poseRMP.x, poseRMP.y, poseRMP.theta );
+        printf("NOVO: x=  %f y=  %f theta=  %f \n",(novo[3][0])/1000, (novo[3][1])/1000, atan2((novo[0][1]),(novo[0][0])) );
 
         //printf("M_use %s \n", glm::to_string(M_use).c_str() );
           //printf("M0 %s \n", glm::to_string(M0).c_str() );
@@ -423,7 +451,20 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
           //elapsed > interval ||
           if(entrar){
             printf("ENTROU CHAMADA SERVICO!!\n");
+            time ( &rawtime );
+            timeinfo = localtime ( &rawtime );
+            //string a =fprintf( "The current date/time is: %s", asctime (timeinfo) );
+
+            outfile << asctime (timeinfo);
+            outfile << "Detectou o id: " << id << std::endl;
+            outfile << "srv call-> X: "<< poseRMP.x << " Y: "<< poseRMP.y << " th: " << poseRMP.theta << std::endl;
             serciceCall(poseRMP,srv,client);
+
+            //cout para a consola
+            std::cout << asctime (timeinfo);
+            std::cout << "Detectou o id: " << id << std::endl;
+            std::cout << "srv call-> X: "<< poseRMP.x << " Y: "<< poseRMP.y << " th: " << poseRMP.theta << std::endl;
+            //i=2;
             //lastTime = ros::Time::now();
             entrar = false;
 
@@ -467,8 +508,10 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
   }
 
 }
-
+  
+  outfile.close();
   return 0;
+
 
 
 }

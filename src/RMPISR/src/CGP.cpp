@@ -299,7 +299,7 @@ int main(int argc, char** argv)
       break;
       }
       case STOP:{
-      ROS_INFO("state = STOP -> IDLE");
+      //ROS_INFO("state = STOP -> IDLE");
 
       break;
     }

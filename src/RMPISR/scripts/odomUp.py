@@ -6,6 +6,7 @@ from geometry_msgs.msg import Pose2D
 from nav_msgs.msg import Odometry
 import tf
 from turtlesim.msg import Pose
+import time
 
 PI=3.14159265359
 PI_2=6.28318530718
@@ -30,6 +31,7 @@ class odomUpdater:
 		self.odom_pub = rospy.Publisher('odomUpdater', Pose2D, queue_size=10)
 		#self.odom_pub = rospy.Publisher('odomUpdater', Pose, queue_size=10)
 		self.service = rospy.Service('resetRMP', resetrmp, self.handle_resetRMP)
+		
 
 	def handle_resetRMP(self,req):
 		
@@ -39,6 +41,22 @@ class odomUpdater:
 		self.trueodomTheta=req.pose.theta
 
 		self.save=True
+		'''
+		file=open("testfile.txt","a+")
+		file.write("Hello World\n")
+		#file.write(time.strftime('%a, %d %b %Y %H:%M:%S GMT \n', time.localtime()))
+		file.close()
+		'''
+		
+		print time.strftime('%a, %d %b %Y %H:%M:%S GMT \n', time.localtime())
+		print "X: %f Y: %f th: %f" % (self.trueodomX,self.trueodomY,self.trueodomTheta)
+
+		'''
+		with open('somefile.txt', 'a') as the_file:
+   			the_file.write(time.strftime('%a, %d %b %Y %H:%M:%S GMT \n', time.localtime()))
+		'''
+   		
+		
 
 		return []
 
@@ -71,8 +89,8 @@ class odomUpdater:
 
 	def callbackOdom(self, data):
 
-		#guarda a primeira posicao do robo para depois utilizar 
-		#no calculo do deslocamento
+		#guarda a primeira posicao do robo para depois utilizar no calculo do deslocamento
+		#a variavel safe e usada para quando o robo chega a uma posicao conhecida fazer o reset dessa posicao inicialmente guardada
 		if(self.save == True):
 			self.iniXrmp = data.pose.pose.position.x
 			self.iniYrmp = data.pose.pose.position.y
@@ -121,4 +139,4 @@ if __name__ == "__main__":
 			#update.printScreen()
 
 		except rospy.ServiceException, e:
-			print "correctOdom fucntion call failed: %s" % e
+			print "correctOdom function call failed: %s" % e
