@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/testeturtle_generate_messages_lisp"
   "/home/rmp/catkin_ws/devel/share/common-lisp/ros/testeturtle/srv/addpoint.lisp"
   "/home/rmp/catkin_ws/devel/share/common-lisp/ros/testeturtle/srv/stop.lisp"
+  "/home/rmp/catkin_ws/devel/share/common-lisp/ros/testeturtle/srv/resetrmp.lisp"
   "/home/rmp/catkin_ws/devel/share/common-lisp/ros/testeturtle/srv/go.lisp"
 )
 

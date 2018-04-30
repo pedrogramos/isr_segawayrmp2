@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 import rospy
 import sys
-import numpy
+import numpy as np
+import math
 from RMPISR.srv import *
 from geometry_msgs.msg import Point, Pose2D
 from std_msgs.msg import Bool
@@ -11,6 +12,7 @@ from random import randint
 import pygame
 import threading
 import tf
+import copy
 #from vstptest import robotTrajectory
 import csv
 
@@ -29,7 +31,7 @@ sys.path.insert(0,'/home/rmp/lib/python')
 MAP='/home/rmp/catkin_ws/src/RMPISR/scripts/ISRfile2.xml'
 import vstpPY
 
-traj1='/home/rmp/catkin_ws/src/RMPISR/scripts/DemonstrationPoints.csv'
+traj1='/home/rmp/catkin_ws/src/RMPISR/scripts/DemonstrationPoints2.csv'
 
 
 '''
@@ -67,6 +69,8 @@ class coordinator():
 		self.trueodomX=data.x
 		self.trueodomY=data.y
 		self.trueodomTheta=data.theta
+
+#---------------------------------------------------------------------------------------------------------------------------#
 		
 	def callbackSonar(self,data):
 		self.danger=data.data;
@@ -85,6 +89,8 @@ class coordinator():
 		print "sonarFlag: %s " % (self.danger)
 		print "State %d" % (self.state)
 		'''
+
+#---------------------------------------------------------------------------------------------------------------------------#
 
 	def stop_client(self):
 		rospy.wait_for_service('stop')
@@ -108,6 +114,9 @@ class coordinator():
 
 		except rospy.ServiceException, e:
 			print "Service call failed: %s" % e
+
+#---------------------------------------------------------------------------------------------------------------------------#
+
 
 
 	def addpoint_client(self):
@@ -166,6 +175,7 @@ class coordinator():
 		except rospy.ServiceException, e:
 			print "Service call failed: %s"%e
 
+#---------------------------------------------------------------------------------------------------------------------------#
 
 	def readFile(self,filename):
 		self.myList = []
@@ -173,6 +183,8 @@ class coordinator():
 			csv_DictReader = csv.DictReader(rf) 
 			for row in csv_DictReader:
 				self.myList.append(row)
+
+#---------------------------------------------------------------------------------------------------------------------------#
 
 
 	def computeMapLimits(self):
@@ -208,6 +220,9 @@ class coordinator():
 		self.mapmaxx=maxx
 		self.mapmaxy=maxy
 		print "minX: %f, minY: %f, MAXX: %f, MAXY: %f" % (self.mapminx,self.mapminy,self.mapmaxx,self.mapmaxy)
+
+#---------------------------------------------------------------------------------------------------------------------------#
+
 		
 	def criaMapa(self,displayx=800,displayy=480):
 		
@@ -247,6 +262,8 @@ class coordinator():
 				cleanup_stop_thread()
 				pygame.quit()
 				sys.exit()
+
+#---------------------------------------------------------------------------------------------------------------------------#
 		
 			
 	#thread para a const actualizacao da posicao do robot no display
@@ -255,6 +272,56 @@ class coordinator():
 		mapThread.daemon=True
 		mapThread.start()
 		#mapThread.join()
+
+#---------------------------------------------------------------------------------------------------------------------------#
+
+
+	#divisao do segmentos provenientes do VSTP em segmentos mais pequenos
+	#scale -> tamanho maximo dos segmentos desejados
+	def trajDivider(self,scale=1):
+		size=len(self.traj_points)
+		print size
+
+		for i in range(1,size):
+			print "i=", i
+			#saber em que eixo o segmento aumenta (sentido de navegacao)
+			if (self.traj_points[i-1].x != self.traj_points[i].x):
+				alongX=True
+			else: alongX=False
+
+			#calculo da distancia euclidiana entre pontos
+			d=math.sqrt(math.pow((self.traj_points[i].x-self.traj_points[i-1].x),2)+math.pow((self.traj_points[i].y-self.traj_points[i-1].y),2))
+			#calculo de quantas vezes cabe a meu espacamento entre pontos na distancia total por excesso
+			bitola=int(math.ceil(d/scale))
+			print bitola
+			#fazer os segmentos com a distancia entre eles toda igual
+			new_scale=d/bitola
+
+			print "d= %f bitola= %f " % (d,bitola)
+
+			# inicializacao da nova trajectoria
+			self.new_traj = list()
+			aux_traj=Point()
+			aux_traj.x = self.traj_points[i-1].x
+			aux_traj.y = self.traj_points[i-1].y
+			for j in xrange(bitola):
+				print "2nd cycle", j
+				if (alongX == True):
+					aux_traj.x = aux_traj.x + new_scale
+					aux_traj.y = aux_traj.y
+					print aux_traj
+					self.new_traj.append(copy.deepcopy(aux_traj))
+
+
+				else:
+					aux_traj.x = aux_traj.x
+					aux_traj.y = aux_traj.y + new_scale
+					self.new_traj.append(copy.deepcopy(aux_traj))
+					print aux_traj
+
+		print self.new_traj
+
+#---------------------------------------------------------------------------------------------------------------------------#
 
 	#funcao que quando chamada retorna a trajetoria de pontos
 	def vstpFunc(self,iniX,iniY,goalx,goaly):
@@ -268,13 +335,15 @@ class coordinator():
 		self.mapsegs = v.loadMap(MAP)
 		self.computeMapLimits();
 		self.traj_points =v.planTrajectory(iniX,iniY,goalx,goaly,True)
-		#chamada a criacao do threado do mapa
-		self.toThread()
+		#chamada a criacao do thread do mapa
+		#self.toThread()
+		self.trajDivider()
 		#chamada servico para adicionar os pontos ao modulo de navegacao
-		self.addpoint_client()
+		#self.addpoint_client()
 		
 		
 
+#---------------------------------------------------------------------------------------------------------------------------#
 
 
 if __name__ == "__main__":

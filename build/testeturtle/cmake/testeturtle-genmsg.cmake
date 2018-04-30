@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "testeturtle: 0 messages, 3 services")
+message(STATUS "testeturtle: 0 messages, 4 services")
 
 set(MSG_I_FLAGS "-Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg;-Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg")
 
@@ -19,12 +19,17 @@ add_custom_target(testeturtle_generate_messages ALL)
 
 get_filename_component(_filename "/home/rmp/catkin_ws/src/testeturtle/srv/addpoint.srv" NAME_WE)
 add_custom_target(_testeturtle_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "testeturtle" "/home/rmp/catkin_ws/src/testeturtle/srv/addpoint.srv" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "testeturtle" "/home/rmp/catkin_ws/src/testeturtle/srv/addpoint.srv" "geometry_msgs/Point"
 )
 
 get_filename_component(_filename "/home/rmp/catkin_ws/src/testeturtle/srv/go.srv" NAME_WE)
 add_custom_target(_testeturtle_generate_messages_check_deps_${_filename}
   COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "testeturtle" "/home/rmp/catkin_ws/src/testeturtle/srv/go.srv" ""
+)
+
+get_filename_component(_filename "/home/rmp/catkin_ws/src/testeturtle/srv/resetrmp.srv" NAME_WE)
+add_custom_target(_testeturtle_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "testeturtle" "/home/rmp/catkin_ws/src/testeturtle/srv/resetrmp.srv" "geometry_msgs/Pose2D"
 )
 
 get_filename_component(_filename "/home/rmp/catkin_ws/src/testeturtle/srv/stop.srv" NAME_WE)
@@ -43,13 +48,19 @@ add_custom_target(_testeturtle_generate_messages_check_deps_${_filename}
 _generate_srv_cpp(testeturtle
   "/home/rmp/catkin_ws/src/testeturtle/srv/addpoint.srv"
   "${MSG_I_FLAGS}"
-  ""
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/testeturtle
 )
 _generate_srv_cpp(testeturtle
   "/home/rmp/catkin_ws/src/testeturtle/srv/stop.srv"
   "${MSG_I_FLAGS}"
   ""
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/testeturtle
+)
+_generate_srv_cpp(testeturtle
+  "/home/rmp/catkin_ws/src/testeturtle/srv/resetrmp.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Pose2D.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/testeturtle
 )
 _generate_srv_cpp(testeturtle
@@ -75,6 +86,8 @@ get_filename_component(_filename "/home/rmp/catkin_ws/src/testeturtle/srv/addpoi
 add_dependencies(testeturtle_generate_messages_cpp _testeturtle_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/testeturtle/srv/go.srv" NAME_WE)
 add_dependencies(testeturtle_generate_messages_cpp _testeturtle_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/rmp/catkin_ws/src/testeturtle/srv/resetrmp.srv" NAME_WE)
+add_dependencies(testeturtle_generate_messages_cpp _testeturtle_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/testeturtle/srv/stop.srv" NAME_WE)
 add_dependencies(testeturtle_generate_messages_cpp _testeturtle_generate_messages_check_deps_${_filename})
 
@@ -92,13 +105,19 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS testeturtle_generate_messages_cpp)
 _generate_srv_eus(testeturtle
   "/home/rmp/catkin_ws/src/testeturtle/srv/addpoint.srv"
   "${MSG_I_FLAGS}"
-  ""
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/testeturtle
 )
 _generate_srv_eus(testeturtle
   "/home/rmp/catkin_ws/src/testeturtle/srv/stop.srv"
   "${MSG_I_FLAGS}"
   ""
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/testeturtle
+)
+_generate_srv_eus(testeturtle
+  "/home/rmp/catkin_ws/src/testeturtle/srv/resetrmp.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Pose2D.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/testeturtle
 )
 _generate_srv_eus(testeturtle
@@ -124,6 +143,8 @@ get_filename_component(_filename "/home/rmp/catkin_ws/src/testeturtle/srv/addpoi
 add_dependencies(testeturtle_generate_messages_eus _testeturtle_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/testeturtle/srv/go.srv" NAME_WE)
 add_dependencies(testeturtle_generate_messages_eus _testeturtle_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/rmp/catkin_ws/src/testeturtle/srv/resetrmp.srv" NAME_WE)
+add_dependencies(testeturtle_generate_messages_eus _testeturtle_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/testeturtle/srv/stop.srv" NAME_WE)
 add_dependencies(testeturtle_generate_messages_eus _testeturtle_generate_messages_check_deps_${_filename})
 
@@ -141,13 +162,19 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS testeturtle_generate_messages_eus)
 _generate_srv_lisp(testeturtle
   "/home/rmp/catkin_ws/src/testeturtle/srv/addpoint.srv"
   "${MSG_I_FLAGS}"
-  ""
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/testeturtle
 )
 _generate_srv_lisp(testeturtle
   "/home/rmp/catkin_ws/src/testeturtle/srv/stop.srv"
   "${MSG_I_FLAGS}"
   ""
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/testeturtle
+)
+_generate_srv_lisp(testeturtle
+  "/home/rmp/catkin_ws/src/testeturtle/srv/resetrmp.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Pose2D.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/testeturtle
 )
 _generate_srv_lisp(testeturtle
@@ -173,6 +200,8 @@ get_filename_component(_filename "/home/rmp/catkin_ws/src/testeturtle/srv/addpoi
 add_dependencies(testeturtle_generate_messages_lisp _testeturtle_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/testeturtle/srv/go.srv" NAME_WE)
 add_dependencies(testeturtle_generate_messages_lisp _testeturtle_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/rmp/catkin_ws/src/testeturtle/srv/resetrmp.srv" NAME_WE)
+add_dependencies(testeturtle_generate_messages_lisp _testeturtle_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/testeturtle/srv/stop.srv" NAME_WE)
 add_dependencies(testeturtle_generate_messages_lisp _testeturtle_generate_messages_check_deps_${_filename})
 
@@ -190,13 +219,19 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS testeturtle_generate_messages_lisp)
 _generate_srv_nodejs(testeturtle
   "/home/rmp/catkin_ws/src/testeturtle/srv/addpoint.srv"
   "${MSG_I_FLAGS}"
-  ""
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/testeturtle
 )
 _generate_srv_nodejs(testeturtle
   "/home/rmp/catkin_ws/src/testeturtle/srv/stop.srv"
   "${MSG_I_FLAGS}"
   ""
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/testeturtle
+)
+_generate_srv_nodejs(testeturtle
+  "/home/rmp/catkin_ws/src/testeturtle/srv/resetrmp.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Pose2D.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/testeturtle
 )
 _generate_srv_nodejs(testeturtle
@@ -222,6 +257,8 @@ get_filename_component(_filename "/home/rmp/catkin_ws/src/testeturtle/srv/addpoi
 add_dependencies(testeturtle_generate_messages_nodejs _testeturtle_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/testeturtle/srv/go.srv" NAME_WE)
 add_dependencies(testeturtle_generate_messages_nodejs _testeturtle_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/rmp/catkin_ws/src/testeturtle/srv/resetrmp.srv" NAME_WE)
+add_dependencies(testeturtle_generate_messages_nodejs _testeturtle_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/testeturtle/srv/stop.srv" NAME_WE)
 add_dependencies(testeturtle_generate_messages_nodejs _testeturtle_generate_messages_check_deps_${_filename})
 
@@ -239,13 +276,19 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS testeturtle_generate_messages_nodej
 _generate_srv_py(testeturtle
   "/home/rmp/catkin_ws/src/testeturtle/srv/addpoint.srv"
   "${MSG_I_FLAGS}"
-  ""
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/testeturtle
 )
 _generate_srv_py(testeturtle
   "/home/rmp/catkin_ws/src/testeturtle/srv/stop.srv"
   "${MSG_I_FLAGS}"
   ""
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/testeturtle
+)
+_generate_srv_py(testeturtle
+  "/home/rmp/catkin_ws/src/testeturtle/srv/resetrmp.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Pose2D.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/testeturtle
 )
 _generate_srv_py(testeturtle
@@ -270,6 +313,8 @@ add_dependencies(testeturtle_generate_messages testeturtle_generate_messages_py)
 get_filename_component(_filename "/home/rmp/catkin_ws/src/testeturtle/srv/addpoint.srv" NAME_WE)
 add_dependencies(testeturtle_generate_messages_py _testeturtle_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/testeturtle/srv/go.srv" NAME_WE)
+add_dependencies(testeturtle_generate_messages_py _testeturtle_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/rmp/catkin_ws/src/testeturtle/srv/resetrmp.srv" NAME_WE)
 add_dependencies(testeturtle_generate_messages_py _testeturtle_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/testeturtle/srv/stop.srv" NAME_WE)
 add_dependencies(testeturtle_generate_messages_py _testeturtle_generate_messages_check_deps_${_filename})

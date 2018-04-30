@@ -1,7 +1,7 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
 messages_str = ""
-services_str = "/home/rmp/catkin_ws/src/testeturtle/srv/go.srv;/home/rmp/catkin_ws/src/testeturtle/srv/addpoint.srv;/home/rmp/catkin_ws/src/testeturtle/srv/stop.srv"
+services_str = "/home/rmp/catkin_ws/src/testeturtle/srv/go.srv;/home/rmp/catkin_ws/src/testeturtle/srv/addpoint.srv;/home/rmp/catkin_ws/src/testeturtle/srv/stop.srv;/home/rmp/catkin_ws/src/testeturtle/srv/resetrmp.srv"
 pkg_name = "testeturtle"
 dependencies_str = "geometry_msgs;std_msgs;std_srvs"
 langs = "gencpp;geneus;genlisp;gennodejs;genpy"

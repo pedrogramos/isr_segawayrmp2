@@ -477,6 +477,7 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
    // }
 
           printf("\n\n" );
+          ros::spinOnce();
         }
   
   //cv::putText(frame,msg,cvPoint(10,50),cv::FONT_HERSHEY_SIMPLEX,1, cv::Scalar::all(255),3,8);

@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/rmp/catkin_ws/build
 include testeturtle/CMakeFiles/_testeturtle_generate_messages_check_deps_addpoint.dir/progress.make
 
 testeturtle/CMakeFiles/_testeturtle_generate_messages_check_deps_addpoint:
-	cd /home/rmp/catkin_ws/build/testeturtle && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py testeturtle /home/rmp/catkin_ws/src/testeturtle/srv/addpoint.srv 
+	cd /home/rmp/catkin_ws/build/testeturtle && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py testeturtle /home/rmp/catkin_ws/src/testeturtle/srv/addpoint.srv geometry_msgs/Point
 
 _testeturtle_generate_messages_check_deps_addpoint: testeturtle/CMakeFiles/_testeturtle_generate_messages_check_deps_addpoint
 _testeturtle_generate_messages_check_deps_addpoint: testeturtle/CMakeFiles/_testeturtle_generate_messages_check_deps_addpoint.dir/build.make

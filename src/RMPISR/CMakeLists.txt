@@ -143,9 +143,7 @@ add_executable(RMPISR_node src/CGP.cpp)
 #add_dependencies(RMPISR_node RMPISR_generation_messages_cpp)
 target_link_libraries(RMPISR_node ${catkin_LIBRARIES})
 
-add_executable(boss_node src/boss.cpp)
-#add_dependencies(boss_node boss_generation_messages_cpp)
-target_link_libraries(boss_node ${catkin_LIBRARIES})
+
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -157,7 +155,6 @@ target_link_libraries(boss_node ${catkin_LIBRARIES})
 ## same as for the library above
 add_dependencies(RMPISR_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
-add_dependencies(boss_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 
 ## Specify libraries to link a library or executable target against

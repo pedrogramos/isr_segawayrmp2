@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/testeturtle_generate_messages_nodejs"
   "/home/rmp/catkin_ws/devel/share/gennodejs/ros/testeturtle/srv/addpoint.js"
   "/home/rmp/catkin_ws/devel/share/gennodejs/ros/testeturtle/srv/stop.js"
+  "/home/rmp/catkin_ws/devel/share/gennodejs/ros/testeturtle/srv/resetrmp.js"
   "/home/rmp/catkin_ws/devel/share/gennodejs/ros/testeturtle/srv/go.js"
 )
 

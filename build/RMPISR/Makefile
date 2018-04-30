@@ -736,21 +736,6 @@ RMPISR_node/fast:
 .PHONY : RMPISR_node/fast
 
 # Convenience name for target.
-RMPISR/CMakeFiles/boss_node.dir/rule:
-	cd /home/rmp/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 RMPISR/CMakeFiles/boss_node.dir/rule
-.PHONY : RMPISR/CMakeFiles/boss_node.dir/rule
-
-# Convenience name for target.
-boss_node: RMPISR/CMakeFiles/boss_node.dir/rule
-
-.PHONY : boss_node
-
-# fast build rule for target.
-boss_node/fast:
-	cd /home/rmp/catkin_ws/build && $(MAKE) -f RMPISR/CMakeFiles/boss_node.dir/build.make RMPISR/CMakeFiles/boss_node.dir/build
-.PHONY : boss_node/fast
-
-# Convenience name for target.
 RMPISR/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/rule:
 	cd /home/rmp/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 RMPISR/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/rule
 .PHONY : RMPISR/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/rule
@@ -822,33 +807,6 @@ src/CGP.cpp.s:
 	cd /home/rmp/catkin_ws/build && $(MAKE) -f RMPISR/CMakeFiles/RMPISR_node.dir/build.make RMPISR/CMakeFiles/RMPISR_node.dir/src/CGP.cpp.s
 .PHONY : src/CGP.cpp.s
 
-src/boss.o: src/boss.cpp.o
-
-.PHONY : src/boss.o
-
-# target to build an object file
-src/boss.cpp.o:
-	cd /home/rmp/catkin_ws/build && $(MAKE) -f RMPISR/CMakeFiles/boss_node.dir/build.make RMPISR/CMakeFiles/boss_node.dir/src/boss.cpp.o
-.PHONY : src/boss.cpp.o
-
-src/boss.i: src/boss.cpp.i
-
-.PHONY : src/boss.i
-
-# target to preprocess a source file
-src/boss.cpp.i:
-	cd /home/rmp/catkin_ws/build && $(MAKE) -f RMPISR/CMakeFiles/boss_node.dir/build.make RMPISR/CMakeFiles/boss_node.dir/src/boss.cpp.i
-.PHONY : src/boss.cpp.i
-
-src/boss.s: src/boss.cpp.s
-
-.PHONY : src/boss.s
-
-# target to generate assembly for a file
-src/boss.cpp.s:
-	cd /home/rmp/catkin_ws/build && $(MAKE) -f RMPISR/CMakeFiles/boss_node.dir/build.make RMPISR/CMakeFiles/boss_node.dir/src/boss.cpp.s
-.PHONY : src/boss.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -857,7 +815,6 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... install/strip"
 	@echo "... actionlib_msgs_generate_messages_py"
 	@echo "... std_srvs_generate_messages_eus"
 	@echo "... geometry_msgs_generate_messages_cpp"
@@ -869,6 +826,7 @@ help:
 	@echo "... tf2_msgs_generate_messages_lisp"
 	@echo "... actionlib_msgs_generate_messages_eus"
 	@echo "... std_srvs_generate_messages_py"
+	@echo "... install/strip"
 	@echo "... tf2_msgs_generate_messages_py"
 	@echo "... geometry_msgs_generate_messages_lisp"
 	@echo "... std_srvs_generate_messages_lisp"
@@ -897,7 +855,6 @@ help:
 	@echo "... RMPISR_generate_messages_py"
 	@echo "... geometry_msgs_generate_messages_nodejs"
 	@echo "... RMPISR_node"
-	@echo "... boss_node"
 	@echo "... install/local"
 	@echo "... actionlib_msgs_generate_messages_nodejs"
 	@echo "... actionlib_msgs_generate_messages_lisp"
@@ -907,9 +864,6 @@ help:
 	@echo "... src/CGP.o"
 	@echo "... src/CGP.i"
 	@echo "... src/CGP.s"
-	@echo "... src/boss.o"
-	@echo "... src/boss.i"
-	@echo "... src/boss.s"
 .PHONY : help
 
 

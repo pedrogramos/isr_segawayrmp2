@@ -55,12 +55,14 @@ include testeturtle/CMakeFiles/testeturtle_generate_messages_py.dir/progress.mak
 
 testeturtle/CMakeFiles/testeturtle_generate_messages_py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv/_addpoint.py
 testeturtle/CMakeFiles/testeturtle_generate_messages_py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv/_stop.py
+testeturtle/CMakeFiles/testeturtle_generate_messages_py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv/_resetrmp.py
 testeturtle/CMakeFiles/testeturtle_generate_messages_py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv/_go.py
 testeturtle/CMakeFiles/testeturtle_generate_messages_py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv/__init__.py
 
 
 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv/_addpoint.py: /opt/ros/kinetic/lib/genpy/gensrv_py.py
 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv/_addpoint.py: /home/rmp/catkin_ws/src/testeturtle/srv/addpoint.srv
+/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv/_addpoint.py: /opt/ros/kinetic/share/geometry_msgs/msg/Point.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python code from SRV testeturtle/addpoint"
 	cd /home/rmp/catkin_ws/build/testeturtle && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/rmp/catkin_ws/src/testeturtle/srv/addpoint.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p testeturtle -o /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv
 
@@ -69,21 +71,29 @@ testeturtle/CMakeFiles/testeturtle_generate_messages_py: /home/rmp/catkin_ws/dev
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python code from SRV testeturtle/stop"
 	cd /home/rmp/catkin_ws/build/testeturtle && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/rmp/catkin_ws/src/testeturtle/srv/stop.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p testeturtle -o /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv
 
+/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv/_resetrmp.py: /opt/ros/kinetic/lib/genpy/gensrv_py.py
+/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv/_resetrmp.py: /home/rmp/catkin_ws/src/testeturtle/srv/resetrmp.srv
+/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv/_resetrmp.py: /opt/ros/kinetic/share/geometry_msgs/msg/Pose2D.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Python code from SRV testeturtle/resetrmp"
+	cd /home/rmp/catkin_ws/build/testeturtle && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/rmp/catkin_ws/src/testeturtle/srv/resetrmp.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p testeturtle -o /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv
+
 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv/_go.py: /opt/ros/kinetic/lib/genpy/gensrv_py.py
 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv/_go.py: /home/rmp/catkin_ws/src/testeturtle/srv/go.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Python code from SRV testeturtle/go"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Python code from SRV testeturtle/go"
 	cd /home/rmp/catkin_ws/build/testeturtle && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/rmp/catkin_ws/src/testeturtle/srv/go.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p testeturtle -o /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv
 
 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv/__init__.py: /opt/ros/kinetic/lib/genpy/genmsg_py.py
 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv/__init__.py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv/_addpoint.py
 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv/__init__.py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv/_stop.py
+/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv/__init__.py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv/_resetrmp.py
 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv/__init__.py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv/_go.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Python srv __init__.py for testeturtle"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating Python srv __init__.py for testeturtle"
 	cd /home/rmp/catkin_ws/build/testeturtle && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv --initpy
 
 testeturtle_generate_messages_py: testeturtle/CMakeFiles/testeturtle_generate_messages_py
 testeturtle_generate_messages_py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv/_addpoint.py
 testeturtle_generate_messages_py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv/_stop.py
+testeturtle_generate_messages_py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv/_resetrmp.py
 testeturtle_generate_messages_py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv/_go.py
 testeturtle_generate_messages_py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/testeturtle/srv/__init__.py
 testeturtle_generate_messages_py: testeturtle/CMakeFiles/testeturtle_generate_messages_py.dir/build.make

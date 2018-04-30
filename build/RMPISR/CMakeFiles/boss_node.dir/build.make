@@ -57,77 +57,7 @@ include RMPISR/CMakeFiles/boss_node.dir/progress.make
 # Include the compile flags for this target's objects.
 include RMPISR/CMakeFiles/boss_node.dir/flags.make
 
-RMPISR/CMakeFiles/boss_node.dir/src/boss.cpp.o: RMPISR/CMakeFiles/boss_node.dir/flags.make
-RMPISR/CMakeFiles/boss_node.dir/src/boss.cpp.o: /home/rmp/catkin_ws/src/RMPISR/src/boss.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object RMPISR/CMakeFiles/boss_node.dir/src/boss.cpp.o"
-	cd /home/rmp/catkin_ws/build/RMPISR && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/boss_node.dir/src/boss.cpp.o -c /home/rmp/catkin_ws/src/RMPISR/src/boss.cpp
-
-RMPISR/CMakeFiles/boss_node.dir/src/boss.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/boss_node.dir/src/boss.cpp.i"
-	cd /home/rmp/catkin_ws/build/RMPISR && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/rmp/catkin_ws/src/RMPISR/src/boss.cpp > CMakeFiles/boss_node.dir/src/boss.cpp.i
-
-RMPISR/CMakeFiles/boss_node.dir/src/boss.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/boss_node.dir/src/boss.cpp.s"
-	cd /home/rmp/catkin_ws/build/RMPISR && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/rmp/catkin_ws/src/RMPISR/src/boss.cpp -o CMakeFiles/boss_node.dir/src/boss.cpp.s
-
-RMPISR/CMakeFiles/boss_node.dir/src/boss.cpp.o.requires:
-
-.PHONY : RMPISR/CMakeFiles/boss_node.dir/src/boss.cpp.o.requires
-
-RMPISR/CMakeFiles/boss_node.dir/src/boss.cpp.o.provides: RMPISR/CMakeFiles/boss_node.dir/src/boss.cpp.o.requires
-	$(MAKE) -f RMPISR/CMakeFiles/boss_node.dir/build.make RMPISR/CMakeFiles/boss_node.dir/src/boss.cpp.o.provides.build
-.PHONY : RMPISR/CMakeFiles/boss_node.dir/src/boss.cpp.o.provides
-
-RMPISR/CMakeFiles/boss_node.dir/src/boss.cpp.o.provides.build: RMPISR/CMakeFiles/boss_node.dir/src/boss.cpp.o
-
-
-# Object files for target boss_node
-boss_node_OBJECTS = \
-"CMakeFiles/boss_node.dir/src/boss.cpp.o"
-
-# External object files for target boss_node
-boss_node_EXTERNAL_OBJECTS =
-
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: RMPISR/CMakeFiles/boss_node.dir/src/boss.cpp.o
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: RMPISR/CMakeFiles/boss_node.dir/build.make
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: /opt/ros/kinetic/lib/libroslib.so
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: /opt/ros/kinetic/lib/librospack.so
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: /usr/lib/i386-linux-gnu/libpython2.7.so
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: /usr/lib/i386-linux-gnu/libboost_program_options.so
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: /usr/lib/i386-linux-gnu/libtinyxml.so
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: /opt/ros/kinetic/lib/libtf2_ros.so
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: /opt/ros/kinetic/lib/libactionlib.so
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: /opt/ros/kinetic/lib/libmessage_filters.so
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: /opt/ros/kinetic/lib/libroscpp.so
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: /usr/lib/i386-linux-gnu/libboost_filesystem.so
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: /usr/lib/i386-linux-gnu/libboost_signals.so
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: /opt/ros/kinetic/lib/librosconsole.so
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: /opt/ros/kinetic/lib/librosconsole_log4cxx.so
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: /opt/ros/kinetic/lib/librosconsole_backend_interface.so
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: /usr/lib/i386-linux-gnu/liblog4cxx.so
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: /usr/lib/i386-linux-gnu/libboost_regex.so
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: /opt/ros/kinetic/lib/libxmlrpcpp.so
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: /opt/ros/kinetic/lib/libtf2.so
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: /opt/ros/kinetic/lib/libroscpp_serialization.so
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: /opt/ros/kinetic/lib/librostime.so
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: /opt/ros/kinetic/lib/libcpp_common.so
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: /usr/lib/i386-linux-gnu/libboost_system.so
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: /usr/lib/i386-linux-gnu/libboost_thread.so
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: /usr/lib/i386-linux-gnu/libboost_chrono.so
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: /usr/lib/i386-linux-gnu/libboost_date_time.so
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: /usr/lib/i386-linux-gnu/libboost_atomic.so
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: /usr/lib/i386-linux-gnu/libpthread.so
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: /usr/lib/i386-linux-gnu/libconsole_bridge.so
-/home/rmp/catkin_ws/devel/lib/RMPISR/boss_node: RMPISR/CMakeFiles/boss_node.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable /home/rmp/catkin_ws/devel/lib/RMPISR/boss_node"
-	cd /home/rmp/catkin_ws/build/RMPISR && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/boss_node.dir/link.txt --verbose=$(VERBOSE)
-
-# Rule to build all files generated by this target.
-RMPISR/CMakeFiles/boss_node.dir/build: /home/rmp/catkin_ws/devel/lib/RMPISR/boss_node
-
-.PHONY : RMPISR/CMakeFiles/boss_node.dir/build
-
-RMPISR/CMakeFiles/boss_node.dir/requires: RMPISR/CMakeFiles/boss_node.dir/src/boss.cpp.o.requires
+RMPISR/CMakeFiles/boss_node.dir/requires:
 
 .PHONY : RMPISR/CMakeFiles/boss_node.dir/requires
 

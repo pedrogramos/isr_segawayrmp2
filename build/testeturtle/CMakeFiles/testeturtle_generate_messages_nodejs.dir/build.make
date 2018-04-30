@@ -55,11 +55,13 @@ include testeturtle/CMakeFiles/testeturtle_generate_messages_nodejs.dir/progress
 
 testeturtle/CMakeFiles/testeturtle_generate_messages_nodejs: /home/rmp/catkin_ws/devel/share/gennodejs/ros/testeturtle/srv/addpoint.js
 testeturtle/CMakeFiles/testeturtle_generate_messages_nodejs: /home/rmp/catkin_ws/devel/share/gennodejs/ros/testeturtle/srv/stop.js
+testeturtle/CMakeFiles/testeturtle_generate_messages_nodejs: /home/rmp/catkin_ws/devel/share/gennodejs/ros/testeturtle/srv/resetrmp.js
 testeturtle/CMakeFiles/testeturtle_generate_messages_nodejs: /home/rmp/catkin_ws/devel/share/gennodejs/ros/testeturtle/srv/go.js
 
 
 /home/rmp/catkin_ws/devel/share/gennodejs/ros/testeturtle/srv/addpoint.js: /opt/ros/kinetic/lib/gennodejs/gen_nodejs.py
 /home/rmp/catkin_ws/devel/share/gennodejs/ros/testeturtle/srv/addpoint.js: /home/rmp/catkin_ws/src/testeturtle/srv/addpoint.srv
+/home/rmp/catkin_ws/devel/share/gennodejs/ros/testeturtle/srv/addpoint.js: /opt/ros/kinetic/share/geometry_msgs/msg/Point.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Javascript code from testeturtle/addpoint.srv"
 	cd /home/rmp/catkin_ws/build/testeturtle && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/rmp/catkin_ws/src/testeturtle/srv/addpoint.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p testeturtle -o /home/rmp/catkin_ws/devel/share/gennodejs/ros/testeturtle/srv
 
@@ -68,14 +70,21 @@ testeturtle/CMakeFiles/testeturtle_generate_messages_nodejs: /home/rmp/catkin_ws
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Javascript code from testeturtle/stop.srv"
 	cd /home/rmp/catkin_ws/build/testeturtle && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/rmp/catkin_ws/src/testeturtle/srv/stop.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p testeturtle -o /home/rmp/catkin_ws/devel/share/gennodejs/ros/testeturtle/srv
 
+/home/rmp/catkin_ws/devel/share/gennodejs/ros/testeturtle/srv/resetrmp.js: /opt/ros/kinetic/lib/gennodejs/gen_nodejs.py
+/home/rmp/catkin_ws/devel/share/gennodejs/ros/testeturtle/srv/resetrmp.js: /home/rmp/catkin_ws/src/testeturtle/srv/resetrmp.srv
+/home/rmp/catkin_ws/devel/share/gennodejs/ros/testeturtle/srv/resetrmp.js: /opt/ros/kinetic/share/geometry_msgs/msg/Pose2D.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Javascript code from testeturtle/resetrmp.srv"
+	cd /home/rmp/catkin_ws/build/testeturtle && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/rmp/catkin_ws/src/testeturtle/srv/resetrmp.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p testeturtle -o /home/rmp/catkin_ws/devel/share/gennodejs/ros/testeturtle/srv
+
 /home/rmp/catkin_ws/devel/share/gennodejs/ros/testeturtle/srv/go.js: /opt/ros/kinetic/lib/gennodejs/gen_nodejs.py
 /home/rmp/catkin_ws/devel/share/gennodejs/ros/testeturtle/srv/go.js: /home/rmp/catkin_ws/src/testeturtle/srv/go.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Javascript code from testeturtle/go.srv"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Javascript code from testeturtle/go.srv"
 	cd /home/rmp/catkin_ws/build/testeturtle && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/rmp/catkin_ws/src/testeturtle/srv/go.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p testeturtle -o /home/rmp/catkin_ws/devel/share/gennodejs/ros/testeturtle/srv
 
 testeturtle_generate_messages_nodejs: testeturtle/CMakeFiles/testeturtle_generate_messages_nodejs
 testeturtle_generate_messages_nodejs: /home/rmp/catkin_ws/devel/share/gennodejs/ros/testeturtle/srv/addpoint.js
 testeturtle_generate_messages_nodejs: /home/rmp/catkin_ws/devel/share/gennodejs/ros/testeturtle/srv/stop.js
+testeturtle_generate_messages_nodejs: /home/rmp/catkin_ws/devel/share/gennodejs/ros/testeturtle/srv/resetrmp.js
 testeturtle_generate_messages_nodejs: /home/rmp/catkin_ws/devel/share/gennodejs/ros/testeturtle/srv/go.js
 testeturtle_generate_messages_nodejs: testeturtle/CMakeFiles/testeturtle_generate_messages_nodejs.dir/build.make
 
