@@ -398,7 +398,9 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
           rmpTm=rmpTc*cTm;
           mTrmp=glm::inverse(rmpTm);
           wTrmp=M_use*mTrmp;
-          novo=Mc2*mTrmp;
+
+          glm::vec4 novo =wTrmp*glm::vec4(1.0,0.0,0.0,0.0);
+          float norma = sqrt(pow(novo[0],2)+pow(novo[1],2));
           
 
           poseRMP.x = (wTrmp[3][0])/1000;
@@ -407,7 +409,7 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
 
         //printf("Xcam=  %f Ycam=  %f ThCam=  %f \n",(wTc[3][0])/1000, (wTc[3][1])/1000, atan2((wTc[0][1]),(wTc[0][0])) );
         printf("OLD: x=  %f y=  %f theta=  %f \n",poseRMP.x, poseRMP.y, poseRMP.theta );
-        printf("NOVO: x=  %f y=  %f theta=  %f \n",(novo[3][0])/1000, (novo[3][1])/1000, atan2((novo[0][1]),(novo[0][0])) );
+        printf("NOVO: x=  %f y=  %f theta=  %f \n",poseRMP.x, poseRMP.y, atan2((wTrmp[0][1]/norma),(wTrmp[0][0]/norma)) );
 
         //printf("M_use %s \n", glm::to_string(M_use).c_str() );
           //printf("M0 %s \n", glm::to_string(M0).c_str() );

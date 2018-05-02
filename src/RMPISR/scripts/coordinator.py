@@ -281,6 +281,8 @@ class coordinator():
 	def trajDivider(self,scale=1):
 		size=len(self.traj_points)
 		print size
+		self.new_traj = list()
+		aux_traj=Point()
 
 		for i in range(1,size):
 			print "i=", i
@@ -300,8 +302,6 @@ class coordinator():
 			print "d= %f bitola= %f " % (d,bitola)
 
 			# inicializacao da nova trajectoria
-			self.new_traj = list()
-			aux_traj=Point()
 			aux_traj.x = self.traj_points[i-1].x
 			aux_traj.y = self.traj_points[i-1].y
 			for j in xrange(bitola):
@@ -312,14 +312,14 @@ class coordinator():
 					print aux_traj
 					self.new_traj.append(copy.deepcopy(aux_traj))
 
-
+				
 				else:
 					aux_traj.x = aux_traj.x
 					aux_traj.y = aux_traj.y + new_scale
 					self.new_traj.append(copy.deepcopy(aux_traj))
 					print aux_traj
 
-		print self.new_traj
+		print "lista final:" , self.new_traj
 
 #---------------------------------------------------------------------------------------------------------------------------#
 
@@ -351,8 +351,8 @@ if __name__ == "__main__":
 	print "entrou"
 	boss=coordinator()
 	boss.readFile(traj1)
-	boss.vstpFunc(1,1,55,3)
-	#boss.addpoint_client()
+	#boss.vstpFunc(1,1,55,3)
+	boss.addpoint_client()
 
 	rospy.spin()
 
