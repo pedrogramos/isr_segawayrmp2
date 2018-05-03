@@ -285,7 +285,7 @@ class coordinator():
 		aux_traj=Point()
 
 		for i in range(1,size):
-			print "i=", i
+			#print "i=", i
 			#saber em que eixo o segmento aumenta (sentido de navegacao)
 			if (self.traj_points[i-1].x != self.traj_points[i].x):
 				alongX=True
@@ -295,21 +295,21 @@ class coordinator():
 			d=math.sqrt(math.pow((self.traj_points[i].x-self.traj_points[i-1].x),2)+math.pow((self.traj_points[i].y-self.traj_points[i-1].y),2))
 			#calculo de quantas vezes cabe a meu espacamento entre pontos na distancia total por excesso
 			bitola=int(math.ceil(d/scale))
-			print bitola
+			#print bitola
 			#fazer os segmentos com a distancia entre eles toda igual
 			new_scale=d/bitola
 
-			print "d= %f bitola= %f " % (d,bitola)
+			#print "d= %f bitola= %f " % (d,bitola)
 
 			# inicializacao da nova trajectoria
 			aux_traj.x = self.traj_points[i-1].x
 			aux_traj.y = self.traj_points[i-1].y
 			for j in xrange(bitola):
-				print "2nd cycle", j
+				#print "2nd cycle", j
 				if (alongX == True):
 					aux_traj.x = aux_traj.x + new_scale
 					aux_traj.y = aux_traj.y
-					print aux_traj
+					#print aux_traj
 					self.new_traj.append(copy.deepcopy(aux_traj))
 
 				
@@ -317,7 +317,7 @@ class coordinator():
 					aux_traj.x = aux_traj.x
 					aux_traj.y = aux_traj.y + new_scale
 					self.new_traj.append(copy.deepcopy(aux_traj))
-					print aux_traj
+					#print aux_traj
 
 		print "lista final:" , self.new_traj
 
