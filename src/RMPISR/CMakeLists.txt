@@ -63,7 +63,7 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate services in the 'srv' folder
-add_service_files( FILES go.srv addpoint.srv stop.srv resetrmp.srv)
+add_service_files( FILES go.srv addpoint.srv stop.srv resetrmp.srv odomError.srv)
 
 ## Generate actions in the 'action' folder
 # add_action_files(

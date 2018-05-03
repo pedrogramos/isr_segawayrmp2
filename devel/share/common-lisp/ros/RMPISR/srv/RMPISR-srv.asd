@@ -9,6 +9,8 @@
     (:file "_package_addpoint" :depends-on ("_package"))
     (:file "go" :depends-on ("_package_go"))
     (:file "_package_go" :depends-on ("_package"))
+    (:file "odomError" :depends-on ("_package_odomError"))
+    (:file "_package_odomError" :depends-on ("_package"))
     (:file "resetrmp" :depends-on ("_package_resetrmp"))
     (:file "_package_resetrmp" :depends-on ("_package"))
     (:file "stop" :depends-on ("_package_stop"))

@@ -20,6 +20,7 @@
 #include "RMPISR/addpoint.h"
 #include "RMPISR/go.h"
 #include "RMPISR/stop.h"
+#include "RMPISR/odomError.h"
 
 using namespace std;
 
@@ -43,11 +44,11 @@ public:
   //para o segwayRMP
   //void odomCallback(const nav_msgs::Odometry::ConstPtr&);
   void odomCallback(const geometry_msgs::Pose2D::ConstPtr&);
-  void infoOdom();
   void goTo(float,float,float);
   bool def_go(RMPISR::go::Request&, RMPISR::go::Response&);
   bool def_addpoint(RMPISR::addpoint::Request&, RMPISR::addpoint::Response&);
   bool def_stop(RMPISR::stop::Request&, RMPISR::stop::Response&);
+  bool def_odomError(RMPISR::odomError::Request&, RMPISR::odomError::Response&);
 
 
 private:
@@ -55,14 +56,20 @@ private:
   
   ros::NodeHandle nh;
   ros::Publisher vel_pub;
+  ros::Publisher new_odom;
   ros::Subscriber odom_sub;
   ros::ServiceServer service0;
   ros::ServiceServer service1;
   ros::ServiceServer service2;
+  ros::ServiceServer service3;
   //ros::Publisher vazio_pub;
   //ros::Subscriber vazio_sub;
   geometry_msgs::Twist vel;
-  double odomX, odomY, odomTheta;
+  geometry_msgs::Pose2D odomNew;
+  //double odomX, odomY, odomTheta;
+  double errorX=0;
+  double errorY=0;
+  double errorTheta=0;
   double roll, pitch, yaw;
   nav_msgs::Odometry::ConstPtr poseRMP;
   geometry_msgs::Pose2D::ConstPtr pose;
@@ -79,11 +86,13 @@ SendVelocity::SendVelocity(){
   //odom_sub = nh.subscribe("/turtle1/pose",10,&SendVelocity::odomCallback,this);
   // para o segway
   vel_pub = nh.advertise<geometry_msgs::Twist>("cmd_vel", 1);
+  new_odom = nh.advertise<geometry_msgs::Pose2D>("new_odom", 10);
   //odom_sub = nh.subscribe("/segway_rmp_node/odom",10,&SendVelocity::odomCallback,this);
   odom_sub =  nh.subscribe("odomUpdater",10,&SendVelocity::odomCallback,this);
   service0 = nh.advertiseService("go",&SendVelocity::def_go,this);
   service1 = nh.advertiseService("addpoint", &SendVelocity::def_addpoint, this);
   service2 = nh.advertiseService("stop",&SendVelocity::def_stop,this);
+  service3 = nh.advertiseService("odomError",&SendVelocity::def_odomError,this);
 
   //vazio_pub=nh.advertise<std_msgs::Bool>("/pedro",1);
   //vazio_sub=nh.subscribe("/pedro",1,&SendVelocity::stopTurtle,this);
@@ -141,9 +150,16 @@ void SendVelocity::odomCallback(const nav_msgs::Odometry::ConstPtr& msg){
 
 // já é a minha função de odometria implemtada
 void SendVelocity::odomCallback(const geometry_msgs::Pose2D::ConstPtr& msg){
-odomX=msg->x;
-odomY=msg->y;
-odomTheta=msg->theta;
+/*
+odomX = msg->x;
+odomY = msg->y;
+odomTheta = msg->theta;*/
+
+//calculo da nova odometria a usar com a compensação do erro proveniente do MarkerDetector
+odomNew.x = msg->x + errorX;
+odomNew.y = msg->y + errorY;
+odomNew.theta = msg->theta + errorTheta;
+new_odom.publish(odomNew);
 
 //ROS_INFO("OdometriaFun: X= %f, Y= %f, e Theta= %f", odomX,odomY,odomTheta);
 }
@@ -164,31 +180,29 @@ void SendVelocity::odomCallback(const turtlesim::PoseConstPtr& msg1){
 }*/
 
 
-void SendVelocity::infoOdom(){
-
-  ROS_DEBUG("OdometriaFun: X= %f, Y= %f, e Theta= %f", odomX,odomY,odomTheta);
-}
-
-
 void SendVelocity::goTo(float xf, float yf,float limiar){
   // calculo do módulo
-  float d=sqrt(pow((xf-odomX),2)+pow((yf-odomY),2));
+  float d=sqrt(pow((xf-odomNew.x),2)+pow((yf-odomNew.y),2));
   // calculo da circunferencia de bullseye
-  float c=pow((xf-odomX),2)+pow((yf-odomY),2);
+  float c=pow((xf-odomNew.x),2)+pow((yf-odomNew.y),2);
   ROS_INFO("Proximo ponto: X= %f e Y= %f.",xf, yf);
 
   //enquanto o RMP estiver fora do raio da circunferencia
-  while (c>pow(limiar,2)){ 
-    c=pow((xf-odomX),2)+pow((yf-odomY),2);
-    d=sqrt(pow((xf-odomX),2)+pow((yf-odomY),2));
+  while (c>pow(limiar,2)){
+
+    c=pow((xf-odomNew.x),2)+pow((yf-odomNew.y),2);
+    d=sqrt(pow((xf-odomNew.x),2)+pow((yf-odomNew.y),2));
     // vetores normalizados -> versor
-    float dx=(xf-odomX)/d;
-    float dy=(yf-odomY)/d;
+    float dx=(xf-odomNew.x )/d;
+    float dy=(yf-odomNew.y)/d;
     // calculo velocidades a enviar
-    float vx=cos(odomTheta)*dx+sin(odomTheta)*dy;
-    float vy=cos(odomTheta)*dy-sin(odomTheta)*dx;
+    float vx=cos(odomNew.theta)*dx+sin(odomNew.theta)*dy;
+    float vy=cos(odomNew.theta)*dy-sin(odomNew.theta)*dx;
     // projecções * os ganhos
     sendVel(vx*Kl,vy*Kw);
+ 
+
+
     //ROS_INFO("vx= %f vw= %f", vx*Kl, vy*Kw);
     ROS_DEBUG("vx= %f vy= %f d= %f xf= %f yf= %f",vx,vy, d, xf, yf);
     ros::spinOnce();
@@ -261,7 +275,15 @@ bool SendVelocity::def_stop(RMPISR::stop::Request  &req_stop, RMPISR::stop::Resp
   return true;
 }
 
+bool SendVelocity::def_odomError(RMPISR::odomError::Request  &req_error, RMPISR::odomError::Response &res_error)
+{
+  errorX = req_error.pose.x;
+  errorY = req_error.pose.y;
+  errorTheta = req_error.pose.theta;
+  //ROS_INFO("sending back response: [%ld]", (long int)res_stop.stop);
 
+  return true;
+}
 
 
 int main(int argc, char** argv)

@@ -7,6 +7,9 @@ RMPISR/CMakeFiles/RMPISR_node.dir/src/CGP.cpp.o: /home/rmp/catkin_ws/devel/inclu
 RMPISR/CMakeFiles/RMPISR_node.dir/src/CGP.cpp.o: /home/rmp/catkin_ws/devel/include/RMPISR/go.h
 RMPISR/CMakeFiles/RMPISR_node.dir/src/CGP.cpp.o: /home/rmp/catkin_ws/devel/include/RMPISR/goRequest.h
 RMPISR/CMakeFiles/RMPISR_node.dir/src/CGP.cpp.o: /home/rmp/catkin_ws/devel/include/RMPISR/goResponse.h
+RMPISR/CMakeFiles/RMPISR_node.dir/src/CGP.cpp.o: /home/rmp/catkin_ws/devel/include/RMPISR/odomError.h
+RMPISR/CMakeFiles/RMPISR_node.dir/src/CGP.cpp.o: /home/rmp/catkin_ws/devel/include/RMPISR/odomErrorRequest.h
+RMPISR/CMakeFiles/RMPISR_node.dir/src/CGP.cpp.o: /home/rmp/catkin_ws/devel/include/RMPISR/odomErrorResponse.h
 RMPISR/CMakeFiles/RMPISR_node.dir/src/CGP.cpp.o: /home/rmp/catkin_ws/devel/include/RMPISR/stop.h
 RMPISR/CMakeFiles/RMPISR_node.dir/src/CGP.cpp.o: /home/rmp/catkin_ws/devel/include/RMPISR/stopRequest.h
 RMPISR/CMakeFiles/RMPISR_node.dir/src/CGP.cpp.o: /home/rmp/catkin_ws/devel/include/RMPISR/stopResponse.h
