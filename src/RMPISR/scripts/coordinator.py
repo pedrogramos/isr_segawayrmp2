@@ -48,6 +48,8 @@ class coordinator():
 		self.gridResolution=gridResolution
 		self.idealDist=idealDist
 		self.maxDist=maxDist
+		self.new_traj = list()
+		self.aux_traj = Point()
 		#self.odom_sub = rospy.Subscriber('/turtle1/pose', Pose, self.callbackOdom)
 		self.danger_sub = rospy.Subscriber('/sonarFlag', Bool, self.callbackSonar)
 		#para o segway
@@ -230,7 +232,9 @@ class coordinator():
 		racioy=(displayy-5)/(self.mapmaxy-self.mapminy)
 
 		#gamepy inicialization window
+
 		screen = pygame.display.set_mode((displayx, displayy))
+		screen = pygame.transform.flip(screen,0,1)
 
 		pygame.display.set_caption("Representacao da posicao do modulo RMP")
 
@@ -245,15 +249,19 @@ class coordinator():
 
 
 				#trajectory representation
+				'''
 				for i in range(1,len(self.traj_points)):
 					pygame.draw.line(screen, (0, 255,255), ((self.traj_points[i-1].x-self.mapminx)*raciox, (self.traj_points[i-1].y-self.mapminy)*racioy),  ((self.traj_points[i].x-self.mapminx)*raciox, (self.traj_points[i].y-self.mapminy)*racioy))
+				'''
 
+				for i in range(1,len(self.new_traj)):
+					pygame.draw.line(screen, (0, 255,255), ((self.new_traj[i-1].x-self.mapminx)*raciox, (self.new_traj[i-1].y-self.mapminy)*racioy),  ((self.new_traj[i].x-self.mapminx)*raciox, (self.new_traj[i].y-self.mapminy)*racioy))
 				
 				#odometry representation
 				pygame.draw.circle(screen, (255, 0, 0), [int((self.trueodomX-self.mapminx)*raciox), int((self.trueodomY-self.mapminy)*racioy)], int(self.robotRadius*raciox))
 				
 
-				screen2 = pygame.transform.flip(screen,0,1)
+				
 				pygame.display.flip()
 				rate.sleep()
 
@@ -280,9 +288,7 @@ class coordinator():
 	#scale -> tamanho maximo dos segmentos desejados
 	def trajDivider(self,scale=1):
 		size=len(self.traj_points)
-		print size
-		self.new_traj = list()
-		aux_traj=Point()
+
 
 		for i in range(1,size):
 
@@ -290,11 +296,11 @@ class coordinator():
 			versorX = (self.traj_points[i].x - self.traj_points[i-1].x) / d
 			versorY = (self.traj_points[i].y - self.traj_points[i-1].y) / d
 
-			print versorX, versorY, d
+			#print versorX, versorY, d
 
 			# inicializacao da nova trajectoria
-			aux_traj.x = self.traj_points[i-1].x
-			aux_traj.y = self.traj_points[i-1].y
+			self.aux_traj.x = self.traj_points[i-1].x
+			self.aux_traj.y = self.traj_points[i-1].y
 
 			if (versorX>0):
 				#calculo de quantas vezes cabe a meu espacamento entre pontos na distancia total por excesso
@@ -304,21 +310,19 @@ class coordinator():
 
 				#incremento da distancia ate chegar ao ponto
 				for j in xrange(bitolaX):
-					aux_traj.x = aux_traj.x + new_scaleX
-					self.new_traj.append(copy.deepcopy(aux_traj))
+					self.aux_traj.x = self.aux_traj.x + new_scaleX
+					self.new_traj.append(copy.deepcopy(self.aux_traj))
 
 			if (versorY>0):
 				bitolaY=int(math.ceil((versorY*d)/scale))
 				new_scaleY = (versorY*d)/bitolaY
 
 				for k in xrange(bitolaY):
-						aux_traj.y = aux_traj.y + new_scaleY
-						self.new_traj.append(copy.deepcopy(aux_traj))
-						#print aux_traj
-
+						self.aux_traj.y = self.aux_traj.y + new_scaleY
+						self.new_traj.append(copy.deepcopy(self.aux_traj))
 			
 
-		print "lista final:" , self.new_traj
+		print "lista final: \n" , self.new_traj
 
 
 
@@ -336,9 +340,11 @@ class coordinator():
 		self.mapsegs = v.loadMap(MAP)
 		self.computeMapLimits();
 		self.traj_points =v.planTrajectory(iniX,iniY,goalx,goaly,True)
-		#chamada a criacao do thread do mapa
-		#self.toThread()
+		#chamada a funcao que divide a trajectoria
 		self.trajDivider()
+		#chamada a criacao do thread do mapa
+		self.toThread()
+		
 		#chamada servico para adicionar os pontos ao modulo de navegacao
 		#self.addpoint_client()
 		
@@ -353,6 +359,7 @@ if __name__ == "__main__":
 	boss=coordinator()
 	boss.readFile(traj1)
 	boss.vstpFunc(1,1,55,3)
+	boss.vstpFunc(55,3,59,3)
 	#boss.addpoint_client()
 
 	rospy.spin()

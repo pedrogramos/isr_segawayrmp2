@@ -1,9 +1,13 @@
 #!/usr/bin/env python
 
 import sys
+import rospy
 from random import randint
 import pygame
 import threading
+from geometry_msgs.msg import Point, Pose2D
+import copy
+import math
 
 BLACK = (  0,   0,   0)
 WHITE = (255, 255, 255)
@@ -39,6 +43,8 @@ class robotTrajectory:
                 self.rectdest_draging=False;
                 #self.limits=
                 self.traj_points=[]
+                self.new_traj = list()
+                self.aux_traj = Point()
 
                 
         def initScreen(self,dx=640,dy=480,cap="Sapiens"):
@@ -117,6 +123,48 @@ class robotTrajectory:
                 self.raciox=(self.displayx-5)/(self.mapmaxx-self.mapminx)
                 self.racioy=(self.displayy-5)/(self.mapmaxy-self.mapminy)
 
+        def trajDivider(self,scale=1):
+            size=len(self.traj_points)
+            i=1
+
+            # inicializacao da nova trajectoria
+            self.aux_traj.x = self.traj_points[i-1].x
+            self.aux_traj.y = self.traj_points[i-1].y
+
+
+            for i in range(1,size):
+
+                d = math.sqrt(math.pow((self.traj_points[i].x-self.traj_points[i-1].x),2) + math.pow((self.traj_points[i].y-self.traj_points[i-1].y),2))
+                versorX = (self.traj_points[i].x - self.traj_points[i-1].x) / d
+                versorY = (self.traj_points[i].y - self.traj_points[i-1].y) / d
+
+                print versorX, versorY, d
+
+
+
+                if (versorX>0):
+                    #calculo de quantas vezes cabe a meu espacamento entre pontos na distancia total por excesso
+                    bitolaX=int(math.ceil((versorX*d)/scale))
+                    #fazer os segmentos com a distancia entre eles toda igual
+                    new_scaleX = (versorX*d)/bitolaX
+
+                    #incremento da distancia ate chegar ao ponto
+                    for j in xrange(bitolaX):
+                        self.aux_traj.x = self.aux_traj.x + new_scaleX
+                        self.new_traj.append(copy.deepcopy(self.aux_traj))
+
+                if (versorY>0):
+                    bitolaY=int(math.ceil((versorY*d)/scale))
+                    new_scaleY = (versorY*d)/bitolaY
+
+                    for k in xrange(bitolaY):
+                            self.aux_traj.y = self.aux_traj.y + new_scaleY
+                            self.new_traj.append(copy.deepcopy(self.aux_traj))
+                
+
+            print "lista final: \n" , self.new_traj
+
+
         def go(self):                        
         
                 #        segs_mapa, traj_points=vstpFunc(502,10,370,210,7.5,3,7,10)
@@ -151,6 +199,7 @@ class robotTrajectory:
                                                                                                     (self.rectorig.y-self.dispoffy)/self.racioy + self.mapminy,
                                                                                                     (self.rectdest.x-self.dispoffx)/self.raciox + self.mapminx,
                                                                                                     (self.rectdest.y- self.dispoffy)/self.racioy+self.mapminy,True)
+                                                        self.trajDivider()
                                                         self.rectorig_draging = False
                                                         self.rectdest_draging = False
                                                         
