@@ -285,41 +285,42 @@ class coordinator():
 		aux_traj=Point()
 
 		for i in range(1,size):
-			#print "i=", i
-			#saber em que eixo o segmento aumenta (sentido de navegacao)
-			if (self.traj_points[i-1].x != self.traj_points[i].x):
-				alongX=True
-			else: alongX=False
 
-			#calculo da distancia euclidiana entre pontos
-			d=math.sqrt(math.pow((self.traj_points[i].x-self.traj_points[i-1].x),2)+math.pow((self.traj_points[i].y-self.traj_points[i-1].y),2))
-			#calculo de quantas vezes cabe a meu espacamento entre pontos na distancia total por excesso
-			bitola=int(math.ceil(d/scale))
-			#print bitola
-			#fazer os segmentos com a distancia entre eles toda igual
-			new_scale=d/bitola
+			d = math.sqrt(math.pow((self.traj_points[i].x-self.traj_points[i-1].x),2) + math.pow((self.traj_points[i].y-self.traj_points[i-1].y),2))
+			versorX = (self.traj_points[i].x - self.traj_points[i-1].x) / d
+			versorY = (self.traj_points[i].y - self.traj_points[i-1].y) / d
 
-			#print "d= %f bitola= %f " % (d,bitola)
+			print versorX, versorY, d
 
 			# inicializacao da nova trajectoria
 			aux_traj.x = self.traj_points[i-1].x
 			aux_traj.y = self.traj_points[i-1].y
-			for j in xrange(bitola):
-				#print "2nd cycle", j
-				if (alongX == True):
-					aux_traj.x = aux_traj.x + new_scale
-					aux_traj.y = aux_traj.y
-					#print aux_traj
+
+			if (versorX>0):
+				#calculo de quantas vezes cabe a meu espacamento entre pontos na distancia total por excesso
+				bitolaX=int(math.ceil((versorX*d)/scale))
+				#fazer os segmentos com a distancia entre eles toda igual
+				new_scaleX = (versorX*d)/bitolaX
+
+				#incremento da distancia ate chegar ao ponto
+				for j in xrange(bitolaX):
+					aux_traj.x = aux_traj.x + new_scaleX
 					self.new_traj.append(copy.deepcopy(aux_traj))
 
-				
-				else:
-					aux_traj.x = aux_traj.x
-					aux_traj.y = aux_traj.y + new_scale
-					self.new_traj.append(copy.deepcopy(aux_traj))
-					#print aux_traj
+			if (versorY>0):
+				bitolaY=int(math.ceil((versorY*d)/scale))
+				new_scaleY = (versorY*d)/bitolaY
+
+				for k in xrange(bitolaY):
+						aux_traj.y = aux_traj.y + new_scaleY
+						self.new_traj.append(copy.deepcopy(aux_traj))
+						#print aux_traj
+
+			
 
 		print "lista final:" , self.new_traj
+
+
 
 #---------------------------------------------------------------------------------------------------------------------------#
 
@@ -351,8 +352,8 @@ if __name__ == "__main__":
 	print "entrou"
 	boss=coordinator()
 	boss.readFile(traj1)
-	#boss.vstpFunc(1,1,55,3)
-	boss.addpoint_client()
+	boss.vstpFunc(1,1,55,3)
+	#boss.addpoint_client()
 
 	rospy.spin()
 
