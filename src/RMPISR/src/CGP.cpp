@@ -49,6 +49,7 @@ public:
   bool def_addpoint(RMPISR::addpoint::Request&, RMPISR::addpoint::Response&);
   bool def_stop(RMPISR::stop::Request&, RMPISR::stop::Response&);
   bool def_odomError(RMPISR::odomError::Request&, RMPISR::odomError::Response&);
+  bool opposite=false;
 
 
 private:
@@ -71,6 +72,8 @@ private:
   double errorY=0;
   double errorTheta=0;
   double roll, pitch, yaw;
+  
+  bool error_received=false;
   nav_msgs::Odometry::ConstPtr poseRMP;
   geometry_msgs::Pose2D::ConstPtr pose;
 
@@ -185,21 +188,36 @@ void SendVelocity::goTo(float xf, float yf,float limiar){
   float d=sqrt(pow((xf-odomNew.x),2)+pow((yf-odomNew.y),2));
   // calculo da circunferencia de bullseye
   float c=pow((xf-odomNew.x),2)+pow((yf-odomNew.y),2);
+  // calculo do versor para comparacao da direcao da plataforma
+  float dxini = (xf-odomNew.x) / d;
+  float dyini = (yf-odomNew.y) / d;
+
+
   ROS_INFO("Proximo ponto: X= %f e Y= %f.",xf, yf);
 
   //enquanto o RMP estiver fora do raio da circunferencia
-  while (c>pow(limiar,2)){
+  while (c>pow(limiar,2) && opposite == false){
 
     c=pow((xf-odomNew.x),2)+pow((yf-odomNew.y),2);
     d=sqrt(pow((xf-odomNew.x),2)+pow((yf-odomNew.y),2));
+
     // vetores normalizados -> versor
     float dx=(xf-odomNew.x )/d;
     float dy=(yf-odomNew.y)/d;
+
     // calculo velocidades a enviar
     float vx=cos(odomNew.theta)*dx+sin(odomNew.theta)*dy;
     float vy=cos(odomNew.theta)*dy-sin(odomNew.theta)*dx;
     // projecções * os ganhos
     sendVel(vx*Kl,vy*Kw);
+
+    if (error_received){
+
+      float res = dxini*dx + dyini*dy; // calculo do produto interno entre os dois versores
+      ROS_INFO("resultado do produto interno: %f", res);
+      if (res<-0.7) opposite=true; // sentido diferente, quero sair do ciclo
+      error_received=false; // reset à flag do serviço recebido
+    }
  
 
 
@@ -208,6 +226,13 @@ void SendVelocity::goTo(float xf, float yf,float limiar){
     ros::spinOnce();
     if (state==STOPPING) return;
   }
+
+  if (opposite == true){
+    fila_pontos.pop();
+    ROS_INFO("Fiz pop porque o vector estava c sentido contrario");
+
+  } 
+
 
   if(c<pow(limiar,2))
     ROS_INFO("Chegou ao ponto: X= %f e Y= %f.",xf, yf);
@@ -282,6 +307,8 @@ bool SendVelocity::def_odomError(RMPISR::odomError::Request  &req_error, RMPISR:
   errorTheta = req_error.pose.theta;
   //ROS_INFO("sending back response: [%ld]", (long int)res_stop.stop);
 
+  error_received=true;
+
   return true;
 }
 
@@ -303,6 +330,7 @@ int main(int argc, char** argv)
       ROS_INFO("state = GO");
 
       while(!fila_pontos.empty() && state==GO){
+        rmp.opposite=false;
         aux_s=fila_pontos.front();
         rmp.goTo(aux_s.xf,aux_s.yf,0.3);
       }

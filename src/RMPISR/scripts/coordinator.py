@@ -54,11 +54,15 @@ class coordinator():
 		self.danger_sub = rospy.Subscriber('/sonarFlag', Bool, self.callbackSonar)
 		#para o segway
 		#self.odom_sub = rospy.Subscriber('/segway_rmp_node/odom', Odometry, self.callbackOdom)
-		self.odom_sub = rospy.Subscriber('/odomUpdater', Pose2D, self.callbackOdom)
+		self.odom_sub = rospy.Subscriber('/odomUpdater', Pose2D, self.callbackFalseOdom)
+		self.new_odom_sub = rospy.Subscriber('/new_odom',Pose2D,self.callbackOdom)
 		self.pose=Pose2D()
 		self.trueodomX=0
 		self.trueodomY=0
 		self.trueodomTheta=0
+		self.falseodomX=0
+		self.falseodomY=0
+		self.falseodomTheta=0
 		self.danger= Bool()
 		self.state=0
 		self.son=bool()
@@ -67,7 +71,13 @@ class coordinator():
 
 
 	#Callback function implementing the pose value received
-	def callbackOdom(self, data):
+	def callbackFalseOdom(self, data):
+		self.falseodomX=data.x
+		self.falseodomY=data.y
+		self.falseodomTheta=data.theta
+
+	#callback function for the true odom = fake odom + error (camera)
+	def callbackOdom(self,data):
 		self.trueodomX=data.x
 		self.trueodomY=data.y
 		self.trueodomTheta=data.theta
@@ -257,9 +267,12 @@ class coordinator():
 				for i in range(1,len(self.new_traj)):
 					pygame.draw.line(screen, (0, 255,255), ((self.new_traj[i-1].x-self.mapminx)*raciox, (self.new_traj[i-1].y-self.mapminy)*racioy),  ((self.new_traj[i].x-self.mapminx)*raciox, (self.new_traj[i].y-self.mapminy)*racioy))
 				
-				#odometry representation
+				#real odometry representation
 				pygame.draw.circle(screen, (255, 0, 0), [int((self.trueodomX-self.mapminx)*raciox), int((self.trueodomY-self.mapminy)*racioy)], int(self.robotRadius*raciox))
-				
+				#false odometry representation
+				pygame.draw.circle(screen, (255, 0, 0), [int((self.falseodomX-self.mapminx)*raciox), int((self.falseodomY-self.mapminy)*racioy)], int(self.robotRadius*raciox))
+
+
 
 				
 				pygame.display.flip()
