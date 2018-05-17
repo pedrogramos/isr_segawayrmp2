@@ -28,7 +28,7 @@ import csv
 
 #no ISR
 sys.path.insert(0,'/home/rmp/lib/python')
-MAP='/home/rmp/catkin_ws/src/RMPISR/scripts/ISRfile2.xml'
+MAP='/home/rmp/catkin_ws/src/RMPISR/scripts/novo.xml'
 import vstpPY
 
 traj1='/home/rmp/catkin_ws/src/RMPISR/scripts/DemonstrationPoints2.csv'
@@ -244,7 +244,7 @@ class coordinator():
 		#gamepy inicialization window
 
 		screen = pygame.display.set_mode((displayx, displayy))
-		screen = pygame.transform.flip(screen,0,1)
+		#screen = pygame.transform.flip(screen,0,1)
 
 		pygame.display.set_caption("Representacao da posicao do modulo RMP")
 
@@ -305,37 +305,35 @@ class coordinator():
 
 		for i in range(1,size):
 
-			d = math.sqrt(math.pow((self.traj_points[i].x-self.traj_points[i-1].x),2) + math.pow((self.traj_points[i].y-self.traj_points[i-1].y),2))
-			versorX = (self.traj_points[i].x - self.traj_points[i-1].x) / d
-			versorY = (self.traj_points[i].y - self.traj_points[i-1].y) / d
+		    # inicializacao da nova trajectoria
+		    self.aux_traj.x = self.traj_points[i-1].x
+		    self.aux_traj.y = self.traj_points[i-1].y
 
-			#print versorX, versorY, d
+		    #calculo da distancia euclidiana
+		    d = math.sqrt(math.pow((self.traj_points[i].x-self.traj_points[i-1].x),2) + math.pow((self.traj_points[i].y-self.traj_points[i-1].y),2))
+		    #versor em X
+		    versorX = (self.traj_points[i].x - self.traj_points[i-1].x) / d
+		    #versor em Y
+		    versorY = (self.traj_points[i].y - self.traj_points[i-1].y) / d
 
-			# inicializacao da nova trajectoria
-			self.aux_traj.x = self.traj_points[i-1].x
-			self.aux_traj.y = self.traj_points[i-1].y
+		    #quantas vezes cabe a minha scale na distancia entre os pontos
+		    #vezes que tenho de incrementar o ciclo
+		    k = int(math.ceil(d/scale))
 
-			if (versorX>0):
-				#calculo de quantas vezes cabe a meu espacamento entre pontos na distancia total por excesso
-				bitolaX=int(math.ceil((versorX*d)/scale))
-				#fazer os segmentos com a distancia entre eles toda igual
-				new_scaleX = (versorX*d)/bitolaX
+		    #valor do incremento por iteracao
+		    inc= d/k
 
-				#incremento da distancia ate chegar ao ponto
-				for j in xrange(bitolaX):
-					self.aux_traj.x = self.aux_traj.x + new_scaleX
-					self.new_traj.append(copy.deepcopy(self.aux_traj))
+		    print "d: %f versorX: %f versorY: %f k: %f inc: %f" % (d,versorX,versorY,k,inc)
 
-			if (versorY>0):
-				bitolaY=int(math.ceil((versorY*d)/scale))
-				new_scaleY = (versorY*d)/bitolaY
 
-				for k in xrange(bitolaY):
-						self.aux_traj.y = self.aux_traj.y + new_scaleY
-						self.new_traj.append(copy.deepcopy(self.aux_traj))
-			
+		    for j in xrange(k):
+		        self.aux_traj.x = self.aux_traj.x + (inc*versorX)
+		        self.aux_traj.y = self.aux_traj.y + (inc*versorY)
+		        self.new_traj.append(copy.deepcopy(self.aux_traj))
+		    
 
 		print "lista final: \n" , self.new_traj
+
 
 
 
@@ -372,7 +370,7 @@ if __name__ == "__main__":
 	boss=coordinator()
 	boss.readFile(traj1)
 	boss.vstpFunc(1,1,55,3)
-	boss.vstpFunc(55,3,59,3)
+	#boss.vstpFunc(55,3,59,3)
 	#boss.addpoint_client()
 
 	rospy.spin()

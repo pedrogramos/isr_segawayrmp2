@@ -126,50 +126,33 @@ class robotTrajectory:
 
         def trajDivider(self,scale=1):
             size=len(self.traj_points)
-            i=1
-
-            # inicializacao da nova trajectoria
-            self.aux_traj.x = self.traj_points[0].x
-            self.aux_traj.y = self.traj_points[0].y
 
 
             for i in range(1,size):
+
+                # inicializacao da nova trajectoria
+                self.aux_traj.x = self.traj_points[i-1].x
+                self.aux_traj.y = self.traj_points[i-1].y
 
                 d = math.sqrt(math.pow((self.traj_points[i].x-self.traj_points[i-1].x),2) + math.pow((self.traj_points[i].y-self.traj_points[i-1].y),2))
                 versorX = (self.traj_points[i].x - self.traj_points[i-1].x) / d
                 versorY = (self.traj_points[i].y - self.traj_points[i-1].y) / d
 
-                print versorX, versorY, d
+                #quantas vezes cabe a minha scale na distancia entre os pontos
+                #vezes que tenho de incrementar o ciclo
+                k = int(math.ceil(d/scale))
 
-                #verificar se a coordenada aumenta de facto nesta direcao ou nao
-                if (versorX != 0):
-                    #calculo de quantas vezes cabe a meu espacamento entre pontos na distancia total por excesso
-                    bitolaX=int(math.ceil((versorX*d)/scale))
-                    #fazer os segmentos com a distancia entre eles toda igual
-                    new_scaleX = (versorX*d)/bitolaX
-                    print bitolaX, new_scaleX
+                #valor do incremento por iteracao
+                inc= d/k
 
-                if (versorY != 0):
-                    bitolaY=int(math.ceil((versorY*d)/scale))
-                    new_scaleY = (versorY*d)/bitolaY
-                    print bitolaY, new_scaleY
+                print "d: %f versorX: %f versorY: %f k: %f inc: %f" % (d,versorX,versorY,k,inc)
 
-                if (abs(bitolaY)>=abs(bitolaX)):
-                    bigger = abs(bitolaY)
-                else: 
-                    bigger = abs(bitolaX)
 
-                print bitolaX, bitolaY, bigger
-
-                for j in xrange(bigger):
-
-                    if(j <= abs(bitolaX)) and (versorX != 0):
-                        self.aux_traj.x = self.aux_traj.x + new_scaleX
-                        self.new_traj.append(copy.deepcopy(self.aux_traj))
-
-                    if(j <= abs(bitolaY)) and (versorY != 0):
-                        self.aux_traj.y = self.aux_traj.y + new_scaleY
-                        self.new_traj.append(copy.deepcopy(self.aux_traj))
+                for j in xrange(k):
+                    self.aux_traj.x = self.aux_traj.x + (inc*versorX)
+                    self.aux_traj.y = self.aux_traj.y + (inc*versorY)
+                    self.new_traj.append(copy.deepcopy(self.aux_traj))
+                
 
             print "lista final: \n" , self.new_traj
 
