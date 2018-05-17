@@ -28,7 +28,7 @@ import csv
 
 #no ISR
 sys.path.insert(0,'/home/rmp/lib/python')
-MAP='/home/rmp/catkin_ws/src/RMPISR/scripts/novo.xml'
+MAP='/home/rmp/catkin_ws/src/RMPISR/scripts/ISRfile2.xml'
 import vstpPY
 
 traj1='/home/rmp/catkin_ws/src/RMPISR/scripts/DemonstrationPoints2.csv'

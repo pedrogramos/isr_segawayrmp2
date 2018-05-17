@@ -53,7 +53,7 @@ double odomX, odomY, odomTheta;
 int errcb( int status, const char* func_name,  const char* err_msg, const char* file_name, int line, void* userdata ){
   cerr <<"Error on "<<func_name<<", msg= "<<err_msg<<" file "<< file_name<<" line"<< line<<endl;
 
-  cerr<< "OpenCV Error: "<<cvErrorStr(status)<<endl;
+  cerr<< "OpenCV Error: "<<cvErrorStr(status) << endl;
   abort();
 #ifdef _WIN32
   return 0;
@@ -89,7 +89,7 @@ void serciceCall(geometry_msgs::Pose2D pose1,RMPISR::odomError srv, ros::Service
 }
 
 
-
+//funcao que le valores dos marcadores do ficheiro texto
 std::vector<float> readFile(string path){
   float value;
   string discard;
@@ -102,6 +102,7 @@ std::vector<float> readFile(string path){
       
       //fscanf(myReadFile,"%s %f",discard, value)
       aux.push_back(value);
+
           
     }
   }
@@ -110,7 +111,7 @@ std::vector<float> readFile(string path){
   myReadFile.close();
 
 
-
+//percorrer o vector e fazer print dos valores
 for (std::vector<float>::const_iterator i = aux.begin(); i != aux.end(); ++i)
     std::cout << *i << ' ';
   cout << endl;
