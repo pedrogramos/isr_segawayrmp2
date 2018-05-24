@@ -67,7 +67,7 @@ private:
   //ros::Subscriber vazio_sub;
   geometry_msgs::Twist vel;
   geometry_msgs::Pose2D odomNew;
-  //double odomX, odomY, odomTheta;
+  double odomX, odomY, odomTheta;
   double errorX=0;
   double errorY=0;
   double errorTheta=0;
@@ -153,15 +153,15 @@ void SendVelocity::odomCallback(const nav_msgs::Odometry::ConstPtr& msg){
 
 // já é a minha função de odometria implemtada
 void SendVelocity::odomCallback(const geometry_msgs::Pose2D::ConstPtr& msg){
-/*
+
 odomX = msg->x;
 odomY = msg->y;
-odomTheta = msg->theta;*/
+odomTheta = msg->theta;
 
 //calculo da nova odometria a usar com a compensação do erro proveniente do MarkerDetector
-odomNew.x = msg->x + errorX;
-odomNew.y = msg->y + errorY;
-odomNew.theta = msg->theta + errorTheta;
+odomNew.x = odomX + errorX;
+odomNew.y = odomY + errorY;
+odomNew.theta = odomTheta + errorTheta;
 new_odom.publish(odomNew);
 
 //ROS_INFO("OdometriaFun: X= %f, Y= %f, e Theta= %f", odomX,odomY,odomTheta);
@@ -195,7 +195,7 @@ void SendVelocity::goTo(float xf, float yf,float limiar){
 
   ROS_INFO("Proximo ponto: X= %f e Y= %f.",xf, yf);
 
-  //enquanto o RMP estiver fora do raio da circunferencia
+  //enquanto o RMP estiver fora do raio da circunferencia c centro no ponto destino
   while (c>pow(limiar,2) && opposite == false){
 
     c=pow((xf-odomNew.x),2)+pow((yf-odomNew.y),2);
@@ -212,7 +212,7 @@ void SendVelocity::goTo(float xf, float yf,float limiar){
     sendVel(vx*Kl,vy*Kw);
 
     if (error_received){
-
+      printf("send velocity bool true error error_received\n");
       float res = dxini*dx + dyini*dy; // calculo do produto interno entre os dois versores
       ROS_INFO("resultado do produto interno: %f", res);
       if (res<-0.7) opposite=true; // sentido diferente, quero sair do ciclo
@@ -302,10 +302,15 @@ bool SendVelocity::def_stop(RMPISR::stop::Request  &req_stop, RMPISR::stop::Resp
 
 bool SendVelocity::def_odomError(RMPISR::odomError::Request  &req_error, RMPISR::odomError::Response &res_error)
 {
-  errorX = req_error.pose.x;
-  errorY = req_error.pose.y;
-  errorTheta = req_error.pose.theta;
-  //ROS_INFO("sending back response: [%ld]", (long int)res_stop.stop);
+  errorX = req_error.pose.x - odomX;
+  errorY = req_error.pose.y - odomY;
+  errorTheta = req_error.pose.theta - odomTheta;
+  ROS_INFO("Real Odom: X= %f, Y= %f, e Theta= %f", req_error.pose.x,req_error.pose.y,req_error.pose.theta);
+  ROS_INFO("Fake Odom: X= %f, Y= %f, e Theta= %f", req_error.pose.x,req_error.pose.y,req_error.pose.theta);
+  ROS_INFO("Error: X= %f  Y= %f  Th= %f", errorX, errorY,errorTheta);
+  ROS_INFO("New Odom: X= %f  Y= %f  Th= %f", odomNew.x, odomNew.y,odomNew.theta);
+  
+
 
   error_received=true;
 

@@ -369,9 +369,9 @@ if __name__ == "__main__":
 	print "entrou"
 	boss=coordinator()
 	boss.readFile(traj1)
-	boss.vstpFunc(1,1,55,3)
+	#boss.vstpFunc(1,1,55,3)
 	#boss.vstpFunc(55,3,59,3)
-	#boss.addpoint_client()
+	boss.addpoint_client()
 
 	rospy.spin()
 

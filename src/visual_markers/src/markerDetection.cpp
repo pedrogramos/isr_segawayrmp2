@@ -79,6 +79,7 @@ BPLocator * startbploc(ProjectiveCamera * cam){
   return loc;
 }
 
+
 void serciceCall(geometry_msgs::Pose2D pose1,RMPISR::odomError srv, ros::ServiceClient client ){
   srv.request.pose.x = pose1.x;
   srv.request.pose.y = pose1.y;
@@ -121,13 +122,14 @@ return aux;
 
 }
 
+/*
 void odomCallback(const geometry_msgs::Pose2D::ConstPtr& msg){
 odomX=msg->x;
 odomY=msg->y;
 odomTheta=msg->theta;
 
 //ROS_INFO("OdometriaFun: X= %f, Y= %f, e Theta= %f", odomX,odomY,odomTheta);
-}
+}*/
 
 int main(int argc, char **argv){
   ros::init(argc, argv, "markerDetection_node");
@@ -136,9 +138,9 @@ int main(int argc, char **argv){
   ros::Subscriber odom_sub;
   // nh.serviceClient<nome do ficheiro>("nome em que o serviço é disponibilizado");
   client = nh.serviceClient<RMPISR::odomError>("odomError");
-  odom_sub =  nh.subscribe("odomUpdater",10,odomCallback);
+  //odom_sub =  nh.subscribe("odomUpdater",10,odomCallback);
   RMPISR::odomError srv;
-  geometry_msgs::Pose2D erro;
+  geometry_msgs::Pose2D trueOdom;
   bool entrar = true;
   std::vector<float> setValues;
   std::ofstream outfile ("test.txt");
@@ -182,7 +184,7 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
   rmpTc[0] = glm::vec4(1.0,0.0,0.0,0.0);
   rmpTc[1] = glm::vec4(0.0,0.0,-1.0,0.0);
   rmpTc[2] = glm::vec4(0.0,1.0,0.0,0.0);
-  rmpTc[3] = glm::vec4(0.0,350.0,730.0,1.0);
+  rmpTc[3] = glm::vec4(0.0,415.0,750.0,1.0);
   glm::mat4 cTm,rmpTm, mTrmp, wTrmp;
 
   glm::mat4 wTc,inv_cTm;
@@ -352,7 +354,7 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
     //numM=0;
     locator->DrawMarkerFeatures(frame);
 
-    printf("MarkerTotal = %d with ID: %d\n",numM, id);
+    //printf("MarkerTotal = %d with ID: %d\n",numM, id);
 
     //if (id =! id_ant){
 
@@ -415,9 +417,9 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
           glm::vec4 novo =wTrmp*glm::vec4(1.0,0.0,0.0,0.0);
           float norma = sqrt(pow(novo[0],2)+pow(novo[1],2));
 
-          erro.x = ((wTrmp[3][0])/1000)-odomX;
-          erro.y = ((wTrmp[3][1])/1000)-odomY;
-          erro.theta = (atan2((wTrmp[0][1]),(wTrmp[0][0])))-odomTheta;
+          trueOdom.x = ((wTrmp[3][0])/1000);
+          trueOdom.y = ((wTrmp[3][1])/1000);
+          trueOdom.theta = (atan2((wTrmp[0][1]),(wTrmp[0][0])));
 
         //printf("Xcam=  %f Ycam=  %f ThCam=  %f \n",(wTc[3][0])/1000, (wTc[3][1])/1000, atan2((wTc[0][1]),(wTc[0][0])) );
         //printf("OLD: x=  %f y=  %f theta=  %f \n",((wTrmp[3][0])/1000), ((wTrmp[3][1])/1000), (atan2((wTrmp[0][1]),(wTrmp[0][0]))) );
@@ -427,45 +429,11 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
         cv::putText(frame,msg4,cvPoint(0,100),cv::FONT_HERSHEY_SIMPLEX,1,cv::Scalar::all(100),3,8);
 
         //printf("M_use %s \n", glm::to_string(M_use).c_str() );
-          //printf("M0 %s \n", glm::to_string(M0).c_str() );
-          //printf("M1 %s \n", glm::to_string(M1).c_str() );
-          //printf("M2 %s \n", glm::to_string(M2).c_str() );
-          //printf("cTm %s \n", glm::to_string(cTm).c_str() );
-          //printf("wTc %s \n", glm::to_string(wTc).c_str() );
-        //pose.print();
-          
-          //printf("rmpTc %s \n", glm::to_string(rmpTc).c_str() );
-         
-          //printf("rmpTm %s \n", glm::to_string(rmpTm).c_str() );
-          //printf("mTrmp %s \n", glm::to_string(mTrmp).c_str() );
-          //printf("wTrmp %s \n", glm::to_string(wTrmp).c_str() );
-
-            
-          
-
-      
-
-      
-
-        //----------------------------------------
-          /*
-          locator->useCVPose=false;
-          pose=locator->getMarkerPose(0);
-          printf("From Homography\n");
-          pose.print();
-          */
-
 
 
           
           id_ant=id;
-          //double teste1 = ros::Time::now();
-          //nowTime = ros::Time::now().toSec();
-          //printf("ros time now%f\n", teste1);
-          //printf("toSec %f\n", nowTime);
 
-          //ros::Duration elapsed = ros::Time::now() - lastTime;
-          //elapsed > interval ||
           if(entrar){
             printf("ENTROU CHAMADA SERVICO!!\n");
             time ( &rawtime );
@@ -478,12 +446,14 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
             outfile << "srv call-> X: "<< erro.x << " Y: "<< erro.y << " th: " << erro.theta << std::endl;
             */
 
-            serciceCall(erro,srv,client);
+            // call do servico que envia o calculo do erro para ser adicionado à odometria original
+            serciceCall(trueOdom,srv,client);
 
-            //cout para a consola
+            // cout para a consola
             std::cout << asctime (timeinfo);
-            std::cout << "Detectou o id: " << id << std::endl;
-            std::cout << "srv call-> X: "<< erro.x << " Y: "<< erro.y << " th: " << erro.theta << std::endl;
+            //printf("MArker: X=  %f Y=  %f Th=  %f \n",(wTrmp[3][0])/1000), ((wTrmp[3][1])/1000), (atan2((wTrmp[0][1]),(wTrmp[0][0])));
+            //printf("Odom X= %f Y= %f Th= %f \n",odomX, odomY, odomTheta);
+            std::cout << "srv call-> X: "<< trueOdom.x << " Y: "<< trueOdom.y << " Th: " << trueOdom.theta << std::endl;
             //i=2;
             //lastTime = ros::Time::now();
 
