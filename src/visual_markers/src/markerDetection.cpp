@@ -42,6 +42,7 @@ using namespace std;
 #include <signal.h>
 #include "geometry_msgs/Pose2D.h"
 #include "RMPISR/odomError.h"
+#include "RMPISR/resetrmp.h"
 #include <time.h>
 #include <vector>
 #include <string>
@@ -90,6 +91,16 @@ void serciceCall(geometry_msgs::Pose2D pose1,RMPISR::odomError srv, ros::Service
 }
 
 
+void serciceCallOnce(geometry_msgs::Pose2D pose1,RMPISR::resetrmp srv2, ros::ServiceClient client2 ){
+  srv2.request.pose.x = pose1.x;
+  srv2.request.pose.y = pose1.y;
+  srv2.request.pose.theta = pose1.theta;
+
+  client2.call(srv2);
+
+}
+
+
 //funcao que le valores dos marcadores do ficheiro texto
 std::vector<float> readFile(string path){
   float value;
@@ -134,14 +145,17 @@ odomTheta=msg->theta;
 int main(int argc, char **argv){
   ros::init(argc, argv, "markerDetection_node");
   ros::NodeHandle nh;
-  ros::ServiceClient client;
+  ros::ServiceClient client, client2;
   ros::Subscriber odom_sub;
   // nh.serviceClient<nome do ficheiro>("nome em que o serviço é disponibilizado");
   client = nh.serviceClient<RMPISR::odomError>("odomError");
+  client2 = nh.serviceClient<RMPISR::resetrmp>("resetRMP");
   //odom_sub =  nh.subscribe("odomUpdater",10,odomCallback);
   RMPISR::odomError srv;
+  RMPISR::resetrmp srv2;
   geometry_msgs::Pose2D trueOdom;
   bool entrar = true;
+  bool once = true;
   std::vector<float> setValues;
   std::ofstream outfile ("test.txt");
   time_t rawtime;
@@ -184,7 +198,7 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
   rmpTc[0] = glm::vec4(1.0,0.0,0.0,0.0);
   rmpTc[1] = glm::vec4(0.0,0.0,-1.0,0.0);
   rmpTc[2] = glm::vec4(0.0,1.0,0.0,0.0);
-  rmpTc[3] = glm::vec4(0.0,415.0,750.0,1.0);
+  rmpTc[3] = glm::vec4(0.0,350.0,750.0,1.0);
   glm::mat4 cTm,rmpTm, mTrmp, wTrmp;
 
   glm::mat4 wTc,inv_cTm;
@@ -434,6 +448,7 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
           
           id_ant=id;
 
+        
           if(entrar){
             printf("ENTROU CHAMADA SERVICO!!\n");
             time ( &rawtime );
@@ -445,6 +460,13 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
             outfile << "Detectou o id: " << id << std::endl;
             outfile << "srv call-> X: "<< erro.x << " Y: "<< erro.y << " th: " << erro.theta << std::endl;
             */
+
+            if (once){
+              printf("Inicializacao da odometria! \n");
+              serciceCallOnce(trueOdom,srv2,client2);
+              once = false;
+              ros::Duration(1).sleep();
+            }
 
             // call do servico que envia o calculo do erro para ser adicionado à odometria original
             serciceCall(trueOdom,srv,client);

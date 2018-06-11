@@ -24,8 +24,8 @@
 using namespace std;
 
 #define PI 3.141592
-#define Kl 0.4
-#define Kw 1 //0.6
+#define Kl 0.3
+#define Kw 0.6 //0.6
 enum states{GO,STOP,STOPPING,ADDPOINT};
 enum states state=GO;
 struct point { float xf; float yf;} new_point, aux_s;
@@ -281,7 +281,7 @@ int main(int argc, char** argv)
 
       while(!fila_pontos.empty() && state==GO){
         aux_s=fila_pontos.front();
-        rmp.goTo(aux_s.xf,aux_s.yf,0.3);
+        rmp.goTo(aux_s.xf,aux_s.yf,0.2);
       }
 
   

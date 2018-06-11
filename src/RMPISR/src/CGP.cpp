@@ -97,13 +97,6 @@ SendVelocity::SendVelocity(){
   service2 = nh.advertiseService("stop",&SendVelocity::def_stop,this);
   service3 = nh.advertiseService("odomError",&SendVelocity::def_odomError,this);
 
-  //vazio_pub=nh.advertise<std_msgs::Bool>("/pedro",1);
-  //vazio_sub=nh.subscribe("/pedro",1,&SendVelocity::stopTurtle,this);
-
-
-  //Foo foo_object;
-  //ros::Subscriber sub = nh.subscribe("my_topic", 1, &Foo::callback, &foo_object);
-  
 }
 
 
@@ -124,16 +117,6 @@ void SendVelocity::stopRMP(){
   sendVel(0.0,0.0);
   ROS_INFO("STOP!!");
 }
-
-/*
-void chatterCallback(const nav_msgs::Odometry::ConstPtr& msg)
-{
-  ROS_INFO("Seq: [%d]", msg->header.seq);
-  ROS_INFO("Position-> x: [%f], y: [%f], z: [%f]", msg->pose.pose.position.x,msg->pose.pose.position.y, msg->pose.pose.position.z);
-  ROS_INFO("Orientation-> x: [%f], y: [%f], z: [%f], w: [%f]", msg->pose.pose.orientation.x, msg->pose.pose.orientation.y, msg->pose.pose.orientation.z, msg->pose.pose.orientation.w);
-  ROS_INFO("Vel-> Linear: [%f], Angular: [%f]", msg->twist.twist.linear.x,msg->twist.twist.angular.z);
-}
-*/
 
 //RMP ROS Package
 /*
@@ -167,21 +150,6 @@ new_odom.publish(odomNew);
 //ROS_INFO("OdometriaFun: X= %f, Y= %f, e Theta= %f", odomX,odomY,odomTheta);
 }
 
-//turtlesim odom
-/*
-// rosmsg show [turtlesim/Pose] = msg1-> [x] 
-void SendVelocity::odomCallback(const turtlesim::PoseConstPtr& msg1){ 
-  // nav_msgs::Odometry --> pose.pose.position.
-  //para a turtlesim
-  odomX = msg1->x;
-  odomY = msg1->y;
-  odomTheta = msg1->theta;
-  aPose=msg1;
-
-
-  //ROS_INFO("Odometria: X= %f, Y= %f, e Theta= %f", odomX,odomY,odomTheta);
-}*/
-
 
 void SendVelocity::goTo(float xf, float yf,float limiar){
   // calculo do módulo
@@ -202,8 +170,8 @@ void SendVelocity::goTo(float xf, float yf,float limiar){
     d=sqrt(pow((xf-odomNew.x),2)+pow((yf-odomNew.y),2));
 
     // vetores normalizados -> versor
-    float dx=(xf-odomNew.x )/d;
-    float dy=(yf-odomNew.y)/d;
+    float dx=(xf-odomNew.x ) / d;
+    float dy=(yf-odomNew.y) / d;
 
     // calculo velocidades a enviar
     float vx=cos(odomNew.theta)*dx+sin(odomNew.theta)*dy;
@@ -212,10 +180,10 @@ void SendVelocity::goTo(float xf, float yf,float limiar){
     sendVel(vx*Kl,vy*Kw);
 
     if (error_received){
-      printf("send velocity bool true error error_received\n");
+      printf("send velocity function next point check \n");
       float res = dxini*dx + dyini*dy; // calculo do produto interno entre os dois versores
       ROS_INFO("resultado do produto interno: %f", res);
-      if (res<-0.7) opposite=true; // sentido diferente, quero sair do ciclo
+      if (res<-0.8) opposite=true; // sentido diferente, quero sair do ciclo
       error_received=false; // reset à flag do serviço recebido
     }
  
@@ -225,7 +193,7 @@ void SendVelocity::goTo(float xf, float yf,float limiar){
     ROS_DEBUG("vx= %f vy= %f d= %f xf= %f yf= %f",vx,vy, d, xf, yf);
     ros::spinOnce();
     if (state==STOPPING) return;
-  }
+  }//end while
 
   if (opposite == true){
     fila_pontos.pop();
@@ -236,6 +204,7 @@ void SendVelocity::goTo(float xf, float yf,float limiar){
 
   if(c<pow(limiar,2))
     ROS_INFO("Chegou ao ponto: X= %f e Y= %f.",xf, yf);
+    ROS_INFO("Odom: X= %f  Y= %f  Th= %f", odomNew.x, odomNew.y,odomNew.theta);
     fila_pontos.pop();
 
     //state=GO;
@@ -305,10 +274,11 @@ bool SendVelocity::def_odomError(RMPISR::odomError::Request  &req_error, RMPISR:
   errorX = req_error.pose.x - odomX;
   errorY = req_error.pose.y - odomY;
   errorTheta = req_error.pose.theta - odomTheta;
-  ROS_INFO("Real Odom: X= %f, Y= %f, e Theta= %f", req_error.pose.x,req_error.pose.y,req_error.pose.theta);
-  ROS_INFO("Fake Odom: X= %f, Y= %f, e Theta= %f", req_error.pose.x,req_error.pose.y,req_error.pose.theta);
+  ROS_INFO("Marker Odom: X= %f, Y= %f, e Theta= %f", req_error.pose.x,req_error.pose.y,req_error.pose.theta);
+  ROS_INFO("RMP Odom: X= %f, Y= %f, e Theta= %f", odomX,odomY,odomTheta);
   ROS_INFO("Error: X= %f  Y= %f  Th= %f", errorX, errorY,errorTheta);
-  ROS_INFO("New Odom: X= %f  Y= %f  Th= %f", odomNew.x, odomNew.y,odomNew.theta);
+  ros::Duration(0.5).sleep();
+  ROS_INFO("Odom Corrigida: X= %f  Y= %f  Th= %f", odomNew.x, odomNew.y,odomNew.theta);
   
 
 
@@ -327,6 +297,7 @@ int main(int argc, char** argv)
 
 
   state=STOP;
+  printf("RMP ready!\n");
 
   ros::Rate rate(10.0);
   while(ros::ok()){
@@ -337,7 +308,7 @@ int main(int argc, char** argv)
       while(!fila_pontos.empty() && state==GO){
         rmp.opposite=false;
         aux_s=fila_pontos.front();
-        rmp.goTo(aux_s.xf,aux_s.yf,0.3);
+        rmp.goTo(aux_s.xf,aux_s.yf,0.2);
       }
 
   

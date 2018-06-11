@@ -240,9 +240,14 @@ class coordinator():
 		
 		raciox=(displayx-5)/(self.mapmaxx-self.mapminx)
 		racioy=(displayy-5)/(self.mapmaxy-self.mapminy)
+		wTm=np.array([[1,0,displayx],
+					[0,-1,displayy],
+					[0,0,1]])
+		mTw=wTm.I
+		
+
 
 		#gamepy inicialization window
-
 		screen = pygame.display.set_mode((displayx, displayy))
 		#screen = pygame.transform.flip(screen,0,1)
 
