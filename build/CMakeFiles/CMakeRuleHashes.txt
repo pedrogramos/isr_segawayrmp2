@@ -8,6 +8,7 @@ a3e80e6858a7f1a263b4b5f9ec154d28 /home/rmp/catkin_ws/devel/include/RMPISR/stop.h
 fa738827fc484f2cd1ef87e59e49beb5 /home/rmp/catkin_ws/devel/include/beginner_tutorials/Num.h
 4b1bc4ec14a68b18fbc271f3863665bf /home/rmp/catkin_ws/devel/include/rosserial_arduino/Adc.h
 63184237dd38bce8cb7f30d6c8cfef6e /home/rmp/catkin_ws/devel/include/rosserial_arduino/Test.h
+1b233af48d03bacb993ecbdc6dfddd85 /home/rmp/catkin_ws/devel/include/rosserial_arduino/sensors.h
 d011e36141fb277fa0d2ce362df8421c /home/rmp/catkin_ws/devel/include/rosserial_mbed/Adc.h
 5f26d110f8ddba1a6c46669bb251a498 /home/rmp/catkin_ws/devel/include/rosserial_mbed/Test.h
 05c3f3267ef38402e524b3bf576d2c70 /home/rmp/catkin_ws/devel/include/rosserial_msgs/Log.h
@@ -36,6 +37,7 @@ d44ab1d227eeee59ced331d9eada35eb /home/rmp/catkin_ws/devel/lib/python2.7/dist-pa
 befa61c80754d4ed1bc816a36e6aac66 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/beginner_tutorials/srv/__init__.py
 41b83ad5b479fe474c492b8b56edeb06 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/rosserial_arduino/msg/_Adc.py
 953974b7689cdbf01e10008823f9c858 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/rosserial_arduino/msg/__init__.py
+13c5d5175fb3c41d345111fdd67c539d /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/rosserial_arduino/msg/_sensors.py
 1bde7a3426002a3792bb56f4482a5f65 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/rosserial_arduino/srv/_Test.py
 7dd40f16445cf59962d67fc2da2cb6d6 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/rosserial_arduino/srv/__init__.py
 4e876c8de602308e4718a4afca47c421 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/rosserial_mbed/msg/_Adc.py
@@ -69,6 +71,7 @@ c562d6db290008c8d17ab6d1a5748832 /home/rmp/catkin_ws/devel/share/common-lisp/ros
 d71024c92e4af1278ca325d6422cd308 /home/rmp/catkin_ws/devel/share/common-lisp/ros/beginner_tutorials/msg/Num.lisp
 c3af0d288c388753a04a31e6502f4779 /home/rmp/catkin_ws/devel/share/common-lisp/ros/beginner_tutorials/srv/AddTwoInts.lisp
 f4f6838b4e134ca7b851e76fcc0a5c8c /home/rmp/catkin_ws/devel/share/common-lisp/ros/rosserial_arduino/msg/Adc.lisp
+dec0a1854b2105a8c00146bd51783849 /home/rmp/catkin_ws/devel/share/common-lisp/ros/rosserial_arduino/msg/sensors.lisp
 1aa049bdc2d370646d174edef4dda427 /home/rmp/catkin_ws/devel/share/common-lisp/ros/rosserial_arduino/srv/Test.lisp
 18e7044453f8bce58af7dac3306c04cf /home/rmp/catkin_ws/devel/share/common-lisp/ros/rosserial_mbed/msg/Adc.lisp
 5774e4a56330d673c1626086edc763ec /home/rmp/catkin_ws/devel/share/common-lisp/ros/rosserial_mbed/srv/Test.lisp
@@ -94,6 +97,7 @@ e2f82f20b1209c51bf0248198e6e59a3 /home/rmp/catkin_ws/devel/share/common-lisp/ros
 1138c3d77852b21410858310cdfd399c /home/rmp/catkin_ws/devel/share/gennodejs/ros/beginner_tutorials/msg/Num.js
 586f41af73a5a2940b684c88b030af40 /home/rmp/catkin_ws/devel/share/gennodejs/ros/beginner_tutorials/srv/AddTwoInts.js
 9532de64981e0c6950a273e2351a4cad /home/rmp/catkin_ws/devel/share/gennodejs/ros/rosserial_arduino/msg/Adc.js
+5af26edf7ebc9116884d88ea93d01cf1 /home/rmp/catkin_ws/devel/share/gennodejs/ros/rosserial_arduino/msg/sensors.js
 96706edaae5800cf1d8cc845df186204 /home/rmp/catkin_ws/devel/share/gennodejs/ros/rosserial_arduino/srv/Test.js
 b78bbf14240a1897af69ac737368222c /home/rmp/catkin_ws/devel/share/gennodejs/ros/rosserial_mbed/msg/Adc.js
 fc1d9d7bfb03ddf012313fd60ae47bee /home/rmp/catkin_ws/devel/share/gennodejs/ros/rosserial_mbed/srv/Test.js
@@ -122,6 +126,7 @@ c9a32bacb41f2dd4096ad7e39107d241 /home/rmp/catkin_ws/devel/share/roseus/ros/RMPI
 bbdcb7306fdfc368dd49da4d240c1fad /home/rmp/catkin_ws/devel/share/roseus/ros/beginner_tutorials/srv/AddTwoInts.l
 de4d23486f01fa41fdb5987f7acd3bbd /home/rmp/catkin_ws/devel/share/roseus/ros/rosserial_arduino/manifest.l
 79fadc050e44ad3e44e10f1c22831176 /home/rmp/catkin_ws/devel/share/roseus/ros/rosserial_arduino/msg/Adc.l
+dec8a9d55fcba9d627fdb29ec887d213 /home/rmp/catkin_ws/devel/share/roseus/ros/rosserial_arduino/msg/sensors.l
 a0e270d75386b389c7d34e2b2e262589 /home/rmp/catkin_ws/devel/share/roseus/ros/rosserial_arduino/srv/Test.l
 73b37bb2033f2a7957c6d1a81a4df1a6 /home/rmp/catkin_ws/devel/share/roseus/ros/rosserial_mbed/manifest.l
 9b3041e059b7a6854444dd273c2f5c4c /home/rmp/catkin_ws/devel/share/roseus/ros/rosserial_mbed/msg/Adc.l
@@ -158,6 +163,7 @@ b9797ee72594565c7f74ae08eeae5c0d RMPISR/CMakeFiles/RMPISR_generate_messages_py
 69ab5d80fb81b9b030e55d554049e965 RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_stop
 935439d616040165b7b782fa33642829 rosserial/rosserial_arduino/CMakeFiles/_rosserial_arduino_generate_messages_check_deps_Adc
 ad9c054d94c62420080208ea1a103404 rosserial/rosserial_arduino/CMakeFiles/_rosserial_arduino_generate_messages_check_deps_Test
+ef7291277345f937161b744c28cd0e9e rosserial/rosserial_arduino/CMakeFiles/_rosserial_arduino_generate_messages_check_deps_sensors
 3c92bc49dadba222b64a0026140966fb rosserial/rosserial_arduino/CMakeFiles/rosserial_arduino_generate_messages_cpp
 3c92bc49dadba222b64a0026140966fb rosserial/rosserial_arduino/CMakeFiles/rosserial_arduino_generate_messages_eus
 3c92bc49dadba222b64a0026140966fb rosserial/rosserial_arduino/CMakeFiles/rosserial_arduino_generate_messages_lisp

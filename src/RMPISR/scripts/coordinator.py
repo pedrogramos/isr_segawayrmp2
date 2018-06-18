@@ -240,11 +240,13 @@ class coordinator():
 		
 		raciox=(displayx-5)/(self.mapmaxx-self.mapminx)
 		racioy=(displayy-5)/(self.mapmaxy-self.mapminy)
+		'''
 		wTm=np.array([[1,0,displayx],
 					[0,-1,displayy],
 					[0,0,1]])
 		mTw=wTm.I
-		
+		'''
+
 
 
 		#gamepy inicialization window
@@ -260,7 +262,10 @@ class coordinator():
 				screen.fill((0,0,0))
 				#map segments representation
 				for i in range(len(self.mapsegs)):
-					pygame.draw.line(screen, (255, 255, 255), ((self.mapsegs[i].x0-self.mapminx)*raciox, (self.mapsegs[i].y0-self.mapminy)*racioy),  ((self.mapsegs[i].x1-self.mapminx)*raciox, (self.mapsegs[i].y1-self.mapminy)*racioy))
+					#pygame.draw.line(screen, (255, 255, 255), ((self.mapsegs[i].x0 -self.mapminx)*raciox, (self.mapsegs[i].y0-self.mapminy)*racioy),  ((self.mapsegs[i].x1-self.mapminx)*raciox, (self.mapsegs[i].y1-self.mapminy)*racioy))
+					#pygame.draw.line(screen, (255, 255, 255), (((self.mapsegs[i].x0-displayx) -self.mapminx)*raciox, ((displayy-self.mapsegs[i].y0)-self.mapminy)*racioy),  (((self.mapsegs[i].x1-displayx)-self.mapminx)*raciox, ((displayy-self.mapsegs[i].y1)-self.mapminy)*racioy))
+					#pygame.draw.line(screen, (255, 255, 255), ((self.mapsegs[i].x0-displayx), (displayy-self.mapsegs[i].y0)),  ((self.mapsegs[i].x1-displayx), (displayy-self.mapsegs[i].y1)))
+					pygame.draw.line(screen, (255, 255, 255), ((((self.mapsegs[i].x0 -self.mapminx)*raciox)-displayx), (displayy-((self.mapsegs[i].y0-self.mapminy)*racioy))),  ((((self.mapsegs[i].x1-self.mapminx)*raciox)-displayx), (displayy-(self.mapsegs[i].y1-self.mapminy)*racioy)))
 
 
 				#trajectory representation
@@ -270,7 +275,7 @@ class coordinator():
 				'''
 
 				for i in range(1,len(self.new_traj)):
-					pygame.draw.line(screen, (0, 255,255), ((self.new_traj[i-1].x-self.mapminx)*raciox, (self.new_traj[i-1].y-self.mapminy)*racioy),  ((self.new_traj[i].x-self.mapminx)*raciox, (self.new_traj[i].y-self.mapminy)*racioy))
+					pygame.draw.line(screen, (255, 0, 0), ((self.new_traj[i-1].x-self.mapminx)*raciox, (self.new_traj[i-1].y-self.mapminy)*racioy),  ((self.new_traj[i].x-self.mapminx)*raciox, (self.new_traj[i].y-self.mapminy)*racioy))
 				
 				#real odometry representation
 				pygame.draw.circle(screen, (255, 0, 0), [int((self.trueodomX-self.mapminx)*raciox), int((self.trueodomY-self.mapminy)*racioy)], int(self.robotRadius*raciox))
@@ -371,13 +376,14 @@ class coordinator():
 
 if __name__ == "__main__":
 	rospy.init_node("coordinator_node",anonymous=True)
-	print "entrou"
+	print "Coordinator Initialization..."
 	boss=coordinator()
 	boss.readFile(traj1)
-	#boss.vstpFunc(1,1,55,3)
+	boss.vstpFunc(1,1,55,3)
 	#boss.vstpFunc(55,3,59,3)
 	boss.addpoint_client()
 
+	print "Coordinator Ready!"
 	rospy.spin()
 
 

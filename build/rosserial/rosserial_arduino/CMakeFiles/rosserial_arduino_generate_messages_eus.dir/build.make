@@ -54,6 +54,7 @@ CMAKE_BINARY_DIR = /home/rmp/catkin_ws/build
 include rosserial/rosserial_arduino/CMakeFiles/rosserial_arduino_generate_messages_eus.dir/progress.make
 
 rosserial/rosserial_arduino/CMakeFiles/rosserial_arduino_generate_messages_eus: /home/rmp/catkin_ws/devel/share/roseus/ros/rosserial_arduino/msg/Adc.l
+rosserial/rosserial_arduino/CMakeFiles/rosserial_arduino_generate_messages_eus: /home/rmp/catkin_ws/devel/share/roseus/ros/rosserial_arduino/msg/sensors.l
 rosserial/rosserial_arduino/CMakeFiles/rosserial_arduino_generate_messages_eus: /home/rmp/catkin_ws/devel/share/roseus/ros/rosserial_arduino/srv/Test.l
 rosserial/rosserial_arduino/CMakeFiles/rosserial_arduino_generate_messages_eus: /home/rmp/catkin_ws/devel/share/roseus/ros/rosserial_arduino/manifest.l
 
@@ -63,17 +64,23 @@ rosserial/rosserial_arduino/CMakeFiles/rosserial_arduino_generate_messages_eus: 
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating EusLisp code from rosserial_arduino/Adc.msg"
 	cd /home/rmp/catkin_ws/build/rosserial/rosserial_arduino && ../../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/rmp/catkin_ws/src/rosserial/rosserial_arduino/msg/Adc.msg -Irosserial_arduino:/home/rmp/catkin_ws/src/rosserial/rosserial_arduino/msg -p rosserial_arduino -o /home/rmp/catkin_ws/devel/share/roseus/ros/rosserial_arduino/msg
 
+/home/rmp/catkin_ws/devel/share/roseus/ros/rosserial_arduino/msg/sensors.l: /opt/ros/kinetic/lib/geneus/gen_eus.py
+/home/rmp/catkin_ws/devel/share/roseus/ros/rosserial_arduino/msg/sensors.l: /home/rmp/catkin_ws/src/rosserial/rosserial_arduino/msg/sensors.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp code from rosserial_arduino/sensors.msg"
+	cd /home/rmp/catkin_ws/build/rosserial/rosserial_arduino && ../../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/rmp/catkin_ws/src/rosserial/rosserial_arduino/msg/sensors.msg -Irosserial_arduino:/home/rmp/catkin_ws/src/rosserial/rosserial_arduino/msg -p rosserial_arduino -o /home/rmp/catkin_ws/devel/share/roseus/ros/rosserial_arduino/msg
+
 /home/rmp/catkin_ws/devel/share/roseus/ros/rosserial_arduino/srv/Test.l: /opt/ros/kinetic/lib/geneus/gen_eus.py
 /home/rmp/catkin_ws/devel/share/roseus/ros/rosserial_arduino/srv/Test.l: /home/rmp/catkin_ws/src/rosserial/rosserial_arduino/srv/Test.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp code from rosserial_arduino/Test.srv"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating EusLisp code from rosserial_arduino/Test.srv"
 	cd /home/rmp/catkin_ws/build/rosserial/rosserial_arduino && ../../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/rmp/catkin_ws/src/rosserial/rosserial_arduino/srv/Test.srv -Irosserial_arduino:/home/rmp/catkin_ws/src/rosserial/rosserial_arduino/msg -p rosserial_arduino -o /home/rmp/catkin_ws/devel/share/roseus/ros/rosserial_arduino/srv
 
 /home/rmp/catkin_ws/devel/share/roseus/ros/rosserial_arduino/manifest.l: /opt/ros/kinetic/lib/geneus/gen_eus.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating EusLisp manifest code for rosserial_arduino"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating EusLisp manifest code for rosserial_arduino"
 	cd /home/rmp/catkin_ws/build/rosserial/rosserial_arduino && ../../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py -m -o /home/rmp/catkin_ws/devel/share/roseus/ros/rosserial_arduino rosserial_arduino
 
 rosserial_arduino_generate_messages_eus: rosserial/rosserial_arduino/CMakeFiles/rosserial_arduino_generate_messages_eus
 rosserial_arduino_generate_messages_eus: /home/rmp/catkin_ws/devel/share/roseus/ros/rosserial_arduino/msg/Adc.l
+rosserial_arduino_generate_messages_eus: /home/rmp/catkin_ws/devel/share/roseus/ros/rosserial_arduino/msg/sensors.l
 rosserial_arduino_generate_messages_eus: /home/rmp/catkin_ws/devel/share/roseus/ros/rosserial_arduino/srv/Test.l
 rosserial_arduino_generate_messages_eus: /home/rmp/catkin_ws/devel/share/roseus/ros/rosserial_arduino/manifest.l
 rosserial_arduino_generate_messages_eus: rosserial/rosserial_arduino/CMakeFiles/rosserial_arduino_generate_messages_eus.dir/build.make

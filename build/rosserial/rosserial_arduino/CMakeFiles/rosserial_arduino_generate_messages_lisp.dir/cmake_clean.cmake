@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/rosserial_arduino_generate_messages_lisp"
   "/home/rmp/catkin_ws/devel/share/common-lisp/ros/rosserial_arduino/msg/Adc.lisp"
+  "/home/rmp/catkin_ws/devel/share/common-lisp/ros/rosserial_arduino/msg/sensors.lisp"
   "/home/rmp/catkin_ws/devel/share/common-lisp/ros/rosserial_arduino/srv/Test.lisp"
 )
 

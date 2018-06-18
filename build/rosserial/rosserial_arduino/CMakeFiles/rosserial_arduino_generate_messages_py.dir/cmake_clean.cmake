@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/rosserial_arduino_generate_messages_py"
   "/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/rosserial_arduino/msg/_Adc.py"
+  "/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/rosserial_arduino/msg/_sensors.py"
   "/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/rosserial_arduino/srv/_Test.py"
   "/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/rosserial_arduino/msg/__init__.py"
   "/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/rosserial_arduino/srv/__init__.py"
