@@ -4,6 +4,7 @@ import sys
 import numpy as np
 import math
 from RMPISR.srv import *
+from perception_pkg.srv import *
 from geometry_msgs.msg import Point, Pose2D
 from std_msgs.msg import Bool
 from nav_msgs.msg import Odometry
@@ -15,6 +16,7 @@ import tf
 import copy
 #from vstptest import robotTrajectory
 import csv
+from tkinter import *
 
 
 #to compile for ros
@@ -51,11 +53,16 @@ class coordinator():
 		self.new_traj = list()
 		self.aux_traj = Point()
 		#self.odom_sub = rospy.Subscriber('/turtle1/pose', Pose, self.callbackOdom)
-		self.danger_sub = rospy.Subscriber('/sonarFlag', Bool, self.callbackSonar)
+		#self.danger_sub = rospy.Subscriber('/sonarFlag', Bool, self.callbackSonar)
 		#para o segway
 		#self.odom_sub = rospy.Subscriber('/segway_rmp_node/odom', Odometry, self.callbackOdom)
 		self.odom_sub = rospy.Subscriber('/odomUpdater', Pose2D, self.callbackFalseOdom)
 		self.new_odom_sub = rospy.Subscriber('/new_odom',Pose2D,self.callbackOdom)
+		#definicao do servico para receber obstaculos no caminho
+		self.s = rospy.Service('add_obstacle', add_obstacle, self.def_add_obstacle)
+
+
+
 		self.pose=Pose2D()
 		self.trueodomX=0
 		self.trueodomY=0
@@ -83,24 +90,15 @@ class coordinator():
 		self.trueodomTheta=data.theta
 
 #---------------------------------------------------------------------------------------------------------------------------#
-		
-	def callbackSonar(self,data):
-		self.danger=data.data;
-		#if(self.danger==True and self.state != 0):
-		if(self.danger==True ):
-			self.stop_client()
-			print "Parei devido a um obstaculo!"
-			self.son=True;
-		#if(self.danger==False and self.state != 1):
-		#	self.go_client()
-			#print "devia chamar go"
-		'''
-		if (self.danger==False and self.son ==True):
-			self.go_client()
-			self.son=False
-		print "sonarFlag: %s " % (self.danger)
-		print "State %d" % (self.state)
-		'''
+
+	def def_add_obstacle(self,req):
+		self.xobst = req.xobj
+		self.yobst = req.yobj
+
+		print "xobj: ", self.xobst, "yobj: ", self.yobst
+
+
+
 
 #---------------------------------------------------------------------------------------------------------------------------#
 
@@ -262,10 +260,10 @@ class coordinator():
 				screen.fill((0,0,0))
 				#map segments representation
 				for i in range(len(self.mapsegs)):
-					#pygame.draw.line(screen, (255, 255, 255), ((self.mapsegs[i].x0 -self.mapminx)*raciox, (self.mapsegs[i].y0-self.mapminy)*racioy),  ((self.mapsegs[i].x1-self.mapminx)*raciox, (self.mapsegs[i].y1-self.mapminy)*racioy))
+					pygame.draw.line(screen, (255, 255, 255), ((self.mapsegs[i].x0 -self.mapminx)*raciox, (self.mapsegs[i].y0-self.mapminy)*racioy),  ((self.mapsegs[i].x1-self.mapminx)*raciox, (self.mapsegs[i].y1-self.mapminy)*racioy))
 					#pygame.draw.line(screen, (255, 255, 255), (((self.mapsegs[i].x0-displayx) -self.mapminx)*raciox, ((displayy-self.mapsegs[i].y0)-self.mapminy)*racioy),  (((self.mapsegs[i].x1-displayx)-self.mapminx)*raciox, ((displayy-self.mapsegs[i].y1)-self.mapminy)*racioy))
 					#pygame.draw.line(screen, (255, 255, 255), ((self.mapsegs[i].x0-displayx), (displayy-self.mapsegs[i].y0)),  ((self.mapsegs[i].x1-displayx), (displayy-self.mapsegs[i].y1)))
-					pygame.draw.line(screen, (255, 255, 255), ((((self.mapsegs[i].x0 -self.mapminx)*raciox)-displayx), (displayy-((self.mapsegs[i].y0-self.mapminy)*racioy))),  ((((self.mapsegs[i].x1-self.mapminx)*raciox)-displayx), (displayy-(self.mapsegs[i].y1-self.mapminy)*racioy)))
+					#pygame.draw.line(screen, (255, 255, 255), ((((self.mapsegs[i].x0 -self.mapminx)*raciox)-displayx), (displayy-((self.mapsegs[i].y0-self.mapminy)*racioy))),  ((((self.mapsegs[i].x1-self.mapminx)*raciox)-displayx), (displayy-(self.mapsegs[i].y1-self.mapminy)*racioy)))
 
 
 				#trajectory representation
@@ -356,11 +354,11 @@ class coordinator():
 		#coordenadas de destino (fim)
 		print "goalx: %f goaly: %f" % (goaly,goaly)
 
-		v=vstpPY.VSTP() #criacao do objeto
-		v.init(self.robotRadius,self.gridResolution,self.idealDist,self.maxDist)
-		self.mapsegs = v.loadMap(MAP)
+		self.v=vstpPY.VSTP() #criacao do objeto
+		self.v.init(self.robotRadius,self.gridResolution,self.idealDist,self.maxDist)
+		self.mapsegs = self.v.loadMap(MAP)
 		self.computeMapLimits();
-		self.traj_points =v.planTrajectory(iniX,iniY,goalx,goaly,True)
+		self.traj_points =self.v.planTrajectory(iniX,iniY,goalx,goaly,True)
 		#chamada a funcao que divide a trajectoria
 		self.trajDivider()
 		#chamada a criacao do thread do mapa

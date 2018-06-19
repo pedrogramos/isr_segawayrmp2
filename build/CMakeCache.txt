@@ -520,6 +520,21 @@ my_msg_SOURCE_DIR:STATIC=/home/rmp/catkin_ws/src/my_msg
 //The directory containing a CMake configuration file for nav_msgs.
 nav_msgs_DIR:PATH=/opt/ros/kinetic/share/nav_msgs/cmake
 
+//Value Computed by CMake
+perception_BINARY_DIR:STATIC=/home/rmp/catkin_ws/build/perception
+
+//Value Computed by CMake
+perception_SOURCE_DIR:STATIC=/home/rmp/catkin_ws/src/perception
+
+//Value Computed by CMake
+perception_pkg_BINARY_DIR:STATIC=/home/rmp/catkin_ws/build/perception_pkg
+
+//The directory containing a CMake configuration file for perception_pkg.
+perception_pkg_DIR:PATH=/home/rmp/catkin_ws/devel/share/perception_pkg/cmake
+
+//Value Computed by CMake
+perception_pkg_SOURCE_DIR:STATIC=/home/rmp/catkin_ws/src/perception_pkg
+
 //The directory containing a CMake configuration file for pluginlib.
 pluginlib_DIR:PATH=/opt/ros/kinetic/share/pluginlib/cmake
 
@@ -848,7 +863,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=23
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=24
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

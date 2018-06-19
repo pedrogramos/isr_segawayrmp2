@@ -188,6 +188,13 @@
 /home/rmp/catkin_ws/build/my_msg/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir
 /home/rmp/catkin_ws/build/my_msg/CMakeFiles/edit_cache.dir
 /home/rmp/catkin_ws/build/my_msg/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir
+/home/rmp/catkin_ws/build/perception_pkg/CMakeFiles/rebuild_cache.dir
+/home/rmp/catkin_ws/build/perception_pkg/CMakeFiles/edit_cache.dir
+/home/rmp/catkin_ws/build/perception_pkg/CMakeFiles/install/strip.dir
+/home/rmp/catkin_ws/build/perception_pkg/CMakeFiles/install/local.dir
+/home/rmp/catkin_ws/build/perception_pkg/CMakeFiles/install.dir
+/home/rmp/catkin_ws/build/perception_pkg/CMakeFiles/test.dir
+/home/rmp/catkin_ws/build/perception_pkg/CMakeFiles/list_install_components.dir
 /home/rmp/catkin_ws/build/rosserial/rosserial_server/CMakeFiles/rebuild_cache.dir
 /home/rmp/catkin_ws/build/rosserial/rosserial_server/CMakeFiles/list_install_components.dir
 /home/rmp/catkin_ws/build/rosserial/rosserial_server/CMakeFiles/test.dir
