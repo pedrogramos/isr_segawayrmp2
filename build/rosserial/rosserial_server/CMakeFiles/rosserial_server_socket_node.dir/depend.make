@@ -14,6 +14,9 @@ rosserial/rosserial_server/CMakeFiles/rosserial_server_socket_node.dir/src/socke
 rosserial/rosserial_server/CMakeFiles/rosserial_server_socket_node.dir/src/socket_node.cpp.o: /home/rmp/catkin_ws/src/rosserial/rosserial_server/include/rosserial_server/tcp_server.h
 rosserial/rosserial_server/CMakeFiles/rosserial_server_socket_node.dir/src/socket_node.cpp.o: /home/rmp/catkin_ws/src/rosserial/rosserial_server/include/rosserial_server/topic_handlers.h
 rosserial/rosserial_server/CMakeFiles/rosserial_server_socket_node.dir/src/socket_node.cpp.o: /home/rmp/catkin_ws/src/rosserial/rosserial_server/src/socket_node.cpp
+rosserial/rosserial_server/CMakeFiles/rosserial_server_socket_node.dir/src/socket_node.cpp.o: /opt/ros/kinetic/include/boost_161_condition_variable.h
+rosserial/rosserial_server/CMakeFiles/rosserial_server_socket_node.dir/src/socket_node.cpp.o: /opt/ros/kinetic/include/boost_161_pthread_condition_variable.h
+rosserial/rosserial_server/CMakeFiles/rosserial_server_socket_node.dir/src/socket_node.cpp.o: /opt/ros/kinetic/include/boost_161_pthread_condition_variable_fwd.h
 rosserial/rosserial_server/CMakeFiles/rosserial_server_socket_node.dir/src/socket_node.cpp.o: /opt/ros/kinetic/include/ros/advertise_options.h
 rosserial/rosserial_server/CMakeFiles/rosserial_server_socket_node.dir/src/socket_node.cpp.o: /opt/ros/kinetic/include/ros/advertise_service_options.h
 rosserial/rosserial_server/CMakeFiles/rosserial_server_socket_node.dir/src/socket_node.cpp.o: /opt/ros/kinetic/include/ros/assert.h

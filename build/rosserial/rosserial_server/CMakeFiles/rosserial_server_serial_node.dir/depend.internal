@@ -15,6 +15,9 @@ rosserial/rosserial_server/CMakeFiles/rosserial_server_serial_node.dir/src/seria
  /home/rmp/catkin_ws/src/rosserial/rosserial_server/include/rosserial_server/session.h
  /home/rmp/catkin_ws/src/rosserial/rosserial_server/include/rosserial_server/topic_handlers.h
  /home/rmp/catkin_ws/src/rosserial/rosserial_server/src/serial_node.cpp
+ /opt/ros/kinetic/include/boost_161_condition_variable.h
+ /opt/ros/kinetic/include/boost_161_pthread_condition_variable.h
+ /opt/ros/kinetic/include/boost_161_pthread_condition_variable_fwd.h
  /opt/ros/kinetic/include/ros/advertise_options.h
  /opt/ros/kinetic/include/ros/advertise_service_options.h
  /opt/ros/kinetic/include/ros/assert.h

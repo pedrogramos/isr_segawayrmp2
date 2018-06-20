@@ -49,6 +49,7 @@ public:
   bool def_addpoint(RMPISR::addpoint::Request&, RMPISR::addpoint::Response&);
   bool def_stop(RMPISR::stop::Request&, RMPISR::stop::Response&);
   bool def_odomError(RMPISR::odomError::Request&, RMPISR::odomError::Response&);
+  void vecCallback(const geometry_msgs::Point::ConstPtr&);
   bool opposite=false;
 
 
@@ -59,6 +60,7 @@ private:
   ros::Publisher vel_pub;
   ros::Publisher new_odom;
   ros::Subscriber odom_sub;
+  ros::Subscriber repulsive_sub;
   ros::ServiceServer service0;
   ros::ServiceServer service1;
   ros::ServiceServer service2;
@@ -67,11 +69,11 @@ private:
   //ros::Subscriber vazio_sub;
   geometry_msgs::Twist vel;
   geometry_msgs::Pose2D odomNew;
+  geometry_msgs::Point repulsive;
   double odomX, odomY, odomTheta;
-  double errorX=0;
-  double errorY=0;
-  double errorTheta=0;
-  double roll, pitch, yaw;
+  double errorX = 0;
+  double errorY = 0;
+  double errorTheta = 0;
   
   bool error_received=false;
   nav_msgs::Odometry::ConstPtr poseRMP;
@@ -82,16 +84,17 @@ private:
   
 };
 
-SendVelocity::SendVelocity(){
+SendVelocity::SendVelocity(){ 
 
   //para o turtle
   //vel_pub = nh.advertise<geometry_msgs::Twist>("/turtle1/cmd_vel", 1);
   //odom_sub = nh.subscribe("/turtle1/pose",10,&SendVelocity::odomCallback,this);
   // para o segway
-  vel_pub = nh.advertise<geometry_msgs::Twist>("cmd_vel", 1);
+  vel_pub = nh.advertise<geometry_msgs::Twist>("cmd_vel", 10);
   new_odom = nh.advertise<geometry_msgs::Pose2D>("new_odom", 10);
   //odom_sub = nh.subscribe("/segway_rmp_node/odom",10,&SendVelocity::odomCallback,this);
   odom_sub =  nh.subscribe("odomUpdater",10,&SendVelocity::odomCallback,this);
+  repulsive_sub = nh.subscribe("repulsive_vec",10,&SendVelocity::vecCallback,this);
   service0 = nh.advertiseService("go",&SendVelocity::def_go,this);
   service1 = nh.advertiseService("addpoint", &SendVelocity::def_addpoint, this);
   service2 = nh.advertiseService("stop",&SendVelocity::def_stop,this);
@@ -148,6 +151,13 @@ odomNew.theta = odomTheta + errorTheta;
 new_odom.publish(odomNew);
 
 //ROS_INFO("OdometriaFun: X= %f, Y= %f, e Theta= %f", odomX,odomY,odomTheta);
+}
+
+void SendVelocity::vecCallback(const geometry_msgs::Point::ConstPtr& data){
+
+  repulsive.x = data->x;
+  repulsive.y = data->y;
+
 }
 
 

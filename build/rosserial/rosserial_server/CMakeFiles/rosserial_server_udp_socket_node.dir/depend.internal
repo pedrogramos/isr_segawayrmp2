@@ -16,6 +16,9 @@ rosserial/rosserial_server/CMakeFiles/rosserial_server_udp_socket_node.dir/src/u
  /home/rmp/catkin_ws/src/rosserial/rosserial_server/include/rosserial_server/udp_socket_session.h
  /home/rmp/catkin_ws/src/rosserial/rosserial_server/include/rosserial_server/udp_stream.h
  /home/rmp/catkin_ws/src/rosserial/rosserial_server/src/udp_socket_node.cpp
+ /opt/ros/kinetic/include/boost_161_condition_variable.h
+ /opt/ros/kinetic/include/boost_161_pthread_condition_variable.h
+ /opt/ros/kinetic/include/boost_161_pthread_condition_variable_fwd.h
  /opt/ros/kinetic/include/ros/advertise_options.h
  /opt/ros/kinetic/include/ros/advertise_service_options.h
  /opt/ros/kinetic/include/ros/assert.h

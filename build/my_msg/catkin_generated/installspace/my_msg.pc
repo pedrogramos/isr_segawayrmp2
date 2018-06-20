@@ -1,8 +1,0 @@
-prefix=/home/rmp/catkin_ws/install
-
-Name: my_msg
-Description: Description of my_msg
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/rmp/catkin_ws/install/lib 
-Requires: 

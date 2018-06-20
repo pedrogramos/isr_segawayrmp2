@@ -3,6 +3,6 @@ prefix=/home/rmp/catkin_ws/install
 Name: perception_pkg
 Description: Description of perception_pkg
 Version: 0.0.0
-Cflags: 
+Cflags: -I/home/rmp/catkin_ws/install/include
 Libs: -L/home/rmp/catkin_ws/install/lib 
-Requires: 
+Requires: roscpp rospy std_msgs

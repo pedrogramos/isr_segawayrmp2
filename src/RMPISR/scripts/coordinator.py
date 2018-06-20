@@ -287,7 +287,7 @@ class coordinator():
 				rate.sleep()
 
 
-			except (KeyboardInterrupt, SystemExit, rospy.is_shutdown()):
+			except (KeyboardInterrupt, SystemExit):
 				cleanup_stop_thread()
 				pygame.quit()
 				sys.exit()

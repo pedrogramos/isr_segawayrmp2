@@ -364,12 +364,6 @@ UBUNTU:BOOL=TRUE
 UBUNTU_XENIAL:BOOL=TRUE
 
 //Path to a file.
-_CATKIN_GTEST_INCLUDE:FILEPATH=/usr/include/gtest/gtest.h
-
-//Path to a file.
-_CATKIN_GTEST_SRC:FILEPATH=/usr/src/gtest/src/gtest.cc
-
-//Path to a file.
 _file_name:FILEPATH=/home/rmp/catkin_ws/src/rosserial/rosserial_test/test/rosserial_python_socket.test
 
 //Path to a file.
@@ -384,35 +378,14 @@ _gtest_INCLUDES:FILEPATH=/usr/include/gtest/gtest.h
 //Path to a file.
 _gtest_SOURCES:FILEPATH=/usr/src/gtest/src/gtest.cc
 
-//Path to a file.
-_path_name:FILEPATH=/home/rmp/catkin_ws/src/camera_calibration/test/multiple_boards.py
-
 //The directory containing a CMake configuration file for actionlib.
 actionlib_DIR:PATH=/opt/ros/kinetic/share/actionlib/cmake
 
 //The directory containing a CMake configuration file for actionlib_msgs.
 actionlib_msgs_DIR:PATH=/opt/ros/kinetic/share/actionlib_msgs/cmake
 
-//Value Computed by CMake
-beginner_tutorials_BINARY_DIR:STATIC=/home/rmp/catkin_ws/build/beginner_tutorials
-
-//Value Computed by CMake
-beginner_tutorials_SOURCE_DIR:STATIC=/home/rmp/catkin_ws/src/beginner_tutorials
-
-//Value Computed by CMake
-camera_calibration_BINARY_DIR:STATIC=/home/rmp/catkin_ws/build/camera_calibration
-
-//Value Computed by CMake
-camera_calibration_SOURCE_DIR:STATIC=/home/rmp/catkin_ws/src/camera_calibration
-
-//The directory containing a CMake configuration file for camera_info_manager.
-camera_info_manager_DIR:PATH=camera_info_manager_DIR-NOTFOUND
-
 //The directory containing a CMake configuration file for catkin.
 catkin_DIR:PATH=/opt/ros/kinetic/share/catkin/cmake
-
-//The directory containing a CMake configuration file for class_loader.
-class_loader_DIR:PATH=/opt/ros/kinetic/share/class_loader/cmake
 
 //The directory containing a CMake configuration file for cpp_common.
 cpp_common_DIR:PATH=/opt/ros/kinetic/share/cpp_common/cmake
@@ -481,15 +454,6 @@ gtest_force_shared_crt:BOOL=OFF
 //Dependencies for the target
 gtest_main_LIB_DEPENDS:STATIC=general;-lpthread;general;gtest;
 
-//The directory containing a CMake configuration file for image_transport.
-image_transport_DIR:PATH=/opt/ros/kinetic/share/image_transport/cmake
-
-//Value Computed by CMake
-learning_tf2_BINARY_DIR:STATIC=/home/rmp/catkin_ws/build/learning_tf2
-
-//Value Computed by CMake
-learning_tf2_SOURCE_DIR:STATIC=/home/rmp/catkin_ws/src/learning_tf2
-
 //Path to a library.
 lib:FILEPATH=/opt/ros/kinetic/lib/libmessage_filters.so
 
@@ -511,20 +475,8 @@ message_generation_DIR:PATH=/opt/ros/kinetic/share/message_generation/cmake
 //The directory containing a CMake configuration file for message_runtime.
 message_runtime_DIR:PATH=/opt/ros/kinetic/share/message_runtime/cmake
 
-//Value Computed by CMake
-my_msg_BINARY_DIR:STATIC=/home/rmp/catkin_ws/build/my_msg
-
-//Value Computed by CMake
-my_msg_SOURCE_DIR:STATIC=/home/rmp/catkin_ws/src/my_msg
-
 //The directory containing a CMake configuration file for nav_msgs.
 nav_msgs_DIR:PATH=/opt/ros/kinetic/share/nav_msgs/cmake
-
-//Value Computed by CMake
-perception_BINARY_DIR:STATIC=/home/rmp/catkin_ws/build/perception
-
-//Value Computed by CMake
-perception_SOURCE_DIR:STATIC=/home/rmp/catkin_ws/src/perception
 
 //Value Computed by CMake
 perception_pkg_BINARY_DIR:STATIC=/home/rmp/catkin_ws/build/perception_pkg
@@ -534,9 +486,6 @@ perception_pkg_DIR:PATH=/home/rmp/catkin_ws/devel/share/perception_pkg/cmake
 
 //Value Computed by CMake
 perception_pkg_SOURCE_DIR:STATIC=/home/rmp/catkin_ws/src/perception_pkg
-
-//The directory containing a CMake configuration file for pluginlib.
-pluginlib_DIR:PATH=/opt/ros/kinetic/share/pluginlib/cmake
 
 //The directory containing a CMake configuration file for rosconsole.
 rosconsole_DIR:PATH=/opt/ros/kinetic/share/rosconsole/cmake
@@ -709,15 +658,6 @@ tf_DIR:PATH=/opt/ros/kinetic/share/tf/cmake
 //The directory containing a CMake configuration file for topic_tools.
 topic_tools_DIR:PATH=/opt/ros/kinetic/share/topic_tools/cmake
 
-//The directory containing a CMake configuration file for turtlesim.
-turtlesim_DIR:PATH=/opt/ros/kinetic/share/turtlesim/cmake
-
-//Value Computed by CMake
-usb_cam_BINARY_DIR:STATIC=/home/rmp/catkin_ws/build/usb_cam-develop
-
-//Value Computed by CMake
-usb_cam_SOURCE_DIR:STATIC=/home/rmp/catkin_ws/src/usb_cam-develop
-
 //Value Computed by CMake
 visual_markers_BINARY_DIR:STATIC=/home/rmp/catkin_ws/build/visual_markers
 
@@ -863,7 +803,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=24
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=23
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -950,30 +890,6 @@ IMAGEMAGICK_IMPORT_EXECUTABLE-ADVANCED:INTERNAL=1
 IMAGEMAGICK_MOGRIFY_EXECUTABLE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: IMAGEMAGICK_MONTAGE_EXECUTABLE
 IMAGEMAGICK_MONTAGE_EXECUTABLE-ADVANCED:INTERNAL=1
-OPENAR_CFLAGS:INTERNAL=
-OPENAR_CFLAGS_I:INTERNAL=
-OPENAR_CFLAGS_OTHER:INTERNAL=
-OPENAR_FOUND:INTERNAL=
-OPENAR_INCLUDEDIR:INTERNAL=
-OPENAR_LIBDIR:INTERNAL=
-OPENAR_LIBS:INTERNAL=
-OPENAR_LIBS_L:INTERNAL=
-OPENAR_LIBS_OTHER:INTERNAL=
-OPENAR_LIBS_PATHS:INTERNAL=
-OPENAR_PREFIX:INTERNAL=
-OPENAR_STATIC_CFLAGS:INTERNAL=
-OPENAR_STATIC_CFLAGS_I:INTERNAL=
-OPENAR_STATIC_CFLAGS_OTHER:INTERNAL=
-OPENAR_STATIC_LIBDIR:INTERNAL=
-OPENAR_STATIC_LIBS:INTERNAL=
-OPENAR_STATIC_LIBS_L:INTERNAL=
-OPENAR_STATIC_LIBS_OTHER:INTERNAL=
-OPENAR_STATIC_LIBS_PATHS:INTERNAL=
-OPENAR_VERSION:INTERNAL=
-OPENAR_openar_INCLUDEDIR:INTERNAL=
-OPENAR_openar_LIBDIR:INTERNAL=
-OPENAR_openar_PREFIX:INTERNAL=
-OPENAR_openar_VERSION:INTERNAL=
 OPENCV_CFLAGS:INTERNAL=-I/usr/include/opencv
 OPENCV_CFLAGS_I:INTERNAL=
 OPENCV_CFLAGS_OTHER:INTERNAL=
