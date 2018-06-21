@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/RMPISR_generate_messages_eus"
+  "/home/rmp/catkin_ws/devel/share/roseus/ros/RMPISR/msg/sensors.l"
   "/home/rmp/catkin_ws/devel/share/roseus/ros/RMPISR/srv/addpoint.l"
   "/home/rmp/catkin_ws/devel/share/roseus/ros/RMPISR/srv/odomError.l"
   "/home/rmp/catkin_ws/devel/share/roseus/ros/RMPISR/srv/go.l"

@@ -54,7 +54,6 @@ CMAKE_BINARY_DIR = /home/rmp/catkin_ws/build
 include rosserial/rosserial_arduino/CMakeFiles/rosserial_arduino_generate_messages_nodejs.dir/progress.make
 
 rosserial/rosserial_arduino/CMakeFiles/rosserial_arduino_generate_messages_nodejs: /home/rmp/catkin_ws/devel/share/gennodejs/ros/rosserial_arduino/msg/Adc.js
-rosserial/rosserial_arduino/CMakeFiles/rosserial_arduino_generate_messages_nodejs: /home/rmp/catkin_ws/devel/share/gennodejs/ros/rosserial_arduino/msg/sensors.js
 rosserial/rosserial_arduino/CMakeFiles/rosserial_arduino_generate_messages_nodejs: /home/rmp/catkin_ws/devel/share/gennodejs/ros/rosserial_arduino/srv/Test.js
 
 
@@ -63,19 +62,13 @@ rosserial/rosserial_arduino/CMakeFiles/rosserial_arduino_generate_messages_nodej
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Javascript code from rosserial_arduino/Adc.msg"
 	cd /home/rmp/catkin_ws/build/rosserial/rosserial_arduino && ../../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/rmp/catkin_ws/src/rosserial/rosserial_arduino/msg/Adc.msg -Irosserial_arduino:/home/rmp/catkin_ws/src/rosserial/rosserial_arduino/msg -p rosserial_arduino -o /home/rmp/catkin_ws/devel/share/gennodejs/ros/rosserial_arduino/msg
 
-/home/rmp/catkin_ws/devel/share/gennodejs/ros/rosserial_arduino/msg/sensors.js: /opt/ros/kinetic/lib/gennodejs/gen_nodejs.py
-/home/rmp/catkin_ws/devel/share/gennodejs/ros/rosserial_arduino/msg/sensors.js: /home/rmp/catkin_ws/src/rosserial/rosserial_arduino/msg/sensors.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Javascript code from rosserial_arduino/sensors.msg"
-	cd /home/rmp/catkin_ws/build/rosserial/rosserial_arduino && ../../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/rmp/catkin_ws/src/rosserial/rosserial_arduino/msg/sensors.msg -Irosserial_arduino:/home/rmp/catkin_ws/src/rosserial/rosserial_arduino/msg -p rosserial_arduino -o /home/rmp/catkin_ws/devel/share/gennodejs/ros/rosserial_arduino/msg
-
 /home/rmp/catkin_ws/devel/share/gennodejs/ros/rosserial_arduino/srv/Test.js: /opt/ros/kinetic/lib/gennodejs/gen_nodejs.py
 /home/rmp/catkin_ws/devel/share/gennodejs/ros/rosserial_arduino/srv/Test.js: /home/rmp/catkin_ws/src/rosserial/rosserial_arduino/srv/Test.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Javascript code from rosserial_arduino/Test.srv"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Javascript code from rosserial_arduino/Test.srv"
 	cd /home/rmp/catkin_ws/build/rosserial/rosserial_arduino && ../../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/rmp/catkin_ws/src/rosserial/rosserial_arduino/srv/Test.srv -Irosserial_arduino:/home/rmp/catkin_ws/src/rosserial/rosserial_arduino/msg -p rosserial_arduino -o /home/rmp/catkin_ws/devel/share/gennodejs/ros/rosserial_arduino/srv
 
 rosserial_arduino_generate_messages_nodejs: rosserial/rosserial_arduino/CMakeFiles/rosserial_arduino_generate_messages_nodejs
 rosserial_arduino_generate_messages_nodejs: /home/rmp/catkin_ws/devel/share/gennodejs/ros/rosserial_arduino/msg/Adc.js
-rosserial_arduino_generate_messages_nodejs: /home/rmp/catkin_ws/devel/share/gennodejs/ros/rosserial_arduino/msg/sensors.js
 rosserial_arduino_generate_messages_nodejs: /home/rmp/catkin_ws/devel/share/gennodejs/ros/rosserial_arduino/srv/Test.js
 rosserial_arduino_generate_messages_nodejs: rosserial/rosserial_arduino/CMakeFiles/rosserial_arduino_generate_messages_nodejs.dir/build.make
 

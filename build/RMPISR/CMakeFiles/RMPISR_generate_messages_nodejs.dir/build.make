@@ -53,6 +53,7 @@ CMAKE_BINARY_DIR = /home/rmp/catkin_ws/build
 # Include the progress variables for this target.
 include RMPISR/CMakeFiles/RMPISR_generate_messages_nodejs.dir/progress.make
 
+RMPISR/CMakeFiles/RMPISR_generate_messages_nodejs: /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/msg/sensors.js
 RMPISR/CMakeFiles/RMPISR_generate_messages_nodejs: /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/addpoint.js
 RMPISR/CMakeFiles/RMPISR_generate_messages_nodejs: /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/odomError.js
 RMPISR/CMakeFiles/RMPISR_generate_messages_nodejs: /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/go.js
@@ -61,40 +62,46 @@ RMPISR/CMakeFiles/RMPISR_generate_messages_nodejs: /home/rmp/catkin_ws/devel/sha
 RMPISR/CMakeFiles/RMPISR_generate_messages_nodejs: /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/stop.js
 
 
+/home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/msg/sensors.js: /opt/ros/kinetic/lib/gennodejs/gen_nodejs.py
+/home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/msg/sensors.js: /home/rmp/catkin_ws/src/RMPISR/msg/sensors.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Javascript code from RMPISR/sensors.msg"
+	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/rmp/catkin_ws/src/RMPISR/msg/sensors.msg -IRMPISR:/home/rmp/catkin_ws/src/RMPISR/msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/msg
+
 /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/addpoint.js: /opt/ros/kinetic/lib/gennodejs/gen_nodejs.py
 /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/addpoint.js: /home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv
 /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/addpoint.js: /opt/ros/kinetic/share/geometry_msgs/msg/Point.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Javascript code from RMPISR/addpoint.srv"
-	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Javascript code from RMPISR/addpoint.srv"
+	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv -IRMPISR:/home/rmp/catkin_ws/src/RMPISR/msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv
 
 /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/odomError.js: /opt/ros/kinetic/lib/gennodejs/gen_nodejs.py
 /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/odomError.js: /home/rmp/catkin_ws/src/RMPISR/srv/odomError.srv
 /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/odomError.js: /opt/ros/kinetic/share/geometry_msgs/msg/Pose2D.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Javascript code from RMPISR/odomError.srv"
-	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/rmp/catkin_ws/src/RMPISR/srv/odomError.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Javascript code from RMPISR/odomError.srv"
+	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/rmp/catkin_ws/src/RMPISR/srv/odomError.srv -IRMPISR:/home/rmp/catkin_ws/src/RMPISR/msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv
 
 /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/go.js: /opt/ros/kinetic/lib/gennodejs/gen_nodejs.py
 /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/go.js: /home/rmp/catkin_ws/src/RMPISR/srv/go.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Javascript code from RMPISR/go.srv"
-	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/rmp/catkin_ws/src/RMPISR/srv/go.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Javascript code from RMPISR/go.srv"
+	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/rmp/catkin_ws/src/RMPISR/srv/go.srv -IRMPISR:/home/rmp/catkin_ws/src/RMPISR/msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv
 
 /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/markerdetected.js: /opt/ros/kinetic/lib/gennodejs/gen_nodejs.py
 /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/markerdetected.js: /home/rmp/catkin_ws/src/RMPISR/srv/markerdetected.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Javascript code from RMPISR/markerdetected.srv"
-	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/rmp/catkin_ws/src/RMPISR/srv/markerdetected.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating Javascript code from RMPISR/markerdetected.srv"
+	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/rmp/catkin_ws/src/RMPISR/srv/markerdetected.srv -IRMPISR:/home/rmp/catkin_ws/src/RMPISR/msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv
 
 /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/resetrmp.js: /opt/ros/kinetic/lib/gennodejs/gen_nodejs.py
 /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/resetrmp.js: /home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv
 /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/resetrmp.js: /opt/ros/kinetic/share/geometry_msgs/msg/Pose2D.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating Javascript code from RMPISR/resetrmp.srv"
-	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating Javascript code from RMPISR/resetrmp.srv"
+	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv -IRMPISR:/home/rmp/catkin_ws/src/RMPISR/msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv
 
 /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/stop.js: /opt/ros/kinetic/lib/gennodejs/gen_nodejs.py
 /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/stop.js: /home/rmp/catkin_ws/src/RMPISR/srv/stop.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating Javascript code from RMPISR/stop.srv"
-	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/rmp/catkin_ws/src/RMPISR/srv/stop.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating Javascript code from RMPISR/stop.srv"
+	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/rmp/catkin_ws/src/RMPISR/srv/stop.srv -IRMPISR:/home/rmp/catkin_ws/src/RMPISR/msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv
 
 RMPISR_generate_messages_nodejs: RMPISR/CMakeFiles/RMPISR_generate_messages_nodejs
+RMPISR_generate_messages_nodejs: /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/msg/sensors.js
 RMPISR_generate_messages_nodejs: /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/addpoint.js
 RMPISR_generate_messages_nodejs: /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/odomError.js
 RMPISR_generate_messages_nodejs: /home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/go.js

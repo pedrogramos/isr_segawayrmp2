@@ -111,17 +111,6 @@ install/fast: preinstall/fast
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: install/local
-
-.PHONY : install/local/fast
-
 # Special rule for the target test
 test:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
@@ -132,6 +121,17 @@ test:
 test/fast: test
 
 .PHONY : test/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: install/local
+
+.PHONY : install/local/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -254,6 +254,21 @@ actionlib_msgs_generate_messages_cpp: RMPISR/CMakeFiles/actionlib_msgs_generate_
 actionlib_msgs_generate_messages_cpp/fast:
 	cd /home/rmp/catkin_ws/build && $(MAKE) -f RMPISR/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/build.make RMPISR/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/build
 .PHONY : actionlib_msgs_generate_messages_cpp/fast
+
+# Convenience name for target.
+RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_sensors.dir/rule:
+	cd /home/rmp/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_sensors.dir/rule
+.PHONY : RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_sensors.dir/rule
+
+# Convenience name for target.
+_RMPISR_generate_messages_check_deps_sensors: RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_sensors.dir/rule
+
+.PHONY : _RMPISR_generate_messages_check_deps_sensors
+
+# fast build rule for target.
+_RMPISR_generate_messages_check_deps_sensors/fast:
+	cd /home/rmp/catkin_ws/build && $(MAKE) -f RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_sensors.dir/build.make RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_sensors.dir/build
+.PHONY : _RMPISR_generate_messages_check_deps_sensors/fast
 
 # Convenience name for target.
 RMPISR/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/rule:
@@ -691,6 +706,51 @@ RMPISR_genlisp/fast:
 .PHONY : RMPISR_genlisp/fast
 
 # Convenience name for target.
+RMPISR/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/rmp/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 RMPISR/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/rule
+.PHONY : RMPISR/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+actionlib_msgs_generate_messages_nodejs: RMPISR/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/rule
+
+.PHONY : actionlib_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+actionlib_msgs_generate_messages_nodejs/fast:
+	cd /home/rmp/catkin_ws/build && $(MAKE) -f RMPISR/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/build.make RMPISR/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/build
+.PHONY : actionlib_msgs_generate_messages_nodejs/fast
+
+# Convenience name for target.
+RMPISR/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/rule:
+	cd /home/rmp/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 RMPISR/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/rule
+.PHONY : RMPISR/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+actionlib_msgs_generate_messages_lisp: RMPISR/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/rule
+
+.PHONY : actionlib_msgs_generate_messages_lisp
+
+# fast build rule for target.
+actionlib_msgs_generate_messages_lisp/fast:
+	cd /home/rmp/catkin_ws/build && $(MAKE) -f RMPISR/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build.make RMPISR/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build
+.PHONY : actionlib_msgs_generate_messages_lisp/fast
+
+# Convenience name for target.
+RMPISR/CMakeFiles/RMPISR_generate_messages_nodejs.dir/rule:
+	cd /home/rmp/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 RMPISR/CMakeFiles/RMPISR_generate_messages_nodejs.dir/rule
+.PHONY : RMPISR/CMakeFiles/RMPISR_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+RMPISR_generate_messages_nodejs: RMPISR/CMakeFiles/RMPISR_generate_messages_nodejs.dir/rule
+
+.PHONY : RMPISR_generate_messages_nodejs
+
+# fast build rule for target.
+RMPISR_generate_messages_nodejs/fast:
+	cd /home/rmp/catkin_ws/build && $(MAKE) -f RMPISR/CMakeFiles/RMPISR_generate_messages_nodejs.dir/build.make RMPISR/CMakeFiles/RMPISR_generate_messages_nodejs.dir/build
+.PHONY : RMPISR_generate_messages_nodejs/fast
+
+# Convenience name for target.
 RMPISR/CMakeFiles/RMPISR_generate_messages_eus.dir/rule:
 	cd /home/rmp/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 RMPISR/CMakeFiles/RMPISR_generate_messages_eus.dir/rule
 .PHONY : RMPISR/CMakeFiles/RMPISR_generate_messages_eus.dir/rule
@@ -765,51 +825,6 @@ RMPISR_node/fast:
 	cd /home/rmp/catkin_ws/build && $(MAKE) -f RMPISR/CMakeFiles/RMPISR_node.dir/build.make RMPISR/CMakeFiles/RMPISR_node.dir/build
 .PHONY : RMPISR_node/fast
 
-# Convenience name for target.
-RMPISR/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/rmp/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 RMPISR/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/rule
-.PHONY : RMPISR/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-actionlib_msgs_generate_messages_nodejs: RMPISR/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/rule
-
-.PHONY : actionlib_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-actionlib_msgs_generate_messages_nodejs/fast:
-	cd /home/rmp/catkin_ws/build && $(MAKE) -f RMPISR/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/build.make RMPISR/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/build
-.PHONY : actionlib_msgs_generate_messages_nodejs/fast
-
-# Convenience name for target.
-RMPISR/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/rule:
-	cd /home/rmp/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 RMPISR/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/rule
-.PHONY : RMPISR/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-actionlib_msgs_generate_messages_lisp: RMPISR/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/rule
-
-.PHONY : actionlib_msgs_generate_messages_lisp
-
-# fast build rule for target.
-actionlib_msgs_generate_messages_lisp/fast:
-	cd /home/rmp/catkin_ws/build && $(MAKE) -f RMPISR/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build.make RMPISR/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build
-.PHONY : actionlib_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-RMPISR/CMakeFiles/RMPISR_generate_messages_nodejs.dir/rule:
-	cd /home/rmp/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 RMPISR/CMakeFiles/RMPISR_generate_messages_nodejs.dir/rule
-.PHONY : RMPISR/CMakeFiles/RMPISR_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-RMPISR_generate_messages_nodejs: RMPISR/CMakeFiles/RMPISR_generate_messages_nodejs.dir/rule
-
-.PHONY : RMPISR_generate_messages_nodejs
-
-# fast build rule for target.
-RMPISR_generate_messages_nodejs/fast:
-	cd /home/rmp/catkin_ws/build && $(MAKE) -f RMPISR/CMakeFiles/RMPISR_generate_messages_nodejs.dir/build.make RMPISR/CMakeFiles/RMPISR_generate_messages_nodejs.dir/build
-.PHONY : RMPISR_generate_messages_nodejs/fast
-
 src/CGP.o: src/CGP.cpp.o
 
 .PHONY : src/CGP.o
@@ -853,6 +868,7 @@ help:
 	@echo "... tf2_msgs_generate_messages_eus"
 	@echo "... RMPISR_genpy"
 	@echo "... actionlib_msgs_generate_messages_cpp"
+	@echo "... _RMPISR_generate_messages_check_deps_sensors"
 	@echo "... tf2_msgs_generate_messages_nodejs"
 	@echo "... _RMPISR_generate_messages_check_deps_go"
 	@echo "... tf2_msgs_generate_messages_lisp"
@@ -883,16 +899,16 @@ help:
 	@echo "... RMPISR_gencpp"
 	@echo "... RMPISR_geneus"
 	@echo "... RMPISR_genlisp"
+	@echo "... test"
+	@echo "... actionlib_msgs_generate_messages_nodejs"
+	@echo "... actionlib_msgs_generate_messages_lisp"
+	@echo "... RMPISR_generate_messages_nodejs"
 	@echo "... RMPISR_generate_messages_eus"
 	@echo "... RMPISR_gennodejs"
 	@echo "... RMPISR_generate_messages_py"
 	@echo "... geometry_msgs_generate_messages_nodejs"
 	@echo "... RMPISR_node"
 	@echo "... install/local"
-	@echo "... actionlib_msgs_generate_messages_nodejs"
-	@echo "... actionlib_msgs_generate_messages_lisp"
-	@echo "... RMPISR_generate_messages_nodejs"
-	@echo "... test"
 	@echo "... src/CGP.o"
 	@echo "... src/CGP.i"
 	@echo "... src/CGP.s"

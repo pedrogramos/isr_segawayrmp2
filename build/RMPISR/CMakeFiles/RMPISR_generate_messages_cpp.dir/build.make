@@ -53,6 +53,7 @@ CMAKE_BINARY_DIR = /home/rmp/catkin_ws/build
 # Include the progress variables for this target.
 include RMPISR/CMakeFiles/RMPISR_generate_messages_cpp.dir/progress.make
 
+RMPISR/CMakeFiles/RMPISR_generate_messages_cpp: /home/rmp/catkin_ws/devel/include/RMPISR/sensors.h
 RMPISR/CMakeFiles/RMPISR_generate_messages_cpp: /home/rmp/catkin_ws/devel/include/RMPISR/addpoint.h
 RMPISR/CMakeFiles/RMPISR_generate_messages_cpp: /home/rmp/catkin_ws/devel/include/RMPISR/odomError.h
 RMPISR/CMakeFiles/RMPISR_generate_messages_cpp: /home/rmp/catkin_ws/devel/include/RMPISR/go.h
@@ -61,52 +62,59 @@ RMPISR/CMakeFiles/RMPISR_generate_messages_cpp: /home/rmp/catkin_ws/devel/includ
 RMPISR/CMakeFiles/RMPISR_generate_messages_cpp: /home/rmp/catkin_ws/devel/include/RMPISR/stop.h
 
 
+/home/rmp/catkin_ws/devel/include/RMPISR/sensors.h: /opt/ros/kinetic/lib/gencpp/gen_cpp.py
+/home/rmp/catkin_ws/devel/include/RMPISR/sensors.h: /home/rmp/catkin_ws/src/RMPISR/msg/sensors.msg
+/home/rmp/catkin_ws/devel/include/RMPISR/sensors.h: /opt/ros/kinetic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code from RMPISR/sensors.msg"
+	cd /home/rmp/catkin_ws/src/RMPISR && /home/rmp/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/rmp/catkin_ws/src/RMPISR/msg/sensors.msg -IRMPISR:/home/rmp/catkin_ws/src/RMPISR/msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/include/RMPISR -e /opt/ros/kinetic/share/gencpp/cmake/..
+
 /home/rmp/catkin_ws/devel/include/RMPISR/addpoint.h: /opt/ros/kinetic/lib/gencpp/gen_cpp.py
 /home/rmp/catkin_ws/devel/include/RMPISR/addpoint.h: /home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv
 /home/rmp/catkin_ws/devel/include/RMPISR/addpoint.h: /opt/ros/kinetic/share/geometry_msgs/msg/Point.msg
 /home/rmp/catkin_ws/devel/include/RMPISR/addpoint.h: /opt/ros/kinetic/share/gencpp/msg.h.template
 /home/rmp/catkin_ws/devel/include/RMPISR/addpoint.h: /opt/ros/kinetic/share/gencpp/srv.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code from RMPISR/addpoint.srv"
-	cd /home/rmp/catkin_ws/src/RMPISR && /home/rmp/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/include/RMPISR -e /opt/ros/kinetic/share/gencpp/cmake/..
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating C++ code from RMPISR/addpoint.srv"
+	cd /home/rmp/catkin_ws/src/RMPISR && /home/rmp/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv -IRMPISR:/home/rmp/catkin_ws/src/RMPISR/msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/include/RMPISR -e /opt/ros/kinetic/share/gencpp/cmake/..
 
 /home/rmp/catkin_ws/devel/include/RMPISR/odomError.h: /opt/ros/kinetic/lib/gencpp/gen_cpp.py
 /home/rmp/catkin_ws/devel/include/RMPISR/odomError.h: /home/rmp/catkin_ws/src/RMPISR/srv/odomError.srv
 /home/rmp/catkin_ws/devel/include/RMPISR/odomError.h: /opt/ros/kinetic/share/geometry_msgs/msg/Pose2D.msg
 /home/rmp/catkin_ws/devel/include/RMPISR/odomError.h: /opt/ros/kinetic/share/gencpp/msg.h.template
 /home/rmp/catkin_ws/devel/include/RMPISR/odomError.h: /opt/ros/kinetic/share/gencpp/srv.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating C++ code from RMPISR/odomError.srv"
-	cd /home/rmp/catkin_ws/src/RMPISR && /home/rmp/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/rmp/catkin_ws/src/RMPISR/srv/odomError.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/include/RMPISR -e /opt/ros/kinetic/share/gencpp/cmake/..
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating C++ code from RMPISR/odomError.srv"
+	cd /home/rmp/catkin_ws/src/RMPISR && /home/rmp/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/rmp/catkin_ws/src/RMPISR/srv/odomError.srv -IRMPISR:/home/rmp/catkin_ws/src/RMPISR/msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/include/RMPISR -e /opt/ros/kinetic/share/gencpp/cmake/..
 
 /home/rmp/catkin_ws/devel/include/RMPISR/go.h: /opt/ros/kinetic/lib/gencpp/gen_cpp.py
 /home/rmp/catkin_ws/devel/include/RMPISR/go.h: /home/rmp/catkin_ws/src/RMPISR/srv/go.srv
 /home/rmp/catkin_ws/devel/include/RMPISR/go.h: /opt/ros/kinetic/share/gencpp/msg.h.template
 /home/rmp/catkin_ws/devel/include/RMPISR/go.h: /opt/ros/kinetic/share/gencpp/srv.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating C++ code from RMPISR/go.srv"
-	cd /home/rmp/catkin_ws/src/RMPISR && /home/rmp/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/rmp/catkin_ws/src/RMPISR/srv/go.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/include/RMPISR -e /opt/ros/kinetic/share/gencpp/cmake/..
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating C++ code from RMPISR/go.srv"
+	cd /home/rmp/catkin_ws/src/RMPISR && /home/rmp/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/rmp/catkin_ws/src/RMPISR/srv/go.srv -IRMPISR:/home/rmp/catkin_ws/src/RMPISR/msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/include/RMPISR -e /opt/ros/kinetic/share/gencpp/cmake/..
 
 /home/rmp/catkin_ws/devel/include/RMPISR/markerdetected.h: /opt/ros/kinetic/lib/gencpp/gen_cpp.py
 /home/rmp/catkin_ws/devel/include/RMPISR/markerdetected.h: /home/rmp/catkin_ws/src/RMPISR/srv/markerdetected.srv
 /home/rmp/catkin_ws/devel/include/RMPISR/markerdetected.h: /opt/ros/kinetic/share/gencpp/msg.h.template
 /home/rmp/catkin_ws/devel/include/RMPISR/markerdetected.h: /opt/ros/kinetic/share/gencpp/srv.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating C++ code from RMPISR/markerdetected.srv"
-	cd /home/rmp/catkin_ws/src/RMPISR && /home/rmp/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/rmp/catkin_ws/src/RMPISR/srv/markerdetected.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/include/RMPISR -e /opt/ros/kinetic/share/gencpp/cmake/..
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating C++ code from RMPISR/markerdetected.srv"
+	cd /home/rmp/catkin_ws/src/RMPISR && /home/rmp/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/rmp/catkin_ws/src/RMPISR/srv/markerdetected.srv -IRMPISR:/home/rmp/catkin_ws/src/RMPISR/msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/include/RMPISR -e /opt/ros/kinetic/share/gencpp/cmake/..
 
 /home/rmp/catkin_ws/devel/include/RMPISR/resetrmp.h: /opt/ros/kinetic/lib/gencpp/gen_cpp.py
 /home/rmp/catkin_ws/devel/include/RMPISR/resetrmp.h: /home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv
 /home/rmp/catkin_ws/devel/include/RMPISR/resetrmp.h: /opt/ros/kinetic/share/geometry_msgs/msg/Pose2D.msg
 /home/rmp/catkin_ws/devel/include/RMPISR/resetrmp.h: /opt/ros/kinetic/share/gencpp/msg.h.template
 /home/rmp/catkin_ws/devel/include/RMPISR/resetrmp.h: /opt/ros/kinetic/share/gencpp/srv.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating C++ code from RMPISR/resetrmp.srv"
-	cd /home/rmp/catkin_ws/src/RMPISR && /home/rmp/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/include/RMPISR -e /opt/ros/kinetic/share/gencpp/cmake/..
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating C++ code from RMPISR/resetrmp.srv"
+	cd /home/rmp/catkin_ws/src/RMPISR && /home/rmp/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv -IRMPISR:/home/rmp/catkin_ws/src/RMPISR/msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/include/RMPISR -e /opt/ros/kinetic/share/gencpp/cmake/..
 
 /home/rmp/catkin_ws/devel/include/RMPISR/stop.h: /opt/ros/kinetic/lib/gencpp/gen_cpp.py
 /home/rmp/catkin_ws/devel/include/RMPISR/stop.h: /home/rmp/catkin_ws/src/RMPISR/srv/stop.srv
 /home/rmp/catkin_ws/devel/include/RMPISR/stop.h: /opt/ros/kinetic/share/gencpp/msg.h.template
 /home/rmp/catkin_ws/devel/include/RMPISR/stop.h: /opt/ros/kinetic/share/gencpp/srv.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating C++ code from RMPISR/stop.srv"
-	cd /home/rmp/catkin_ws/src/RMPISR && /home/rmp/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/rmp/catkin_ws/src/RMPISR/srv/stop.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/include/RMPISR -e /opt/ros/kinetic/share/gencpp/cmake/..
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating C++ code from RMPISR/stop.srv"
+	cd /home/rmp/catkin_ws/src/RMPISR && /home/rmp/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/rmp/catkin_ws/src/RMPISR/srv/stop.srv -IRMPISR:/home/rmp/catkin_ws/src/RMPISR/msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/include/RMPISR -e /opt/ros/kinetic/share/gencpp/cmake/..
 
 RMPISR_generate_messages_cpp: RMPISR/CMakeFiles/RMPISR_generate_messages_cpp
+RMPISR_generate_messages_cpp: /home/rmp/catkin_ws/devel/include/RMPISR/sensors.h
 RMPISR_generate_messages_cpp: /home/rmp/catkin_ws/devel/include/RMPISR/addpoint.h
 RMPISR_generate_messages_cpp: /home/rmp/catkin_ws/devel/include/RMPISR/odomError.h
 RMPISR_generate_messages_cpp: /home/rmp/catkin_ws/devel/include/RMPISR/go.h

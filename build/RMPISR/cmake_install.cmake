@@ -33,6 +33,10 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/RMPISR/msg" TYPE FILE FILES "/home/rmp/catkin_ws/src/RMPISR/msg/sensors.msg")
+endif()
+
+if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/RMPISR/srv" TYPE FILE FILES
     "/home/rmp/catkin_ws/src/RMPISR/srv/go.srv"
     "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv"

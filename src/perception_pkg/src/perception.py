@@ -3,6 +3,7 @@
 import rospy
 import sys
 import math
+import matplotlib.pyplot as plt
 from geometry_msgs.msg import Point, Pose2D
 #from rosserial_arduino import sensors
 from perception_pkg.srv import *
@@ -23,7 +24,7 @@ class Perception():
 		self.final_vector = Point()
 
 
-
+	#obter a informacao odometrica
 	def callbackSensors(self,data):
 		self.ir1 = data.ir1
 		self.s1 = data.s1
@@ -33,11 +34,26 @@ class Perception():
 		self.ir4 = data.ir4
 		self.s5 = data.s5
 
+#---------------------------------------------------------------------------------------------------------------------------#
+
+	def testSensors(self,data):
+		self.ir1 = 0.5
+		self.s1 = 0
+		self.ir2 = 0.3
+		self.s2 = 0
+		self.ir3 = 0.7
+		self.ir4 = 0.7
+		self.s5 = 0
+
+#---------------------------------------------------------------------------------------------------------------------------#
+
 	#odom ja corrigida com o erro
 	def callbackOdom(self,data):
 		self.odomX=data.x
 		self.odomY=data.y
 		self.odomTheta=data.theta
+
+#---------------------------------------------------------------------------------------------------------------------------#
 
 	#servico que deve ser chamado aquando de o s5 der um valor em que a fuga ja nao seja possivel
 	#deve entao ser adicionado ao actual mapa um objecto que permita que o planeador calcule
@@ -53,9 +69,9 @@ class Perception():
 		except rospy.ServiceException, e:
 			print "Adding obstacle service call failed: %s" % e
 
+#---------------------------------------------------------------------------------------------------------------------------#
 
-
-	#funcao para criar o vector a partir da distancia
+	#funcao para calcular o vector inverso a partir da distancia proveniente dos sensores
 	def createVectors():
 		#cos(self.odomTheta+Pi+Pi/2)
 		self.x2_ir1 = (k1 / self.ir1) * cos(self.odomTheta+4.712) + self.odomX
@@ -80,9 +96,9 @@ class Perception():
 		self.y2_s5 = (k5 / self.s5) * cos(self.odomTheta+math.pi) + self.odomY
 
 #---------------------------------------------------------------------------------------------------------------------------#
-
-
-	#escolher segundo a odometria o sensor mais adequado a usar
+	
+	'''
+	#escolher segundo a odometria o sensor mais adequado a usar opr causa dos vidros
 	def chooseSensor():
 
 		#se resumir o robo a um ponto e esse ponto estiver dentro da area de um rectangulo
@@ -95,9 +111,12 @@ class Perception():
 		elif ((minx <= self.odomX <= maxx) and (miny <= self.odomY <= maxy)):
 			#if(self.odomTheta == )
 			self.x2_ir1=self.x2_ir2=self.x2_ir3=self.x2_ir4=0
+		#entrada ISR, mas depende da orientacao
+		elif
 
 		else:
 			self.x2_s1=self.x2_s2=0
+		'''
 
 
 #---------------------------------------------------------------------------------------------------------------------------#
@@ -110,6 +129,11 @@ class Perception():
 		self.final_vector.y = self.y2_s5 + self.y2_ir4 + self.y2_ir3 + self.y2_s2 + self.y2_ir2 + self.y2_s1 + self.y2_ir1
 
 		self.repulsive.publish(self.final_vector)
+
+
+#---------------------------------------------------------------------------------------------------------------------------#
+	def representVectors():
+
 
 
 
@@ -139,8 +163,9 @@ if __name__ == "__main__":
 
 		try:
 			see.createVectors()
-			see.chooseSensor()
+			#see.chooseSensor()
 			see.sumVectors()
+			see.representVectors()
 
 
 

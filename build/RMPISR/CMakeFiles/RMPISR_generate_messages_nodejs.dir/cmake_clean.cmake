@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/RMPISR_generate_messages_nodejs"
+  "/home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/msg/sensors.js"
   "/home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/addpoint.js"
   "/home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/odomError.js"
   "/home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/go.js"

@@ -44,7 +44,7 @@ STATE TABLE:
 '''
 
 class coordinator():
-
+	#robotRadius = 0.65, why 0.74 
 	def __init__(self,robotRadius=0.74,gridResolution=0.2,idealDist=0.8,maxDist=1):
 		self.robotRadius=robotRadius
 		self.gridResolution=gridResolution

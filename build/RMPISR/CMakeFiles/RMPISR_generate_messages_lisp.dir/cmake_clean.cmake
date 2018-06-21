@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/RMPISR_generate_messages_lisp"
+  "/home/rmp/catkin_ws/devel/share/common-lisp/ros/RMPISR/msg/sensors.lisp"
   "/home/rmp/catkin_ws/devel/share/common-lisp/ros/RMPISR/srv/addpoint.lisp"
   "/home/rmp/catkin_ws/devel/share/common-lisp/ros/RMPISR/srv/odomError.lisp"
   "/home/rmp/catkin_ws/devel/share/common-lisp/ros/RMPISR/srv/go.lisp"

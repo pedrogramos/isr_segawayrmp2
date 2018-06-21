@@ -1,7 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/rosserial_arduino_generate_messages_cpp"
   "/home/rmp/catkin_ws/devel/include/rosserial_arduino/Adc.h"
-  "/home/rmp/catkin_ws/devel/include/rosserial_arduino/sensors.h"
   "/home/rmp/catkin_ws/devel/include/rosserial_arduino/Test.h"
 )
 

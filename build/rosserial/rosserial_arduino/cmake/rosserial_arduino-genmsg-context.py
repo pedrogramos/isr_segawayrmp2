@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
-messages_str = "/home/rmp/catkin_ws/src/rosserial/rosserial_arduino/msg/Adc.msg;/home/rmp/catkin_ws/src/rosserial/rosserial_arduino/msg/sensors.msg"
+messages_str = "/home/rmp/catkin_ws/src/rosserial/rosserial_arduino/msg/Adc.msg"
 services_str = "/home/rmp/catkin_ws/src/rosserial/rosserial_arduino/srv/Test.srv"
 pkg_name = "rosserial_arduino"
 dependencies_str = ""
