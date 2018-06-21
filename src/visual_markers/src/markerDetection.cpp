@@ -43,6 +43,7 @@ using namespace std;
 #include "geometry_msgs/Pose2D.h"
 #include "RMPISR/odomError.h"
 #include "RMPISR/resetrmp.h"
+#include "RMPISR/markerdetected.h"
 #include <time.h>
 #include <vector>
 #include <string>
@@ -100,7 +101,6 @@ void serciceCallOnce(geometry_msgs::Pose2D pose1,RMPISR::resetrmp srv2, ros::Ser
 
 }
 
-
 //funcao que le valores dos marcadores do ficheiro texto
 std::vector<float> readFile(string path){
   float value;
@@ -145,14 +145,16 @@ odomTheta=msg->theta;
 int main(int argc, char **argv){
   ros::init(argc, argv, "markerDetection_node");
   ros::NodeHandle nh;
-  ros::ServiceClient client, client2;
+  ros::ServiceClient client, client2, client3;
   ros::Subscriber odom_sub;
   // nh.serviceClient<nome do ficheiro>("nome em que o serviço é disponibilizado");
   client = nh.serviceClient<RMPISR::odomError>("odomError");
   client2 = nh.serviceClient<RMPISR::resetrmp>("resetRMP");
+  client3 = nh.serviceClient<RMPISR::markerdetected>("markerdetected");
   //odom_sub =  nh.subscribe("odomUpdater",10,odomCallback);
   RMPISR::odomError srv;
   RMPISR::resetrmp srv2;
+  RMPISR::markerdetected srv3;
   geometry_msgs::Pose2D trueOdom;
   bool entrar = true;
   bool once = true;
@@ -446,42 +448,44 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
 
 
           
-          id_ant=id;
+        id_ant=id;
 
-        
-          if(entrar){
-            printf("ENTROU CHAMADA SERVICO!!\n");
-            time ( &rawtime );
-            timeinfo = localtime ( &rawtime );
-            //string a =fprintf( "The current date/time is: %s", asctime (timeinfo) );
+        if (once){
+          printf("Inicializacao da odometria! \n");
+          serciceCallOnce(trueOdom,srv2,client2);
+          once = false;
+          entrar = false;
+          ros::Duration(1).sleep();
+        }
 
-            /*
-            outfile << asctime (timeinfo);
-            outfile << "Detectou o id: " << id << std::endl;
-            outfile << "srv call-> X: "<< erro.x << " Y: "<< erro.y << " th: " << erro.theta << std::endl;
-            */
+      
+        if(entrar){
+          printf("ENTROU CHAMADA SERVICO!!\n");
+          time ( &rawtime );
+          timeinfo = localtime ( &rawtime );
+          //string a =fprintf( "The current date/time is: %s", asctime (timeinfo) );
 
-            if (once){
-              printf("Inicializacao da odometria! \n");
-              serciceCallOnce(trueOdom,srv2,client2);
-              once = false;
-              ros::Duration(1).sleep();
-            }
+          /*
+          outfile << asctime (timeinfo);
+          outfile << "Detectou o id: " << id << std::endl;
+          outfile << "srv call-> X: "<< erro.x << " Y: "<< erro.y << " th: " << erro.theta << std::endl;
+          */
 
-            // call do servico que envia o calculo do erro para ser adicionado à odometria original
-            serciceCall(trueOdom,srv,client);
+          // call do servico que envia o calculo do erro para ser adicionado à odometria original
+          serciceCall(trueOdom,srv,client);
+          client3.call(srv3);
 
-            // cout para a consola
-            std::cout << asctime (timeinfo);
-            //printf("MArker: X=  %f Y=  %f Th=  %f \n",(wTrmp[3][0])/1000), ((wTrmp[3][1])/1000), (atan2((wTrmp[0][1]),(wTrmp[0][0])));
-            //printf("Odom X= %f Y= %f Th= %f \n",odomX, odomY, odomTheta);
-            std::cout << "srv call-> X: "<< trueOdom.x << " Y: "<< trueOdom.y << " Th: " << trueOdom.theta << std::endl;
-            //i=2;
-            //lastTime = ros::Time::now();
+          // cout para a consola
+          std::cout << asctime (timeinfo);
+          //printf("MArker: X=  %f Y=  %f Th=  %f \n",(wTrmp[3][0])/1000), ((wTrmp[3][1])/1000), (atan2((wTrmp[0][1]),(wTrmp[0][0])));
+          //printf("Odom X= %f Y= %f Th= %f \n",odomX, odomY, odomTheta);
+          std::cout << "srv call-> X: "<< trueOdom.x << " Y: "<< trueOdom.y << " Th: " << trueOdom.theta << std::endl;
+          //i=2;
+          //lastTime = ros::Time::now();
 
-            entrar = false;
+          entrar = false;
 
-          }
+        }
 
           printf("\n\n" );
           ros::spinOnce();

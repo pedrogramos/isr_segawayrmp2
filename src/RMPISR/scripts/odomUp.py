@@ -4,8 +4,8 @@ import rospy
 from RMPISR.srv import *
 from geometry_msgs.msg import Pose2D
 from nav_msgs.msg import Odometry
-import tf
 from turtlesim.msg import Pose
+import tf
 import time
 
 PI=3.14159265359
@@ -25,14 +25,23 @@ class odomUpdater:
 		self.iniThetarmp=0
 		self.save=True
 		self.pose=Pose2D()
+		self.odomNew = Pose2D()
+		self.error = Pose2D()
+		self.error.x = 0
+		self.error.y = 0
+		self.error.theta = 0
 		#self.pose=Pose()
-		self.odomRMP_sub = rospy.Subscriber('/segway_rmp_node/odom', Odometry, self.callbackOdom)
+		self.odomRMP_sub = rospy.Subscriber('/segway_rmp_node/odom', Odometry, self.callbackOdom) #odom do segway
 		#self.odom_sub = rospy.Subscriber('/turtle1/pose', Pose, self.callbackOdom)
-		self.odom_pub = rospy.Publisher('odomUpdater', Pose2D, queue_size=10)
+		self.odom_pub = rospy.Publisher('odomUpdater', Pose2D, queue_size=10) #incremento da odom do segway
+		self.new_odom_pub = rospy.Publisher('new_odom',Pose2D, queue_size=10) #odom + error
 		#self.odom_pub = rospy.Publisher('odomUpdater', Pose, queue_size=10)
-		self.service = rospy.Service('resetRMP', resetrmp, self.handle_resetRMP)
+		self.service = rospy.Service('resetRMP', resetrmp, self.handle_resetRMP) #server servico para posicao inicial
+		self.service2 = rospy.Service('odomError',odomError,self.handle_odomError) #server servico para receber o erro
 		
 
+	#servico usado para estabelecer a posicao inicial do robo
+	#servidor
 	def handle_resetRMP(self,req):
 		
 		#geometry_msgs/Pose2D pose
@@ -40,7 +49,6 @@ class odomUpdater:
 		self.trueodomY=req.pose.y
 		self.trueodomTheta=req.pose.theta
 
-		self.save=True
 		'''
 		file=open("testfile.txt","a+")
 		file.write("Hello World\n")
@@ -61,7 +69,21 @@ class odomUpdater:
 		return []
 
 
+	def handle_odomError(self,req):
 
+
+		self.error.x = req.pose.x - self.pose.x;
+		self.error.y = req.pose.y - self.pose.y;
+		self.error.theta = req.pose.theta - self.pose.theta;
+
+
+		print "\nError service recived."
+		print "Pose X: ", req.pose.x," Y: ", req.pose.y, " Th: ", req.pose.theta
+		print "Fake X: ", self.pose.x ," Y: ", self.pose.y , " Th: ", self.pose.theta
+		print "Error X: ", self.error.x, " Y: ", self.error.y, "Th: ", self.error.theta
+
+
+		return []
 
 
 	'''
@@ -116,6 +138,18 @@ class odomUpdater:
 		#rospy.loginfo(self.pose)
 		self.odom_pub.publish(self.pose)
 
+
+
+
+	def correctOdomPlusError(self):
+
+		self.odomNew.x = self.pose.x + self.error.x;
+		self.odomNew.y = self.pose.y + self.error.y;
+		self.odomNew.theta = self.pose.theta + self.error.theta;
+
+		self.new_odom_pub.publish(self.odomNew);
+
+
 	def printScreen(self):
 		#minha posicao
 		print "MyOwn: X: %f Y: %f Theta: %f" % (self.trueodomX,self.trueodomY,self.trueodomTheta) 
@@ -136,6 +170,7 @@ if __name__ == "__main__":
 	while not rospy.is_shutdown():
 		try:
 			update.correctOdom()
+			update.correctOdomPlusError()
 			#update.printScreen()
 
 		except rospy.ServiceException, e:

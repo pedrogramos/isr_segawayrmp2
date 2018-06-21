@@ -21,6 +21,7 @@
 #include "RMPISR/go.h"
 #include "RMPISR/stop.h"
 #include "RMPISR/odomError.h"
+#include "RMPISR/markerdetected.h"
 
 using namespace std;
 
@@ -49,6 +50,7 @@ public:
   bool def_addpoint(RMPISR::addpoint::Request&, RMPISR::addpoint::Response&);
   bool def_stop(RMPISR::stop::Request&, RMPISR::stop::Response&);
   bool def_odomError(RMPISR::odomError::Request&, RMPISR::odomError::Response&);
+  bool def_markerDetected(RMPISR::markerdetected::Request&, RMPISR::markerdetected::Response&);
   void vecCallback(const geometry_msgs::Point::ConstPtr&);
   bool opposite=false;
 
@@ -65,16 +67,14 @@ private:
   ros::ServiceServer service1;
   ros::ServiceServer service2;
   ros::ServiceServer service3;
+  ros::ServiceServer service4;
   //ros::Publisher vazio_pub;
   //ros::Subscriber vazio_sub;
   geometry_msgs::Twist vel;
   geometry_msgs::Pose2D odomNew;
   geometry_msgs::Point repulsive;
   double odomX, odomY, odomTheta;
-  double errorX = 0;
-  double errorY = 0;
-  double errorTheta = 0;
-  
+
   bool error_received=false;
   nav_msgs::Odometry::ConstPtr poseRMP;
   geometry_msgs::Pose2D::ConstPtr pose;
@@ -93,12 +93,13 @@ SendVelocity::SendVelocity(){
   vel_pub = nh.advertise<geometry_msgs::Twist>("cmd_vel", 10);
   new_odom = nh.advertise<geometry_msgs::Pose2D>("new_odom", 10);
   //odom_sub = nh.subscribe("/segway_rmp_node/odom",10,&SendVelocity::odomCallback,this);
-  odom_sub =  nh.subscribe("odomUpdater",10,&SendVelocity::odomCallback,this);
+  odom_sub =  nh.subscribe("new_odom",10,&SendVelocity::odomCallback,this);
   repulsive_sub = nh.subscribe("repulsive_vec",10,&SendVelocity::vecCallback,this);
   service0 = nh.advertiseService("go",&SendVelocity::def_go,this);
   service1 = nh.advertiseService("addpoint", &SendVelocity::def_addpoint, this);
   service2 = nh.advertiseService("stop",&SendVelocity::def_stop,this);
-  service3 = nh.advertiseService("odomError",&SendVelocity::def_odomError,this);
+  service4 = nh.advertiseService("markerdetected",&SendVelocity::def_markerDetected,this);
+  //service3 = nh.advertiseService("odomError",&SendVelocity::def_odomError,this);
 
 }
 
@@ -140,18 +141,14 @@ void SendVelocity::odomCallback(const nav_msgs::Odometry::ConstPtr& msg){
 // já é a minha função de odometria implemtada
 void SendVelocity::odomCallback(const geometry_msgs::Pose2D::ConstPtr& msg){
 
-odomX = msg->x;
-odomY = msg->y;
-odomTheta = msg->theta;
+  odomNew.x = msg->x;
+  odomNew.y = msg->y;
+  odomNew.theta = msg->theta;
 
-//calculo da nova odometria a usar com a compensação do erro proveniente do MarkerDetector
-odomNew.x = odomX + errorX;
-odomNew.y = odomY + errorY;
-odomNew.theta = odomTheta + errorTheta;
-new_odom.publish(odomNew);
 
-//ROS_INFO("OdometriaFun: X= %f, Y= %f, e Theta= %f", odomX,odomY,odomTheta);
 }
+
+
 
 void SendVelocity::vecCallback(const geometry_msgs::Point::ConstPtr& data){
 
@@ -213,7 +210,7 @@ void SendVelocity::goTo(float xf, float yf,float limiar){
 
 
   if(c<pow(limiar,2))
-    ROS_INFO("Chegou ao ponto: X= %f e Y= %f.",xf, yf);
+    ROS_INFO("\nChegou ao ponto: X= %f e Y= %f.",xf, yf);
     ROS_INFO("Odom: X= %f  Y= %f  Th= %f", odomNew.x, odomNew.y,odomNew.theta);
     fila_pontos.pop();
 
@@ -279,6 +276,15 @@ bool SendVelocity::def_stop(RMPISR::stop::Request  &req_stop, RMPISR::stop::Resp
   return true;
 }
 
+
+bool SendVelocity::def_markerDetected(RMPISR::markerdetected::Request  &req_stop, RMPISR::markerdetected::Response &res_stop){
+
+  error_received = true;
+
+  return true;
+}
+
+/*
 bool SendVelocity::def_odomError(RMPISR::odomError::Request  &req_error, RMPISR::odomError::Response &res_error)
 {
   errorX = req_error.pose.x - odomX;
@@ -296,7 +302,7 @@ bool SendVelocity::def_odomError(RMPISR::odomError::Request  &req_error, RMPISR:
 
   return true;
 }
-
+*/
 
 int main(int argc, char** argv)
 {
@@ -318,7 +324,7 @@ int main(int argc, char** argv)
       while(!fila_pontos.empty() && state==GO){
         rmp.opposite=false;
         aux_s=fila_pontos.front();
-        rmp.goTo(aux_s.xf,aux_s.yf,0.2);
+        rmp.goTo(aux_s.xf,aux_s.yf,0.15);
       }
 
   
@@ -349,25 +355,3 @@ int main(int argc, char** argv)
 return 0;
 }
 
-
-/* FILE READ
-ifstream myReadFile;
-      myReadFile.open("/home/rmp/catkin_ws/src/RMPISR/src/pontos.txt");
-      float xf[100];
-      float yf[100];
-      int i=0;
-     int j=0;
-     if (myReadFile.is_open()) {
-     while (!myReadFile.eof()) {
-
-        myReadFile >> xf[i] >> yf[i];
-        i++;
-      }
-      }
-      myReadFile.close();
-
-       while(state==GO && j<i-2){
-        rmp.goTo(xf[j],yf[j],0.3);
-        j++;
-        }
-*/

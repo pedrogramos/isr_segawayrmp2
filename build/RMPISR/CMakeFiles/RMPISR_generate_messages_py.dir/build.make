@@ -53,19 +53,20 @@ CMAKE_BINARY_DIR = /home/rmp/catkin_ws/build
 # Include the progress variables for this target.
 include RMPISR/CMakeFiles/RMPISR_generate_messages_py.dir/progress.make
 
-RMPISR/CMakeFiles/RMPISR_generate_messages_py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_resetrmp.py
+RMPISR/CMakeFiles/RMPISR_generate_messages_py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_addpoint.py
 RMPISR/CMakeFiles/RMPISR_generate_messages_py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_odomError.py
 RMPISR/CMakeFiles/RMPISR_generate_messages_py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_go.py
+RMPISR/CMakeFiles/RMPISR_generate_messages_py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_markerdetected.py
+RMPISR/CMakeFiles/RMPISR_generate_messages_py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_resetrmp.py
 RMPISR/CMakeFiles/RMPISR_generate_messages_py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_stop.py
-RMPISR/CMakeFiles/RMPISR_generate_messages_py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_addpoint.py
 RMPISR/CMakeFiles/RMPISR_generate_messages_py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/__init__.py
 
 
-/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_resetrmp.py: /opt/ros/kinetic/lib/genpy/gensrv_py.py
-/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_resetrmp.py: /home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv
-/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_resetrmp.py: /opt/ros/kinetic/share/geometry_msgs/msg/Pose2D.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python code from SRV RMPISR/resetrmp"
-	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv
+/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_addpoint.py: /opt/ros/kinetic/lib/genpy/gensrv_py.py
+/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_addpoint.py: /home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv
+/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_addpoint.py: /opt/ros/kinetic/share/geometry_msgs/msg/Point.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python code from SRV RMPISR/addpoint"
+	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv
 
 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_odomError.py: /opt/ros/kinetic/lib/genpy/gensrv_py.py
 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_odomError.py: /home/rmp/catkin_ws/src/RMPISR/srv/odomError.srv
@@ -78,32 +79,39 @@ RMPISR/CMakeFiles/RMPISR_generate_messages_py: /home/rmp/catkin_ws/devel/lib/pyt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Python code from SRV RMPISR/go"
 	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/rmp/catkin_ws/src/RMPISR/srv/go.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv
 
+/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_markerdetected.py: /opt/ros/kinetic/lib/genpy/gensrv_py.py
+/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_markerdetected.py: /home/rmp/catkin_ws/src/RMPISR/srv/markerdetected.srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Python code from SRV RMPISR/markerdetected"
+	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/rmp/catkin_ws/src/RMPISR/srv/markerdetected.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv
+
+/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_resetrmp.py: /opt/ros/kinetic/lib/genpy/gensrv_py.py
+/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_resetrmp.py: /home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv
+/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_resetrmp.py: /opt/ros/kinetic/share/geometry_msgs/msg/Pose2D.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating Python code from SRV RMPISR/resetrmp"
+	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv
+
 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_stop.py: /opt/ros/kinetic/lib/genpy/gensrv_py.py
 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_stop.py: /home/rmp/catkin_ws/src/RMPISR/srv/stop.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Python code from SRV RMPISR/stop"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating Python code from SRV RMPISR/stop"
 	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/rmp/catkin_ws/src/RMPISR/srv/stop.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv
 
-/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_addpoint.py: /opt/ros/kinetic/lib/genpy/gensrv_py.py
-/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_addpoint.py: /home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv
-/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_addpoint.py: /opt/ros/kinetic/share/geometry_msgs/msg/Point.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating Python code from SRV RMPISR/addpoint"
-	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p RMPISR -o /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv
-
 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/__init__.py: /opt/ros/kinetic/lib/genpy/genmsg_py.py
-/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/__init__.py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_resetrmp.py
+/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/__init__.py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_addpoint.py
 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/__init__.py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_odomError.py
 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/__init__.py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_go.py
+/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/__init__.py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_markerdetected.py
+/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/__init__.py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_resetrmp.py
 /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/__init__.py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_stop.py
-/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/__init__.py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_addpoint.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating Python srv __init__.py for RMPISR"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/rmp/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating Python srv __init__.py for RMPISR"
 	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv --initpy
 
 RMPISR_generate_messages_py: RMPISR/CMakeFiles/RMPISR_generate_messages_py
-RMPISR_generate_messages_py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_resetrmp.py
+RMPISR_generate_messages_py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_addpoint.py
 RMPISR_generate_messages_py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_odomError.py
 RMPISR_generate_messages_py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_go.py
+RMPISR_generate_messages_py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_markerdetected.py
+RMPISR_generate_messages_py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_resetrmp.py
 RMPISR_generate_messages_py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_stop.py
-RMPISR_generate_messages_py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_addpoint.py
 RMPISR_generate_messages_py: /home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/__init__.py
 RMPISR_generate_messages_py: RMPISR/CMakeFiles/RMPISR_generate_messages_py.dir/build.make
 

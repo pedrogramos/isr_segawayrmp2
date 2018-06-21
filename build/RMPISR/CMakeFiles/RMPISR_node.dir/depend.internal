@@ -8,6 +8,9 @@ RMPISR/CMakeFiles/RMPISR_node.dir/src/CGP.cpp.o
  /home/rmp/catkin_ws/devel/include/RMPISR/go.h
  /home/rmp/catkin_ws/devel/include/RMPISR/goRequest.h
  /home/rmp/catkin_ws/devel/include/RMPISR/goResponse.h
+ /home/rmp/catkin_ws/devel/include/RMPISR/markerdetected.h
+ /home/rmp/catkin_ws/devel/include/RMPISR/markerdetectedRequest.h
+ /home/rmp/catkin_ws/devel/include/RMPISR/markerdetectedResponse.h
  /home/rmp/catkin_ws/devel/include/RMPISR/odomError.h
  /home/rmp/catkin_ws/devel/include/RMPISR/odomErrorRequest.h
  /home/rmp/catkin_ws/devel/include/RMPISR/odomErrorResponse.h

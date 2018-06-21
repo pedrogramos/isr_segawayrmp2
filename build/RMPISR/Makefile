@@ -89,6 +89,16 @@ install/strip/fast: install/strip
 
 .PHONY : install/strip/fast
 
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
+
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
@@ -122,16 +132,6 @@ test:
 test/fast: test
 
 .PHONY : test/fast
-
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-
-.PHONY : list_install_components/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -541,34 +541,19 @@ RMPISR_generate_messages/fast:
 .PHONY : RMPISR_generate_messages/fast
 
 # Convenience name for target.
-RMPISR/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule:
-	cd /home/rmp/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 RMPISR/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule
-.PHONY : RMPISR/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule
+RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_addpoint.dir/rule:
+	cd /home/rmp/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_addpoint.dir/rule
+.PHONY : RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_addpoint.dir/rule
 
 # Convenience name for target.
-std_srvs_generate_messages_nodejs: RMPISR/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule
+_RMPISR_generate_messages_check_deps_addpoint: RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_addpoint.dir/rule
 
-.PHONY : std_srvs_generate_messages_nodejs
+.PHONY : _RMPISR_generate_messages_check_deps_addpoint
 
 # fast build rule for target.
-std_srvs_generate_messages_nodejs/fast:
-	cd /home/rmp/catkin_ws/build && $(MAKE) -f RMPISR/CMakeFiles/std_srvs_generate_messages_nodejs.dir/build.make RMPISR/CMakeFiles/std_srvs_generate_messages_nodejs.dir/build
-.PHONY : std_srvs_generate_messages_nodejs/fast
-
-# Convenience name for target.
-RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_resetrmp.dir/rule:
-	cd /home/rmp/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_resetrmp.dir/rule
-.PHONY : RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_resetrmp.dir/rule
-
-# Convenience name for target.
-_RMPISR_generate_messages_check_deps_resetrmp: RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_resetrmp.dir/rule
-
-.PHONY : _RMPISR_generate_messages_check_deps_resetrmp
-
-# fast build rule for target.
-_RMPISR_generate_messages_check_deps_resetrmp/fast:
-	cd /home/rmp/catkin_ws/build && $(MAKE) -f RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_resetrmp.dir/build.make RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_resetrmp.dir/build
-.PHONY : _RMPISR_generate_messages_check_deps_resetrmp/fast
+_RMPISR_generate_messages_check_deps_addpoint/fast:
+	cd /home/rmp/catkin_ws/build && $(MAKE) -f RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_addpoint.dir/build.make RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_addpoint.dir/build
+.PHONY : _RMPISR_generate_messages_check_deps_addpoint/fast
 
 # Convenience name for target.
 RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_odomError.dir/rule:
@@ -616,19 +601,49 @@ RMPISR_generate_messages_cpp/fast:
 .PHONY : RMPISR_generate_messages_cpp/fast
 
 # Convenience name for target.
-RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_addpoint.dir/rule:
-	cd /home/rmp/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_addpoint.dir/rule
-.PHONY : RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_addpoint.dir/rule
+RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_markerdetected.dir/rule:
+	cd /home/rmp/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_markerdetected.dir/rule
+.PHONY : RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_markerdetected.dir/rule
 
 # Convenience name for target.
-_RMPISR_generate_messages_check_deps_addpoint: RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_addpoint.dir/rule
+_RMPISR_generate_messages_check_deps_markerdetected: RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_markerdetected.dir/rule
 
-.PHONY : _RMPISR_generate_messages_check_deps_addpoint
+.PHONY : _RMPISR_generate_messages_check_deps_markerdetected
 
 # fast build rule for target.
-_RMPISR_generate_messages_check_deps_addpoint/fast:
-	cd /home/rmp/catkin_ws/build && $(MAKE) -f RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_addpoint.dir/build.make RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_addpoint.dir/build
-.PHONY : _RMPISR_generate_messages_check_deps_addpoint/fast
+_RMPISR_generate_messages_check_deps_markerdetected/fast:
+	cd /home/rmp/catkin_ws/build && $(MAKE) -f RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_markerdetected.dir/build.make RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_markerdetected.dir/build
+.PHONY : _RMPISR_generate_messages_check_deps_markerdetected/fast
+
+# Convenience name for target.
+RMPISR/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule:
+	cd /home/rmp/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 RMPISR/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule
+.PHONY : RMPISR/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+std_srvs_generate_messages_nodejs: RMPISR/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule
+
+.PHONY : std_srvs_generate_messages_nodejs
+
+# fast build rule for target.
+std_srvs_generate_messages_nodejs/fast:
+	cd /home/rmp/catkin_ws/build && $(MAKE) -f RMPISR/CMakeFiles/std_srvs_generate_messages_nodejs.dir/build.make RMPISR/CMakeFiles/std_srvs_generate_messages_nodejs.dir/build
+.PHONY : std_srvs_generate_messages_nodejs/fast
+
+# Convenience name for target.
+RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_resetrmp.dir/rule:
+	cd /home/rmp/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_resetrmp.dir/rule
+.PHONY : RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_resetrmp.dir/rule
+
+# Convenience name for target.
+_RMPISR_generate_messages_check_deps_resetrmp: RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_resetrmp.dir/rule
+
+.PHONY : _RMPISR_generate_messages_check_deps_resetrmp
+
+# fast build rule for target.
+_RMPISR_generate_messages_check_deps_resetrmp/fast:
+	cd /home/rmp/catkin_ws/build && $(MAKE) -f RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_resetrmp.dir/build.make RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_resetrmp.dir/build
+.PHONY : _RMPISR_generate_messages_check_deps_resetrmp/fast
 
 # Convenience name for target.
 RMPISR/CMakeFiles/RMPISR_gencpp.dir/rule:
@@ -831,6 +846,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... install/strip"
+	@echo "... list_install_components"
 	@echo "... actionlib_msgs_generate_messages_py"
 	@echo "... std_srvs_generate_messages_eus"
 	@echo "... geometry_msgs_generate_messages_cpp"
@@ -856,13 +872,14 @@ help:
 	@echo "... geometry_msgs_generate_messages_py"
 	@echo "... actionlib_generate_messages_lisp"
 	@echo "... RMPISR_generate_messages"
-	@echo "... std_srvs_generate_messages_nodejs"
-	@echo "... _RMPISR_generate_messages_check_deps_resetrmp"
-	@echo "... install"
+	@echo "... _RMPISR_generate_messages_check_deps_addpoint"
 	@echo "... _RMPISR_generate_messages_check_deps_odomError"
 	@echo "... actionlib_generate_messages_py"
 	@echo "... RMPISR_generate_messages_cpp"
-	@echo "... _RMPISR_generate_messages_check_deps_addpoint"
+	@echo "... _RMPISR_generate_messages_check_deps_markerdetected"
+	@echo "... std_srvs_generate_messages_nodejs"
+	@echo "... _RMPISR_generate_messages_check_deps_resetrmp"
+	@echo "... install"
 	@echo "... RMPISR_gencpp"
 	@echo "... RMPISR_geneus"
 	@echo "... RMPISR_genlisp"
@@ -876,7 +893,6 @@ help:
 	@echo "... actionlib_msgs_generate_messages_lisp"
 	@echo "... RMPISR_generate_messages_nodejs"
 	@echo "... test"
-	@echo "... list_install_components"
 	@echo "... src/CGP.o"
 	@echo "... src/CGP.i"
 	@echo "... src/CGP.s"

@@ -1,7 +1,7 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
 messages_str = ""
-services_str = "/home/rmp/catkin_ws/src/RMPISR/srv/go.srv;/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv;/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv;/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv;/home/rmp/catkin_ws/src/RMPISR/srv/odomError.srv"
+services_str = "/home/rmp/catkin_ws/src/RMPISR/srv/go.srv;/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv;/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv;/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv;/home/rmp/catkin_ws/src/RMPISR/srv/odomError.srv;/home/rmp/catkin_ws/src/RMPISR/srv/markerdetected.srv"
 pkg_name = "RMPISR"
 dependencies_str = "geometry_msgs;std_msgs;std_srvs"
 langs = "gencpp;geneus;genlisp;gennodejs;genpy"

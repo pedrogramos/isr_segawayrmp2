@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "RMPISR: 0 messages, 5 services")
+message(STATUS "RMPISR: 0 messages, 6 services")
 
 set(MSG_I_FLAGS "-Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg;-Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg")
 
@@ -17,9 +17,9 @@ add_custom_target(RMPISR_generate_messages ALL)
 
 
 
-get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv" NAME_WE)
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv" NAME_WE)
 add_custom_target(_RMPISR_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "RMPISR" "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv" "geometry_msgs/Pose2D"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "RMPISR" "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv" "geometry_msgs/Point"
 )
 
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/odomError.srv" NAME_WE)
@@ -32,14 +32,19 @@ add_custom_target(_RMPISR_generate_messages_check_deps_${_filename}
   COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "RMPISR" "/home/rmp/catkin_ws/src/RMPISR/srv/go.srv" ""
 )
 
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/markerdetected.srv" NAME_WE)
+add_custom_target(_RMPISR_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "RMPISR" "/home/rmp/catkin_ws/src/RMPISR/srv/markerdetected.srv" ""
+)
+
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv" NAME_WE)
+add_custom_target(_RMPISR_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "RMPISR" "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv" "geometry_msgs/Pose2D"
+)
+
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv" NAME_WE)
 add_custom_target(_RMPISR_generate_messages_check_deps_${_filename}
   COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "RMPISR" "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv" ""
-)
-
-get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv" NAME_WE)
-add_custom_target(_RMPISR_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "RMPISR" "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv" "geometry_msgs/Point"
 )
 
 #
@@ -51,9 +56,9 @@ add_custom_target(_RMPISR_generate_messages_check_deps_${_filename}
 
 ### Generating Services
 _generate_srv_cpp(RMPISR
-  "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv"
+  "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Pose2D.msg"
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/RMPISR
 )
 _generate_srv_cpp(RMPISR
@@ -69,15 +74,21 @@ _generate_srv_cpp(RMPISR
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/RMPISR
 )
 _generate_srv_cpp(RMPISR
-  "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv"
+  "/home/rmp/catkin_ws/src/RMPISR/srv/markerdetected.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/RMPISR
 )
 _generate_srv_cpp(RMPISR
-  "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv"
+  "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Pose2D.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/RMPISR
+)
+_generate_srv_cpp(RMPISR
+  "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv"
+  "${MSG_I_FLAGS}"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/RMPISR
 )
 
@@ -93,15 +104,17 @@ add_custom_target(RMPISR_generate_messages_cpp
 add_dependencies(RMPISR_generate_messages RMPISR_generate_messages_cpp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv" NAME_WE)
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_cpp _RMPISR_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/odomError.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_cpp _RMPISR_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/go.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_cpp _RMPISR_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv" NAME_WE)
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/markerdetected.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_cpp _RMPISR_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv" NAME_WE)
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv" NAME_WE)
+add_dependencies(RMPISR_generate_messages_cpp _RMPISR_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_cpp _RMPISR_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -116,9 +129,9 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS RMPISR_generate_messages_cpp)
 
 ### Generating Services
 _generate_srv_eus(RMPISR
-  "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv"
+  "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Pose2D.msg"
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/RMPISR
 )
 _generate_srv_eus(RMPISR
@@ -134,15 +147,21 @@ _generate_srv_eus(RMPISR
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/RMPISR
 )
 _generate_srv_eus(RMPISR
-  "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv"
+  "/home/rmp/catkin_ws/src/RMPISR/srv/markerdetected.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/RMPISR
 )
 _generate_srv_eus(RMPISR
-  "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv"
+  "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Pose2D.msg"
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/RMPISR
+)
+_generate_srv_eus(RMPISR
+  "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv"
+  "${MSG_I_FLAGS}"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/RMPISR
 )
 
@@ -158,15 +177,17 @@ add_custom_target(RMPISR_generate_messages_eus
 add_dependencies(RMPISR_generate_messages RMPISR_generate_messages_eus)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv" NAME_WE)
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_eus _RMPISR_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/odomError.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_eus _RMPISR_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/go.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_eus _RMPISR_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv" NAME_WE)
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/markerdetected.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_eus _RMPISR_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv" NAME_WE)
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv" NAME_WE)
+add_dependencies(RMPISR_generate_messages_eus _RMPISR_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_eus _RMPISR_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -181,9 +202,9 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS RMPISR_generate_messages_eus)
 
 ### Generating Services
 _generate_srv_lisp(RMPISR
-  "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv"
+  "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Pose2D.msg"
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/RMPISR
 )
 _generate_srv_lisp(RMPISR
@@ -199,15 +220,21 @@ _generate_srv_lisp(RMPISR
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/RMPISR
 )
 _generate_srv_lisp(RMPISR
-  "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv"
+  "/home/rmp/catkin_ws/src/RMPISR/srv/markerdetected.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/RMPISR
 )
 _generate_srv_lisp(RMPISR
-  "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv"
+  "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Pose2D.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/RMPISR
+)
+_generate_srv_lisp(RMPISR
+  "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv"
+  "${MSG_I_FLAGS}"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/RMPISR
 )
 
@@ -223,15 +250,17 @@ add_custom_target(RMPISR_generate_messages_lisp
 add_dependencies(RMPISR_generate_messages RMPISR_generate_messages_lisp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv" NAME_WE)
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_lisp _RMPISR_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/odomError.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_lisp _RMPISR_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/go.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_lisp _RMPISR_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv" NAME_WE)
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/markerdetected.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_lisp _RMPISR_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv" NAME_WE)
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv" NAME_WE)
+add_dependencies(RMPISR_generate_messages_lisp _RMPISR_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_lisp _RMPISR_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -246,9 +275,9 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS RMPISR_generate_messages_lisp)
 
 ### Generating Services
 _generate_srv_nodejs(RMPISR
-  "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv"
+  "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Pose2D.msg"
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/RMPISR
 )
 _generate_srv_nodejs(RMPISR
@@ -264,15 +293,21 @@ _generate_srv_nodejs(RMPISR
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/RMPISR
 )
 _generate_srv_nodejs(RMPISR
-  "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv"
+  "/home/rmp/catkin_ws/src/RMPISR/srv/markerdetected.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/RMPISR
 )
 _generate_srv_nodejs(RMPISR
-  "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv"
+  "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Pose2D.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/RMPISR
+)
+_generate_srv_nodejs(RMPISR
+  "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv"
+  "${MSG_I_FLAGS}"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/RMPISR
 )
 
@@ -288,15 +323,17 @@ add_custom_target(RMPISR_generate_messages_nodejs
 add_dependencies(RMPISR_generate_messages RMPISR_generate_messages_nodejs)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv" NAME_WE)
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_nodejs _RMPISR_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/odomError.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_nodejs _RMPISR_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/go.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_nodejs _RMPISR_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv" NAME_WE)
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/markerdetected.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_nodejs _RMPISR_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv" NAME_WE)
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv" NAME_WE)
+add_dependencies(RMPISR_generate_messages_nodejs _RMPISR_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_nodejs _RMPISR_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -311,9 +348,9 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS RMPISR_generate_messages_nodejs)
 
 ### Generating Services
 _generate_srv_py(RMPISR
-  "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv"
+  "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Pose2D.msg"
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/RMPISR
 )
 _generate_srv_py(RMPISR
@@ -329,15 +366,21 @@ _generate_srv_py(RMPISR
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/RMPISR
 )
 _generate_srv_py(RMPISR
-  "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv"
+  "/home/rmp/catkin_ws/src/RMPISR/srv/markerdetected.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/RMPISR
 )
 _generate_srv_py(RMPISR
-  "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv"
+  "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  "/opt/ros/kinetic/share/geometry_msgs/cmake/../msg/Pose2D.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/RMPISR
+)
+_generate_srv_py(RMPISR
+  "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv"
+  "${MSG_I_FLAGS}"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/RMPISR
 )
 
@@ -353,15 +396,17 @@ add_custom_target(RMPISR_generate_messages_py
 add_dependencies(RMPISR_generate_messages RMPISR_generate_messages_py)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv" NAME_WE)
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_py _RMPISR_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/odomError.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_py _RMPISR_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/go.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_py _RMPISR_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv" NAME_WE)
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/markerdetected.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_py _RMPISR_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/addpoint.srv" NAME_WE)
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv" NAME_WE)
+add_dependencies(RMPISR_generate_messages_py _RMPISR_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/stop.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_py _RMPISR_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility

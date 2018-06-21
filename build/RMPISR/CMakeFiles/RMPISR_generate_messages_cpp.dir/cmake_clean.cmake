@@ -1,10 +1,11 @@
 file(REMOVE_RECURSE
   "CMakeFiles/RMPISR_generate_messages_cpp"
-  "/home/rmp/catkin_ws/devel/include/RMPISR/resetrmp.h"
+  "/home/rmp/catkin_ws/devel/include/RMPISR/addpoint.h"
   "/home/rmp/catkin_ws/devel/include/RMPISR/odomError.h"
   "/home/rmp/catkin_ws/devel/include/RMPISR/go.h"
+  "/home/rmp/catkin_ws/devel/include/RMPISR/markerdetected.h"
+  "/home/rmp/catkin_ws/devel/include/RMPISR/resetrmp.h"
   "/home/rmp/catkin_ws/devel/include/RMPISR/stop.h"
-  "/home/rmp/catkin_ws/devel/include/RMPISR/addpoint.h"
 )
 
 # Per-language clean rules from dependency scanning.

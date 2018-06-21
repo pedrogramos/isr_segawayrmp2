@@ -7,7 +7,11 @@ from geometry_msgs.msg import Point, Pose2D
 #from rosserial_arduino import sensors
 from perception_pkg.srv import *
 
-
+k1=0.1
+k2=0.1
+k3=0.1
+k4=0.1
+k5=0.1
 
 class Perception():
 
@@ -29,16 +33,21 @@ class Perception():
 		self.ir4 = data.ir4
 		self.s5 = data.s5
 
+	#odom ja corrigida com o erro
 	def callbackOdom(self,data):
 		self.odomX=data.x
 		self.odomY=data.y
 		self.odomTheta=data.theta
 
+	#servico que deve ser chamado aquando de o s5 der um valor em que a fuga ja nao seja possivel
+	#deve entao ser adicionado ao actual mapa um objecto que permita que o planeador calcule
+	#novamente uma nova rota
 	def obstacleAdd_client(self, xobs, yobs):
 		rospy.wait_for_service('add_obstacle')
 		try:
 			obs_add = rospy.ServiceProxy('add_obstacle', add_obstacle)
 			obs_add.call(xobs, yobs) #obs_add(xobs,yobs)
+			#caso de erro tenho de por uma variavel para fazer return da call do servico
 			print "Obstacle Detected. Informing coordinator."
 
 		except rospy.ServiceException, e:
