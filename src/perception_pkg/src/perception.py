@@ -8,11 +8,21 @@ from geometry_msgs.msg import Point, Pose2D
 #from rosserial_arduino import sensors
 from perception_pkg.srv import *
 
-k1=0.1
-k2=0.1
-k3=0.1
-k4=0.1
-k5=0.1
+#to launch the arduino rospy
+#ls -l /dev/ttyACM*
+#sudo chmod a+rw /dev/ttyACM0
+#rosrun rosserial_python serial_node.py /dev/ttyACM0
+
+k1=40
+k2=40
+k3=40
+k4=40
+k5=30
+
+#definicao das distancias a partir das quais o calculo de vectores deve ser feito
+left = right = 40
+fleft = fright = 40
+front = 30
 
 class Perception():
 
@@ -46,6 +56,11 @@ class Perception():
 		self.s5 = 0
 
 #---------------------------------------------------------------------------------------------------------------------------#
+	def thresholdEval(self):
+
+
+
+#---------------------------------------------------------------------------------------------------------------------------#
 
 	#odom ja corrigida com o erro
 	def callbackOdom(self,data):
@@ -69,36 +84,11 @@ class Perception():
 		except rospy.ServiceException, e:
 			print "Adding obstacle service call failed: %s" % e
 
-#---------------------------------------------------------------------------------------------------------------------------#
-
-	#funcao para calcular o vector inverso a partir da distancia proveniente dos sensores
-	def createVectors():
-		#cos(self.odomTheta+Pi+Pi/2)
-		self.x2_ir1 = (k1 / self.ir1) * cos(self.odomTheta+4.712) + self.odomX
-		self.y2_ir1 = (k1 / self.ir1) * cos(self.odomTheta+4.712) + self.odomY
-
-		self.x2_s1 = (k1 / self.s1) * cos(self.odomTheta+4.712) + self.odomX
-		self.y2_s1 = (k1 / self.s1) * cos(self.odomTheta+4.712) + self.odomY
-
-		self.x2_ir2 = (k2 / self.ir2) * cos(self.odomTheta+1.571) + self.odomX
-		self.y2_ir2 = (k2 / self.ir2) * cos(self.odomTheta+1.571) + self.odomY
-
-		self.x2_s2 = (k2 / self.s2) * cos(self.odomTheta+1.571) + self.odomX
-		self.y2_s2 = (k2 / self.s2) * cos(self.odomTheta+1.571) + self.odomY
-
-		self.x2_ir3 = (k3 / self.ir3) * cos(self.odomTheta+2.356) + self.odomX
-		self.y2_ir3 = (k3 / self.ir3) * cos(self.odomTheta+2.356) + self.odomY
-
-		self.x2_ir4 = (k4 / self.ir4) * cos(self.odomTheta+3.927) + self.odomX
-		self.y2_ir4 = (k4 / self.ir4) * cos(self.odomTheta+3.927) + self.odomY
-
-		self.x2_s5 = (k5 / self.s5) * cos(self.odomTheta+math.pi) + self.odomX
-		self.y2_s5 = (k5 / self.s5) * cos(self.odomTheta+math.pi) + self.odomY
 
 #---------------------------------------------------------------------------------------------------------------------------#
 	
 	'''
-	#escolher segundo a odometria o sensor mais adequado a usar opr causa dos vidros
+	#escolher segundo a odometria o sensor mais adequado a usar por causa dos vidros
 	def chooseSensor():
 
 		#se resumir o robo a um ponto e esse ponto estiver dentro da area de um rectangulo
@@ -121,6 +111,41 @@ class Perception():
 
 #---------------------------------------------------------------------------------------------------------------------------#
 
+	#funcao para calcular o vector c dir inversa a partir da distancia proveniente dos sensores
+	def createVectors():
+		if (self.ir1 > left):
+			#cos(self.odomTheta+Pi+Pi/2)
+			self.x2_ir1 = (k1 / self.ir1) * cos(self.odomTheta+4.712) + self.odomX
+			self.y2_ir1 = (k1 / self.ir1) * cos(self.odomTheta+4.712) + self.odomY
+
+		if (self.s1 > left):
+			self.x2_s1 = (k1 / self.s1) * cos(self.odomTheta+4.712) + self.odomX
+			self.y2_s1 = (k1 / self.s1) * cos(self.odomTheta+4.712) + self.odomY
+
+		if(self.ir2 > right):
+			self.x2_ir2 = (k2 / self.ir2) * cos(self.odomTheta+1.571) + self.odomX
+			self.y2_ir2 = (k2 / self.ir2) * cos(self.odomTheta+1.571) + self.odomY
+
+		if(self.s2 > right):
+			self.x2_s2 = (k2 / self.s2) * cos(self.odomTheta+1.571) + self.odomX
+			self.y2_s2 = (k2 / self.s2) * cos(self.odomTheta+1.571) + self.odomY
+
+		if(self.ir3 > fleft):
+			self.x2_ir3 = (k3 / self.ir3) * cos(self.odomTheta+2.356) + self.odomX
+			self.y2_ir3 = (k3 / self.ir3) * cos(self.odomTheta+2.356) + self.odomY
+
+		if(self.ir4 > fright):
+			self.x2_ir4 = (k4 / self.ir4) * cos(self.odomTheta+3.927) + self.odomX
+			self.y2_ir4 = (k4 / self.ir4) * cos(self.odomTheta+3.927) + self.odomY
+
+		if(self.s5 > front):
+			self.x2_s5 = (k5 / self.s5) * cos(self.odomTheta+math.pi) + self.odomX
+			self.y2_s5 = (k5 / self.s5) * cos(self.odomTheta+math.pi) + self.odomY
+
+
+
+#---------------------------------------------------------------------------------------------------------------------------#
+
 
 	#funcao para fazer a soma de todos os vectores repulsivos	
 	def sumVectors():
@@ -133,6 +158,14 @@ class Perception():
 
 #---------------------------------------------------------------------------------------------------------------------------#
 	def representVectors():
+
+		plt.figure()
+
+
+		plt.draw()
+		plt.show()
+
+
 
 
 
@@ -162,8 +195,8 @@ if __name__ == "__main__":
 	while not rospy.is_shutdown():
 
 		try:
-			see.createVectors()
 			#see.chooseSensor()
+			see.createVectors()
 			see.sumVectors()
 			see.representVectors()
 

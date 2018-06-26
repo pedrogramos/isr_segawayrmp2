@@ -95,13 +95,14 @@ import struct
 
 
 class goResponse(genpy.Message):
-  _md5sum = "d41d8cd98f00b204e9800998ecf8427e"
+  _md5sum = "7a2f37ef2ba405f0c7a15cc72663d6f0"
   _type = "RMPISR/goResponse"
   _has_header = False #flag to mark the presence of a Header object
-  _full_text = """
+  _full_text = """int32 state
+
 """
-  __slots__ = []
-  _slot_types = []
+  __slots__ = ['state']
+  _slot_types = ['int32']
 
   def __init__(self, *args, **kwds):
     """
@@ -111,7 +112,7 @@ class goResponse(genpy.Message):
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       
+       state
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -119,6 +120,11 @@ class goResponse(genpy.Message):
     """
     if args or kwds:
       super(goResponse, self).__init__(*args, **kwds)
+      #message fields cannot be None, assign default values for those that are
+      if self.state is None:
+        self.state = 0
+    else:
+      self.state = 0
 
   def _get_types(self):
     """
@@ -132,7 +138,7 @@ class goResponse(genpy.Message):
     :param buff: buffer, ``StringIO``
     """
     try:
-      pass
+      buff.write(_get_struct_i().pack(self.state))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -143,6 +149,9 @@ class goResponse(genpy.Message):
     """
     try:
       end = 0
+      start = end
+      end += 4
+      (self.state,) = _get_struct_i().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -155,7 +164,7 @@ class goResponse(genpy.Message):
     :param numpy: numpy python module
     """
     try:
-      pass
+      buff.write(_get_struct_i().pack(self.state))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -167,6 +176,9 @@ class goResponse(genpy.Message):
     """
     try:
       end = 0
+      start = end
+      end += 4
+      (self.state,) = _get_struct_i().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -175,8 +187,14 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
+_struct_i = None
+def _get_struct_i():
+    global _struct_i
+    if _struct_i is None:
+        _struct_i = struct.Struct("<i")
+    return _struct_i
 class go(object):
   _type          = 'RMPISR/go'
-  _md5sum = 'd41d8cd98f00b204e9800998ecf8427e'
+  _md5sum = '7a2f37ef2ba405f0c7a15cc72663d6f0'
   _request_class  = goRequest
   _response_class = goResponse

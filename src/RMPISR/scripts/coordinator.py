@@ -16,16 +16,11 @@ import tf
 import copy
 #from vstptest import robotTrajectory
 import csv
-from tkinter import *
+from Tkinter import *
 
 
 #to compile for ros
 #chmod +x scripts/coordinator.py
-
-#to launch the arduino rospy
-#ls -l /dev/ttyACM*
-#sudo chmod a+rw /dev/ttyACM0
-#rosrun rosserial_python serial_node.py /dev/ttyACM0
 
 
 #no ISR
@@ -292,12 +287,44 @@ class coordinator():
 				pygame.quit()
 				sys.exit()
 
+
+
+#---------------------------------------------------------------------------------------------------------------------------#
+
+
+	def criaGui(self):
+		window = Tk()
+
+		window.title("Welcome to LikeGeeks app")
+
+		window.geometry('350x400')
+
+		lbl_title1 = Label(window, text="Choose where do you want to go:")
+		lbl_title1.grid(column=0, row=0)
+
+
+		lb_choice=Tkinter.Listbox(window, )
+		lb_choice.lbl.grid(column=0, row=1)
+
+		def clicked():
+
+			lbl.configure(text="Button was clicked %f, times!!" % i)
+			i += 1
+
+		btn = Button(window, text="Click Me", command=clicked)
+
+		btn.grid(column=1, row=0)
+
+		window.mainloop()
+
+
+
 #---------------------------------------------------------------------------------------------------------------------------#
 		
 			
 	#thread para a const actualizacao da posicao do robot no display
 	def toThread(self):
-		mapThread = threading.Thread(target=self.criaMapa)
+		mapThread = threading.Thread(target=self.criaGui)
 		mapThread.daemon=True
 		mapThread.start()
 		#mapThread.join()
@@ -379,7 +406,7 @@ if __name__ == "__main__":
 	boss.readFile(traj1)
 	boss.vstpFunc(1,1,55,3)
 	#boss.vstpFunc(55,3,59,3)
-	boss.addpoint_client()
+	#boss.addpoint_client()
 
 	print "Coordinator Ready!"
 	rospy.spin()

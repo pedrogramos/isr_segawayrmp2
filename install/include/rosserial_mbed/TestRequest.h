@@ -39,6 +39,7 @@ struct TestRequest_
 
 
 
+
   typedef boost::shared_ptr< ::rosserial_mbed::TestRequest_<ContainerAllocator> > Ptr;
   typedef boost::shared_ptr< ::rosserial_mbed::TestRequest_<ContainerAllocator> const> ConstPtr;
 

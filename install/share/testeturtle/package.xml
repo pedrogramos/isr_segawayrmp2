@@ -3,9 +3,9 @@
   <name>testeturtle</name>
   <version>0.0.1</version>
   <description>
-    aprender a publicar e subscrever.
+    Controlo da plataforma RMP no âmbito de uma tese de MIEEC.
   </description>
-  <maintainer email="pedro.ramoscp@gmail.com">Pedro G Ramos</maintainer>
+  <maintainer email="pedro.ramoscp@gmail.com">Pedro G. Ramos</maintainer>
   <license>BSD</license>
 
   <url type="website">http://www.ros.org/wiki/turtlessim</url>
@@ -26,6 +26,8 @@
   <build_depend>rostime</build_depend>
   <build_depend>std_msgs</build_depend>
   <build_depend>std_srvs</build_depend>
+  <build_depend>tf2</build_depend>
+  <build_depend>tf2_ros</build_depend>
 
   <run_depend>geometry_msgs</run_depend>
   <run_depend>libqt5-core</run_depend>
@@ -38,4 +40,6 @@
   <run_depend>rostime</run_depend>
   <run_depend>std_msgs</run_depend>
   <run_depend>std_srvs</run_depend>
+  <run_depend>tf2</run_depend>
+  <run_depend>tf2_ros</run_depend>
 </package>

@@ -42,12 +42,15 @@ struct Log_
   _msg_type msg;
 
 
-    enum { ROSDEBUG = 0u };
-     enum { INFO = 1u };
-     enum { WARN = 2u };
-     enum { ERROR = 3u };
-     enum { FATAL = 4u };
- 
+
+  enum {
+    ROSDEBUG = 0u,
+    INFO = 1u,
+    WARN = 2u,
+    ERROR = 3u,
+    FATAL = 4u,
+  };
+
 
   typedef boost::shared_ptr< ::rosserial_msgs::Log_<ContainerAllocator> > Ptr;
   typedef boost::shared_ptr< ::rosserial_msgs::Log_<ContainerAllocator> const> ConstPtr;

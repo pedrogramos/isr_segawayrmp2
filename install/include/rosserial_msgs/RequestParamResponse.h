@@ -49,6 +49,7 @@ struct RequestParamResponse_
 
 
 
+
   typedef boost::shared_ptr< ::rosserial_msgs::RequestParamResponse_<ContainerAllocator> > Ptr;
   typedef boost::shared_ptr< ::rosserial_msgs::RequestParamResponse_<ContainerAllocator> const> ConstPtr;
 

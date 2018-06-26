@@ -46,6 +46,7 @@ struct SegwayStatusStamped_
 
 
 
+
   typedef boost::shared_ptr< ::segway_rmp::SegwayStatusStamped_<ContainerAllocator> > Ptr;
   typedef boost::shared_ptr< ::segway_rmp::SegwayStatusStamped_<ContainerAllocator> const> ConstPtr;
 

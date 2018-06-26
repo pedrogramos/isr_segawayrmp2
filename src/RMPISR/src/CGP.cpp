@@ -324,7 +324,7 @@ int main(int argc, char** argv)
       while(!fila_pontos.empty() && state==GO){
         rmp.opposite=false;
         aux_s=fila_pontos.front();
-        rmp.goTo(aux_s.xf,aux_s.yf,0.15);
+        rmp.goTo(aux_s.xf,aux_s.yf,0.2);
       }
 
   

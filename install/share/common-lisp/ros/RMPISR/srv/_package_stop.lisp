@@ -1,2 +1,4 @@
 (cl:in-package RMPISR-srv)
-(cl:export '())
+(cl:export '(STATE-VAL
+          STATE
+))

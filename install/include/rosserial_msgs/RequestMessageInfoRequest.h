@@ -39,6 +39,7 @@ struct RequestMessageInfoRequest_
 
 
 
+
   typedef boost::shared_ptr< ::rosserial_msgs::RequestMessageInfoRequest_<ContainerAllocator> > Ptr;
   typedef boost::shared_ptr< ::rosserial_msgs::RequestMessageInfoRequest_<ContainerAllocator> const> ConstPtr;
 

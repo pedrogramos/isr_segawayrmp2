@@ -39,6 +39,7 @@ struct TestResponse_
 
 
 
+
   typedef boost::shared_ptr< ::rosserial_arduino::TestResponse_<ContainerAllocator> > Ptr;
   typedef boost::shared_ptr< ::rosserial_arduino::TestResponse_<ContainerAllocator> const> ConstPtr;
 

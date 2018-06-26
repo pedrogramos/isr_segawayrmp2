@@ -166,37 +166,40 @@ struct State_
   _errors_type errors;
 
 
-    enum { INVALID = -1 };
-     static const float INVALID_FLOAT;
-     enum { MSG_BTN_1 = 0 };
-     enum { MSG_BTN_2 = 1 };
-     enum { MSG_BTN_A = 2 };
-     enum { MSG_BTN_B = 3 };
-     enum { MSG_BTN_PLUS = 4 };
-     enum { MSG_BTN_MINUS = 5 };
-     enum { MSG_BTN_LEFT = 6 };
-     enum { MSG_BTN_RIGHT = 7 };
-     enum { MSG_BTN_UP = 8 };
-     enum { MSG_BTN_DOWN = 9 };
-     enum { MSG_BTN_HOME = 10 };
-     enum { MSG_BTN_Z = 0 };
-     enum { MSG_BTN_C = 1 };
-     enum { MSG_CLASSIC_BTN_X = 0 };
-     enum { MSG_CLASSIC_BTN_Y = 1 };
-     enum { MSG_CLASSIC_BTN_A = 2 };
-     enum { MSG_CLASSIC_BTN_B = 3 };
-     enum { MSG_CLASSIC_BTN_PLUS = 4 };
-     enum { MSG_CLASSIC_BTN_MINUS = 5 };
-     enum { MSG_CLASSIC_BTN_LEFT = 6 };
-     enum { MSG_CLASSIC_BTN_RIGHT = 7 };
-     enum { MSG_CLASSIC_BTN_UP = 8 };
-     enum { MSG_CLASSIC_BTN_DOWN = 9 };
-     enum { MSG_CLASSIC_BTN_HOME = 10 };
-     enum { MSG_CLASSIC_BTN_L = 11 };
-     enum { MSG_CLASSIC_BTN_R = 12 };
-     enum { MSG_CLASSIC_BTN_ZL = 13 };
-     enum { MSG_CLASSIC_BTN_ZR = 14 };
- 
+
+  enum {
+    INVALID = -1,
+    MSG_BTN_1 = 0,
+    MSG_BTN_2 = 1,
+    MSG_BTN_A = 2,
+    MSG_BTN_B = 3,
+    MSG_BTN_PLUS = 4,
+    MSG_BTN_MINUS = 5,
+    MSG_BTN_LEFT = 6,
+    MSG_BTN_RIGHT = 7,
+    MSG_BTN_UP = 8,
+    MSG_BTN_DOWN = 9,
+    MSG_BTN_HOME = 10,
+    MSG_BTN_Z = 0,
+    MSG_BTN_C = 1,
+    MSG_CLASSIC_BTN_X = 0,
+    MSG_CLASSIC_BTN_Y = 1,
+    MSG_CLASSIC_BTN_A = 2,
+    MSG_CLASSIC_BTN_B = 3,
+    MSG_CLASSIC_BTN_PLUS = 4,
+    MSG_CLASSIC_BTN_MINUS = 5,
+    MSG_CLASSIC_BTN_LEFT = 6,
+    MSG_CLASSIC_BTN_RIGHT = 7,
+    MSG_CLASSIC_BTN_UP = 8,
+    MSG_CLASSIC_BTN_DOWN = 9,
+    MSG_CLASSIC_BTN_HOME = 10,
+    MSG_CLASSIC_BTN_L = 11,
+    MSG_CLASSIC_BTN_R = 12,
+    MSG_CLASSIC_BTN_ZL = 13,
+    MSG_CLASSIC_BTN_ZR = 14,
+  };
+
+  static const float INVALID_FLOAT;
 
   typedef boost::shared_ptr< ::wiimote::State_<ContainerAllocator> > Ptr;
   typedef boost::shared_ptr< ::wiimote::State_<ContainerAllocator> const> ConstPtr;

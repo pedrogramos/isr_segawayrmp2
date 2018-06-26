@@ -49,6 +49,7 @@ struct IrSourceInfo_
 
 
 
+
   typedef boost::shared_ptr< ::wiimote::IrSourceInfo_<ContainerAllocator> > Ptr;
   typedef boost::shared_ptr< ::wiimote::IrSourceInfo_<ContainerAllocator> const> ConstPtr;
 

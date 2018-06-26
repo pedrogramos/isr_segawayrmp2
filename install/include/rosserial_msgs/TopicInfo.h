@@ -57,15 +57,18 @@ struct TopicInfo_
   _buffer_size_type buffer_size;
 
 
-    enum { ID_PUBLISHER = 0u };
-     enum { ID_SUBSCRIBER = 1u };
-     enum { ID_SERVICE_SERVER = 2u };
-     enum { ID_SERVICE_CLIENT = 4u };
-     enum { ID_PARAMETER_REQUEST = 6u };
-     enum { ID_LOG = 7u };
-     enum { ID_TIME = 10u };
-     enum { ID_TX_STOP = 11u };
- 
+
+  enum {
+    ID_PUBLISHER = 0u,
+    ID_SUBSCRIBER = 1u,
+    ID_SERVICE_SERVER = 2u,
+    ID_SERVICE_CLIENT = 4u,
+    ID_PARAMETER_REQUEST = 6u,
+    ID_LOG = 7u,
+    ID_TIME = 10u,
+    ID_TX_STOP = 11u,
+  };
+
 
   typedef boost::shared_ptr< ::rosserial_msgs::TopicInfo_<ContainerAllocator> > Ptr;
   typedef boost::shared_ptr< ::rosserial_msgs::TopicInfo_<ContainerAllocator> const> ConstPtr;
