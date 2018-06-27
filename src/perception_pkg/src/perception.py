@@ -5,13 +5,14 @@ import sys
 import math
 import matplotlib.pyplot as plt
 from geometry_msgs.msg import Point, Pose2D
-#from rosserial_arduino import sensors
+from RMPISR.msg import sensors
 from perception_pkg.srv import *
 
 #to launch the arduino rospy
 #ls -l /dev/ttyACM*
 #sudo chmod a+rw /dev/ttyACM0
 #rosrun rosserial_python serial_node.py /dev/ttyACM0
+#rosrun rosserial_python serial_node.py _port:=/dev/ttyACM0 _baud:=115200
 
 k1=40
 k2=40
@@ -32,18 +33,22 @@ class Perception():
 		self.new_odom_sub = rospy.Subscriber('/new_odom',Pose2D,self.callbackOdom)
 		self.repulsive = rospy.Publisher('repulsive_vec',Point, queue_size=10)
 		self.final_vector = Point()
+		self.sensorValues = sensors()
 
 
 	#obter a informacao odometrica
 	def callbackSensors(self,data):
-		self.ir1 = data.ir1
-		self.s1 = data.s1
-		self.ir2 = data.ir2
-		self.s2 = data.s2
-		self.ir3 = data.ir3
-		self.ir4 = data.ir4
-		self.s5 = data.s5
+		self.sensorValues.ir1 = data.ir1
+		self.sensorValues.s1 = data.s1
+		self.sensorValues.ir2 = data.ir2
+		self.sensorValues.s2 = data.s2
+		self.sensorValues.ir3 = data.ir3
+		self.sensorValues.ir4 = data.ir4
+		self.sensorValues.s5 = data.s5
 
+
+
+'''
 #---------------------------------------------------------------------------------------------------------------------------#
 
 	def testSensors(self,data):
@@ -87,7 +92,7 @@ class Perception():
 
 #---------------------------------------------------------------------------------------------------------------------------#
 	
-	'''
+	
 	#escolher segundo a odometria o sensor mais adequado a usar por causa dos vidros
 	def chooseSensor():
 
@@ -106,39 +111,39 @@ class Perception():
 
 		else:
 			self.x2_s1=self.x2_s2=0
-		'''
+		
 
 
 #---------------------------------------------------------------------------------------------------------------------------#
 
 	#funcao para calcular o vector c dir inversa a partir da distancia proveniente dos sensores
 	def createVectors():
-		if (self.ir1 > left):
+		if (self.ir1 < left):
 			#cos(self.odomTheta+Pi+Pi/2)
 			self.x2_ir1 = (k1 / self.ir1) * cos(self.odomTheta+4.712) + self.odomX
 			self.y2_ir1 = (k1 / self.ir1) * cos(self.odomTheta+4.712) + self.odomY
 
-		if (self.s1 > left):
+		if (self.s1 < left):
 			self.x2_s1 = (k1 / self.s1) * cos(self.odomTheta+4.712) + self.odomX
 			self.y2_s1 = (k1 / self.s1) * cos(self.odomTheta+4.712) + self.odomY
 
-		if(self.ir2 > right):
+		if(self.ir2 < right):
 			self.x2_ir2 = (k2 / self.ir2) * cos(self.odomTheta+1.571) + self.odomX
 			self.y2_ir2 = (k2 / self.ir2) * cos(self.odomTheta+1.571) + self.odomY
 
-		if(self.s2 > right):
+		if(self.s2 < right):
 			self.x2_s2 = (k2 / self.s2) * cos(self.odomTheta+1.571) + self.odomX
 			self.y2_s2 = (k2 / self.s2) * cos(self.odomTheta+1.571) + self.odomY
 
-		if(self.ir3 > fleft):
+		if(self.ir3 < fleft):
 			self.x2_ir3 = (k3 / self.ir3) * cos(self.odomTheta+2.356) + self.odomX
 			self.y2_ir3 = (k3 / self.ir3) * cos(self.odomTheta+2.356) + self.odomY
 
-		if(self.ir4 > fright):
+		if(self.ir4 < fright):
 			self.x2_ir4 = (k4 / self.ir4) * cos(self.odomTheta+3.927) + self.odomX
 			self.y2_ir4 = (k4 / self.ir4) * cos(self.odomTheta+3.927) + self.odomY
 
-		if(self.s5 > front):
+		if(self.s5 < front):
 			self.x2_s5 = (k5 / self.s5) * cos(self.odomTheta+math.pi) + self.odomX
 			self.y2_s5 = (k5 / self.s5) * cos(self.odomTheta+math.pi) + self.odomY
 
@@ -170,7 +175,7 @@ class Perception():
 
 
 
-
+'''
 
 
 
@@ -196,9 +201,9 @@ if __name__ == "__main__":
 
 		try:
 			#see.chooseSensor()
-			see.createVectors()
-			see.sumVectors()
-			see.representVectors()
+			#see.createVectors()
+			#see.sumVectors()
+			#see.representVectors()
 
 
 
