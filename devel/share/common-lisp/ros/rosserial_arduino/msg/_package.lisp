@@ -3,7 +3,5 @@
   (:export
    "<ADC>"
    "ADC"
-   "<SENSORS>"
-   "SENSORS"
   ))
 

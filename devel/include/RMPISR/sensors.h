@@ -24,46 +24,46 @@ struct sensors_
   typedef sensors_<ContainerAllocator> Type;
 
   sensors_()
-    : ir1(0)
-    , ir2(0)
-    , ir3(0)
-    , ir4(0)
-    , s1(0)
-    , s2(0)
-    , s5(0)  {
+    : ir1(0.0)
+    , ir2(0.0)
+    , ir3(0.0)
+    , ir4(0.0)
+    , s1(0.0)
+    , s2(0.0)
+    , s5(0.0)  {
     }
   sensors_(const ContainerAllocator& _alloc)
-    : ir1(0)
-    , ir2(0)
-    , ir3(0)
-    , ir4(0)
-    , s1(0)
-    , s2(0)
-    , s5(0)  {
+    : ir1(0.0)
+    , ir2(0.0)
+    , ir3(0.0)
+    , ir4(0.0)
+    , s1(0.0)
+    , s2(0.0)
+    , s5(0.0)  {
   (void)_alloc;
     }
 
 
 
-   typedef uint8_t _ir1_type;
+   typedef float _ir1_type;
   _ir1_type ir1;
 
-   typedef uint8_t _ir2_type;
+   typedef float _ir2_type;
   _ir2_type ir2;
 
-   typedef uint8_t _ir3_type;
+   typedef float _ir3_type;
   _ir3_type ir3;
 
-   typedef uint8_t _ir4_type;
+   typedef float _ir4_type;
   _ir4_type ir4;
 
-   typedef uint8_t _s1_type;
+   typedef float _s1_type;
   _s1_type s1;
 
-   typedef uint8_t _s2_type;
+   typedef float _s2_type;
   _s2_type s2;
 
-   typedef uint8_t _s5_type;
+   typedef float _s5_type;
   _s5_type s5;
 
 
@@ -144,12 +144,12 @@ struct MD5Sum< ::RMPISR::sensors_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "9eedb779141fc8e42c127e038f10520e";
+    return "ccb7a54de940f8793e51caa067484500";
   }
 
   static const char* value(const ::RMPISR::sensors_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x9eedb779141fc8e4ULL;
-  static const uint64_t static_value2 = 0x2c127e038f10520eULL;
+  static const uint64_t static_value1 = 0xccb7a54de940f879ULL;
+  static const uint64_t static_value2 = 0x3e51caa067484500ULL;
 };
 
 template<class ContainerAllocator>
@@ -168,13 +168,13 @@ struct Definition< ::RMPISR::sensors_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "uint8 ir1\n\
-uint8 ir2\n\
-uint8 ir3\n\
-uint8 ir4\n\
-uint8 s1\n\
-uint8 s2\n\
-uint8 s5\n\
+    return "float32 ir1\n\
+float32 ir2\n\
+float32 ir3\n\
+float32 ir4\n\
+float32 s1\n\
+float32 s2\n\
+float32 s5\n\
 ";
   }
 
@@ -219,19 +219,19 @@ struct Printer< ::RMPISR::sensors_<ContainerAllocator> >
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::RMPISR::sensors_<ContainerAllocator>& v)
   {
     s << indent << "ir1: ";
-    Printer<uint8_t>::stream(s, indent + "  ", v.ir1);
+    Printer<float>::stream(s, indent + "  ", v.ir1);
     s << indent << "ir2: ";
-    Printer<uint8_t>::stream(s, indent + "  ", v.ir2);
+    Printer<float>::stream(s, indent + "  ", v.ir2);
     s << indent << "ir3: ";
-    Printer<uint8_t>::stream(s, indent + "  ", v.ir3);
+    Printer<float>::stream(s, indent + "  ", v.ir3);
     s << indent << "ir4: ";
-    Printer<uint8_t>::stream(s, indent + "  ", v.ir4);
+    Printer<float>::stream(s, indent + "  ", v.ir4);
     s << indent << "s1: ";
-    Printer<uint8_t>::stream(s, indent + "  ", v.s1);
+    Printer<float>::stream(s, indent + "  ", v.s1);
     s << indent << "s2: ";
-    Printer<uint8_t>::stream(s, indent + "  ", v.s2);
+    Printer<float>::stream(s, indent + "  ", v.s2);
     s << indent << "s5: ";
-    Printer<uint8_t>::stream(s, indent + "  ", v.s5);
+    Printer<float>::stream(s, indent + "  ", v.s5);
   }
 };
 

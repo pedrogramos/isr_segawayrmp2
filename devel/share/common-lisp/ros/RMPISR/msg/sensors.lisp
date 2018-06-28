@@ -10,38 +10,38 @@
   ((ir1
     :reader ir1
     :initarg :ir1
-    :type cl:fixnum
-    :initform 0)
+    :type cl:float
+    :initform 0.0)
    (ir2
     :reader ir2
     :initarg :ir2
-    :type cl:fixnum
-    :initform 0)
+    :type cl:float
+    :initform 0.0)
    (ir3
     :reader ir3
     :initarg :ir3
-    :type cl:fixnum
-    :initform 0)
+    :type cl:float
+    :initform 0.0)
    (ir4
     :reader ir4
     :initarg :ir4
-    :type cl:fixnum
-    :initform 0)
+    :type cl:float
+    :initform 0.0)
    (s1
     :reader s1
     :initarg :s1
-    :type cl:fixnum
-    :initform 0)
+    :type cl:float
+    :initform 0.0)
    (s2
     :reader s2
     :initarg :s2
-    :type cl:fixnum
-    :initform 0)
+    :type cl:float
+    :initform 0.0)
    (s5
     :reader s5
     :initarg :s5
-    :type cl:fixnum
-    :initform 0))
+    :type cl:float
+    :initform 0.0))
 )
 
 (cl:defclass sensors (<sensors>)
@@ -88,23 +88,86 @@
   (s5 m))
 (cl:defmethod roslisp-msg-protocol:serialize ((msg <sensors>) ostream)
   "Serializes a message object of type '<sensors>"
-  (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'ir1)) ostream)
-  (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'ir2)) ostream)
-  (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'ir3)) ostream)
-  (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'ir4)) ostream)
-  (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:slot-value msg 's1)) ostream)
-  (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:slot-value msg 's2)) ostream)
-  (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:slot-value msg 's5)) ostream)
+  (cl:let ((bits (roslisp-utils:encode-single-float-bits (cl:slot-value msg 'ir1))))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream))
+  (cl:let ((bits (roslisp-utils:encode-single-float-bits (cl:slot-value msg 'ir2))))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream))
+  (cl:let ((bits (roslisp-utils:encode-single-float-bits (cl:slot-value msg 'ir3))))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream))
+  (cl:let ((bits (roslisp-utils:encode-single-float-bits (cl:slot-value msg 'ir4))))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream))
+  (cl:let ((bits (roslisp-utils:encode-single-float-bits (cl:slot-value msg 's1))))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream))
+  (cl:let ((bits (roslisp-utils:encode-single-float-bits (cl:slot-value msg 's2))))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream))
+  (cl:let ((bits (roslisp-utils:encode-single-float-bits (cl:slot-value msg 's5))))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream))
 )
 (cl:defmethod roslisp-msg-protocol:deserialize ((msg <sensors>) istream)
   "Deserializes a message object of type '<sensors>"
-    (cl:setf (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'ir1)) (cl:read-byte istream))
-    (cl:setf (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'ir2)) (cl:read-byte istream))
-    (cl:setf (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'ir3)) (cl:read-byte istream))
-    (cl:setf (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'ir4)) (cl:read-byte istream))
-    (cl:setf (cl:ldb (cl:byte 8 0) (cl:slot-value msg 's1)) (cl:read-byte istream))
-    (cl:setf (cl:ldb (cl:byte 8 0) (cl:slot-value msg 's2)) (cl:read-byte istream))
-    (cl:setf (cl:ldb (cl:byte 8 0) (cl:slot-value msg 's5)) (cl:read-byte istream))
+    (cl:let ((bits 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
+    (cl:setf (cl:slot-value msg 'ir1) (roslisp-utils:decode-single-float-bits bits)))
+    (cl:let ((bits 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
+    (cl:setf (cl:slot-value msg 'ir2) (roslisp-utils:decode-single-float-bits bits)))
+    (cl:let ((bits 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
+    (cl:setf (cl:slot-value msg 'ir3) (roslisp-utils:decode-single-float-bits bits)))
+    (cl:let ((bits 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
+    (cl:setf (cl:slot-value msg 'ir4) (roslisp-utils:decode-single-float-bits bits)))
+    (cl:let ((bits 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
+    (cl:setf (cl:slot-value msg 's1) (roslisp-utils:decode-single-float-bits bits)))
+    (cl:let ((bits 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
+    (cl:setf (cl:slot-value msg 's2) (roslisp-utils:decode-single-float-bits bits)))
+    (cl:let ((bits 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
+    (cl:setf (cl:slot-value msg 's5) (roslisp-utils:decode-single-float-bits bits)))
   msg
 )
 (cl:defmethod roslisp-msg-protocol:ros-datatype ((msg (cl:eql '<sensors>)))
@@ -115,25 +178,25 @@
   "RMPISR/sensors")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<sensors>)))
   "Returns md5sum for a message object of type '<sensors>"
-  "9eedb779141fc8e42c127e038f10520e")
+  "ccb7a54de940f8793e51caa067484500")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'sensors)))
   "Returns md5sum for a message object of type 'sensors"
-  "9eedb779141fc8e42c127e038f10520e")
+  "ccb7a54de940f8793e51caa067484500")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<sensors>)))
   "Returns full string definition for message of type '<sensors>"
-  (cl:format cl:nil "uint8 ir1~%uint8 ir2~%uint8 ir3~%uint8 ir4~%uint8 s1~%uint8 s2~%uint8 s5~%~%~%"))
+  (cl:format cl:nil "float32 ir1~%float32 ir2~%float32 ir3~%float32 ir4~%float32 s1~%float32 s2~%float32 s5~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'sensors)))
   "Returns full string definition for message of type 'sensors"
-  (cl:format cl:nil "uint8 ir1~%uint8 ir2~%uint8 ir3~%uint8 ir4~%uint8 s1~%uint8 s2~%uint8 s5~%~%~%"))
+  (cl:format cl:nil "float32 ir1~%float32 ir2~%float32 ir3~%float32 ir4~%float32 s1~%float32 s2~%float32 s5~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <sensors>))
   (cl:+ 0
-     1
-     1
-     1
-     1
-     1
-     1
-     1
+     4
+     4
+     4
+     4
+     4
+     4
+     4
 ))
 (cl:defmethod roslisp-msg-protocol:ros-message-to-list ((msg <sensors>))
   "Converts a ROS message object to a list"

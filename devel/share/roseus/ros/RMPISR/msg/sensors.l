@@ -19,22 +19,22 @@
 (defmethod RMPISR::sensors
   (:init
    (&key
-    ((:ir1 __ir1) 0)
-    ((:ir2 __ir2) 0)
-    ((:ir3 __ir3) 0)
-    ((:ir4 __ir4) 0)
-    ((:s1 __s1) 0)
-    ((:s2 __s2) 0)
-    ((:s5 __s5) 0)
+    ((:ir1 __ir1) 0.0)
+    ((:ir2 __ir2) 0.0)
+    ((:ir3 __ir3) 0.0)
+    ((:ir4 __ir4) 0.0)
+    ((:s1 __s1) 0.0)
+    ((:s2 __s2) 0.0)
+    ((:s5 __s5) 0.0)
     )
    (send-super :init)
-   (setq _ir1 (round __ir1))
-   (setq _ir2 (round __ir2))
-   (setq _ir3 (round __ir3))
-   (setq _ir4 (round __ir4))
-   (setq _s1 (round __s1))
-   (setq _s2 (round __s2))
-   (setq _s5 (round __s5))
+   (setq _ir1 (float __ir1))
+   (setq _ir2 (float __ir2))
+   (setq _ir3 (float __ir3))
+   (setq _ir4 (float __ir4))
+   (setq _s1 (float __s1))
+   (setq _s2 (float __s2))
+   (setq _s5 (float __s5))
    self)
   (:ir1
    (&optional __ir1)
@@ -60,76 +60,76 @@
   (:serialization-length
    ()
    (+
-    ;; uint8 _ir1
-    1
-    ;; uint8 _ir2
-    1
-    ;; uint8 _ir3
-    1
-    ;; uint8 _ir4
-    1
-    ;; uint8 _s1
-    1
-    ;; uint8 _s2
-    1
-    ;; uint8 _s5
-    1
+    ;; float32 _ir1
+    4
+    ;; float32 _ir2
+    4
+    ;; float32 _ir3
+    4
+    ;; float32 _ir4
+    4
+    ;; float32 _s1
+    4
+    ;; float32 _s2
+    4
+    ;; float32 _s5
+    4
     ))
   (:serialize
    (&optional strm)
    (let ((s (if strm strm
               (make-string-output-stream (send self :serialization-length)))))
-     ;; uint8 _ir1
-       (write-byte _ir1 s)
-     ;; uint8 _ir2
-       (write-byte _ir2 s)
-     ;; uint8 _ir3
-       (write-byte _ir3 s)
-     ;; uint8 _ir4
-       (write-byte _ir4 s)
-     ;; uint8 _s1
-       (write-byte _s1 s)
-     ;; uint8 _s2
-       (write-byte _s2 s)
-     ;; uint8 _s5
-       (write-byte _s5 s)
+     ;; float32 _ir1
+       (sys::poke _ir1 (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
+     ;; float32 _ir2
+       (sys::poke _ir2 (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
+     ;; float32 _ir3
+       (sys::poke _ir3 (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
+     ;; float32 _ir4
+       (sys::poke _ir4 (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
+     ;; float32 _s1
+       (sys::poke _s1 (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
+     ;; float32 _s2
+       (sys::poke _s2 (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
+     ;; float32 _s5
+       (sys::poke _s5 (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
      ;;
      (if (null strm) (get-output-stream-string s))))
   (:deserialize
    (buf &optional (ptr- 0))
-   ;; uint8 _ir1
-     (setq _ir1 (sys::peek buf ptr- :char)) (incf ptr- 1)
-   ;; uint8 _ir2
-     (setq _ir2 (sys::peek buf ptr- :char)) (incf ptr- 1)
-   ;; uint8 _ir3
-     (setq _ir3 (sys::peek buf ptr- :char)) (incf ptr- 1)
-   ;; uint8 _ir4
-     (setq _ir4 (sys::peek buf ptr- :char)) (incf ptr- 1)
-   ;; uint8 _s1
-     (setq _s1 (sys::peek buf ptr- :char)) (incf ptr- 1)
-   ;; uint8 _s2
-     (setq _s2 (sys::peek buf ptr- :char)) (incf ptr- 1)
-   ;; uint8 _s5
-     (setq _s5 (sys::peek buf ptr- :char)) (incf ptr- 1)
+   ;; float32 _ir1
+     (setq _ir1 (sys::peek buf ptr- :float)) (incf ptr- 4)
+   ;; float32 _ir2
+     (setq _ir2 (sys::peek buf ptr- :float)) (incf ptr- 4)
+   ;; float32 _ir3
+     (setq _ir3 (sys::peek buf ptr- :float)) (incf ptr- 4)
+   ;; float32 _ir4
+     (setq _ir4 (sys::peek buf ptr- :float)) (incf ptr- 4)
+   ;; float32 _s1
+     (setq _s1 (sys::peek buf ptr- :float)) (incf ptr- 4)
+   ;; float32 _s2
+     (setq _s2 (sys::peek buf ptr- :float)) (incf ptr- 4)
+   ;; float32 _s5
+     (setq _s5 (sys::peek buf ptr- :float)) (incf ptr- 4)
    ;;
    self)
   )
 
-(setf (get RMPISR::sensors :md5sum-) "9eedb779141fc8e42c127e038f10520e")
+(setf (get RMPISR::sensors :md5sum-) "ccb7a54de940f8793e51caa067484500")
 (setf (get RMPISR::sensors :datatype-) "RMPISR/sensors")
 (setf (get RMPISR::sensors :definition-)
-      "uint8 ir1
-uint8 ir2
-uint8 ir3
-uint8 ir4
-uint8 s1
-uint8 s2
-uint8 s5
+      "float32 ir1
+float32 ir2
+float32 ir3
+float32 ir4
+float32 s1
+float32 s2
+float32 s5
 
 ")
 
 
 
-(provide :RMPISR/sensors "9eedb779141fc8e42c127e038f10520e")
+(provide :RMPISR/sensors "ccb7a54de940f8793e51caa067484500")
 
 

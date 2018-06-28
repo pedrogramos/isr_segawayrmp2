@@ -36,43 +36,19 @@ class Perception():
 		self.sensorValues = sensors()
 
 
-	#obter a informacao odometrica
+	#obter a informacao sensorial
 	def callbackSensors(self,data):
-		self.sensorValues.ir1 = data.ir1
-		self.sensorValues.s1 = data.s1
-		self.sensorValues.ir2 = data.ir2
-		self.sensorValues.s2 = data.s2
-		self.sensorValues.ir3 = data.ir3
-		self.sensorValues.ir4 = data.ir4
-		self.sensorValues.s5 = data.s5
+		self.sensorValues = data
+		#print "\n", self.sensorValues
 
-
-
-'''
-#---------------------------------------------------------------------------------------------------------------------------#
-
-	def testSensors(self,data):
-		self.ir1 = 0.5
-		self.s1 = 0
-		self.ir2 = 0.3
-		self.s2 = 0
-		self.ir3 = 0.7
-		self.ir4 = 0.7
-		self.s5 = 0
-
-#---------------------------------------------------------------------------------------------------------------------------#
-	def thresholdEval(self):
-
-
-
-#---------------------------------------------------------------------------------------------------------------------------#
-
-	#odom ja corrigida com o erro
+		#odom ja corrigida com o erro
 	def callbackOdom(self,data):
 		self.odomX=data.x
 		self.odomY=data.y
 		self.odomTheta=data.theta
 
+
+'''
 #---------------------------------------------------------------------------------------------------------------------------#
 
 	#servico que deve ser chamado aquando de o s5 der um valor em que a fuga ja nao seja possivel
@@ -113,7 +89,7 @@ class Perception():
 			self.x2_s1=self.x2_s2=0
 		
 
-
+'''
 #---------------------------------------------------------------------------------------------------------------------------#
 
 	#funcao para calcular o vector c dir inversa a partir da distancia proveniente dos sensores
@@ -165,7 +141,7 @@ class Perception():
 	def representVectors():
 
 		plt.figure()
-
+		plt.quiver()
 
 		plt.draw()
 		plt.show()
@@ -175,7 +151,7 @@ class Perception():
 
 
 
-'''
+
 
 
 

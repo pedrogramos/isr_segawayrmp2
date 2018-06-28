@@ -7,4 +7,7 @@
 # new environment variables
 
 # modified environment variables
+export LD_LIBRARY_PATH="/opt/ros/kinetic/lib:/opt/ros/kinetic/lib/i386-linux-gnu:/home/rmp/lib:/home/rmp/openar/lib"
+export PKG_CONFIG_PATH="/opt/ros/kinetic/lib/pkgconfig:/opt/ros/kinetic/lib/i386-linux-gnu/pkgconfig"
 export PWD="/home/rmp/catkin_ws/build"
+export PYTHONPATH="/opt/ros/kinetic/lib/python2.7/dist-packages:/home/rmp/lib:/home/rmp/openar/lib"

@@ -7,19 +7,19 @@ import struct
 
 
 class sensors(genpy.Message):
-  _md5sum = "9eedb779141fc8e42c127e038f10520e"
+  _md5sum = "ccb7a54de940f8793e51caa067484500"
   _type = "RMPISR/sensors"
   _has_header = False #flag to mark the presence of a Header object
-  _full_text = """uint8 ir1
-uint8 ir2
-uint8 ir3
-uint8 ir4
-uint8 s1
-uint8 s2
-uint8 s5
+  _full_text = """float32 ir1
+float32 ir2
+float32 ir3
+float32 ir4
+float32 s1
+float32 s2
+float32 s5
 """
   __slots__ = ['ir1','ir2','ir3','ir4','s1','s2','s5']
-  _slot_types = ['uint8','uint8','uint8','uint8','uint8','uint8','uint8']
+  _slot_types = ['float32','float32','float32','float32','float32','float32','float32']
 
   def __init__(self, *args, **kwds):
     """
@@ -39,27 +39,27 @@ uint8 s5
       super(sensors, self).__init__(*args, **kwds)
       #message fields cannot be None, assign default values for those that are
       if self.ir1 is None:
-        self.ir1 = 0
+        self.ir1 = 0.
       if self.ir2 is None:
-        self.ir2 = 0
+        self.ir2 = 0.
       if self.ir3 is None:
-        self.ir3 = 0
+        self.ir3 = 0.
       if self.ir4 is None:
-        self.ir4 = 0
+        self.ir4 = 0.
       if self.s1 is None:
-        self.s1 = 0
+        self.s1 = 0.
       if self.s2 is None:
-        self.s2 = 0
+        self.s2 = 0.
       if self.s5 is None:
-        self.s5 = 0
+        self.s5 = 0.
     else:
-      self.ir1 = 0
-      self.ir2 = 0
-      self.ir3 = 0
-      self.ir4 = 0
-      self.s1 = 0
-      self.s2 = 0
-      self.s5 = 0
+      self.ir1 = 0.
+      self.ir2 = 0.
+      self.ir3 = 0.
+      self.ir4 = 0.
+      self.s1 = 0.
+      self.s2 = 0.
+      self.s5 = 0.
 
   def _get_types(self):
     """
@@ -74,7 +74,7 @@ uint8 s5
     """
     try:
       _x = self
-      buff.write(_get_struct_7B().pack(_x.ir1, _x.ir2, _x.ir3, _x.ir4, _x.s1, _x.s2, _x.s5))
+      buff.write(_get_struct_7f().pack(_x.ir1, _x.ir2, _x.ir3, _x.ir4, _x.s1, _x.s2, _x.s5))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -87,8 +87,8 @@ uint8 s5
       end = 0
       _x = self
       start = end
-      end += 7
-      (_x.ir1, _x.ir2, _x.ir3, _x.ir4, _x.s1, _x.s2, _x.s5,) = _get_struct_7B().unpack(str[start:end])
+      end += 28
+      (_x.ir1, _x.ir2, _x.ir3, _x.ir4, _x.s1, _x.s2, _x.s5,) = _get_struct_7f().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -102,7 +102,7 @@ uint8 s5
     """
     try:
       _x = self
-      buff.write(_get_struct_7B().pack(_x.ir1, _x.ir2, _x.ir3, _x.ir4, _x.s1, _x.s2, _x.s5))
+      buff.write(_get_struct_7f().pack(_x.ir1, _x.ir2, _x.ir3, _x.ir4, _x.s1, _x.s2, _x.s5))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -116,8 +116,8 @@ uint8 s5
       end = 0
       _x = self
       start = end
-      end += 7
-      (_x.ir1, _x.ir2, _x.ir3, _x.ir4, _x.s1, _x.s2, _x.s5,) = _get_struct_7B().unpack(str[start:end])
+      end += 28
+      (_x.ir1, _x.ir2, _x.ir3, _x.ir4, _x.s1, _x.s2, _x.s5,) = _get_struct_7f().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -126,9 +126,9 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
-_struct_7B = None
-def _get_struct_7B():
-    global _struct_7B
-    if _struct_7B is None:
-        _struct_7B = struct.Struct("<7B")
-    return _struct_7B
+_struct_7f = None
+def _get_struct_7f():
+    global _struct_7f
+    if _struct_7f is None:
+        _struct_7f = struct.Struct("<7f")
+    return _struct_7f
