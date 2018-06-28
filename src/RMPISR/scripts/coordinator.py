@@ -16,7 +16,7 @@ import tf
 import copy
 #from vstptest import robotTrajectory
 import csv
-from Tkinter import *
+import Tkinter
 
 
 #to compile for ros
@@ -28,7 +28,8 @@ sys.path.insert(0,'/home/rmp/lib/python')
 MAP='/home/rmp/catkin_ws/src/RMPISR/scripts/ISRfile2.xml'
 import vstpPY
 
-traj1='/home/rmp/catkin_ws/src/RMPISR/scripts/DemonstrationPoints2.csv'
+traj1='/home/rmp/catkin_ws/src/RMPISR/scripts/DemonstrationPoints3new.csv'
+
 
 
 '''
@@ -93,8 +94,6 @@ class coordinator():
 		print "xobj: ", self.xobst, "yobj: ", self.yobst
 
 
-
-
 #---------------------------------------------------------------------------------------------------------------------------#
 
 	def stop_client(self):
@@ -121,8 +120,6 @@ class coordinator():
 			print "Service call failed: %s" % e
 
 #---------------------------------------------------------------------------------------------------------------------------#
-
-
 
 	def addpoint_client(self):
 		rospy.wait_for_service('addpoint')
@@ -191,7 +188,6 @@ class coordinator():
 
 #---------------------------------------------------------------------------------------------------------------------------#
 
-
 	def computeMapLimits(self):
 		minx=10000
 		maxx=-10000
@@ -227,19 +223,11 @@ class coordinator():
 		print "minX: %f, minY: %f, MAXX: %f, MAXY: %f" % (self.mapminx,self.mapminy,self.mapmaxx,self.mapmaxy)
 
 #---------------------------------------------------------------------------------------------------------------------------#
-
 		
 	def criaMapa(self,displayx=800,displayy=480):
 		
 		raciox=(displayx-5)/(self.mapmaxx-self.mapminx)
 		racioy=(displayy-5)/(self.mapmaxy-self.mapminy)
-		'''
-		wTm=np.array([[1,0,displayx],
-					[0,-1,displayy],
-					[0,0,1]])
-		mTw=wTm.I
-		'''
-
 
 
 		#gamepy inicialization window
@@ -293,28 +281,78 @@ class coordinator():
 
 
 	def criaGui(self):
-		window = Tk()
 
-		window.title("Welcome to LikeGeeks app")
-
+		window = Tkinter.Tk()
+		window.title("Manager")
 		window.geometry('350x400')
-
-		lbl_title1 = Label(window, text="Choose where do you want to go:")
-		lbl_title1.grid(column=0, row=0)
+		window.configure(background = "white")
 
 
-		lb_choice=Tkinter.Listbox(window, )
-		lb_choice.lbl.grid(column=0, row=1)
+		clear = bool()
 
-		def clicked():
+		places = {}
 
-			lbl.configure(text="Button was clicked %f, times!!" % i)
-			i += 1
+		places ["Main Hall"] = [55,3]
+		places ["Lab: Mobile Robotics"] = [40,20]
+		places ["Accounting"] = [30,50]
+		places ["Lab: Computer Vision"] = [10,10]
+		places ["Lab: Immersive Systems"] = [11,11]
 
-		btn = Button(window, text="Click Me", command=clicked)
 
-		btn.grid(column=1, row=0)
+		def show_all():
+			lb_places.delete(0,"end") # to clear the window when you press the button
+			for destiny in places:
+				lb_places.insert("end", destiny)
 
+		def calculateCourse():
+			#lbl_output.delete(0,"end")
+			selected = lb_places.get("active") #the active item is the one which is corrently sellected
+			result = places[selected]
+			#msg = result[1]
+			#lbl_output["text"] = msg
+			print "clear: ", clear
+			print "teste result:",result[0], result[1]
+			self.vstpFunc(self.trueodomX, self.trueodomY, result[0],result[1],True)
+
+		def resume():
+			self.go_client()
+
+		def stopSegway():
+			self.stop_client()
+
+
+		#label
+		lbl_output = Tkinter.Label(window,text = "Hello! Where do you want to go?")
+		lbl_output.pack()
+		#input box
+		txt_input = Tkinter.Entry(window)
+		txt_input.pack()
+		#listbox
+		lb_places = Tkinter.Listbox(window)
+		lb_places.pack()
+
+		#button
+		'''
+		btn_show_all = Tkinter.Button(window, text ="Show all", command = show_all)
+		btn_show_all.pack()
+		'''
+		btn_lets_go = Tkinter.Button(window, text ="Calculate path", command = calculateCourse)
+		btn_lets_go.pack()
+
+		btn_stop = Tkinter.Button(window, text ="Stop Segway", command = stopSegway)
+		btn_stop.pack()
+
+		btn_resume = Tkinter.Button(window, text ="Resume destination", command = resume)
+		btn_resume.pack()
+
+
+		check_box = Tkinter.Checkbutton(window,text = "Clear places to visit", variable = clear, onvalue = True, offvalue = False, \
+										height = 5, width = 20)
+		check_box.pack()
+
+
+
+		show_all()
 		window.mainloop()
 
 
@@ -375,7 +413,7 @@ class coordinator():
 #---------------------------------------------------------------------------------------------------------------------------#
 
 	#funcao que quando chamada retorna a trajetoria de pontos
-	def vstpFunc(self,iniX,iniY,goalx,goaly):
+	def vstpFunc(self,iniX,iniY,goalx,goaly,keep):
 		#coordenadas de partida (inicio)
 		print "odomx: %f odomy: %f" % (iniX,iniY)
 		#coordenadas de destino (fim)
@@ -385,11 +423,11 @@ class coordinator():
 		self.v.init(self.robotRadius,self.gridResolution,self.idealDist,self.maxDist)
 		self.mapsegs = self.v.loadMap(MAP)
 		self.computeMapLimits();
-		self.traj_points =self.v.planTrajectory(iniX,iniY,goalx,goaly,True)
+		self.traj_points =self.v.planTrajectory(iniX,iniY,goalx,goaly,keep)
 		#chamada a funcao que divide a trajectoria
 		self.trajDivider()
 		#chamada a criacao do thread do mapa
-		self.toThread()
+		
 		
 		#chamada servico para adicionar os pontos ao modulo de navegacao
 		#self.addpoint_client()
@@ -404,8 +442,9 @@ if __name__ == "__main__":
 	print "Coordinator Initialization..."
 	boss=coordinator()
 	boss.readFile(traj1)
-	boss.vstpFunc(1,1,55,3)
-	#boss.vstpFunc(55,3,59,3)
+	boss.toThread()
+	#boss.vstpFunc(1,1,55,3,False)
+	#boss.vstpFunc(55,3,59,3,False)
 	#boss.addpoint_client()
 
 	print "Coordinator Ready!"
@@ -418,10 +457,10 @@ if __name__ == "__main__":
 	'''
 	#boss.vstpFunc(0,0,55,0)
 
-	#boss.vstpFunc(1,1,55,3)
-	#boss.vstpFunc(55,3,55,10)
+	#boss.vstpFunc(1,1,55,3,False)
+	#boss.vstpFunc(55,3,55,10,False)
 	#boss.addpoint_client()
-	#boss.vstpFunc(2,2,0,0)
+	#boss.vstpFunc(2,2,0,0,False)
 
 	#rospy.sleep(2.)	
 	#boss.go_client()

@@ -70,11 +70,13 @@ class Perception():
 	
 	
 	#escolher segundo a odometria o sensor mais adequado a usar por causa dos vidros
+	#alterar os k para zero em vez dos valores dos sensores
 	def chooseSensor():
 
 		#se resumir o robo a um ponto e esse ponto estiver dentro da area de um rectangulo
 		#primeiras janelas ao pe da secretaria
 		if ((minx <= self.odomX <= maxx) and (miny <= self.odomY <= maxy)):
+
 			self.x2_ir1=self.x2_ir2=self.x2_ir3=self.x2_ir4=0
 
 		#janelas ao pe do auditorio
@@ -82,6 +84,7 @@ class Perception():
 		elif ((minx <= self.odomX <= maxx) and (miny <= self.odomY <= maxy)):
 			#if(self.odomTheta == )
 			self.x2_ir1=self.x2_ir2=self.x2_ir3=self.x2_ir4=0
+			
 		#entrada ISR, mas depende da orientacao
 		elif
 
@@ -93,35 +96,36 @@ class Perception():
 #---------------------------------------------------------------------------------------------------------------------------#
 
 	#funcao para calcular o vector c dir inversa a partir da distancia proveniente dos sensores
+	#ja tem em atencao que so calcula o vetor quando a distancia e inferior a um determinado limiar
 	def createVectors():
-		if (self.ir1 < left):
+		if (self.sensorValues.ir1 < left):
 			#cos(self.odomTheta+Pi+Pi/2)
-			self.x2_ir1 = (k1 / self.ir1) * cos(self.odomTheta+4.712) + self.odomX
-			self.y2_ir1 = (k1 / self.ir1) * cos(self.odomTheta+4.712) + self.odomY
+			self.x2_ir1 = (k1 / self.sensorValues.ir1) * cos(self.odomTheta+4.712) + self.odomX
+			self.y2_ir1 = (k1 / self.sensorValues.ir1) * cos(self.odomTheta+4.712) + self.odomY
 
-		if (self.s1 < left):
-			self.x2_s1 = (k1 / self.s1) * cos(self.odomTheta+4.712) + self.odomX
-			self.y2_s1 = (k1 / self.s1) * cos(self.odomTheta+4.712) + self.odomY
+		if (self.sensorValues.s1 < left):
+			self.x2_s1 = (k1 / self.sensorValues.s1) * cos(self.odomTheta+4.712) + self.odomX
+			self.y2_s1 = (k1 / self.sensorValues.s1) * cos(self.odomTheta+4.712) + self.odomY
 
-		if(self.ir2 < right):
-			self.x2_ir2 = (k2 / self.ir2) * cos(self.odomTheta+1.571) + self.odomX
-			self.y2_ir2 = (k2 / self.ir2) * cos(self.odomTheta+1.571) + self.odomY
+		if(self.sensorValues.ir2 < right):
+			self.x2_ir2 = (k2 / self.sensorValues.ir2) * cos(self.odomTheta+1.571) + self.odomX
+			self.y2_ir2 = (k2 / self.sensorValues.ir2) * cos(self.odomTheta+1.571) + self.odomY
 
-		if(self.s2 < right):
-			self.x2_s2 = (k2 / self.s2) * cos(self.odomTheta+1.571) + self.odomX
-			self.y2_s2 = (k2 / self.s2) * cos(self.odomTheta+1.571) + self.odomY
+		if(self.sensorValues.s2 < right):
+			self.x2_s2 = (k2 / self.sensorValues.s2) * cos(self.odomTheta+1.571) + self.odomX
+			self.y2_s2 = (k2 / self.sensorValues.s2) * cos(self.odomTheta+1.571) + self.odomY
 
-		if(self.ir3 < fleft):
-			self.x2_ir3 = (k3 / self.ir3) * cos(self.odomTheta+2.356) + self.odomX
-			self.y2_ir3 = (k3 / self.ir3) * cos(self.odomTheta+2.356) + self.odomY
+		if(self.sensorValues.ir3 < fleft):
+			self.x2_ir3 = (k3 / self.sensorValues.ir3) * cos(self.odomTheta+2.356) + self.odomX
+			self.y2_ir3 = (k3 / self.sensorValues.ir3) * cos(self.odomTheta+2.356) + self.odomY
 
-		if(self.ir4 < fright):
-			self.x2_ir4 = (k4 / self.ir4) * cos(self.odomTheta+3.927) + self.odomX
-			self.y2_ir4 = (k4 / self.ir4) * cos(self.odomTheta+3.927) + self.odomY
+		if(self.sensorValues.ir4 < fright):
+			self.x2_ir4 = (k4 / self.sensorValues.ir4) * cos(self.odomTheta+3.927) + self.odomX
+			self.y2_ir4 = (k4 / self.sensorValues.ir4) * cos(self.odomTheta+3.927) + self.odomY
 
-		if(self.s5 < front):
-			self.x2_s5 = (k5 / self.s5) * cos(self.odomTheta+math.pi) + self.odomX
-			self.y2_s5 = (k5 / self.s5) * cos(self.odomTheta+math.pi) + self.odomY
+		if(self.sensorValues.s5 < front):
+			self.x2_s5 = (k5 / self.sensorValues.s5) * cos(self.odomTheta+math.pi) + self.odomX
+			self.y2_s5 = (k5 / self.sensorValues.s5) * cos(self.odomTheta+math.pi) + self.odomY
 
 
 
