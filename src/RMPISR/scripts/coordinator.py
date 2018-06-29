@@ -278,17 +278,22 @@ class coordinator():
 
 
 #---------------------------------------------------------------------------------------------------------------------------#
+	'''
 
+	x = StringVar() # Holds a string; default value ""
+	x = IntVar() # Holds an integer; default value 0
+	x = DoubleVar() # Holds a float; default value 0.0
+	x = BooleanVar() # Holds a boolean, returns 0 for False and 1 for True
+	'''
+
+	#https://stackoverflow.com/questions/10158552/how-to-use-an-image-for-the-background-in-tkinter
 
 	def criaGui(self):
 
 		window = Tkinter.Tk()
 		window.title("Manager")
 		window.geometry('350x400')
-		window.configure(background = "white")
-
-
-		clear = bool()
+		window.configure(background = "grey")
 
 		places = {}
 
@@ -310,9 +315,9 @@ class coordinator():
 			result = places[selected]
 			#msg = result[1]
 			#lbl_output["text"] = msg
-			print "clear: ", clear
+			print "clear: ", clear.get()
 			print "teste result:",result[0], result[1]
-			self.vstpFunc(self.trueodomX, self.trueodomY, result[0],result[1],True)
+			self.vstpFunc(self.trueodomX, self.trueodomY, result[0],result[1],clear.get())
 
 		def resume():
 			self.go_client()
@@ -338,16 +343,17 @@ class coordinator():
 		'''
 		btn_lets_go = Tkinter.Button(window, text ="Calculate path", command = calculateCourse)
 		btn_lets_go.pack()
+		#self.button.grid(row = 2, column = 2, sticky = W)
 
-		btn_stop = Tkinter.Button(window, text ="Stop Segway", command = stopSegway)
-		btn_stop.pack()
-
-		btn_resume = Tkinter.Button(window, text ="Resume destination", command = resume)
+		btn_resume = Tkinter.Button(window, text ="Resume destination", command = resume, fg = "white", bg = "forestgreen", activebackground = "green3", activeforeground = "white")
 		btn_resume.pack()
 
+		btn_stop = Tkinter.Button(window, text ="Stop Segway", command = stopSegway, fg = "white", bg = "red3", activebackground = "red2", activeforeground = "white")
+		btn_stop.pack()
 
+		clear = Tkinter.BooleanVar()
 		check_box = Tkinter.Checkbutton(window,text = "Clear places to visit", variable = clear, onvalue = True, offvalue = False, \
-										height = 5, width = 20)
+										height = 1, width = 15)
 		check_box.pack()
 
 
@@ -378,32 +384,32 @@ class coordinator():
 
 		for i in range(1,size):
 
-		    # inicializacao da nova trajectoria
-		    self.aux_traj.x = self.traj_points[i-1].x
-		    self.aux_traj.y = self.traj_points[i-1].y
+			# inicializacao da nova trajectoria
+			self.aux_traj.x = self.traj_points[i-1].x
+			self.aux_traj.y = self.traj_points[i-1].y
 
-		    #calculo da distancia euclidiana
-		    d = math.sqrt(math.pow((self.traj_points[i].x-self.traj_points[i-1].x),2) + math.pow((self.traj_points[i].y-self.traj_points[i-1].y),2))
-		    #versor em X
-		    versorX = (self.traj_points[i].x - self.traj_points[i-1].x) / d
-		    #versor em Y
-		    versorY = (self.traj_points[i].y - self.traj_points[i-1].y) / d
+			#calculo da distancia euclidiana
+			d = math.sqrt(math.pow((self.traj_points[i].x-self.traj_points[i-1].x),2) + math.pow((self.traj_points[i].y-self.traj_points[i-1].y),2))
+			#versor em X
+			versorX = (self.traj_points[i].x - self.traj_points[i-1].x) / d
+			#versor em Y
+			versorY = (self.traj_points[i].y - self.traj_points[i-1].y) / d
 
-		    #quantas vezes cabe a minha scale na distancia entre os pontos
-		    #vezes que tenho de incrementar o ciclo
-		    k = int(math.ceil(d/scale))
+			#quantas vezes cabe a minha scale na distancia entre os pontos
+			#vezes que tenho de incrementar o ciclo
+			k = int(math.ceil(d/scale))
 
-		    #valor do incremento por iteracao
-		    inc= d/k
+			#valor do incremento por iteracao
+			inc= d/k
 
-		    print "d: %f versorX: %f versorY: %f k: %f inc: %f" % (d,versorX,versorY,k,inc)
+			print "d: %f versorX: %f versorY: %f k: %f inc: %f" % (d,versorX,versorY,k,inc)
 
 
-		    for j in xrange(k):
-		        self.aux_traj.x = self.aux_traj.x + (inc*versorX)
-		        self.aux_traj.y = self.aux_traj.y + (inc*versorY)
-		        self.new_traj.append(copy.deepcopy(self.aux_traj))
-		    
+			for j in xrange(k):
+				self.aux_traj.x = self.aux_traj.x + (inc*versorX)
+				self.aux_traj.y = self.aux_traj.y + (inc*versorY)
+				self.new_traj.append(copy.deepcopy(self.aux_traj))
+			
 
 		print "lista final: \n" , self.new_traj
 
