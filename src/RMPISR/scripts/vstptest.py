@@ -195,7 +195,7 @@ class robotTrajectory:
                                                                                                     (self.rectorig.y-self.dispoffy)/self.racioy + self.mapminy,
                                                                                                     (self.rectdest.x-self.dispoffx)/self.raciox + self.mapminx,
                                                                                                     (self.rectdest.y- self.dispoffy)/self.racioy+self.mapminy,True)
-                                                        self.trajDivider()
+                                                        #self.trajDivider()
                                                         self.rectorig_draging = False
                                                         self.rectdest_draging = False
                                                         

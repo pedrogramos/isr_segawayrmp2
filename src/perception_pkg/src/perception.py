@@ -14,16 +14,18 @@ from perception_pkg.srv import *
 #rosrun rosserial_python serial_node.py /dev/ttyACM0
 #rosrun rosserial_python serial_node.py _port:=/dev/ttyACM0 _baud:=115200
 
-k1=40
-k2=40
-k3=40
-k4=40
-k5=30
+gain1 = 40
+gain11 = 40
+gain2 = 40
+gain22 = 40
+gain3 = 40
+gain4 = 40
+gain5 = 30
 
 #definicao das distancias a partir das quais o calculo de vectores deve ser feito
 left = right = 40
 fleft = fright = 40
-front = 30
+front = 40
 
 class Perception():
 
@@ -65,7 +67,7 @@ class Perception():
 		except rospy.ServiceException, e:
 			print "Adding obstacle service call failed: %s" % e
 
-
+'''
 #---------------------------------------------------------------------------------------------------------------------------#
 	
 	
@@ -76,23 +78,41 @@ class Perception():
 		#se resumir o robo a um ponto e esse ponto estiver dentro da area de um rectangulo
 		#primeiras janelas ao pe da secretaria
 		if ((minx <= self.odomX <= maxx) and (miny <= self.odomY <= maxy)):
-
-			self.x2_ir1=self.x2_ir2=self.x2_ir3=self.x2_ir4=0
+			print "\nEstou nas vidraças da contabilidade"
+			k1 = k2 = k3 = k4 = 0
+			k12 = gain12
+			k22 = gain22
+			#self.x2_ir1=self.x2_ir2=self.x2_ir3=self.x2_ir4=0
 
 		#janelas ao pe do auditorio
 		#adicionar o theta porque so existem vidracas de um dos lados
+		'''
 		elif ((minx <= self.odomX <= maxx) and (miny <= self.odomY <= maxy)):
 			#if(self.odomTheta == )
-			self.x2_ir1=self.x2_ir2=self.x2_ir3=self.x2_ir4=0
+			k1 = k2 = k3 = k4 = 0
+			k12 = gain12
+			k22 = gain22
+			#self.x2_ir1=self.x2_ir2=self.x2_ir3=self.x2_ir4=0
+		'''
 			
 		#entrada ISR, mas depende da orientacao
-		elif
+		elif ((minx <= self.odomX <= maxx) and (miny <= self.odomY <= maxy)):
+			print "\nTenho as vidraças da entrada do meu lado direito"
 
+
+		#restante do mapa
 		else:
-			self.x2_s1=self.x2_s2=0
+			#no resto do mapa não quero usar os valores dos sonares
+			k12 = k22 = 0
+			#atribuir novamente os ganhos aos IR sensors
+			k1 = gain1
+			k2 = gain2 
+			k3 = gain3
+			k4 = gain4
+
 		
 
-'''
+
 #---------------------------------------------------------------------------------------------------------------------------#
 
 	#funcao para calcular o vector c dir inversa a partir da distancia proveniente dos sensores
@@ -104,16 +124,16 @@ class Perception():
 			self.y2_ir1 = (k1 / self.sensorValues.ir1) * cos(self.odomTheta+4.712) + self.odomY
 
 		if (self.sensorValues.s1 < left):
-			self.x2_s1 = (k1 / self.sensorValues.s1) * cos(self.odomTheta+4.712) + self.odomX
-			self.y2_s1 = (k1 / self.sensorValues.s1) * cos(self.odomTheta+4.712) + self.odomY
+			self.x2_s1 = (k12 / self.sensorValues.s1) * cos(self.odomTheta+4.712) + self.odomX
+			self.y2_s1 = (k12 / self.sensorValues.s1) * cos(self.odomTheta+4.712) + self.odomY
 
 		if(self.sensorValues.ir2 < right):
 			self.x2_ir2 = (k2 / self.sensorValues.ir2) * cos(self.odomTheta+1.571) + self.odomX
 			self.y2_ir2 = (k2 / self.sensorValues.ir2) * cos(self.odomTheta+1.571) + self.odomY
 
 		if(self.sensorValues.s2 < right):
-			self.x2_s2 = (k2 / self.sensorValues.s2) * cos(self.odomTheta+1.571) + self.odomX
-			self.y2_s2 = (k2 / self.sensorValues.s2) * cos(self.odomTheta+1.571) + self.odomY
+			self.x2_s2 = (k22 / self.sensorValues.s2) * cos(self.odomTheta+1.571) + self.odomX
+			self.y2_s2 = (k22 / self.sensorValues.s2) * cos(self.odomTheta+1.571) + self.odomY
 
 		if(self.sensorValues.ir3 < fleft):
 			self.x2_ir3 = (k3 / self.sensorValues.ir3) * cos(self.odomTheta+2.356) + self.odomX
@@ -142,6 +162,7 @@ class Perception():
 
 
 #---------------------------------------------------------------------------------------------------------------------------#
+'''	
 	def representVectors():
 
 		plt.figure()
@@ -150,7 +171,7 @@ class Perception():
 		plt.draw()
 		plt.show()
 
-
+'''
 
 
 

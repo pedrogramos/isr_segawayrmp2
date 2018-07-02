@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 import rospy
 import sys
 import numpy as np
@@ -25,7 +26,8 @@ import Tkinter
 
 #no ISR
 sys.path.insert(0,'/home/rmp/lib/python')
-MAP='/home/rmp/catkin_ws/src/RMPISR/scripts/ISRfile2.xml'
+#MAP='/home/rmp/catkin_ws/src/RMPISR/scripts/ISRfile2.xml'
+MAP='/home/rmp/catkin_ws/src/RMPISR/scripts/novo.xml'
 import vstpPY
 
 traj1='/home/rmp/catkin_ws/src/RMPISR/scripts/DemonstrationPoints3new.csv'
@@ -41,7 +43,7 @@ STATE TABLE:
 
 class coordinator():
 	#robotRadius = 0.65, why 0.74 
-	def __init__(self,robotRadius=0.74,gridResolution=0.2,idealDist=0.8,maxDist=1):
+	def __init__(self,robotRadius=0.35,gridResolution=0.1,idealDist=0.5,maxDist=1):
 		self.robotRadius=robotRadius
 		self.gridResolution=gridResolution
 		self.idealDist=idealDist
@@ -70,7 +72,6 @@ class coordinator():
 		self.state=0
 		self.son=bool()
 		self.traj_points=[]
-		self.rectorig = pygame.rect.Rect(10,10,10,10)
 
 
 	#Callback function implementing the pose value received
@@ -86,13 +87,12 @@ class coordinator():
 		self.trueodomTheta=data.theta
 
 #---------------------------------------------------------------------------------------------------------------------------#
-
+	#function for adding obstacle with this coordinates to the map so the planner can be called again
 	def def_add_obstacle(self,req):
 		self.xobst = req.xobj
 		self.yobst = req.yobj
 
 		print "xobj: ", self.xobst, "yobj: ", self.yobst
-
 
 #---------------------------------------------------------------------------------------------------------------------------#
 
@@ -173,7 +173,7 @@ class coordinator():
 
 			resp1 = addpoint_.call(pointArray, True, size)
 
-			print "servico addpoint"
+			print "Points added with sucess!"
 		except rospy.ServiceException, e:
 			print "Service call failed: %s"%e
 
@@ -223,45 +223,61 @@ class coordinator():
 		print "minX: %f, minY: %f, MAXX: %f, MAXY: %f" % (self.mapminx,self.mapminy,self.mapmaxx,self.mapmaxy)
 
 #---------------------------------------------------------------------------------------------------------------------------#
+
+	def initScreen(self,dx=600,dy=680):
+	        pygame.init()
+	        self.displayx=dx
+	        self.displayy=dy
+	        self.screen = pygame.display.set_mode((dx, dy))
+	        pygame.display.set_caption("Representacao da posicao do modulo RMP")
+	        self.dispoffx=2
+	        self.dispoffy=2
+
+#---------------------------------------------------------------------------------------------------------------------------#
+
+	def LoadMapNRobot(self):
+	    self.v=vstpPY.VSTP()
+	    self.v.init(self.robotRadius,self.gridResolution,self.idealDist,self.maxDist)
+	    self.mapsegs = self.v.loadMap(MAP)
+
+	    self.computeMapLimits()
+
+	    self.raciox = (self.displayx-5)/(self.mapmaxx-self.mapminx)
+	    self.racioy = (self.displayy-5)/(self.mapmaxy-self.mapminy)
+
+	    #print "Racio: ", self.raciox
+
+
+#---------------------------------------------------------------------------------------------------------------------------#
 		
 	def criaMapa(self,displayx=800,displayy=480):
 		
-		raciox=(displayx-5)/(self.mapmaxx-self.mapminx)
-		racioy=(displayy-5)/(self.mapmaxy-self.mapminy)
-
-
-		#gamepy inicialization window
-		screen = pygame.display.set_mode((displayx, displayy))
-		#screen = pygame.transform.flip(screen,0,1)
-
-		pygame.display.set_caption("Representacao da posicao do modulo RMP")
-
 		rate = rospy.Rate(5)
 		while not rospy.is_shutdown():
 		
 			try:
-				screen.fill((0,0,0))
+				self.screen.fill((0,0,0))
 				#map segments representation
 				for i in range(len(self.mapsegs)):
-					pygame.draw.line(screen, (255, 255, 255), ((self.mapsegs[i].x0 -self.mapminx)*raciox, (self.mapsegs[i].y0-self.mapminy)*racioy),  ((self.mapsegs[i].x1-self.mapminx)*raciox, (self.mapsegs[i].y1-self.mapminy)*racioy))
-					#pygame.draw.line(screen, (255, 255, 255), (((self.mapsegs[i].x0-displayx) -self.mapminx)*raciox, ((displayy-self.mapsegs[i].y0)-self.mapminy)*racioy),  (((self.mapsegs[i].x1-displayx)-self.mapminx)*raciox, ((displayy-self.mapsegs[i].y1)-self.mapminy)*racioy))
+					pygame.draw.line(self.screen, (255, 255, 255), ((self.mapsegs[i].x0 -self.mapminx)*self.raciox, (self.mapsegs[i].y0-self.mapminy)*self.racioy),  ((self.mapsegs[i].x1-self.mapminx)*self.raciox, (self.mapsegs[i].y1-self.mapminy)*self.racioy))
+					#pygame.draw.line(screen, (255, 255, 255), (((self.mapsegs[i].x0-displayx) -self.mapminx)*self.self.raciox, ((displayy-self.mapsegs[i].y0)-self.mapminy)*self.racioy),  (((self.mapsegs[i].x1-displayx)-self.mapminx)*self.raciox, ((displayy-self.mapsegs[i].y1)-self.mapminy)*self.racioy))
 					#pygame.draw.line(screen, (255, 255, 255), ((self.mapsegs[i].x0-displayx), (displayy-self.mapsegs[i].y0)),  ((self.mapsegs[i].x1-displayx), (displayy-self.mapsegs[i].y1)))
-					#pygame.draw.line(screen, (255, 255, 255), ((((self.mapsegs[i].x0 -self.mapminx)*raciox)-displayx), (displayy-((self.mapsegs[i].y0-self.mapminy)*racioy))),  ((((self.mapsegs[i].x1-self.mapminx)*raciox)-displayx), (displayy-(self.mapsegs[i].y1-self.mapminy)*racioy)))
+					#pygame.draw.line(screen, (255, 255, 255), ((((self.mapsegs[i].x0 -self.mapminx)*self.self.raciox)-displayx), (displayy-((self.mapsegs[i].y0-self.mapminy)*self.racioy))),  ((((self.mapsegs[i].x1-self.mapminx)*self.raciox)-displayx), (displayy-(self.mapsegs[i].y1-self.mapminy)*self.racioy)))
 
 
 				#trajectory representation
 				'''
 				for i in range(1,len(self.traj_points)):
-					pygame.draw.line(screen, (0, 255,255), ((self.traj_points[i-1].x-self.mapminx)*raciox, (self.traj_points[i-1].y-self.mapminy)*racioy),  ((self.traj_points[i].x-self.mapminx)*raciox, (self.traj_points[i].y-self.mapminy)*racioy))
+					pygame.draw.line(screen, (0, 255,255), ((self.traj_points[i-1].x-self.mapminx)*self.self.raciox, (self.traj_points[i-1].y-self.mapminy)*self.racioy),  ((self.traj_points[i].x-self.mapminx)*self.raciox, (self.traj_points[i].y-self.mapminy)*self.racioy))
 				'''
 
 				for i in range(1,len(self.new_traj)):
-					pygame.draw.line(screen, (255, 0, 0), ((self.new_traj[i-1].x-self.mapminx)*raciox, (self.new_traj[i-1].y-self.mapminy)*racioy),  ((self.new_traj[i].x-self.mapminx)*raciox, (self.new_traj[i].y-self.mapminy)*racioy))
+					pygame.draw.line(self.screen, (255, 0, 0), ((self.new_traj[i-1].x-self.mapminx)*self.raciox, (self.new_traj[i-1].y-self.mapminy)*self.racioy),  ((self.new_traj[i].x-self.mapminx)*self.raciox, (self.new_traj[i].y-self.mapminy)*self.racioy))
 				
 				#real odometry representation
-				pygame.draw.circle(screen, (255, 0, 0), [int((self.trueodomX-self.mapminx)*raciox), int((self.trueodomY-self.mapminy)*racioy)], int(self.robotRadius*raciox))
+				pygame.draw.circle(self.screen, (255, 0, 0), [int((self.trueodomX-self.mapminx)*self.raciox), int((self.trueodomY-self.mapminy)*self.racioy)], int(self.robotRadius*self.raciox))
 				#false odometry representation
-				pygame.draw.circle(screen, (255, 0, 0), [int((self.falseodomX-self.mapminx)*raciox), int((self.falseodomY-self.mapminy)*racioy)], int(self.robotRadius*raciox))
+				pygame.draw.circle(self.screen, (255, 0, 0), [int((self.falseodomX-self.mapminx)*self.raciox), int((self.falseodomY-self.mapminy)*self.racioy)], int(self.robotRadius*self.raciox))
 
 
 
@@ -275,11 +291,9 @@ class coordinator():
 				pygame.quit()
 				sys.exit()
 
-
-
 #---------------------------------------------------------------------------------------------------------------------------#
-	'''
 
+	'''
 	x = StringVar() # Holds a string; default value ""
 	x = IntVar() # Holds an integer; default value 0
 	x = DoubleVar() # Holds a float; default value 0.0
@@ -302,6 +316,8 @@ class coordinator():
 		places ["Accounting"] = [30,50]
 		places ["Lab: Computer Vision"] = [10,10]
 		places ["Lab: Immersive Systems"] = [11,11]
+		places ["Lab: Mechatronics"] = [111,5454]
+		places ["Accounting 2"] = [21,22]
 
 
 		def show_all():
@@ -361,20 +377,26 @@ class coordinator():
 		show_all()
 		window.mainloop()
 
-
-
-#---------------------------------------------------------------------------------------------------------------------------#
-		
+#---------------------------------------------------------------------------------------------------------------------------#	
 			
 	#thread para a const actualizacao da posicao do robot no display
-	def toThread(self):
-		mapThread = threading.Thread(target=self.criaGui)
+	def toThreadMap(self):
+		mapThread = threading.Thread(target=self.criaMapa)
+		#mapThread = threading.Thread(target=self.criaGui)
 		mapThread.daemon=True
 		mapThread.start()
 		#mapThread.join()
 
 #---------------------------------------------------------------------------------------------------------------------------#
 
+	def toThreadGui(self):
+		guiThread = threading.Thread(target=self.criaGui)
+		guiThread.daemon = True
+		guiThread.start()
+		#mapThread.join()
+
+
+#---------------------------------------------------------------------------------------------------------------------------#
 
 	#divisao do segmentos provenientes do VSTP em segmentos mais pequenos
 	#scale -> tamanho maximo dos segmentos desejados
@@ -413,9 +435,6 @@ class coordinator():
 
 		print "lista final: \n" , self.new_traj
 
-
-
-
 #---------------------------------------------------------------------------------------------------------------------------#
 
 	#funcao que quando chamada retorna a trajetoria de pontos
@@ -423,22 +442,25 @@ class coordinator():
 		#coordenadas de partida (inicio)
 		print "odomx: %f odomy: %f" % (iniX,iniY)
 		#coordenadas de destino (fim)
-		print "goalx: %f goaly: %f" % (goaly,goaly)
-
-		self.v=vstpPY.VSTP() #criacao do objeto
-		self.v.init(self.robotRadius,self.gridResolution,self.idealDist,self.maxDist)
-		self.mapsegs = self.v.loadMap(MAP)
-		self.computeMapLimits();
-		self.traj_points =self.v.planTrajectory(iniX,iniY,goalx,goaly,keep)
-		#chamada a funcao que divide a trajectoria
-		self.trajDivider()
-		#chamada a criacao do thread do mapa
+		print "goalx: %f goaly: %f" % (goalx,goaly)
+		'''
+		iniX2 = (iniX-self.mapminx)*self.raciox
+		iniY2 = (iniY-self.mapminy)*self.racioy
+		goalx2 = (goaly-self.mapminx)*self.raciox
+		goaly2 = (goalx-self.mapminy)*self.racioy
+		'''
 		
+
+		self.traj_points =self.v.planTrajectory(iniX,iniY,goalx,goaly,keep)
+		#self.traj_points =self.v.planTrajectory(iniX2,iniY2,goalx2,goaly2,keep)
+		#chamada a funcao que divide a trajectoria
+		#self.trajDivider()
+		#chamada a criacao do thread do mapa
+		self.toThreadMap()
+
 		
 		#chamada servico para adicionar os pontos ao modulo de navegacao
 		#self.addpoint_client()
-		
-		
 
 #---------------------------------------------------------------------------------------------------------------------------#
 
@@ -448,8 +470,10 @@ if __name__ == "__main__":
 	print "Coordinator Initialization..."
 	boss=coordinator()
 	boss.readFile(traj1)
-	boss.toThread()
-	#boss.vstpFunc(1,1,55,3,False)
+	boss.initScreen()
+	boss.LoadMapNRobot()
+	#boss.toThreadMap()
+	boss.vstpFunc(4,0.5,0.9,25,True)
 	#boss.vstpFunc(55,3,59,3,False)
 	#boss.addpoint_client()
 

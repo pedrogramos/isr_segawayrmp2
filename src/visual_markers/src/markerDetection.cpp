@@ -209,7 +209,7 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
 
 
 //-----------------------------------------------------//
-
+/*
   // Transf World to Marker
   glm::mat4 M0, M1, M2, M3;
   glm::mat4 M_use;
@@ -233,7 +233,7 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
   M3[1] = glm::vec4(0.0,0.0,1.0,0.0);
   M3[2] = glm::vec4(0.0,1.0,0.0,0.0);
   M3[3] = glm::vec4(0.0,0.0,800.0,1.0);
-
+*/
 
   //para a demostração
   glm::mat4 Ma, Mb, Mc, Md, Mc2, novo;
@@ -269,6 +269,42 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
   Md[2] = glm::vec4(1.0,0.0,0.0,0.0);
   Md[3] = glm::vec4(setValues.at(10),setValues.at(11),setValues.at(12),1.0);
 
+
+  //-------------------------------------------------------------------------------------------
+
+
+
+  Ma[0] = glm::vec4(1.0,0.0,0.0,0.0);
+  Ma[1] = glm::vec4(0.0,0.0,1.0,0.0);
+  Ma[2] = glm::vec4(0.0,-1.0,0.0,0.0);
+  Ma[3] = glm::vec4(setValues.at(1),setValues.at(2),setValues.at(3),1.0);
+
+  //2º ponto - Marker nº 127
+  Mb[0] = glm::vec4(1.0,0.0,0.0,0.0);
+  Mb[1] = glm::vec4(0.0,0.0,1.0,0.0);
+  Mb[2] = glm::vec4(0.0,-1.0,0.0,0.0);
+  Mb[3] = glm::vec4(setValues.at(4),setValues.at(5),setValues.at(6),1.0);
+
+  //4º ponto - Marker nº 150
+  Mc[0] = glm::vec4(0.0,1.0,0.0,0.0);
+  Mc[1] = glm::vec4(0.0,0.0,1.0,0.0);
+  Mc[2] = glm::vec4(1.0,0.0,0.0,0.0);
+  Mc[3] = glm::vec4(setValues.at(7),setValues.at(8),setValues.at(9),1.0);
+
+  Mc2[0] = glm::vec4(-1.0,0.0,0.0,0.0);
+  Mc2[1] = glm::vec4(0.0,0.0,-1.0,0.0);
+  Mc2[2] = glm::vec4(0.0,-1.0,0.0,0.0);
+  Mc2[3] = glm::vec4(setValues.at(10),setValues.at(11),setValues.at(12),1.0);
+
+
+  //3º ponto - Marker nº 200
+  Md[0] = glm::vec4(0.0,1.0,0.0,0.0);
+  Md[1] = glm::vec4(0.0,0.0,1.0,0.0);
+  Md[2] = glm::vec4(1.0,0.0,0.0,0.0);
+  Md[3] = glm::vec4(setValues.at(10),setValues.at(11),setValues.at(12),1.0);
+
+
+ //-------------------------------------------------------------------------------------------  
 
   // This part corresponds to the typical initialization of an application
   
@@ -324,7 +360,7 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
       printf("Camera parameters loaded\n");
 
   oaCamera * cam;
-  cam=new oaCamera;
+  cam = new oaCamera;
   //cam->perspective(
   std::cout << "K="<<cammodel.IntrinsicMatrix<<std::endl;
   

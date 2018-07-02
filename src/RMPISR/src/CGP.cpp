@@ -103,6 +103,7 @@ SendVelocity::SendVelocity(){
 
 }
 
+//---------------------------------------------------------------------------------------------------------------------------#
 
 void SendVelocity::sendVel(double line_x, double ang_z){
 
@@ -115,12 +116,15 @@ void SendVelocity::sendVel(double line_x, double ang_z){
   return;
 }
 
+//---------------------------------------------------------------------------------------------------------------------------#
 
 void SendVelocity::stopRMP(){
 
   sendVel(0.0,0.0);
   ROS_INFO("STOP!!");
 }
+
+//---------------------------------------------------------------------------------------------------------------------------#
 
 //RMP ROS Package
 /*
@@ -137,6 +141,7 @@ void SendVelocity::odomCallback(const nav_msgs::Odometry::ConstPtr& msg){
 
 }*/
 
+//---------------------------------------------------------------------------------------------------------------------------#
 
 // já é a minha função de odometria implemtada
 void SendVelocity::odomCallback(const geometry_msgs::Pose2D::ConstPtr& msg){
@@ -148,7 +153,7 @@ void SendVelocity::odomCallback(const geometry_msgs::Pose2D::ConstPtr& msg){
 
 }
 
-
+//---------------------------------------------------------------------------------------------------------------------------#
 
 void SendVelocity::vecCallback(const geometry_msgs::Point::ConstPtr& data){
 
@@ -157,6 +162,9 @@ void SendVelocity::vecCallback(const geometry_msgs::Point::ConstPtr& data){
 
 }
 
+//---------------------------------------------------------------------------------------------------------------------------#
+
+//funcao original do calculo das velocidades
 
 void SendVelocity::goTo(float xf, float yf,float limiar){
   // calculo do módulo
@@ -218,6 +226,80 @@ void SendVelocity::goTo(float xf, float yf,float limiar){
     //infoOdom();
   } 
 
+/*
+void SendVelocity::goTo(float xf, float yf,float limiar){
+
+  //soma do vector total repulsivo com o vector atractivo
+  vecResX = repulsive.x + xf;
+  vecResY = repulsive.y + yf;
+
+
+  // calculo do módulo
+  float d=sqrt(pow((vecResX-odomNew.x),2)+pow((vecResY-odomNew.y),2));
+  // calculo da circunferencia de bullseye
+  //float c=pow((vecResX-odomNew.x),2)+pow((vecResY-odomNew.y),2);
+  float c=pow((xf-odomNew.x),2)+pow((yf-odomNew.y),2);
+  // calculo do versor para comparacao da direcao da plataforma
+  float dxini = (xf-odomNew.x) / d;
+  float dyini = (yf-odomNew.y) / d;
+
+
+  ROS_INFO("Proximo ponto: X= %f e Y= %f.",xf, yf);
+
+  //enquanto o RMP estiver fora do raio da circunferencia c centro no ponto destino
+  while (c>pow(limiar,2) && opposite == false){
+
+    c=pow((xf-odomNew.x),2)+pow((yf-odomNew.y),2);
+    d=sqrt(pow((vecResX-odomNew.x),2)+pow((vecResY-odomNew.y),2));
+
+    // vetores normalizados -> versor
+    float dx=(vecResX-odomNew.x ) / d;
+    float dy=(vecResY-odomNew.y) / d;
+
+    // calculo velocidades a enviar
+    float vx=cos(odomNew.theta)*dx+sin(odomNew.theta)*dy;
+    float vy=cos(odomNew.theta)*dy-sin(odomNew.theta)*dx;
+    
+    // projecções * os ganhos
+    sendVel(vx*Kl,vy*Kw);
+
+    // se for detectado um marcador e sinalizado com um servico e com esta variavel
+    // usado para comparar se o robo continua com a mesma direccao ou nao
+    // problema existente de quando ele detectava um marcador voltava para tras
+    if (error_received){
+      printf("send velocity function next point check \n");
+      float res = dxini*dx + dyini*dy; // calculo do produto interno entre os dois versores
+      ROS_INFO("resultado do produto interno: %f", res);
+      if (res<-0.8) opposite=true; // sentido diferente, quero sair do ciclo
+      error_received=false; // reset à flag do serviço recebido
+    }
+ 
+
+
+    //ROS_INFO("vx= %f vw= %f", vx*Kl, vy*Kw);
+    ROS_DEBUG("vx= %f vy= %f d= %f xf= %f yf= %f",vx,vy, d, xf, yf);
+    ros::spinOnce();
+    if (state==STOPPING) return;
+  }//end while
+
+  if (opposite == true){
+    fila_pontos.pop();
+    ROS_INFO("Fiz pop porque o vector estava c sentido contrario");
+
+  } 
+
+
+  if(c<pow(limiar,2))
+    ROS_INFO("Chegou ao ponto: X= %f e Y= %f.",xf, yf);
+    ROS_INFO("Odom: X= %f  Y= %f  Th= %f", odomNew.x, odomNew.y,odomNew.theta);
+    fila_pontos.pop();
+
+    //state=GO;
+    //infoOdom();
+  }
+*/
+  
+//---------------------------------------------------------------------------------------------------------------------------#
 
 bool SendVelocity::def_go(RMPISR::go::Request &req_go,RMPISR::go::Response &res_go)
 {
@@ -226,6 +308,7 @@ bool SendVelocity::def_go(RMPISR::go::Request &req_go,RMPISR::go::Response &res_
   //ROS_INFO("sending back response: [%ld]", (long int)res_go.var);
   return true;
 }
+//---------------------------------------------------------------------------------------------------------------------------#
 
 bool SendVelocity::def_addpoint(RMPISR::addpoint::Request  &req_addpoint, RMPISR::addpoint::Response &res_addpoint)
 {
@@ -268,6 +351,8 @@ for(int i=0;i<req_addpoint.size;i++){
   return true;
 }
 
+//---------------------------------------------------------------------------------------------------------------------------#
+
 bool SendVelocity::def_stop(RMPISR::stop::Request  &req_stop, RMPISR::stop::Response &res_stop)
 {
   state=STOPPING;
@@ -276,6 +361,7 @@ bool SendVelocity::def_stop(RMPISR::stop::Request  &req_stop, RMPISR::stop::Resp
   return true;
 }
 
+//---------------------------------------------------------------------------------------------------------------------------#
 
 bool SendVelocity::def_markerDetected(RMPISR::markerdetected::Request  &req_stop, RMPISR::markerdetected::Response &res_stop){
 
