@@ -272,7 +272,7 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
 
   //-------------------------------------------------------------------------------------------
 
-
+// usados no mundo real
 
   Ma[0] = glm::vec4(1.0,0.0,0.0,0.0);
   Ma[1] = glm::vec4(0.0,0.0,1.0,0.0);

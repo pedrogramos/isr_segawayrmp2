@@ -311,13 +311,13 @@ class coordinator():
 
 		places = {}
 
-		places ["Main Hall"] = [55,3]
-		places ["Lab: Mobile Robotics"] = [40,20]
-		places ["Accounting"] = [30,50]
-		places ["Lab: Computer Vision"] = [10,10]
-		places ["Lab: Immersive Systems"] = [11,11]
-		places ["Lab: Mechatronics"] = [111,5454]
-		places ["Accounting 2"] = [21,22]
+		places ["Main Hall"] = [3.6,2.3]
+		places ["Lab: Mobile Robotics"] = [0.91,10.2]
+		places ["Accounting"] = [7.78,6.71]
+		places ["Lab: Computer Vision"] = [0.91,28.55]
+		places ["Lab: Immersive Systems"] = [0.91,25.8]
+		places ["Lab: Mechatronics"] = [10.2,21.21]
+		places ["Accounting 2"] = [13,6.71]
 
 
 		def show_all():
@@ -332,7 +332,7 @@ class coordinator():
 			#msg = result[1]
 			#lbl_output["text"] = msg
 			print "clear: ", clear.get()
-			print "teste result:",result[0], result[1]
+			print "teste result:", result[0], result[1]
 			self.vstpFunc(self.trueodomX, self.trueodomY, result[0],result[1],clear.get())
 
 		def resume():

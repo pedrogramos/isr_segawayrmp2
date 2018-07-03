@@ -14,6 +14,7 @@ from perception_pkg.srv import *
 #rosrun rosserial_python serial_node.py /dev/ttyACM0
 #rosrun rosserial_python serial_node.py _port:=/dev/ttyACM0 _baud:=115200
 
+n_sensors = 7
 gain1 = 40
 gain11 = 40
 gain2 = 40
@@ -36,6 +37,8 @@ class Perception():
 		self.repulsive = rospy.Publisher('repulsive_vec',Point, queue_size=10)
 		self.final_vector = Point()
 		self.sensorValues = sensors()
+		self.values = []
+		self.vectores = []
 
 
 	#obter a informacao sensorial
@@ -77,9 +80,10 @@ class Perception():
 
 		#se resumir o robo a um ponto e esse ponto estiver dentro da area de um rectangulo
 		#primeiras janelas ao pe da secretaria
-		if ((minx <= self.odomX <= maxx) and (miny <= self.odomY <= maxy)):
+		if ((9.163 <= self.odomX <= 14.163) and (5.8 <= self.odomY <= 7.5)):
 			print "\nEstou nas vidraças da contabilidade"
 			k1 = k2 = k3 = k4 = 0
+			#ganhos dos sonares
 			k12 = gain12
 			k22 = gain22
 			#self.x2_ir1=self.x2_ir2=self.x2_ir3=self.x2_ir4=0
@@ -96,11 +100,25 @@ class Perception():
 		'''
 			
 		#entrada ISR, mas depende da orientacao
-		elif ((minx <= self.odomX <= maxx) and (miny <= self.odomY <= maxy)):
-			print "\nTenho as vidraças da entrada do meu lado direito"
+		elif ((0 <= self.odomX <= 5) and (0 <= self.odomY <= 5)):
+			if  (-0.3 <= self.odomTheta <= 0.3):
+				print "\nTenho as vidraças da entrada do meu lado direito"
+				k1 = gain1
+				k4 = gain4
+				k2 = k3 = k12 = 0
+				k22 = gain22
 
 
-		#restante do mapa
+			elif ( math.pi-0.3<= self.odomTheta <= math.pi+0.3):
+				print "\nTenho as vidraças da entrada do meu lado esquerdo"
+				k1 = k4 = 0
+				k3 = gain3
+				k2 = gain44
+				k12 = gain12
+				k22 = 0
+
+
+		#restante mapa
 		else:
 			#no resto do mapa não quero usar os valores dos sonares
 			k12 = k22 = 0
@@ -117,48 +135,71 @@ class Perception():
 
 	#funcao para calcular o vector c dir inversa a partir da distancia proveniente dos sensores
 	#ja tem em atencao que so calcula o vetor quando a distancia e inferior a um determinado limiar
-	def createVectors():
+	def calculateEndPoint():
+		toappend = Point()
+
 		if (self.sensorValues.ir1 < left):
 			#cos(self.odomTheta+Pi+Pi/2)
-			self.x2_ir1 = (k1 / self.sensorValues.ir1) * cos(self.odomTheta+4.712) + self.odomX
-			self.y2_ir1 = (k1 / self.sensorValues.ir1) * cos(self.odomTheta+4.712) + self.odomY
+			toappend.x = self.x2_ir1 = (k1 / self.sensorValues.ir1) * cos(self.odomTheta+4.712) + self.odomX
+			toappend.y = self.y2_ir1 = (k1 / self.sensorValues.ir1) * sin(self.odomTheta+4.712) + self.odomY
+			self.values.append(toappend)
 
 		if (self.sensorValues.s1 < left):
-			self.x2_s1 = (k12 / self.sensorValues.s1) * cos(self.odomTheta+4.712) + self.odomX
-			self.y2_s1 = (k12 / self.sensorValues.s1) * cos(self.odomTheta+4.712) + self.odomY
+			toappend.x = self.x2_s1 = (k12 / self.sensorValues.s1) * cos(self.odomTheta+4.712) + self.odomX
+			toappend.y = self.y2_s1 = (k12 / self.sensorValues.s1) * sin(self.odomTheta+4.712) + self.odomY
+			self.values.append(toappend)
 
 		if(self.sensorValues.ir2 < right):
-			self.x2_ir2 = (k2 / self.sensorValues.ir2) * cos(self.odomTheta+1.571) + self.odomX
-			self.y2_ir2 = (k2 / self.sensorValues.ir2) * cos(self.odomTheta+1.571) + self.odomY
+			toappend.x = self.x2_ir2 = (k2 / self.sensorValues.ir2) * cos(self.odomTheta+1.571) + self.odomX
+			toappend.y = self.y2_ir2 = (k2 / self.sensorValues.ir2) * sin(self.odomTheta+1.571) + self.odomY
+			self.values.append(toappend)
 
 		if(self.sensorValues.s2 < right):
-			self.x2_s2 = (k22 / self.sensorValues.s2) * cos(self.odomTheta+1.571) + self.odomX
-			self.y2_s2 = (k22 / self.sensorValues.s2) * cos(self.odomTheta+1.571) + self.odomY
+			toappend.x = self.x2_s2 = (k22 / self.sensorValues.s2) * cos(self.odomTheta+1.571) + self.odomX
+			toappend.y = self.y2_s2 = (k22 / self.sensorValues.s2) * sin(self.odomTheta+1.571) + self.odomY
+			self.values.append(toappend)
 
 		if(self.sensorValues.ir3 < fleft):
-			self.x2_ir3 = (k3 / self.sensorValues.ir3) * cos(self.odomTheta+2.356) + self.odomX
-			self.y2_ir3 = (k3 / self.sensorValues.ir3) * cos(self.odomTheta+2.356) + self.odomY
+			toappend.x = self.x2_ir3 = (k3 / self.sensorValues.ir3) * cos(self.odomTheta+2.356) + self.odomX
+			toappend.y = self.y2_ir3 = (k3 / self.sensorValues.ir3) * sin(self.odomTheta+2.356) + self.odomY
+			self.values.append(toappend)
 
 		if(self.sensorValues.ir4 < fright):
-			self.x2_ir4 = (k4 / self.sensorValues.ir4) * cos(self.odomTheta+3.927) + self.odomX
-			self.y2_ir4 = (k4 / self.sensorValues.ir4) * cos(self.odomTheta+3.927) + self.odomY
+			toappend.x = self.x2_ir4 = (k4 / self.sensorValues.ir4) * cos(self.odomTheta+3.927) + self.odomX
+			toappend.y = self.y2_ir4 = (k4 / self.sensorValues.ir4) * sin(self.odomTheta+3.927) + self.odomY
+			self.values.append(toappend)
 
-		if(self.sensorValues.s5 < front):
-			self.x2_s5 = (k5 / self.sensorValues.s5) * cos(self.odomTheta+math.pi) + self.odomX
-			self.y2_s5 = (k5 / self.sensorValues.s5) * cos(self.odomTheta+math.pi) + self.odomY
+		if( self.sensorValues.s5 < front):
+			toappend.x = self.x2_s5 = (k5 / self.sensorValues.s5) * cos(self.odomTheta+math.pi) + self.odomX
+			toappend.y = self.y2_s5 = (k5 / self.sensorValues.s5) * sin(self.odomTheta+math.pi) + self.odomY
+			self.values.append(toappend)
 
 
+
+#---------------------------------------------------------------------------------------------------------------------------#
+
+	def createVectors():
+
+		toappend = Point()
+		for i in xrange(len(self.values)):
+			
+			toappend.x = (self.values[i].x - self.odomX)
+			toappend.y = (self.values[i].y - self.odomY)
+			self.vectores.append(toappend)
 
 #---------------------------------------------------------------------------------------------------------------------------#
 
 
 	#funcao para fazer a soma de todos os vectores repulsivos	
 	def sumVectors():
-		self.final_vector.x = self.x2_s5 + self.x2_ir4 + self.x2_ir3 + self.x2_s2 + self.x2_ir2 + self.x2_s1 + self.x2_ir1
 
-		self.final_vector.y = self.y2_s5 + self.y2_ir4 + self.y2_ir3 + self.y2_s2 + self.y2_ir2 + self.y2_s1 + self.y2_ir1
+		for i in xrange(len(self.vectores)):
+			self.final_vector.x += self.vectores[i].x
+			self.final_vector.y += self.vectores[i].y
 
 		self.repulsive.publish(self.final_vector)
+
+		del self.vectores[:], self.values[:]
 
 
 #---------------------------------------------------------------------------------------------------------------------------#
@@ -172,14 +213,6 @@ class Perception():
 		plt.show()
 
 '''
-
-
-
-
-
-
-
-
 
 
 '''
@@ -202,6 +235,7 @@ if __name__ == "__main__":
 
 		try:
 			#see.chooseSensor()
+			#see.calculateEndPoint()
 			#see.createVectors()
 			#see.sumVectors()
 			#see.representVectors()
