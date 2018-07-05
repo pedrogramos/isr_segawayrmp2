@@ -165,7 +165,7 @@ void SendVelocity::vecCallback(const geometry_msgs::Point::ConstPtr& data){
 //---------------------------------------------------------------------------------------------------------------------------#
 
 //funcao original do calculo das velocidades
-
+/*
 void SendVelocity::goTo(float xf, float yf,float limiar){
   // calculo do módulo
   float d=sqrt(pow((xf-odomNew.x),2)+pow((yf-odomNew.y),2));
@@ -225,13 +225,13 @@ void SendVelocity::goTo(float xf, float yf,float limiar){
     //state=GO;
     //infoOdom();
   } 
+*/
 
-/*
 void SendVelocity::goTo(float xf, float yf,float limiar){
 
   //soma do vector total repulsivo com o vector atractivo
-  vecResX = repulsive.x + xf;
-  vecResY = repulsive.y + yf;
+  float vecResX = repulsive.x + xf;
+  float vecResY = repulsive.y + yf;
 
 
   // calculo do módulo
@@ -297,8 +297,8 @@ void SendVelocity::goTo(float xf, float yf,float limiar){
     //state=GO;
     //infoOdom();
   }
-*/
-  
+
+
 //---------------------------------------------------------------------------------------------------------------------------#
 
 bool SendVelocity::def_go(RMPISR::go::Request &req_go,RMPISR::go::Response &res_go)

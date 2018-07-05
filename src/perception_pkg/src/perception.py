@@ -15,18 +15,28 @@ from perception_pkg.srv import *
 #rosrun rosserial_python serial_node.py _port:=/dev/ttyACM0 _baud:=115200
 
 n_sensors = 7
-gain1 = 40
-gain11 = 40
-gain2 = 40
-gain22 = 40
-gain3 = 40
-gain4 = 40
-gain5 = 30
+'''
+gain1 = 0.4
+gain11 = 0.4
+gain2 = 0.4
+gain22 = 0.4
+gain3 = 0.4
+gain4 = 0.4
+gain5 = 0.3
+'''
+
+gain1 = 1
+gain11 = 1
+gain2 = 1
+gain22 = 1
+gain3 = 1
+gain4 = 1
+gain5 = 1
 
 #definicao das distancias a partir das quais o calculo de vectores deve ser feito
-left = right = 40
-fleft = fright = 40
-front = 40
+left = right = 0.4
+fleft = fright = 0.4
+front = 0.4
 
 class Perception():
 
@@ -72,6 +82,18 @@ class Perception():
 
 '''
 #---------------------------------------------------------------------------------------------------------------------------#
+
+	def testeValues():
+
+		self.sensorValues.ir1 = 0.6
+		self.sensorValues.s1 = 2.00
+		self.sensorValues.ir2 = 
+		self.sensorValues.s2 = 
+		self.sensorValues.ir3 = 
+		self.sensorValues.ir4 = 
+		self.sensorValues.s5 = 
+
+#---------------------------------------------------------------------------------------------------------------------------#
 	
 	
 	#escolher segundo a odometria o sensor mais adequado a usar por causa dos vidros
@@ -109,7 +131,7 @@ class Perception():
 				k22 = gain22
 
 
-			elif ( math.pi-0.3<= self.odomTheta <= math.pi+0.3):
+			elif ( math.pi-0.3 <= self.odomTheta <= math.pi+0.3):
 				print "\nTenho as vidraças da entrada do meu lado esquerdo"
 				k1 = k4 = 0
 				k3 = gain3
@@ -120,6 +142,7 @@ class Perception():
 
 		#restante mapa
 		else:
+			print "Resto do mapa"
 			#no resto do mapa não quero usar os valores dos sonares
 			k12 = k22 = 0
 			#atribuir novamente os ganhos aos IR sensors
@@ -138,41 +161,48 @@ class Perception():
 	def calculateEndPoint():
 		toappend = Point()
 
-		if (self.sensorValues.ir1 < left):
+		if ( 0.2 <= self.sensorValues.ir1 <= left):
 			#cos(self.odomTheta+Pi+Pi/2)
 			toappend.x = self.x2_ir1 = (k1 / self.sensorValues.ir1) * cos(self.odomTheta+4.712) + self.odomX
 			toappend.y = self.y2_ir1 = (k1 / self.sensorValues.ir1) * sin(self.odomTheta+4.712) + self.odomY
 			self.values.append(toappend)
+			print "calculate ir1"
 
-		if (self.sensorValues.s1 < left):
+		if ( 0.1 <= self.sensorValues.s1 <= left):
 			toappend.x = self.x2_s1 = (k12 / self.sensorValues.s1) * cos(self.odomTheta+4.712) + self.odomX
 			toappend.y = self.y2_s1 = (k12 / self.sensorValues.s1) * sin(self.odomTheta+4.712) + self.odomY
 			self.values.append(toappend)
+			print "calculate s1"
 
-		if(self.sensorValues.ir2 < right):
+		if( 0.2 <= self.sensorValues.ir2 <= right):
 			toappend.x = self.x2_ir2 = (k2 / self.sensorValues.ir2) * cos(self.odomTheta+1.571) + self.odomX
 			toappend.y = self.y2_ir2 = (k2 / self.sensorValues.ir2) * sin(self.odomTheta+1.571) + self.odomY
 			self.values.append(toappend)
+			print "calculate ir2"
 
-		if(self.sensorValues.s2 < right):
+		if( 0.1 <= self.sensorValues.s2 <= right):
 			toappend.x = self.x2_s2 = (k22 / self.sensorValues.s2) * cos(self.odomTheta+1.571) + self.odomX
 			toappend.y = self.y2_s2 = (k22 / self.sensorValues.s2) * sin(self.odomTheta+1.571) + self.odomY
 			self.values.append(toappend)
+			print "calculate s2"
 
-		if(self.sensorValues.ir3 < fleft):
+		if( 0.2 <= self.sensorValues.ir3 <= fleft):
 			toappend.x = self.x2_ir3 = (k3 / self.sensorValues.ir3) * cos(self.odomTheta+2.356) + self.odomX
 			toappend.y = self.y2_ir3 = (k3 / self.sensorValues.ir3) * sin(self.odomTheta+2.356) + self.odomY
 			self.values.append(toappend)
+			print "calculate ir3"
 
-		if(self.sensorValues.ir4 < fright):
+		if( 0.2 <= self.sensorValues.ir4 <= fright):
 			toappend.x = self.x2_ir4 = (k4 / self.sensorValues.ir4) * cos(self.odomTheta+3.927) + self.odomX
 			toappend.y = self.y2_ir4 = (k4 / self.sensorValues.ir4) * sin(self.odomTheta+3.927) + self.odomY
 			self.values.append(toappend)
+			print "calculate ir4"
 
-		if( self.sensorValues.s5 < front):
+		if( 0.1 <= self.sensorValues.s5 <= front):
 			toappend.x = self.x2_s5 = (k5 / self.sensorValues.s5) * cos(self.odomTheta+math.pi) + self.odomX
 			toappend.y = self.y2_s5 = (k5 / self.sensorValues.s5) * sin(self.odomTheta+math.pi) + self.odomY
 			self.values.append(toappend)
+			print "calculate s5"
 
 
 
