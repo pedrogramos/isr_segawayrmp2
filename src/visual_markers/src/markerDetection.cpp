@@ -188,7 +188,8 @@ int main(int argc, char **argv){
 
 //-----------------------------------------------------//
 
-setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings.txt");
+//setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings.txt");
+setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettingsGlobal.txt");
 
   // rmpTc -> rigid tranf rmp to camera
   // cTm -> camara to marker (script calculates)
@@ -270,8 +271,8 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
   Md[1] = glm::vec4(0.0,0.0,1.0,0.0);
   Md[2] = glm::vec4(1.0,0.0,0.0,0.0);
   Md[3] = glm::vec4(setValues.at(10),setValues.at(11),setValues.at(12),1.0);
-
 */
+
   //-------------------------------------------------------------------------------------------
 
 // usados no mundo real
@@ -304,7 +305,6 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
   Md[1] = glm::vec4(0.0,0.0,1.0,0.0);
   Md[2] = glm::vec4(0.0,-1.0,0.0,0.0);
   Md[3] = glm::vec4(setValues.at(10),setValues.at(11),setValues.at(12),1.0);
-
 
  //-------------------------------------------------------------------------------------------  
 

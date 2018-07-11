@@ -337,6 +337,8 @@ class coordinator():
 				lb_places.insert("end", destiny)
 
 		def calculateCourse():
+			self.addpoint_client(False)
+			'''
 			#lbl_output.delete(0,"end")
 			selected = lb_places.get("active") #the active item is the one which is corrently sellected
 			result = places[selected]
@@ -347,6 +349,7 @@ class coordinator():
 			#self.vstpFunc(self.trueodomX, self.trueodomY, result[0],result[1])
 			self.vstpFunc(0.5, 4, result[0],result[1])
 			#self.add_point(clear.get())
+			'''
 
 		def resume():
 			self.go_client()
@@ -487,8 +490,8 @@ if __name__ == "__main__":
 	#boss.initScreen()
 	#boss.LoadMapNRobot()
 
-	boss.vstpFunc(4,0.5,0.9,25)
-	#boss.addpoint_client(True)
+	#boss.vstpFunc(4,0.5,0.9,25)
+	#boss.addpoint_client(False)
 
 	print "Coordinator Ready!"
 	rospy.spin()
