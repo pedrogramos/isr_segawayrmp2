@@ -24,9 +24,14 @@ once = True
 
 
 def talker():
+	rospy.init_node('sensorData', anonymous=True)
+
 	pub = rospy.Publisher('sensorArray', sensors, queue_size=10)
 	ser = serial.Serial('/dev/ttyACM0', 115200)
-	rospy.init_node('sensorData', anonymous=True)
+	
+	rospy.sleep(0.5)
+	values = []
+
 	rate = rospy.Rate(10) # 10hz
 
 	if (ser.is_open):
@@ -62,10 +67,10 @@ def talker():
 					print "s2: ", array.s2
 					print "ir3: ", array.ir3
 					'''
-					del values[:]
+					values = []
 
-				elif (len(values) > 7):
-					del values[:]
+				elif (len(values) != 7):
+					values = []
 
 			else:
 				

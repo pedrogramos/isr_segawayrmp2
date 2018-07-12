@@ -31,7 +31,7 @@ sys.path.insert(0,'/home/rmp/lib/python')
 MAP='/home/rmp/catkin_ws/src/RMPISR/scripts/novo.xml'
 import vstpPY
 
-traj1='/home/rmp/catkin_ws/src/RMPISR/scripts/DemonstrationPoints3new.csv'
+traj1='/home/rmp/catkin_ws/src/RMPISR/scripts/DemonstrationPoints2.csv'
 
 
 
@@ -486,12 +486,12 @@ if __name__ == "__main__":
 	print "Coordinator Initialization..."
 	boss=coordinator()
 	boss.readFile(traj1)
-	boss.toThreadGui()
+	#boss.toThreadGui()
 	#boss.initScreen()
 	#boss.LoadMapNRobot()
 
 	#boss.vstpFunc(4,0.5,0.9,25)
-	#boss.addpoint_client(False)
+	boss.addpoint_client(False)
 
 	print "Coordinator Ready!"
 	rospy.spin()

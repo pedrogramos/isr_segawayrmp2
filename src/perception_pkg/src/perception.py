@@ -29,7 +29,7 @@ k3 = gain3 = 0.1
 k4 = gain4 = 0.1
 k5 = gain5 = 0.15
 '''
-k1=k12=k2=k22=k3=k4=k5=0.1
+k1=k12=k2=k22=k3=k4=k5=0.3
 
 
 #definicao das distancias a partir das quais o calculo de vectores deve ser feito
@@ -176,13 +176,13 @@ class Perception():
 			toappend.y = self.y2_ir4 = (k4 / self.sensorValues.ir4) * math.sin(self.odomTheta+3.927) + self.odomY
 			self.values.append(toappend)
 			print "calculate ir4: ", self.sensorValues.ir4
-		'''
+		
 		if( 0.1 <= self.sensorValues.s5 <= front):
 			toappend.x = self.x2_s5 = (k5 / self.sensorValues.s5) * math.cos(self.odomTheta+math.pi) + self.odomX
 			toappend.y = self.y2_s5 = (k5 / self.sensorValues.s5) * math.sin(self.odomTheta+math.pi) + self.odomY
 			self.values.append(toappend)
 			print "calculate s5: ", self.sensorValues.s5
-		'''
+		
 
 		print "list size EndPoint: ", len(self.values)
 
@@ -230,7 +230,8 @@ class Perception():
 		    writer = csv.writer(myFile)
 		    writer.writerow(myData)
 
-		del self.vectores[:], self.values[:]
+		self.vectores = []
+		self.values = []
 		print "final_vector: ", self.final_vector
 
 
