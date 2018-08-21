@@ -130,11 +130,13 @@ class coordinator():
 		rospy.wait_for_service('addpoint')
 		try:
 			addpoint_ = rospy.ServiceProxy('addpoint', addpoint)
-
-			#code for file reading
+			
+			
 			pointArray=list()
 			size=len(self.myList)
 
+			'''
+			#code for file reading
 			for elem in range(size):
 				toappend = Point()
 				toappend.x = float(self.myList[elem]['x'])
@@ -142,8 +144,9 @@ class coordinator():
 				pointArray.append(toappend)
 
 			print pointArray
-
+			
 			'''
+			
 
 			#code for vstp trajectory points
 			size=len(self.traj_points)
@@ -154,28 +157,8 @@ class coordinator():
 				toappend.y=self.traj_points[i].y
 				pointArray.append(toappend)
 			
-			#print "new point: " , pointArray
-			'''
+			print "new point: " , pointArray
 			
-			'''
-			#code for random numbers
-			
-			for elem in range(10):
-				toappend = Point()
-				toappend.x=randint(0, 9)
-				toappend.y=randint(0, 9)
-				toappend.z=randint(0, 9)
-				pointArray.append(toappend)
-				print "new point:" , pointArray
-
-
-			#print pointArray
-			size=len(pointArray) #9
-			'''
-
-
-			
-
 			resp1 = addpoint_.call(pointArray, clear, size)
 
 			print "Points added with sucess!"
@@ -337,8 +320,9 @@ class coordinator():
 				lb_places.insert("end", destiny)
 
 		def calculateCourse():
-			self.addpoint_client(False)
-			'''
+			#self.addpoint_client(False)
+			
+
 			#lbl_output.delete(0,"end")
 			selected = lb_places.get("active") #the active item is the one which is corrently sellected
 			result = places[selected]
@@ -348,8 +332,8 @@ class coordinator():
 			print "teste result:", result[0], result[1]
 			#self.vstpFunc(self.trueodomX, self.trueodomY, result[0],result[1])
 			self.vstpFunc(0.5, 4, result[0],result[1])
-			#self.add_point(clear.get())
-			'''
+			self.addpoint_client(clear.get())
+			
 
 		def resume():
 			self.go_client()
@@ -470,7 +454,7 @@ class coordinator():
 		self.computeMapLimits();
 		self.traj_points =self.v.planTrajectory(iniX,iniY,goalx,goaly,True)
 		#chamada a funcao que divide a trajectoria
-		self.trajDivider()
+		#self.trajDivider()
 		#chamada a criacao do thread do mapa
 		#self.toThread()
 		
@@ -486,12 +470,12 @@ if __name__ == "__main__":
 	print "Coordinator Initialization..."
 	boss=coordinator()
 	boss.readFile(traj1)
-	#boss.toThreadGui()
+	boss.toThreadGui()
 	#boss.initScreen()
 	#boss.LoadMapNRobot()
 
 	#boss.vstpFunc(4,0.5,0.9,25)
-	boss.addpoint_client(False)
+	#boss.addpoint_client(False)
 
 	print "Coordinator Ready!"
 	rospy.spin()

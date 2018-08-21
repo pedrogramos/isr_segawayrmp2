@@ -30,8 +30,8 @@ using namespace std;
 #define Kw 0.6 //0.6
 enum states{GO,STOP,STOPPING,ADDPOINT};
 enum states state=GO;
-struct point { float xf; float yf;} new_point, aux_s;
-queue<point> fila_pontos, aux_q;
+struct point { float xf; float yf;} new_point, aux_s, aux_d;
+queue<point> fila_pontos, fila_destino, aux_q;
 std::ofstream outfile, outfile2;
 
 
@@ -46,7 +46,7 @@ public:
   //para o segwayRMP
   //void odomCallback(const nav_msgs::Odometry::ConstPtr&);
   void odomCallback(const geometry_msgs::Pose2D::ConstPtr&);
-  void goTo(float,float,float);
+  void goTo(float,float,float,float,float);
   bool def_go(RMPISR::go::Request&, RMPISR::go::Response&);
   bool def_addpoint(RMPISR::addpoint::Request&, RMPISR::addpoint::Response&);
   bool def_stop(RMPISR::stop::Request&, RMPISR::stop::Response&);
@@ -228,18 +228,17 @@ void SendVelocity::goTo(float xf, float yf,float limiar){
   } 
 */
 
-void SendVelocity::goTo(float xf, float yf,float limiar){
+//sai da função quando chega ao ponto objectivo
+void SendVelocity::goTo(float xf, float yf, float destX, float destY, float limiar){
 
   outfile.open("vectors.txt");
   outfile2.open("goal.txt");
 
-  float vecResX = repulsive.x + xf;
-  float vecResY = repulsive.y + yf;
   // calculo do módulo
-  float d=sqrt(pow((vecResX-odomNew.x),2)+pow((vecResY-odomNew.y),2));
+  float d=sqrt(pow((xf-odomNew.x),2)+pow((yf-odomNew.y),2));
   // calculo da circunferencia de bullseye
-  //float c=pow((vecResX-odomNew.x),2)+pow((vecResY-odomNew.y),2);
   float c=pow((xf-odomNew.x),2)+pow((yf-odomNew.y),2);
+  float cc = pow((destX-odomNew.x),2)+pow((destY-odomNew.y),2);
   // calculo do versor para comparacao da direcao da plataforma
   float dxini = (xf-odomNew.x) / d;
   float dyini = (yf-odomNew.y) / d;
@@ -248,22 +247,25 @@ void SendVelocity::goTo(float xf, float yf,float limiar){
   ROS_INFO("Proximo ponto: X= %f e Y= %f.",xf, yf);
 
   //enquanto o RMP estiver fora do raio da circunferencia c centro no ponto destino
+  // e ao detectar um marcador não querer voltar para trás
   while (c>pow(limiar,2) && opposite == false){
 
-    vecResX = repulsive.x + xf;
-    vecResY = repulsive.y + yf;
-    ROS_INFO("New coordinates: X: %f Y: %f", vecResX, vecResY );
+    //calculo vector atractivo normalizado
+    d=sqrt(pow((xf-odomNew.x),2)+pow((yf-odomNew.y),2));
+    float vecAtraX=(xf-odomNew.x ) / d;
+    float vecAtraY=(yf-odomNew.y) / d;
+    //ponto desvio obstáculo = repulsivo+soma vector atractivo +  odometria
+    float pDesvioX = repulsive.x + vecAtraX + odomNew.x;
+    float pDesvioY = repulsive.y + vecAtraY + odomNew.y;
+    //calculo vector resultante normalizado -> versor
+    d=sqrt(pow((pDesvioX-odomNew.x),2)+pow((pDesvioY-odomNew.y),2));
+    float dx = (pDesvioX - odomNew.x ) / d;
+    float dy = (pDesvioY - odomNew.y) / d;
 
-    outfile << vecResX << "," << vecResY << std::endl;
+    ROS_INFO("New coordinates: X: %f Y: %f", pDesvioX, pDesvioY );
+
+    outfile << pDesvioX << "," << pDesvioY << std::endl;
     outfile2 << xf << "," << yf << std::endl;
-
-    c=pow((xf-odomNew.x),2)+pow((yf-odomNew.y),2);
-    // calculo do d necessita de pontos e nao vectores
-    d=sqrt(pow((vecResX-odomNew.x),2)+pow((vecResY-odomNew.y),2));
-
-    // vetores normalizados -> versor
-    float dx=(vecResX - odomNew.x ) / d;
-    float dy=(vecResY - odomNew.y) / d;
 
     // calculo velocidades a enviar
     float vx=cos(odomNew.theta)*dx + sin(odomNew.theta)*dy;
@@ -271,6 +273,9 @@ void SendVelocity::goTo(float xf, float yf,float limiar){
     
     // projecções * os ganhos
     sendVel(vx*Kl,vy*Kw);
+
+    c=pow((xf-odomNew.x),2)+pow((yf-odomNew.y),2);
+    cc = pow((destX-odomNew.x),2)+pow((destY-odomNew.y),2);
 
     // se for detectado um marcador e sinalizado com um servico e com esta variavel
     // usado para comparar se o robo continua com a mesma direccao ou nao
@@ -310,6 +315,10 @@ void SendVelocity::goTo(float xf, float yf,float limiar){
     ROS_INFO("Chegou ao ponto: X= %f e Y= %f.",xf, yf);
     ROS_INFO("Odom: X= %f  Y= %f  Th= %f", odomNew.x, odomNew.y,odomNew.theta);
     fila_pontos.pop();
+    if(cc<pow(limiar,2)){
+      fila_destino.pop();
+      state=STOP;
+    }
   }
 
     //state=GO;
@@ -333,10 +342,11 @@ bool SendVelocity::def_addpoint(RMPISR::addpoint::Request  &req_addpoint, RMPISR
 {
   // usar a lista neste serviço
 
-  ROS_INFO("ENTROU ADD");
-for(int i=0;i<req_addpoint.size;i++){
+  ROS_INFO("ENTROU ADD SERVICE");
+  int i = 0;
+for(i;i<req_addpoint.size;i++){
 
-
+  //adicionar ao fim da pilha
   if(req_addpoint.type==false){
     new_point.xf=req_addpoint.pointArray[i].x;
     new_point.yf=req_addpoint.pointArray[i].y;
@@ -345,7 +355,7 @@ for(int i=0;i<req_addpoint.size;i++){
 
   }
 
-    
+  //limpar a pilha e adicionar  
   if(req_addpoint.type==true){
     while (!fila_pontos.empty()) fila_pontos.pop();
     new_point.xf=req_addpoint.pointArray[i].x;
@@ -356,17 +366,32 @@ for(int i=0;i<req_addpoint.size;i++){
 
   }
 
-    // PRINTING QUEUE
+  // PRINTING QUEUE
   aux_q=fila_pontos;
-  aux_s=aux_q.front();
+  //aux_s=aux_q.front();
+  std::cout<< "PONTOS OBJECTIVO: " << endl;
   while (!aux_q.empty()){
     aux_s=aux_q.front();
     std::cout<< "X= " << aux_s.xf << " Y= " << aux_s.yf << endl;
     aux_q.pop();
   }
 
-  //ROS_INFO("request: x=%f, y=%f, type=%i", (float)req_addpoint.xf,(float)req_addpoint.yf,req_addpoint.type);
-  //ROS_INFO("sending back response: [%ld]", (long int)res_addpoint.sum);
+  //parte nova para adiconar os pontos de destino
+  //new_point.xf=req_addpoint.pointArray[i].x;
+  //new_point.yf=req_addpoint.pointArray[i].y;
+  fila_destino.push(new_point);
+  std::cout<< "Ponto Destino: X= " << new_point.xf << " Y= " << new_point.yf << endl;
+
+    aux_q=fila_destino;
+  //aux_s=aux_q.front();
+  std::cout<< "PONTOS DESTINO: " << endl;
+  while (!aux_q.empty()){
+    aux_s=aux_q.front();
+    std::cout<< "X= " << aux_s.xf << " Y= " << aux_s.yf << endl;
+    aux_q.pop();
+  }
+
+
   return true;
 }
 
@@ -427,9 +452,10 @@ int main(int argc, char** argv)
       ROS_INFO("state = GO");
 
       while(!fila_pontos.empty() && state==GO){
-        rmp.opposite=false;
-        aux_s=fila_pontos.front();
-        rmp.goTo(aux_s.xf,aux_s.yf,0.2);
+        rmp.opposite = false;
+        aux_s = fila_pontos.front();
+        aux_d = fila_destino.front();
+        rmp.goTo(aux_s.xf,aux_s.yf,aux_d.xf,aux_d.yf,0.2);
       }
 
   

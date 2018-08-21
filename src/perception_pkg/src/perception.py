@@ -137,49 +137,49 @@ class Perception():
 
 	#funcao para calcular o vector c dir inversa a partir da distancia proveniente dos sensores
 	#ja tem em atencao que so calcula o vetor quando a distancia e inferior a um determinado limiar
-	def calculateEndPoint(self):
+	def calculateVectors(self):
 		toappend = Point()
 
 		if ( 0.2 <= self.sensorValues.ir1 <= left):
 			#cos(self.odomTheta+Pi+Pi/2)
-			toappend.x = self.x2_ir1 = (k1 / self.sensorValues.ir1) * math.cos(self.odomTheta+4.712) + self.odomX
-			toappend.y = self.y2_ir1 = (k1 / self.sensorValues.ir1) * math.sin(self.odomTheta+4.712) + self.odomY
+			toappend.x = self.x2_ir1 = (k1 / self.sensorValues.ir1) * math.cos(self.odomTheta+4.712)
+			toappend.y = self.y2_ir1 = (k1 / self.sensorValues.ir1) * math.sin(self.odomTheta+4.712)
 			self.values.append(toappend)
 			print "calculate ir1: ", self.sensorValues.ir1
 
 		if ( 0.1 <= self.sensorValues.s1 <= left):
-			toappend.x = self.x2_s1 = (k12 / self.sensorValues.s1) * math.cos(self.odomTheta+4.712) + self.odomX
-			toappend.y = self.y2_s1 = (k12 / self.sensorValues.s1) * math.sin(self.odomTheta+4.712) + self.odomY
+			toappend.x = self.x2_s1 = (k12 / self.sensorValues.s1) * math.cos(self.odomTheta+4.712)
+			toappend.y = self.y2_s1 = (k12 / self.sensorValues.s1) * math.sin(self.odomTheta+4.712)
 			self.values.append(toappend)
 			print "calculate s1: ", self.sensorValues.s1
 
 		if( 0.2 <= self.sensorValues.ir2 <= right):
-			toappend.x = self.x2_ir2 = (k2 / self.sensorValues.ir2) * math.cos(self.odomTheta+1.571) + self.odomX
-			toappend.y = self.y2_ir2 = (k2 / self.sensorValues.ir2) * math.sin(self.odomTheta+1.571) + self.odomY
+			toappend.x = self.x2_ir2 = (k2 / self.sensorValues.ir2) * math.cos(self.odomTheta+1.571)
+			toappend.y = self.y2_ir2 = (k2 / self.sensorValues.ir2) * math.sin(self.odomTheta+1.571)
 			self.values.append(toappend)
 			print "calculate ir2: ", self.sensorValues.ir2
 
 		if( 0.1 <= self.sensorValues.s2 <= right):
-			toappend.x = self.x2_s2 = (k22 / self.sensorValues.s2) * math.cos(self.odomTheta+1.571) + self.odomX
-			toappend.y = self.y2_s2 = (k22 / self.sensorValues.s2) * math.sin(self.odomTheta+1.571) + self.odomY
+			toappend.x = self.x2_s2 = (k22 / self.sensorValues.s2) * math.cos(self.odomTheta+1.571)
+			toappend.y = self.y2_s2 = (k22 / self.sensorValues.s2) * math.sin(self.odomTheta+1.571)
 			self.values.append(toappend)
 			print "calculate s2: ", self.sensorValues.s2
 
 		if( 0.2 <= self.sensorValues.ir3 <= fleft):
-			toappend.x = self.x2_ir3 = (k3 / self.sensorValues.ir3) * math.cos(self.odomTheta+2.356) + self.odomX
-			toappend.y = self.y2_ir3 = (k3 / self.sensorValues.ir3) * math.sin(self.odomTheta+2.356) + self.odomY
+			toappend.x = self.x2_ir3 = (k3 / self.sensorValues.ir3) * math.cos(self.odomTheta+2.356)
+			toappend.y = self.y2_ir3 = (k3 / self.sensorValues.ir3) * math.sin(self.odomTheta+2.356)
 			self.values.append(toappend)
 			print "calculate ir3: ", self.sensorValues.ir3
 
 		if( 0.2 <= self.sensorValues.ir4 <= fright):
-			toappend.x = self.x2_ir4 = (k4 / self.sensorValues.ir4) * math.cos(self.odomTheta+3.927) + self.odomX
-			toappend.y = self.y2_ir4 = (k4 / self.sensorValues.ir4) * math.sin(self.odomTheta+3.927) + self.odomY
+			toappend.x = self.x2_ir4 = (k4 / self.sensorValues.ir4) * math.cos(self.odomTheta+3.927)
+			toappend.y = self.y2_ir4 = (k4 / self.sensorValues.ir4) * math.sin(self.odomTheta+3.927)
 			self.values.append(toappend)
 			print "calculate ir4: ", self.sensorValues.ir4
 		
 		if( 0.1 <= self.sensorValues.s5 <= front):
-			toappend.x = self.x2_s5 = (k5 / self.sensorValues.s5) * math.cos(self.odomTheta+math.pi) + self.odomX
-			toappend.y = self.y2_s5 = (k5 / self.sensorValues.s5) * math.sin(self.odomTheta+math.pi) + self.odomY
+			toappend.x = self.x2_s5 = (k5 / self.sensorValues.s5) * math.cos(self.odomTheta+math.pi)
+			toappend.y = self.y2_s5 = (k5 / self.sensorValues.s5) * math.sin(self.odomTheta+math.pi)
 			self.values.append(toappend)
 			print "calculate s5: ", self.sensorValues.s5
 		
@@ -190,40 +190,23 @@ class Perception():
 
 #---------------------------------------------------------------------------------------------------------------------------#
 
-	def createVectors(self):
-
-		toappend = Point()
-		for i in xrange(len(self.values)):
-			
-			toappend.x = (self.values[i].x - self.odomX)
-			toappend.y = (self.values[i].y - self.odomY)
-			self.vectores.append(toappend)
-
-		print "list size createVectors: ", len(self.vectores)
-
-#---------------------------------------------------------------------------------------------------------------------------#
-
-
-	#funcao para fazer a soma de todos os vectores repulsivos	
 	def sumVectors(self):
 		self.final_vector.x = 0
 		self.final_vector.y = 0
 
-		print "final_vector ini: ", self.final_vector
-
-		for i in xrange(len(self.vectores)):
-			self.final_vector.x += self.vectores[i].x
-			self.final_vector.y += self.vectores[i].y
-
-		self.repulsive.publish(self.final_vector)
-
+		for i in xrange(len(self.values)):
+			
+			self.final_vector.x += self.values[i].x 
+			self.final_vector.y += self.values[i].y
 		
-		dx = self.final_vector.x + self.odomX
-		dy = self.final_vector.y + self.odomY
+		self.repulsive.publish(self.final_vector)
+		
 		'''
-		with open('repulse.txt', 'a') as the_file:
-		    the_file.write('%f, %f\n' % (dx),(dy))
-		'''
+		print "list size createVector: ", len(self.vectores)
+
+		dx = self.vectores.x + self.odomX
+		dy = self.vectores.y + self.odomY
+
 		myData =  [dx,dy]
  
 		with open('repulse.csv', 'a') as myFile:
@@ -233,21 +216,7 @@ class Perception():
 		self.vectores = []
 		self.values = []
 		print "final_vector: ", self.final_vector
-
-
-
-#---------------------------------------------------------------------------------------------------------------------------#
-'''	
-	def representVectors():
-
-		plt.figure()
-		plt.quiver()
-
-		plt.draw()
-		plt.show()
-
-'''
-
+		'''
 
 '''
 --> enviar servico ao coordinator com a posicao do objecto a adicionar ao mapa
@@ -269,8 +238,7 @@ if __name__ == "__main__":
 
 		try:
 			see.chooseSensor()
-			see.calculateEndPoint()
-			see.createVectors()
+			see.calculateVectors()
 			see.sumVectors()
 			#see.representVectors()
 
