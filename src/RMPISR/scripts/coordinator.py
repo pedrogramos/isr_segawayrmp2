@@ -31,7 +31,7 @@ sys.path.insert(0,'/home/rmp/lib/python')
 MAP='/home/rmp/catkin_ws/src/RMPISR/scripts/novo.xml'
 import vstpPY
 
-traj1='/home/rmp/catkin_ws/src/RMPISR/scripts/DemonstrationPoints2.csv'
+traj1='/home/rmp/catkin_ws/src/RMPISR/scripts/cen11.csv'
 
 
 
@@ -135,7 +135,7 @@ class coordinator():
 			pointArray=list()
 			size=len(self.myList)
 
-			'''
+			
 			#code for file reading
 			for elem in range(size):
 				toappend = Point()
@@ -145,9 +145,9 @@ class coordinator():
 
 			print pointArray
 			
-			'''
 			
-
+			
+			'''
 			#code for vstp trajectory points
 			size=len(self.traj_points)
 
@@ -158,6 +158,7 @@ class coordinator():
 				pointArray.append(toappend)
 			
 			print "new point: " , pointArray
+			'''
 			
 			resp1 = addpoint_.call(pointArray, clear, size)
 
@@ -470,12 +471,12 @@ if __name__ == "__main__":
 	print "Coordinator Initialization..."
 	boss=coordinator()
 	boss.readFile(traj1)
-	boss.toThreadGui()
+	#boss.toThreadGui()
 	#boss.initScreen()
 	#boss.LoadMapNRobot()
 
 	#boss.vstpFunc(4,0.5,0.9,25)
-	#boss.addpoint_client(False)
+	boss.addpoint_client(False)
 
 	print "Coordinator Ready!"
 	rospy.spin()

@@ -29,10 +29,12 @@ k3 = gain3 = 0.1
 k4 = gain4 = 0.1
 k5 = gain5 = 0.15
 '''
-k1=k12=k2=k22=k3=k4=k5=0.3
+#ganho normal e 0.3
+k1=k12=k2=k22=k3=k4=k5=0.2
 
 
 #definicao das distancias a partir das quais o calculo de vectores deve ser feito
+#0.64 para cada lado
 left = right = 0.42
 fleft = fright = 0.42
 front = 0.2
@@ -41,9 +43,9 @@ class Perception():
 
 	def __init__(self):
 
-		self.sensor_sub = rospy.Subscriber('/sensorArray', sensors, self.callbackSensors)
+		self.sensor_sub = rospy.Subscriber('/sensorArray', sensors, self.callbackSensors, queue_size=2)
 		self.new_odom_sub = rospy.Subscriber('/new_odom',Pose2D,self.callbackOdom)
-		self.repulsive = rospy.Publisher('repulsive_vec',Point, queue_size=10)
+		self.repulsive = rospy.Publisher('repulsive_vec',Point, queue_size=2)
 		self.final_vector = Point()
 		self.sensorValues = sensors()
 		self.values = []
@@ -103,7 +105,7 @@ class Perception():
 	#escolher segundo a odometria o sensor mais adequado a usar por causa dos vidros
 	#alterar os k para zero em vez dos valores dos sensores
 	def chooseSensor(self):
-
+		'''
 		#se resumir o robo a um ponto e esse ponto estiver dentro da area de um rectangulo
 		#primeiras janelas ao pe da secretaria
 		if ((9.163 <= self.odomX <= 14.163) and (5.8 <= self.odomY <= 7.5)):
@@ -123,9 +125,9 @@ class Perception():
 				print "\nTenho as vidracas da entrada do meu lado esquerdo"
 				self.sensorValues.ir1 = self.sensorValues.ir4 = 0
 
-
+		'''
 		#restante mapa
-		else:
+		if(1):
 			print "Resto do mapa"
 			#no resto do mapa nao quero usar os valores dos sonares
 			self.sensorValues.s2 = self.sensorValues.s1 = 0
@@ -200,6 +202,8 @@ class Perception():
 			self.final_vector.y += self.values[i].y
 		
 		self.repulsive.publish(self.final_vector)
+
+		self.values = []
 		
 		'''
 		print "list size createVector: ", len(self.vectores)

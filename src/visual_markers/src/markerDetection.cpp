@@ -238,7 +238,7 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
 */
 
   //para a demostração
-  glm::mat4 Ma, Mb, Mc, Md, Mc2, novo;
+  glm::mat4 Ma, Mb, Mc, Md, Mc2, novo, Me, Mf, Mh, Mi, Mj, Mk;
 
 
   //para o teste:
@@ -271,6 +271,48 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
   Md[1] = glm::vec4(0.0,0.0,1.0,0.0);
   Md[2] = glm::vec4(1.0,0.0,0.0,0.0);
   Md[3] = glm::vec4(setValues.at(10),setValues.at(11),setValues.at(12),1.0);
+
+
+  // Marker nº 78
+  Me[0] = glm::vec4(-1.0,0.0,0.0,0.0);
+  Me[1] = glm::vec4(0.0,0.0,1.0,0.0);
+  Me[2] = glm::vec4(0.0,1.0,0.0,0.0);
+  Me[3] = glm::vec4(setValues.at(13),setValues.at(14),setValues.at(15),1.0);
+
+  // Marker nº 135
+  Mf[0] = glm::vec4(-1.0,0.0,0.0,0.0);
+  Mf[1] = glm::vec4(0.0,0.0,1.0,0.0);
+  Mf[2] = glm::vec4(0.0,1.0,0.0,0.0);
+  Mf[3] = glm::vec4(setValues.at(16),setValues.at(17),setValues.at(18),1.0);
+
+  // Marker nº 1
+  Mh[0] = glm::vec4(-1.0,0.0,0.0,0.0);
+  Mh[1] = glm::vec4(0.0,0.0,1.0,0.0);
+  Mh[2] = glm::vec4(0.0,1.0,0.0,0.0);
+  Mh[3] = glm::vec4(setValues.at(19),setValues.at(20),setValues.at(21),1.0);
+
+  // Marker nº 134
+  Mi[0] = glm::vec4(1.0,0.0,0.0,0.0);
+  Mi[1] = glm::vec4(0.0,0.0,1.0,0.0);
+  Mi[2] = glm::vec4(0.0,-1.0,0.0,0.0);
+  Mi[3] = glm::vec4(setValues.at(22),setValues.at(23),setValues.at(24),1.0);
+
+  // Marker nº 45
+  Mj[0] = glm::vec4(0.0,-1.0,0.0,0.0);
+  Mj[1] = glm::vec4(0.0,0.0,1.0,0.0);
+  Mj[2] = glm::vec4(-1.0,0.0,0.0,0.0);
+  Mj[3] = glm::vec4(setValues.at(25),setValues.at(26),setValues.at(27),1.0);
+
+  // Marker nº 255
+  Mk[0] = glm::vec4(1.0,0.0,0.0,0.0);
+  Mk[1] = glm::vec4(0.0,0.0,1.0,0.0);
+  Mk[2] = glm::vec4(0.0,-1.0,0.0,0.0);
+  Mk[3] = glm::vec4(setValues.at(28),setValues.at(29),setValues.at(30),1.0);
+
+
+
+
+
 
 
   //-------------------------------------------------------------------------------------------
@@ -457,6 +499,42 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
             if(id_ant != 150) entrar=true;
           }
 
+          else if (id==134){
+            M_use=Mi;
+            printf("Detectou o n 134\n");
+            if(id_ant != 134) entrar=true;
+          }
+
+          else if (id==78){
+            M_use=Me;
+            printf("Detectou o n 78\n");
+            if(id_ant != 78) entrar=true;
+          }
+
+          else if (id==135){
+            M_use=Mf;
+            printf("Detectou o n 135\n");
+            if(id_ant != 135) entrar=true;
+          }
+
+          else if (id==1){
+            M_use=Mh;
+            printf("Detectou o n 1\n");
+            if(id_ant != 1) entrar=true;
+          }
+
+          else if (id==45){
+            M_use=Mj;
+            printf("Detectou o n 45\n");
+            if(id_ant != 45) entrar=true;
+          }
+
+          else if (id==255){
+            M_use=Mk;
+            printf("Detectou o n 255\n");
+            if(id_ant != 255) entrar=true;
+          }
+
 
           cTm = pose.getRT();
           
@@ -497,7 +575,7 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
           ros::Duration(1).sleep();
         }
 
-      
+        entrar = true;
         if(entrar){
           printf("ENTROU CHAMADA SERVICO!!\n");
           time ( &rawtime );

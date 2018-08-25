@@ -26,8 +26,8 @@
 using namespace std;
 
 #define PI 3.141592
-#define Kl 0.3
-#define Kw 0.6 //0.6
+#define Kl 0.2 //0.2 0.3 0.6 0.7
+#define Kw 0.5 //0.5 0.5 0.4 0.45
 enum states{GO,STOP,STOPPING,ADDPOINT};
 enum states state=GO;
 struct point { float xf; float yf;} new_point, aux_s, aux_d;
@@ -167,7 +167,7 @@ void SendVelocity::vecCallback(const geometry_msgs::Point::ConstPtr& data){
 
 //funcao original do calculo das velocidades
 /*
-void SendVelocity::goTo(float xf, float yf,float limiar){
+void SendVelocity::goTo(float xf, float yf,float destX, float destY,float limiar){
   // calculo do módulo
   float d=sqrt(pow((xf-odomNew.x),2)+pow((yf-odomNew.y),2));
   // calculo da circunferencia de bullseye
@@ -252,6 +252,7 @@ void SendVelocity::goTo(float xf, float yf, float destX, float destY, float limi
 
     //calculo vector atractivo normalizado
     d=sqrt(pow((xf-odomNew.x),2)+pow((yf-odomNew.y),2));
+    ROS_INFO("dist ao ponto: %f", d);
     float vecAtraX=(xf-odomNew.x ) / d;
     float vecAtraY=(yf-odomNew.y) / d;
     //ponto desvio obstáculo = repulsivo+soma vector atractivo +  odometria
@@ -262,7 +263,7 @@ void SendVelocity::goTo(float xf, float yf, float destX, float destY, float limi
     float dx = (pDesvioX - odomNew.x ) / d;
     float dy = (pDesvioY - odomNew.y) / d;
 
-    ROS_INFO("New coordinates: X: %f Y: %f", pDesvioX, pDesvioY );
+    //ROS_INFO("New coordinates: X: %f Y: %f", pDesvioX, pDesvioY );
 
     outfile << pDesvioX << "," << pDesvioY << std::endl;
     outfile2 << xf << "," << yf << std::endl;
@@ -312,10 +313,12 @@ void SendVelocity::goTo(float xf, float yf, float destX, float destY, float limi
 
 
   if(c<pow(limiar,2)){
-    ROS_INFO("Chegou ao ponto: X= %f e Y= %f.",xf, yf);
+    ROS_INFO("Chegou ao ponto objectivo: X= %f e Y= %f.",xf, yf);
     ROS_INFO("Odom: X= %f  Y= %f  Th= %f", odomNew.x, odomNew.y,odomNew.theta);
     fila_pontos.pop();
+    state=STOP;
     if(cc<pow(limiar,2)){
+      ROS_INFO("Chegou ao ponto destino: X= %f e Y= %f.",destX, destY);
       fila_destino.pop();
       state=STOP;
     }
@@ -455,7 +458,7 @@ int main(int argc, char** argv)
         rmp.opposite = false;
         aux_s = fila_pontos.front();
         aux_d = fila_destino.front();
-        rmp.goTo(aux_s.xf,aux_s.yf,aux_d.xf,aux_d.yf,0.2);
+        rmp.goTo(aux_s.xf,aux_s.yf,aux_d.xf,aux_d.yf,0.3);
       }
 
   

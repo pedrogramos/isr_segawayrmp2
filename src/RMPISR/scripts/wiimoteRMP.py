@@ -88,7 +88,7 @@ class wii:
 
 		#B back button
 		if(self.buttonState[5]):
-			boost = 1.5
+			boost = 2.5
 
 		#up button
 		if(self.buttonState[6]):

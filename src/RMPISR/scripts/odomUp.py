@@ -77,9 +77,9 @@ class odomUpdater:
 		self.error.theta = req.pose.theta - self.pose.theta;
 
 
-		print "\nError service recived."
-		print "Pose X: ", req.pose.x," Y: ", req.pose.y, " Th: ", req.pose.theta
-		print "Fake X: ", self.pose.x ," Y: ", self.pose.y , " Th: ", self.pose.theta
+		print "\nError service received."
+		print "Pose marker X: ", req.pose.x," Y: ", req.pose.y, " Th: ", req.pose.theta
+		print "Odom X: ", self.pose.x ," Y: ", self.pose.y , " Th: ", self.pose.theta
 		print "Error X: ", self.error.x, " Y: ", self.error.y, "Th: ", self.error.theta
 
 
@@ -128,9 +128,10 @@ class odomUpdater:
 
 		if (self.pose.theta > PI_2):
 			self.pose.theta=self.pose.theta - PI_2
-		elif (self.pose.theta < PI_2):
+		'''
+		elif (self.pose.theta < 0):
 			self.pose.theta=self.pose.theta + PI_2
-
+		'''
 		self.pose.x = self.trueodomX + (self.odomXrmp - self.iniXrmp)
 		self.pose.y = self.trueodomY + (self.odomYrmp - self.iniYrmp)
 		self.pose.theta = self.trueodomTheta + (self.odomThetarmp - self.iniThetarmp)

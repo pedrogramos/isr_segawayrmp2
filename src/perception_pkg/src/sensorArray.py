@@ -26,13 +26,13 @@ once = True
 def talker():
 	rospy.init_node('sensorData', anonymous=True)
 
-	pub = rospy.Publisher('sensorArray', sensors, queue_size=10)
+	pub = rospy.Publisher('sensorArray', sensors, queue_size=1)
 	ser = serial.Serial('/dev/ttyACM0', 115200)
 	
 	rospy.sleep(0.5)
 	values = []
 
-	rate = rospy.Rate(10) # 10hz
+	rate = rospy.Rate(100) # 10hz
 
 	if (ser.is_open):
 		print "Connection established."
