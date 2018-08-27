@@ -15,14 +15,29 @@ import pygame
 import threading
 import tf
 import copy
+import tkFont
 #from vstptest import robotTrajectory
 import csv
-import Tkinter
-from PIL import ImageTk, Image
+#import Tkinter
+from Tkinter import *
+#from PIL import ImageTk, Image
 
 
 #to compile for ros
 #chmod +x scripts/coordinator.py
+
+
+places = {}
+
+places ["Main Hall"] = [3.6,2.3]
+places ["Lab: Mobile Robotics"] = [0.91,10.2]
+places ["Accounting"] = [7.78,6.71]
+places ["Lab: Computer Vision"] = [0.91,28.55]
+places ["Lab: Immersive Systems"] = [0.91,25.8]
+places ["Lab: Mechatronics"] = [21.21,10.2]
+places ["Accounting 2"] = [13,6.71]
+
+#arrived_to = places{1}
 
 
 #no ISR
@@ -30,10 +45,200 @@ sys.path.insert(0,'/home/rmp/lib/python')
 #MAP='/home/rmp/catkin_ws/src/RMPISR/scripts/ISRfile2.xml'
 MAP='/home/rmp/catkin_ws/src/RMPISR/scripts/novo.xml'
 import vstpPY
-
 traj1='/home/rmp/catkin_ws/src/RMPISR/scripts/cen11.csv'
 
+class App(Tk):
+	def __init__(self):
+		
+		Tk.__init__(self)
+		#Setup Menu
+		MainMenu(self)
+		#Setup Frame
+		container = Frame(self)
+		container.pack(side="top", fill="both", expand=True)
+		container.grid_rowconfigure(0, weight=1)
+		container.grid_columnconfigure(0, weight=1)
 
+		self.frames = {}
+
+		for F in (StartPage, PageOne, PageTwo, PageThree, PageFour, PageFive, PageSix):
+			frame = F(container, self)
+			self.frames[F] = frame
+			frame.grid(row=0, column=0, sticky="nsew")
+
+		self.show_frame(StartPage)	
+	def show_frame(self, context):
+		frame = self.frames[context]
+		frame.tkraise()
+
+class StartPage(Frame):
+	def __init__(self, parent, controller):
+		Frame.__init__(self, parent)
+
+		label = Label(self, text="Welcome to Instituto de Sistemas e Robotica!\n What do you want to do?", font=tkFont.Font(size=20))
+		label.grid(padx=10, pady=10)
+
+		page_one = Button(self, text="Do a Visit", width=15, height=10, font=tkFont.Font(size=20), command=lambda:controller.show_frame(PageOne))
+		page_one.grid(row = 2,column = 2)
+		page_two = Button(self, text="Go to Place", width=15, height=10, font=tkFont.Font(size=20), command=lambda:controller.show_frame(PageTwo))
+		page_two.grid(row = 2,column =6)
+
+class PageOne(Frame):
+	def __init__(self, parent, controller):
+		Frame.__init__(self, parent)
+
+		def tour1():
+			controller.show_frame(PageThree)
+			tour1_bol = True
+			tour2_bol = False
+			p=coordinator()
+			#chamada com a odom para o primeiro destino
+			#p.vstpFunc(0.5, 4, coord_home[0], coord_home[1])
+			'''
+			for i in destinos:
+				dest = places[value]
+				p.vstpFunc(, 4, dest[0], dest[1])
+			'''
+
+		def tour2():
+			controller.show_frame(PageThree)
+			tour1_bol = False
+			tour2_bol = True
+
+		label = Label(self, text="Page One")
+		label.pack(padx=10, pady=10)
+		tour1_start = Button(self, text="Start", command=tour1)
+		tour1_start.pack()
+		tour2_start = Button(self, text="Start", command=tour2)
+		tour2_start.pack()
+
+class PageTwo(Frame):
+	def __init__(self, parent, controller):
+		Frame.__init__(self, parent)
+
+
+
+		def choose(evt):
+			w=evt.widget
+			index=int(w.curselection()[0])
+			value = w.get(index)
+			self.result = places[value]
+
+		lb_places = Listbox(self, width=20, height=15, font=tkFont.Font(size=20))
+		lb_places.pack(padx=10, pady=20)
+		lb_places.bind('<<ListboxSelect>>',choose)
+
+
+		def show_all(self, lb_places, places):
+			lb_places.delete(0,"end") # to clear the window when you press the button
+			for destiny in places:
+				lb_places.insert("end", destiny)
+
+		show_all(self,lb_places, places)
+
+		def start_button_f():
+			print "X: %f Y: %f" % (self.result[0],self.result[1])
+			p = coordinator()
+			#planeador = getattr(p,vstpFunc)
+			p.vstpFunc(0.5, 4, self.result[0], self.result[1])
+			#limpa a lista no CGP e adiciona os novos pontos
+			#p.addpoint_client(True)
+			pagetwo_bol = True
+			controller.show_frame(PageThree)
+
+
+
+		label = Label(self, text="Choose where do you want to go and press Start:", font=tkFont.Font(size=20))
+		label.pack(padx=10, pady=10)
+		back_btn = Button(self, text="Back", command=lambda:controller.show_frame(StartPage))
+		back_btn.pack()
+		page_one = Button(self, text="Start", command=start_button_f)
+		page_one.pack()
+
+class PageThree(Frame):
+	def __init__(self, parent, controller):
+		Frame.__init__(self, parent)
+		'''
+		#variavel do servico chegou ao destino -> chegou
+		if(chegou=True): #chegou ao destino
+			if(tour1_bol or tour2_bol) controller.show_frame(PageFour)
+			if(pagetwo_bol) controller.show_frame(PageSix)
+			#var=False
+		'''
+
+		#You are heading to
+		#texto= "DESTINY: " + arrived_to
+		label = Label(self, text="DESTINY: ", font=tkFont.Font(size=30))
+		label.pack(padx=10, pady=10)
+		page_one = Button(self, text="Start", command=lambda:controller.show_frame(PageFour))
+		page_one.pack()
+
+
+class PageFour(Frame):
+	def __init__(self, parent, controller):
+		Frame.__init__(self, parent, background = "green")
+
+		def next_destiny():
+			p=coordinator()
+			p.go_client()
+			controller.show_frame(PageThree)
+
+		label = Label(self, text="You arrived to %f" , font=tkFont.Font(size=20))
+		label.pack(padx=10, pady=10)
+		tour1_go = Button(self, text="Next Destiny", command=next_destiny)
+		tour1_go.pack()
+
+
+class PageFive(Frame):
+	def __init__(self, parent, controller):
+		Frame.__init__(self, parent)
+
+		label = Label(self, text="Page One")
+		label.pack(padx=10, pady=10)
+		tour1_go = Button(self, text="Go", command=lambda:controller.show_frame(StartPage))
+		tour1_go.pack()
+		tour2_go = Button(self, text="Page Two", command=lambda:controller.show_frame(PageTwo))
+		tour2_go.pack()
+
+class PageSix(Frame):
+	def __init__(self, parent, controller):
+		Frame.__init__(self, parent, background = "green")
+
+		def send_home():
+			p = coordinator()
+			coord_home = places["Main Hall"]
+			p.vstpFunc(0.5, 4, coord_home[0], coord_home[1])
+			p.addpoint_client(True)
+			p.go_client()
+			controller.show_frame(StartPage)
+
+		def send_place():
+			controller.show_frame(PageTwo)
+
+		label = Label(self, text="You arrived to ", font=tkFont.Font(size=20))
+		label.pack(padx=10, pady=10)
+		go_home = Button(self, text="Send Home", command=send_home)
+		go_home.pack()
+		go_place = Button(self, text="Go To Another Place", command=send_place)
+		go_place.pack()
+
+class MainMenu:
+	def __init__(self, master):
+		menubar = Menu(master)
+		filemenu = Menu(menubar, tearoff=0)
+		filemenu.add_command(label="Exit", command=master.quit)
+		menubar.add_cascade(label="File", menu=filemenu)
+		master.config(menu=menubar)
+
+def criaGui():
+	app = App()
+	app.mainloop()
+
+def toThreadGui():
+	guiThread = threading.Thread(target=criaGui)
+	guiThread.daemon = True
+	guiThread.start()
+	#guiThread.join()
 
 '''
 STATE TABLE:
@@ -59,9 +264,6 @@ class coordinator():
 		#self.odom_sub = rospy.Subscriber('/segway_rmp_node/odom', Odometry, self.callbackOdom)
 		self.odom_sub = rospy.Subscriber('/odomUpdater', Pose2D, self.callbackFalseOdom)
 		self.new_odom_sub = rospy.Subscriber('/new_odom',Pose2D,self.callbackOdom)
-		#definicao do servico para receber obstaculos no caminho
-		self.s = rospy.Service('add_obstacle', add_obstacle, self.def_add_obstacle)
-
 		self.v=vstpPY.VSTP() #criacao do objeto
 		self.v.init(robotRadius,gridResolution,idealDist,maxDist)
 		self.mapsegs = self.v.loadMap(MAP)
@@ -91,13 +293,6 @@ class coordinator():
 		self.trueodomY=data.y
 		self.trueodomTheta=data.theta
 
-#---------------------------------------------------------------------------------------------------------------------------#
-	#function for adding obstacle with this coordinates to the map so the planner can be called again
-	def def_add_obstacle(self,req):
-		self.xobst = req.xobj
-		self.yobst = req.yobj
-
-		print "xobj: ", self.xobst, "yobj: ", self.yobst
 
 #---------------------------------------------------------------------------------------------------------------------------#
 
@@ -288,101 +483,6 @@ class coordinator():
 
 #---------------------------------------------------------------------------------------------------------------------------#
 
-	'''
-	x = StringVar() # Holds a string; default value ""
-	x = IntVar() # Holds an integer; default value 0
-	x = DoubleVar() # Holds a float; default value 0.0
-	x = BooleanVar() # Holds a boolean, returns 0 for False and 1 for True
-	'''
-
-	#https://stackoverflow.com/questions/10158552/how-to-use-an-image-for-the-background-in-tkinter
-
-	def criaGui(self):
-
-		window = Tkinter.Tk()
-		window.title("Manager")
-		window.geometry('350x400')
-		window.configure(background = "white")
-
-		places = {}
-
-		places ["Main Hall"] = [3.6,2.3]
-		places ["Lab: Mobile Robotics"] = [0.91,10.2]
-		places ["Accounting"] = [7.78,6.71]
-		places ["Lab: Computer Vision"] = [0.91,28.55]
-		places ["Lab: Immersive Systems"] = [0.91,25.8]
-		places ["Lab: Mechatronics"] = [21.21,10.2]
-		places ["Accounting 2"] = [13,6.71]
-
-
-		def show_all():
-			lb_places.delete(0,"end") # to clear the window when you press the button
-			for destiny in places:
-				lb_places.insert("end", destiny)
-
-		def calculateCourse():
-			#self.addpoint_client(False)
-			
-
-			#lbl_output.delete(0,"end")
-			selected = lb_places.get("active") #the active item is the one which is corrently sellected
-			result = places[selected]
-			#msg = result[1]
-			#lbl_output["text"] = msg
-			print "clear: ", clear.get()
-			print "teste result:", result[0], result[1]
-			#self.vstpFunc(self.trueodomX, self.trueodomY, result[0],result[1])
-			self.vstpFunc(0.5, 4, result[0],result[1])
-			self.addpoint_client(clear.get())
-			
-
-		def resume():
-			self.go_client()
-
-		def stopSegway():
-			self.stop_client()
-
-
-		#label
-		lbl_output = Tkinter.Label(window,text = "Hello! Where do you want to go?")
-		lbl_output.grid(row=1, column=0, sticky = "NE")
-		#listbox
-		lb_places = Tkinter.Listbox(window)
-		lb_places.grid(row=2, column=0, sticky = "NE")
-		#image label
-		'''
-		photo = Tkinter.PhotoImage(file = "segway.jpg")
-		photo_label = Tkinter.Label(window, image = photo)
-		photo_label.pack()
-		#sudo apt-get install python-imaging python-imaging-tk
-		#pip install Pillow
-		'''
-		'''
-		img = ImageTk.PhotoImage(Image.open("ISRlogo.jpg"))
-		panel = Tkinter.Label(window, image = img)
-		panel.pack(side = "bottom", fill = "both", expand = "yes")
-		'''
-		#panel.grid(rowspan = )
-		btn_lets_go = Tkinter.Button(window, text ="Calculate path", command = calculateCourse)
-		#btn_lets_go.pack()
-		btn_lets_go.grid(row=3, column=0, sticky = "E")
-		#self.button.grid(row = 2, column = 2, sticky = W)
-
-		btn_resume = Tkinter.Button(window, text ="Resume destination", command = resume, fg = "white", bg = "forestgreen", activebackground = "green3", activeforeground = "white")
-		btn_resume.grid(row=1, column=2, sticky = "W")
-
-		btn_stop = Tkinter.Button(window, text ="Stop Segway", command = stopSegway, fg = "white", bg = "red3", activebackground = "red2", activeforeground = "white")
-		btn_stop.grid(row=2, column=2, sticky = "NW")
-
-		clear = Tkinter.BooleanVar()
-		check_box = Tkinter.Checkbutton(window,text = "Clear places to visit", variable = clear, onvalue = True, offvalue = False, \
-										height = 1, width = 15)
-		check_box.grid(row=5, column=0, sticky = "E")
-
-
-
-		show_all()
-		window.mainloop()
 
 #---------------------------------------------------------------------------------------------------------------------------#	
 			
@@ -395,12 +495,6 @@ class coordinator():
 		mapThread.join()
 
 #---------------------------------------------------------------------------------------------------------------------------#
-
-	def toThreadGui(self):
-		guiThread = threading.Thread(target=self.criaGui)
-		guiThread.daemon = True
-		guiThread.start()
-		#guiThread.join()
 
 
 #---------------------------------------------------------------------------------------------------------------------------#
@@ -451,7 +545,7 @@ class coordinator():
 		#coordenadas de destino (fim)
 		print "goalx: %f goaly: %f" % (goalx,goaly)
 
-
+		self.traj_points = []
 		self.computeMapLimits();
 		self.traj_points =self.v.planTrajectory(iniX,iniY,goalx,goaly,True)
 		#chamada a funcao que divide a trajectoria
@@ -471,12 +565,12 @@ if __name__ == "__main__":
 	print "Coordinator Initialization..."
 	boss=coordinator()
 	boss.readFile(traj1)
-	#boss.toThreadGui()
+	toThreadGui()
 	#boss.initScreen()
 	#boss.LoadMapNRobot()
 
 	#boss.vstpFunc(4,0.5,0.9,25)
-	boss.addpoint_client(False)
+	##boss.addpoint_client(False)
 
 	print "Coordinator Ready!"
 	rospy.spin()

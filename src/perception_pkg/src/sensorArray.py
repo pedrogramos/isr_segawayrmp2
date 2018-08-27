@@ -32,7 +32,7 @@ def talker():
 	rospy.sleep(0.5)
 	values = []
 
-	rate = rospy.Rate(100) # 10hz
+	rate = rospy.Rate(100) # 100
 
 	if (ser.is_open):
 		print "Connection established."
