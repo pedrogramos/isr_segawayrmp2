@@ -26,8 +26,10 @@
 using namespace std;
 
 #define PI 3.141592
-#define Kl 0.2 //0.2 0.3 0.6 0.7
-#define Kw 0.5 //0.5 0.5 0.4 0.45
+#define lin 0.6 //0.2 0.3 0.6 0.7
+#define ang 0.4 //0.5 0.5 0.4 0.45
+float Kl = lin; 
+float Kw = ang; 
 enum states{GO,STOP,STOPPING,ADDPOINT};
 enum states state=GO;
 struct point { float xf; float yf;} new_point, aux_s, aux_d;
@@ -235,31 +237,44 @@ void SendVelocity::goTo(float xf, float yf, float destX, float destY, float limi
   outfile2.open("goal.txt");
 
   // calculo do módulo
-  float d=sqrt(pow((xf-odomNew.x),2)+pow((yf-odomNew.y),2));
+  float d1=sqrt(pow((xf-odomNew.x),2)+pow((yf-odomNew.y),2));
+  float d2destiny=d1;
   // calculo da circunferencia de bullseye
   float c=pow((xf-odomNew.x),2)+pow((yf-odomNew.y),2);
-  float cc = pow((destX-odomNew.x),2)+pow((destY-odomNew.y),2);
+  //float cc = pow((destX-odomNew.x),2)+pow((destY-odomNew.y),2);
   // calculo do versor para comparacao da direcao da plataforma
-  float dxini = (xf-odomNew.x) / d;
-  float dyini = (yf-odomNew.y) / d;
+  float dxini = (xf-odomNew.x) / d1;
+  float dyini = (yf-odomNew.y) / d1;
 
 
-  ROS_INFO("Proximo ponto: X= %f e Y= %f.",xf, yf);
+  //ROS_INFO("Proximo ponto: X= %f e Y= %f.",xf, yf);
 
   //enquanto o RMP estiver fora do raio da circunferencia c centro no ponto destino
   // e ao detectar um marcador não querer voltar para trás
-  while (c>pow(limiar,2) && opposite == false){
+  while (d1>limiar && opposite == false){
+
+    /*
+    if(d1 > d2destiny-1.5 || d1 < 1.2){
+      Kl=0.3;
+      Kw=0.4;
+      ROS_INFO("Viragem a acontecer");
+    }
+    else{
+      Kl=lin;
+      Kw=ang;
+      ROS_INFO("passou a viragem");
+    }*/
 
     //calculo vector atractivo normalizado
-    d=sqrt(pow((xf-odomNew.x),2)+pow((yf-odomNew.y),2));
-    ROS_INFO("dist ao ponto: %f", d);
-    float vecAtraX=(xf-odomNew.x ) / d;
-    float vecAtraY=(yf-odomNew.y) / d;
+    d1=sqrt(pow((xf-odomNew.x),2)+pow((yf-odomNew.y),2));
+    ROS_INFO("dist ao ponto: %f, Kl= %f e kw= %f", d1,Kl,Kw);
+    float vecAtraX=(xf-odomNew.x ) / d1;
+    float vecAtraY=(yf-odomNew.y) / d1;
     //ponto desvio obstáculo = repulsivo+soma vector atractivo +  odometria
     float pDesvioX = repulsive.x + vecAtraX + odomNew.x;
     float pDesvioY = repulsive.y + vecAtraY + odomNew.y;
     //calculo vector resultante normalizado -> versor
-    d=sqrt(pow((pDesvioX-odomNew.x),2)+pow((pDesvioY-odomNew.y),2));
+    float d=sqrt(pow((pDesvioX-odomNew.x),2)+pow((pDesvioY-odomNew.y),2));
     float dx = (pDesvioX - odomNew.x ) / d;
     float dy = (pDesvioY - odomNew.y) / d;
 
@@ -275,8 +290,8 @@ void SendVelocity::goTo(float xf, float yf, float destX, float destY, float limi
     // projecções * os ganhos
     sendVel(vx*Kl,vy*Kw);
 
-    c=pow((xf-odomNew.x),2)+pow((yf-odomNew.y),2);
-    cc = pow((destX-odomNew.x),2)+pow((destY-odomNew.y),2);
+    //c=pow((xf-odomNew.x),2)+pow((yf-odomNew.y),2);
+    //cc = pow((destX-odomNew.x),2)+pow((destY-odomNew.y),2);
 
     // se for detectado um marcador e sinalizado com um servico e com esta variavel
     // usado para comparar se o robo continua com a mesma direccao ou nao
@@ -312,16 +327,19 @@ void SendVelocity::goTo(float xf, float yf, float destX, float destY, float limi
   } 
 
 
-  if(c<pow(limiar,2)){
+  if(d1<limiar){
     ROS_INFO("Chegou ao ponto objectivo: X= %f e Y= %f.",xf, yf);
     ROS_INFO("Odom: X= %f  Y= %f  Th= %f", odomNew.x, odomNew.y,odomNew.theta);
     fila_pontos.pop();
+    //back = dxini*((xf-odomNew.x ) / d) + dyini * ((yf-odomNew.y ) / d);
+
     state=STOP;
+    /*
     if(cc<pow(limiar,2)){
       ROS_INFO("Chegou ao ponto destino: X= %f e Y= %f.",destX, destY);
       fila_destino.pop();
       state=STOP;
-    }
+    }*/
   }
 
     //state=GO;

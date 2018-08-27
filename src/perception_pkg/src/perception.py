@@ -86,20 +86,6 @@ class Perception():
 			print "Adding obstacle service call failed: %s" % e
 
 	'''
-#---------------------------------------------------------------------------------------------------------------------------#
-	'''
-	def testeValues():
-
-		self.sensorValues.ir1 = 0.6
-		self.sensorValues.s1 = 2.00
-		self.sensorValues.ir2 = 
-		self.sensorValues.s2 = 
-		self.sensorValues.ir3 = 
-		self.sensorValues.ir4 = 
-		self.sensorValues.s5 = 
-	'''
-
-#---------------------------------------------------------------------------------------------------------------------------#
 	
 	
 	#escolher segundo a odometria o sensor mais adequado a usar por causa dos vidros

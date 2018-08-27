@@ -126,16 +126,23 @@ class odomUpdater:
 
 	def correctOdom(self):
 
+		'''
 		if (self.pose.theta > PI_2):
 			self.pose.theta=self.pose.theta - PI_2
-		'''
+		
 		elif (self.pose.theta < 0):
 			self.pose.theta=self.pose.theta + PI_2
 		'''
+		
 		self.pose.x = self.trueodomX + (self.odomXrmp - self.iniXrmp)
 		self.pose.y = self.trueodomY + (self.odomYrmp - self.iniYrmp)
 		self.pose.theta = self.trueodomTheta + (self.odomThetarmp - self.iniThetarmp)
-
+		
+		'''
+		self.pose.x=self.odomXrmp
+		self.pose.y=self.odomYrmp
+		self.pose.theta=self.odomThetarmp
+		'''
 		#rospy.loginfo(self.pose)
 		self.odom_pub.publish(self.pose)
 

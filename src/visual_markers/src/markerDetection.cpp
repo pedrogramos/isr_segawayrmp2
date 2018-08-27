@@ -575,7 +575,7 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
           ros::Duration(1).sleep();
         }
 
-        entrar = true;
+        //entrar = true;
         if(entrar){
           printf("ENTROU CHAMADA SERVICO!!\n");
           time ( &rawtime );

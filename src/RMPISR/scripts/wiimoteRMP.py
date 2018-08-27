@@ -92,7 +92,7 @@ class wii:
 
 		#up button
 		if(self.buttonState[6]):
-			vel.linear.x = 0.3*boost
+			vel.linear.x = 0.6*boost
 			andar=True
 
 		#down button
