@@ -23,8 +23,10 @@ class addpointRequest {
     if (initObj === null) {
       // initObj === null is a special case for deserialization where we don't initialize fields
       this.pointArray = null;
+      this.destArray = null;
       this.type = null;
       this.size = null;
+      this.size_dest = null;
     }
     else {
       if (initObj.hasOwnProperty('pointArray')) {
@@ -32,6 +34,12 @@ class addpointRequest {
       }
       else {
         this.pointArray = [];
+      }
+      if (initObj.hasOwnProperty('destArray')) {
+        this.destArray = initObj.destArray
+      }
+      else {
+        this.destArray = [];
       }
       if (initObj.hasOwnProperty('type')) {
         this.type = initObj.type
@@ -45,6 +53,12 @@ class addpointRequest {
       else {
         this.size = 0;
       }
+      if (initObj.hasOwnProperty('size_dest')) {
+        this.size_dest = initObj.size_dest
+      }
+      else {
+        this.size_dest = 0;
+      }
     }
   }
 
@@ -56,10 +70,18 @@ class addpointRequest {
     obj.pointArray.forEach((val) => {
       bufferOffset = geometry_msgs.msg.Point.serialize(val, buffer, bufferOffset);
     });
+    // Serialize message field [destArray]
+    // Serialize the length for message field [destArray]
+    bufferOffset = _serializer.uint32(obj.destArray.length, buffer, bufferOffset);
+    obj.destArray.forEach((val) => {
+      bufferOffset = geometry_msgs.msg.Point.serialize(val, buffer, bufferOffset);
+    });
     // Serialize message field [type]
     bufferOffset = _serializer.bool(obj.type, buffer, bufferOffset);
     // Serialize message field [size]
     bufferOffset = _serializer.int32(obj.size, buffer, bufferOffset);
+    // Serialize message field [size_dest]
+    bufferOffset = _serializer.int32(obj.size_dest, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -74,17 +96,27 @@ class addpointRequest {
     for (let i = 0; i < len; ++i) {
       data.pointArray[i] = geometry_msgs.msg.Point.deserialize(buffer, bufferOffset)
     }
+    // Deserialize message field [destArray]
+    // Deserialize array length for message field [destArray]
+    len = _deserializer.uint32(buffer, bufferOffset);
+    data.destArray = new Array(len);
+    for (let i = 0; i < len; ++i) {
+      data.destArray[i] = geometry_msgs.msg.Point.deserialize(buffer, bufferOffset)
+    }
     // Deserialize message field [type]
     data.type = _deserializer.bool(buffer, bufferOffset);
     // Deserialize message field [size]
     data.size = _deserializer.int32(buffer, bufferOffset);
+    // Deserialize message field [size_dest]
+    data.size_dest = _deserializer.int32(buffer, bufferOffset);
     return data;
   }
 
   static getMessageSize(object) {
     let length = 0;
     length += 24 * object.pointArray.length;
-    return length + 9;
+    length += 24 * object.destArray.length;
+    return length + 17;
   }
 
   static datatype() {
@@ -94,15 +126,17 @@ class addpointRequest {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '7da3ac5df9a593780eabd65b2f6b4ceb';
+    return 'fca49ca1a51aa0c3cdeb5f4e59c200d6';
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
     geometry_msgs/Point[] pointArray
+    geometry_msgs/Point[] destArray
     bool type
     int32 size
+    int32 size_dest
     
     ================================================================================
     MSG: geometry_msgs/Point
@@ -130,6 +164,16 @@ class addpointRequest {
       resolved.pointArray = []
     }
 
+    if (msg.destArray !== undefined) {
+      resolved.destArray = new Array(msg.destArray.length);
+      for (let i = 0; i < resolved.destArray.length; ++i) {
+        resolved.destArray[i] = geometry_msgs.msg.Point.Resolve(msg.destArray[i]);
+      }
+    }
+    else {
+      resolved.destArray = []
+    }
+
     if (msg.type !== undefined) {
       resolved.type = msg.type;
     }
@@ -142,6 +186,13 @@ class addpointRequest {
     }
     else {
       resolved.size = 0
+    }
+
+    if (msg.size_dest !== undefined) {
+      resolved.size_dest = msg.size_dest;
+    }
+    else {
+      resolved.size_dest = 0
     }
 
     return resolved;
@@ -204,6 +255,6 @@ class addpointResponse {
 module.exports = {
   Request: addpointRequest,
   Response: addpointResponse,
-  md5sum() { return '7da3ac5df9a593780eabd65b2f6b4ceb'; },
+  md5sum() { return 'fca49ca1a51aa0c3cdeb5f4e59c200d6'; },
   datatype() { return 'RMPISR/addpoint'; }
 };

@@ -16,6 +16,7 @@
 #include <ros/message_operations.h>
 
 #include <geometry_msgs/Point.h>
+#include <geometry_msgs/Point.h>
 
 namespace RMPISR
 {
@@ -26,13 +27,17 @@ struct addpointRequest_
 
   addpointRequest_()
     : pointArray()
+    , destArray()
     , type(false)
-    , size(0)  {
+    , size(0)
+    , size_dest(0)  {
     }
   addpointRequest_(const ContainerAllocator& _alloc)
     : pointArray(_alloc)
+    , destArray(_alloc)
     , type(false)
-    , size(0)  {
+    , size(0)
+    , size_dest(0)  {
   (void)_alloc;
     }
 
@@ -41,11 +46,17 @@ struct addpointRequest_
    typedef std::vector< ::geometry_msgs::Point_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::geometry_msgs::Point_<ContainerAllocator> >::other >  _pointArray_type;
   _pointArray_type pointArray;
 
+   typedef std::vector< ::geometry_msgs::Point_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::geometry_msgs::Point_<ContainerAllocator> >::other >  _destArray_type;
+  _destArray_type destArray;
+
    typedef uint8_t _type_type;
   _type_type type;
 
    typedef int32_t _size_type;
   _size_type size;
+
+   typedef int32_t _size_dest_type;
+  _size_dest_type size_dest;
 
 
 
@@ -125,12 +136,12 @@ struct MD5Sum< ::RMPISR::addpointRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "7da3ac5df9a593780eabd65b2f6b4ceb";
+    return "fca49ca1a51aa0c3cdeb5f4e59c200d6";
   }
 
   static const char* value(const ::RMPISR::addpointRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x7da3ac5df9a59378ULL;
-  static const uint64_t static_value2 = 0x0eabd65b2f6b4cebULL;
+  static const uint64_t static_value1 = 0xfca49ca1a51aa0c3ULL;
+  static const uint64_t static_value2 = 0xcdeb5f4e59c200d6ULL;
 };
 
 template<class ContainerAllocator>
@@ -150,8 +161,10 @@ struct Definition< ::RMPISR::addpointRequest_<ContainerAllocator> >
   static const char* value()
   {
     return "geometry_msgs/Point[] pointArray\n\
+geometry_msgs/Point[] destArray\n\
 bool type\n\
 int32 size\n\
+int32 size_dest\n\
 \n\
 ================================================================================\n\
 MSG: geometry_msgs/Point\n\
@@ -178,8 +191,10 @@ namespace serialization
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
       stream.next(m.pointArray);
+      stream.next(m.destArray);
       stream.next(m.type);
       stream.next(m.size);
+      stream.next(m.size_dest);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -206,10 +221,20 @@ struct Printer< ::RMPISR::addpointRequest_<ContainerAllocator> >
       s << indent;
       Printer< ::geometry_msgs::Point_<ContainerAllocator> >::stream(s, indent + "    ", v.pointArray[i]);
     }
+    s << indent << "destArray[]" << std::endl;
+    for (size_t i = 0; i < v.destArray.size(); ++i)
+    {
+      s << indent << "  destArray[" << i << "]: ";
+      s << std::endl;
+      s << indent;
+      Printer< ::geometry_msgs::Point_<ContainerAllocator> >::stream(s, indent + "    ", v.destArray[i]);
+    }
     s << indent << "type: ";
     Printer<uint8_t>::stream(s, indent + "  ", v.type);
     s << indent << "size: ";
     Printer<int32_t>::stream(s, indent + "  ", v.size);
+    s << indent << "size_dest: ";
+    Printer<int32_t>::stream(s, indent + "  ", v.size_dest);
   }
 };
 

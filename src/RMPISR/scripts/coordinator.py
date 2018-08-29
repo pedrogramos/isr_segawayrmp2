@@ -20,12 +20,47 @@ import tkFont
 import csv
 #import Tkinter
 from Tkinter import *
-#from PIL import ImageTk, Image
+from PIL import ImageTk, Image
 
 
 #to compile for ros
 #chmod +x scripts/coordinator.py
 
+
+'''
+local_rot1= ["Main Hall","Lab: Mobile Robotics","Accounting","Lab: Computer Vision","Lab: Immersive Systems","Lab: Mechatronics","Accounting 2"]
+positions_rot1 = [[3.6,2.3],[0.91,10.2],[7.78,6.71],[0.91,28.55],[0.91,25.8],[21.21,10.2],[13,6.71]]
+rot1 = {'places':local_names, 'locations':positions}
+local_rot1 = {'local':, 'pose':}
+local_rot2 = {'local':, 'pose':}
+
+dictionary = [local_rot1, local_rot2]
+
+dictionary[0]['local']
+a = dictionary[0]['pose']
+a[0] a[1]
+
+for elem in dictionary:
+	start = elem[j]['pose']
+	goal =   elem[j+1]['pose']
+'''
+
+
+rot1_1 = {'local':["Lab: Mobile Robotics"], 'pose':[0.91,10.2]}
+rot1_2 = {'local':["Lab: Immersive Systems"], 'pose':[0.91,25.8]}
+rot1_3 = {'local':["Lab: Computer Vision"], 'pose':[0.91,28.55]}
+tour1_dic = [rot1_1,rot1_2,rot1_3]
+
+
+
+rot2_1 = {'local':["Accounting"], 'pose':[7.78,6.71]} 
+rot2_2 = {'local':["Lab: Mechatronics"], 'pose':[21.21,10.2]}
+rot2_3 = {'local':["Lab: Mobile Robotics"], 'pose':[0.91,10.2]}
+tour2_dic = [rot2_1,rot2_2,rot2_3]
+
+
+arrived_to = str()
+tour1_bol = tour2_bol =  bool()
 
 places = {}
 
@@ -37,7 +72,7 @@ places ["Lab: Immersive Systems"] = [0.91,25.8]
 places ["Lab: Mechatronics"] = [21.21,10.2]
 places ["Accounting 2"] = [13,6.71]
 
-#arrived_to = places{1}
+
 
 
 #no ISR
@@ -70,43 +105,66 @@ class App(Tk):
 	def show_frame(self, context):
 		frame = self.frames[context]
 		frame.tkraise()
+		frame.update()
+		frame.event_generate("<<ShowFrame>>")
 
 class StartPage(Frame):
 	def __init__(self, parent, controller):
 		Frame.__init__(self, parent)
 
 		label = Label(self, text="Welcome to Instituto de Sistemas e Robotica!\n What do you want to do?", font=tkFont.Font(size=20))
-		label.grid(padx=10, pady=10)
+		label.pack(padx=10, pady=10)
 
 		page_one = Button(self, text="Do a Visit", width=15, height=10, font=tkFont.Font(size=20), command=lambda:controller.show_frame(PageOne))
-		page_one.grid(row = 2,column = 2)
+		page_one.pack()
 		page_two = Button(self, text="Go to Place", width=15, height=10, font=tkFont.Font(size=20), command=lambda:controller.show_frame(PageTwo))
-		page_two.grid(row = 2,column =6)
+		page_two.pack()
+		'''
+		img = ImageTk.PhotoImage(Image.open("/home/rmp/catkin_ws/src/RMPISR/scripts/segway.jpg"))
+		panel = Label(self, image = img)
+		#panel.img = img
+		panel.pack(side = "top", fill = "both", expand = "yes")
+		'''
+		
 
 class PageOne(Frame):
 	def __init__(self, parent, controller):
 		Frame.__init__(self, parent)
 
 		def tour1():
-			controller.show_frame(PageThree)
 			tour1_bol = True
 			tour2_bol = False
 			p=coordinator()
-			#chamada com a odom para o primeiro destino
-			#p.vstpFunc(0.5, 4, coord_home[0], coord_home[1])
-			'''
-			for i in destinos:
-				dest = places[value]
-				p.vstpFunc(, 4, dest[0], dest[1])
-			'''
+			#substituir pela odom
+			p.vstpFunc(0.5, 4, tour1_dic[0]['pose'][0], tour1_dic[0]['pose'][1])
+			
+			for i in xrange(1,len(tour1_dic)):
+				print 
+				print i
+				p.vstpFunc(tour1_dic[i-1]['pose'][0], tour1_dic[i-1]['pose'][1], tour1_dic[i]['pose'][0], tour1_dic[i]['pose'][1])
+				#p.addpoint_client(True)
+
+			controller.show_frame(PageThree)
+			
 
 		def tour2():
-			controller.show_frame(PageThree)
 			tour1_bol = False
 			tour2_bol = True
+			p=coordinator()
+			p.vstpFunc(0.5, 4, tour2_dic[0]['pose'][0], tour2_dic[0]['pose'][1])
+			
+			for i in xrange(1,len(tour2_dic)):
+				print 
+				print i
+				p.vstpFunc(tour2_dic[i-1]['pose'][0], tour2_dic[i-1]['pose'][1], tour2_dic[i]['pose'][0], tour2_dic[i]['pose'][1])
+				#p.addpoint_client(True)
 
-		label = Label(self, text="Page One")
-		label.pack(padx=10, pady=10)
+			controller.show_frame(PageThree)
+
+		tour1_lbl = Label(self, text="Tour 1: Lab Mobile Robotics, Lab Computer Vision, Lab Immersive Systems")
+		tour1_lbl.pack(padx=10, pady=10)
+		tour2_lbl = Label(self, text="Tour 2: Accounting, Lab Mechatronics, Lab Mobile Robotics")
+		tour2_lbl.pack(padx=20, pady=20)
 		tour1_start = Button(self, text="Start", command=tour1)
 		tour1_start.pack()
 		tour2_start = Button(self, text="Start", command=tour2)
@@ -123,6 +181,9 @@ class PageTwo(Frame):
 			index=int(w.curselection()[0])
 			value = w.get(index)
 			self.result = places[value]
+			print value
+			arrived_to = str(value)
+			print arrived_to
 
 		lb_places = Listbox(self, width=20, height=15, font=tkFont.Font(size=20))
 		lb_places.pack(padx=10, pady=20)
@@ -144,7 +205,7 @@ class PageTwo(Frame):
 			#limpa a lista no CGP e adiciona os novos pontos
 			#p.addpoint_client(True)
 			pagetwo_bol = True
-			controller.show_frame(PageThree)
+			controller.show_frame(PageFive)
 
 
 
@@ -158,20 +219,31 @@ class PageTwo(Frame):
 class PageThree(Frame):
 	def __init__(self, parent, controller):
 		Frame.__init__(self, parent)
-		'''
-		#variavel do servico chegou ao destino -> chegou
-		if(chegou=True): #chegou ao destino
-			if(tour1_bol or tour2_bol) controller.show_frame(PageFour)
-			if(pagetwo_bol) controller.show_frame(PageSix)
-			#var=False
-		'''
+		print "teste"
+		print tour1_bol
 
+		if (tour1_bol):
+			print tour1_dic[0]['local']
+
+		if (tour2_bol):
+			print tour2_dic[0]['local']
+
+		texto = StringVar()
 		#You are heading to
-		#texto= "DESTINY: " + arrived_to
-		label = Label(self, text="DESTINY: ", font=tkFont.Font(size=30))
+		s = "Heading to: %s" %(arrived_to)
+		print s
+		texto.set(s)
+		label = Label(self, text=texto, font=tkFont.Font(size=30))
 		label.pack(padx=10, pady=10)
-		page_one = Button(self, text="Start", command=lambda:controller.show_frame(PageFour))
+		page_one = Button(self, text="page4", command=lambda:controller.show_frame(PageFour))
 		page_one.pack()
+
+		
+		def validate(self):
+			print "yesss"
+
+
+		self.bind("<<ShowFrame>>", validate)
 
 
 class PageFour(Frame):
@@ -180,7 +252,7 @@ class PageFour(Frame):
 
 		def next_destiny():
 			p=coordinator()
-			p.go_client()
+			#p.go_client()
 			controller.show_frame(PageThree)
 
 		label = Label(self, text="You arrived to %f" , font=tkFont.Font(size=20))
@@ -193,12 +265,25 @@ class PageFive(Frame):
 	def __init__(self, parent, controller):
 		Frame.__init__(self, parent)
 
-		label = Label(self, text="Page One")
+		#texto = StringVar()
+		
+		#a = "hello"
+		#You are heading to
+		k = "Heading to: %s" % (arrived_to)
+		k1 = "Heading to: " + arrived_to
+		#print k
+		#texto.set(k)
+		label = Label(self, text=k1, font=tkFont.Font(size=30))
 		label.pack(padx=10, pady=10)
-		tour1_go = Button(self, text="Go", command=lambda:controller.show_frame(StartPage))
-		tour1_go.pack()
-		tour2_go = Button(self, text="Page Two", command=lambda:controller.show_frame(PageTwo))
-		tour2_go.pack()
+		page_six = Button(self, text="page6", command=lambda:controller.show_frame(PageSix))
+		page_six.pack()
+
+		
+
+		def validate(self):
+			print "yess also"
+
+		self.bind("<<ShowFrame>>", validate)
 
 class PageSix(Frame):
 	def __init__(self, parent, controller):
@@ -208,8 +293,8 @@ class PageSix(Frame):
 			p = coordinator()
 			coord_home = places["Main Hall"]
 			p.vstpFunc(0.5, 4, coord_home[0], coord_home[1])
-			p.addpoint_client(True)
-			p.go_client()
+			#p.addpoint_client(True)
+			#p.go_client()
 			controller.show_frame(StartPage)
 
 		def send_place():
@@ -327,19 +412,33 @@ class coordinator():
 			addpoint_ = rospy.ServiceProxy('addpoint', addpoint)
 			
 			
-			pointArray=list()
-			size=len(self.myList)
+			destArray = list()
+			objectiveArrayPoint = list()
+			destArraySize = len(self.myList)
+			
 
 			
 			#code for file reading
-			for elem in range(size):
+			for elem in range(destArraySize):
 				toappend = Point()
 				toappend.x = float(self.myList[elem]['x'])
 				toappend.y = float(self.myList[elem]['y'])
-				pointArray.append(toappend)
+				destArray.append(toappend)
 
-			print pointArray
-			
+			print "\nPontos Destino:"
+			print destArray
+
+			objectiveArray = self.trajDivider(destArray,30)
+			objectiveArraySize = len(objectiveArray)
+
+			for elem in range(objectiveArraySize):
+				toappend = Point()
+				toappend.x = objectiveArray[elem].x
+				toappend.y = objectiveArray[elem].y
+				objectiveArrayPoint.append(toappend)
+
+			print "\nPontos Objectivo:"
+			print objectiveArrayPoint
 			
 			
 			'''
@@ -355,7 +454,7 @@ class coordinator():
 			print "new point: " , pointArray
 			'''
 			
-			resp1 = addpoint_.call(pointArray, clear, size)
+			resp1 = addpoint_.call(objectiveArrayPoint,destArray, clear, objectiveArraySize, destArraySize)
 
 			print "Points added with sucess!"
 		except rospy.ServiceException, e:
@@ -501,22 +600,23 @@ class coordinator():
 
 	#divisao do segmentos provenientes do VSTP em segmentos mais pequenos
 	#scale -> tamanho maximo dos segmentos desejados
-	def trajDivider(self,scale=1):
-		size=len(self.traj_points)
+	def trajDivider(self,Lpontos,scale=1):
+	
+		size=len(Lpontos)
 
 
 		for i in range(1,size):
 
 			# inicializacao da nova trajectoria
-			self.aux_traj.x = self.traj_points[i-1].x
-			self.aux_traj.y = self.traj_points[i-1].y
+			self.aux_traj.x = Lpontos[i-1].x
+			self.aux_traj.y = Lpontos[i-1].y
 
 			#calculo da distancia euclidiana
-			d = math.sqrt(math.pow((self.traj_points[i].x-self.traj_points[i-1].x),2) + math.pow((self.traj_points[i].y-self.traj_points[i-1].y),2))
+			d = math.sqrt(math.pow((Lpontos[i].x-Lpontos[i-1].x),2) + math.pow((Lpontos[i].y-Lpontos[i-1].y),2))
 			#versor em X
-			versorX = (self.traj_points[i].x - self.traj_points[i-1].x) / d
+			versorX = (Lpontos[i].x - Lpontos[i-1].x) / d
 			#versor em Y
-			versorY = (self.traj_points[i].y - self.traj_points[i-1].y) / d
+			versorY = (Lpontos[i].y - Lpontos[i-1].y) / d
 
 			#quantas vezes cabe a minha scale na distancia entre os pontos
 			#vezes que tenho de incrementar o ciclo
@@ -525,7 +625,7 @@ class coordinator():
 			#valor do incremento por iteracao
 			inc= d/k
 
-			print "d: %f versorX: %f versorY: %f k: %f inc: %f" % (d,versorX,versorY,k,inc)
+			#print "d: %f versorX: %f versorY: %f k: %f inc: %f" % (d,versorX,versorY,k,inc)
 
 
 			for j in xrange(k):
@@ -534,12 +634,14 @@ class coordinator():
 				self.new_traj.append(copy.deepcopy(self.aux_traj))
 			
 
-		print "lista final: \n" , self.new_traj
+		print "\nlista final: \n" , self.new_traj
+		return self.new_traj
 
 #---------------------------------------------------------------------------------------------------------------------------#
 
 	#funcao que quando chamada retorna a trajetoria de pontos
 	def vstpFunc(self,iniX,iniY,goalx,goaly):
+		print "\nPLANEADOR:"
 		#coordenadas de partida (inicio)
 		print "odomx: %f odomy: %f" % (iniX,iniY)
 		#coordenadas de destino (fim)
@@ -565,12 +667,12 @@ if __name__ == "__main__":
 	print "Coordinator Initialization..."
 	boss=coordinator()
 	boss.readFile(traj1)
-	toThreadGui()
+	#toThreadGui()
 	#boss.initScreen()
 	#boss.LoadMapNRobot()
 
 	#boss.vstpFunc(4,0.5,0.9,25)
-	##boss.addpoint_client(False)
+	boss.addpoint_client(False)
 
 	print "Coordinator Ready!"
 	rospy.spin()

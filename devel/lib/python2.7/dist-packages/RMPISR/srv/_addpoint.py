@@ -8,12 +8,14 @@ import struct
 import geometry_msgs.msg
 
 class addpointRequest(genpy.Message):
-  _md5sum = "7da3ac5df9a593780eabd65b2f6b4ceb"
+  _md5sum = "fca49ca1a51aa0c3cdeb5f4e59c200d6"
   _type = "RMPISR/addpointRequest"
   _has_header = False #flag to mark the presence of a Header object
   _full_text = """geometry_msgs/Point[] pointArray
+geometry_msgs/Point[] destArray
 bool type
 int32 size
+int32 size_dest
 
 ================================================================================
 MSG: geometry_msgs/Point
@@ -22,8 +24,8 @@ float64 x
 float64 y
 float64 z
 """
-  __slots__ = ['pointArray','type','size']
-  _slot_types = ['geometry_msgs/Point[]','bool','int32']
+  __slots__ = ['pointArray','destArray','type','size','size_dest']
+  _slot_types = ['geometry_msgs/Point[]','geometry_msgs/Point[]','bool','int32','int32']
 
   def __init__(self, *args, **kwds):
     """
@@ -33,7 +35,7 @@ float64 z
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       pointArray,type,size
+       pointArray,destArray,type,size,size_dest
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -44,14 +46,20 @@ float64 z
       #message fields cannot be None, assign default values for those that are
       if self.pointArray is None:
         self.pointArray = []
+      if self.destArray is None:
+        self.destArray = []
       if self.type is None:
         self.type = False
       if self.size is None:
         self.size = 0
+      if self.size_dest is None:
+        self.size_dest = 0
     else:
       self.pointArray = []
+      self.destArray = []
       self.type = False
       self.size = 0
+      self.size_dest = 0
 
   def _get_types(self):
     """
@@ -70,8 +78,13 @@ float64 z
       for val1 in self.pointArray:
         _x = val1
         buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+      length = len(self.destArray)
+      buff.write(_struct_I.pack(length))
+      for val1 in self.destArray:
+        _x = val1
+        buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
       _x = self
-      buff.write(_get_struct_Bi().pack(_x.type, _x.size))
+      buff.write(_get_struct_B2i().pack(_x.type, _x.size, _x.size_dest))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -83,6 +96,8 @@ float64 z
     try:
       if self.pointArray is None:
         self.pointArray = None
+      if self.destArray is None:
+        self.destArray = None
       end = 0
       start = end
       end += 4
@@ -95,10 +110,21 @@ float64 z
         end += 24
         (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
         self.pointArray.append(val1)
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      self.destArray = []
+      for i in range(0, length):
+        val1 = geometry_msgs.msg.Point()
+        _x = val1
+        start = end
+        end += 24
+        (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
+        self.destArray.append(val1)
       _x = self
       start = end
-      end += 5
-      (_x.type, _x.size,) = _get_struct_Bi().unpack(str[start:end])
+      end += 9
+      (_x.type, _x.size, _x.size_dest,) = _get_struct_B2i().unpack(str[start:end])
       self.type = bool(self.type)
       return self
     except struct.error as e:
@@ -117,8 +143,13 @@ float64 z
       for val1 in self.pointArray:
         _x = val1
         buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+      length = len(self.destArray)
+      buff.write(_struct_I.pack(length))
+      for val1 in self.destArray:
+        _x = val1
+        buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
       _x = self
-      buff.write(_get_struct_Bi().pack(_x.type, _x.size))
+      buff.write(_get_struct_B2i().pack(_x.type, _x.size, _x.size_dest))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -131,6 +162,8 @@ float64 z
     try:
       if self.pointArray is None:
         self.pointArray = None
+      if self.destArray is None:
+        self.destArray = None
       end = 0
       start = end
       end += 4
@@ -143,10 +176,21 @@ float64 z
         end += 24
         (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
         self.pointArray.append(val1)
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      self.destArray = []
+      for i in range(0, length):
+        val1 = geometry_msgs.msg.Point()
+        _x = val1
+        start = end
+        end += 24
+        (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
+        self.destArray.append(val1)
       _x = self
       start = end
-      end += 5
-      (_x.type, _x.size,) = _get_struct_Bi().unpack(str[start:end])
+      end += 9
+      (_x.type, _x.size, _x.size_dest,) = _get_struct_B2i().unpack(str[start:end])
       self.type = bool(self.type)
       return self
     except struct.error as e:
@@ -156,12 +200,12 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
-_struct_Bi = None
-def _get_struct_Bi():
-    global _struct_Bi
-    if _struct_Bi is None:
-        _struct_Bi = struct.Struct("<Bi")
-    return _struct_Bi
+_struct_B2i = None
+def _get_struct_B2i():
+    global _struct_B2i
+    if _struct_B2i is None:
+        _struct_B2i = struct.Struct("<B2i")
+    return _struct_B2i
 _struct_3d = None
 def _get_struct_3d():
     global _struct_3d
@@ -259,6 +303,6 @@ def _get_struct_I():
     return _struct_I
 class addpoint(object):
   _type          = 'RMPISR/addpoint'
-  _md5sum = '7da3ac5df9a593780eabd65b2f6b4ceb'
+  _md5sum = 'fca49ca1a51aa0c3cdeb5f4e59c200d6'
   _request_class  = addpointRequest
   _response_class = addpointResponse

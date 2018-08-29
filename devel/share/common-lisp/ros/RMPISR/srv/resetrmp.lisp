@@ -10,8 +10,8 @@
   ((pose
     :reader pose
     :initarg :pose
-    :type geometry_msgs-msg:Pose2D
-    :initform (cl:make-instance 'geometry_msgs-msg:Pose2D)))
+    :type std_msgs-msg:Float32MultiArray
+    :initform (cl:make-instance 'std_msgs-msg:Float32MultiArray)))
 )
 
 (cl:defclass resetrmp-request (<resetrmp-request>)
@@ -43,16 +43,16 @@
   "RMPISR/resetrmpRequest")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<resetrmp-request>)))
   "Returns md5sum for a message object of type '<resetrmp-request>"
-  "271cb12677c4cd9bccbc642cd9258d1f")
+  "f759b8f7398989ae2c04da536ffa12af")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'resetrmp-request)))
   "Returns md5sum for a message object of type 'resetrmp-request"
-  "271cb12677c4cd9bccbc642cd9258d1f")
+  "f759b8f7398989ae2c04da536ffa12af")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<resetrmp-request>)))
   "Returns full string definition for message of type '<resetrmp-request>"
-  (cl:format cl:nil "geometry_msgs/Pose2D pose~%~%================================================================================~%MSG: geometry_msgs/Pose2D~%# This expresses a position and orientation on a 2D manifold.~%~%float64 x~%float64 y~%float64 theta~%~%"))
+  (cl:format cl:nil "std_msgs/Float32MultiArray pose~%~%================================================================================~%MSG: std_msgs/Float32MultiArray~%# Please look at the MultiArrayLayout message definition for~%# documentation on all multiarrays.~%~%MultiArrayLayout  layout        # specification of data layout~%float32[]         data          # array of data~%~%~%================================================================================~%MSG: std_msgs/MultiArrayLayout~%# The multiarray declares a generic multi-dimensional array of a~%# particular data type.  Dimensions are ordered from outer most~%# to inner most.~%~%MultiArrayDimension[] dim # Array of dimension properties~%uint32 data_offset        # padding elements at front of data~%~%# Accessors should ALWAYS be written in terms of dimension stride~%# and specified outer-most dimension first.~%# ~%# multiarray(i,j,k) = data[data_offset + dim_stride[1]*i + dim_stride[2]*j + k]~%#~%# A standard, 3-channel 640x480 image with interleaved color channels~%# would be specified as:~%#~%# dim[0].label  = \"height\"~%# dim[0].size   = 480~%# dim[0].stride = 3*640*480 = 921600  (note dim[0] stride is just size of image)~%# dim[1].label  = \"width\"~%# dim[1].size   = 640~%# dim[1].stride = 3*640 = 1920~%# dim[2].label  = \"channel\"~%# dim[2].size   = 3~%# dim[2].stride = 3~%#~%# multiarray(i,j,k) refers to the ith row, jth column, and kth channel.~%~%================================================================================~%MSG: std_msgs/MultiArrayDimension~%string label   # label of given dimension~%uint32 size    # size of given dimension (in type units)~%uint32 stride  # stride of given dimension~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'resetrmp-request)))
   "Returns full string definition for message of type 'resetrmp-request"
-  (cl:format cl:nil "geometry_msgs/Pose2D pose~%~%================================================================================~%MSG: geometry_msgs/Pose2D~%# This expresses a position and orientation on a 2D manifold.~%~%float64 x~%float64 y~%float64 theta~%~%"))
+  (cl:format cl:nil "std_msgs/Float32MultiArray pose~%~%================================================================================~%MSG: std_msgs/Float32MultiArray~%# Please look at the MultiArrayLayout message definition for~%# documentation on all multiarrays.~%~%MultiArrayLayout  layout        # specification of data layout~%float32[]         data          # array of data~%~%~%================================================================================~%MSG: std_msgs/MultiArrayLayout~%# The multiarray declares a generic multi-dimensional array of a~%# particular data type.  Dimensions are ordered from outer most~%# to inner most.~%~%MultiArrayDimension[] dim # Array of dimension properties~%uint32 data_offset        # padding elements at front of data~%~%# Accessors should ALWAYS be written in terms of dimension stride~%# and specified outer-most dimension first.~%# ~%# multiarray(i,j,k) = data[data_offset + dim_stride[1]*i + dim_stride[2]*j + k]~%#~%# A standard, 3-channel 640x480 image with interleaved color channels~%# would be specified as:~%#~%# dim[0].label  = \"height\"~%# dim[0].size   = 480~%# dim[0].stride = 3*640*480 = 921600  (note dim[0] stride is just size of image)~%# dim[1].label  = \"width\"~%# dim[1].size   = 640~%# dim[1].stride = 3*640 = 1920~%# dim[2].label  = \"channel\"~%# dim[2].size   = 3~%# dim[2].stride = 3~%#~%# multiarray(i,j,k) refers to the ith row, jth column, and kth channel.~%~%================================================================================~%MSG: std_msgs/MultiArrayDimension~%string label   # label of given dimension~%uint32 size    # size of given dimension (in type units)~%uint32 stride  # stride of given dimension~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <resetrmp-request>))
   (cl:+ 0
      (roslisp-msg-protocol:serialization-length (cl:slot-value msg 'pose))
@@ -90,10 +90,10 @@
   "RMPISR/resetrmpResponse")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<resetrmp-response>)))
   "Returns md5sum for a message object of type '<resetrmp-response>"
-  "271cb12677c4cd9bccbc642cd9258d1f")
+  "f759b8f7398989ae2c04da536ffa12af")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'resetrmp-response)))
   "Returns md5sum for a message object of type 'resetrmp-response"
-  "271cb12677c4cd9bccbc642cd9258d1f")
+  "f759b8f7398989ae2c04da536ffa12af")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<resetrmp-response>)))
   "Returns full string definition for message of type '<resetrmp-response>"
   (cl:format cl:nil "~%~%"))

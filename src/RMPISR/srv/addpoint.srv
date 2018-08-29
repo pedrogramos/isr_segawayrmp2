@@ -1,4 +1,6 @@
 geometry_msgs/Point[] pointArray
+geometry_msgs/Point[] destArray
 bool type
 int32 size
+int32 size_dest
 ---

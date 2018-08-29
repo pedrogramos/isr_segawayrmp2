@@ -44,6 +44,7 @@ using namespace std;
 #include "RMPISR/odomError.h"
 #include "RMPISR/resetrmp.h"
 #include "RMPISR/markerdetected.h"
+#include "std_msgs/Float32MultiArray.h"
 #include <time.h>
 #include <vector>
 #include <string>
@@ -82,20 +83,16 @@ BPLocator * startbploc(ProjectiveCamera * cam){
 }
 
 
-void serciceCall(geometry_msgs::Pose2D pose1,RMPISR::odomError srv, ros::ServiceClient client ){
-  srv.request.pose.x = pose1.x;
-  srv.request.pose.y = pose1.y;
-  srv.request.pose.theta = pose1.theta;
+void serciceCall(std_msgs::Float32MultiArray array1,RMPISR::odomError srv, ros::ServiceClient client ){
+  srv.request.pose = array1;
 
   client.call(srv);
 
 }
 
 
-void serciceCallOnce(geometry_msgs::Pose2D pose1,RMPISR::resetrmp srv2, ros::ServiceClient client2 ){
-  srv2.request.pose.x = pose1.x;
-  srv2.request.pose.y = pose1.y;
-  srv2.request.pose.theta = pose1.theta;
+void serciceCallOnce(std_msgs::Float32MultiArray array1,RMPISR::resetrmp srv2, ros::ServiceClient client2 ){
+  srv2.request.pose = array1;
 
   client2.call(srv2);
 
@@ -212,8 +209,8 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
 //-----------------------------------------------------//
 
   // Transf World to Marker
-  glm::mat4 M0, M1, M2, M3;
-  glm::mat4 M_use;
+  //glm::mat4 M0, M1, M2, M3;
+  //glm::mat4 M_use;
 
 /*
   M0[0] = glm::vec4(0.0,1.0,0.0,0.0);
@@ -238,7 +235,8 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
 */
 
   //para a demostração
-  glm::mat4 Ma, Mb, Mc, Md, Mc2, novo, Me, Mf, Mh, Mi, Mj, Mk;
+  glm::mat4 M_use, Ma, Mb, Mc, Md, Mc2, novo, Me, Mf, Mh, Mi, Mj, Mk;
+  std_msgs::Float32MultiArray array;
 
 
   //para o teste:
@@ -265,13 +263,11 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
   Mc2[2] = glm::vec4(0.0,-1.0,0.0,0.0);
   Mc2[3] = glm::vec4(setValues.at(10),setValues.at(11),setValues.at(12),1.0);
 
-
   //3º ponto - Marker nº 200
   Md[0] = glm::vec4(0.0,1.0,0.0,0.0);
   Md[1] = glm::vec4(0.0,0.0,1.0,0.0);
   Md[2] = glm::vec4(1.0,0.0,0.0,0.0);
   Md[3] = glm::vec4(setValues.at(10),setValues.at(11),setValues.at(12),1.0);
-
 
   // Marker nº 78
   Me[0] = glm::vec4(-1.0,0.0,0.0,0.0);
@@ -476,62 +472,52 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
 
           if (id==111){
             M_use=Ma;
-            printf("Detectou o n 111\n");
               if(id != 111) entrar=true;
           }
 
           else if (id==127){
             M_use=Mb;
-            printf("Detectou o n 127\n");
             if(id_ant != 127) entrar=true;
           }
 
           else if (id==200){
             M_use=Md;
-            printf("Detectou o n 200\n");
             if(id_ant != 200) entrar=true;
 
           }
 
           else if (id==150){
             M_use=Mc;
-            printf("Detectou o n 150\n");
             if(id_ant != 150) entrar=true;
           }
 
           else if (id==134){
             M_use=Mi;
-            printf("Detectou o n 134\n");
             if(id_ant != 134) entrar=true;
           }
 
           else if (id==78){
             M_use=Me;
-            printf("Detectou o n 78\n");
             if(id_ant != 78) entrar=true;
           }
 
           else if (id==135){
             M_use=Mf;
-            printf("Detectou o n 135\n");
             if(id_ant != 135) entrar=true;
           }
 
           else if (id==1){
             M_use=Mh;
-            printf("Detectou o n 1\n");
             if(id_ant != 1) entrar=true;
           }
 
           else if (id==45){
             M_use=Mj;
-            printf("Detectou o n 45\n");
             if(id_ant != 45) entrar=true;
           }
 
           else if (id==255){
             M_use=Mk;
-            printf("Detectou o n 255\n");
             if(id_ant != 255) entrar=true;
           }
 
@@ -547,12 +533,22 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
           mTrmp=glm::inverse(rmpTm);
           wTrmp=M_use*mTrmp;
 
+          
+          for (int i=0; i<=3; i++){
+            for(int j=0; j<=3; j++){
+
+              array.data.push_back(wTrmp[i][j]);
+            }
+          }
+
+          
           glm::vec4 novo =wTrmp*glm::vec4(1.0,0.0,0.0,0.0);
           float norma = sqrt(pow(novo[0],2)+pow(novo[1],2));
 
           trueOdom.x = ((wTrmp[3][0])/1000);
           trueOdom.y = ((wTrmp[3][1])/1000);
           trueOdom.theta = (atan2((wTrmp[0][1]),(wTrmp[0][0])));
+          
 
         //printf("Xcam=  %f Ycam=  %f ThCam=  %f \n",(wTc[3][0])/1000, (wTc[3][1])/1000, atan2((wTc[0][1]),(wTc[0][0])) );
         //printf("OLD: x=  %f y=  %f theta=  %f \n",((wTrmp[3][0])/1000), ((wTrmp[3][1])/1000), (atan2((wTrmp[0][1]),(wTrmp[0][0]))) );
@@ -568,8 +564,8 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
         id_ant=id;
 
         if (once){
-          printf("Inicializacao da odometria! \n");
-          serciceCallOnce(trueOdom,srv2,client2);
+          printf("Inicializacao da odometria!    ID= %d \n", id);
+          serciceCallOnce(array,srv2,client2);
           once = false;
           entrar = false;
           ros::Duration(1).sleep();
@@ -577,19 +573,12 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
 
         //entrar = true;
         if(entrar){
-          printf("ENTROU CHAMADA SERVICO!!\n");
+          printf("\nENTROU CHAMADA SERVICO!!  ID= %d \n", id );
           time ( &rawtime );
           timeinfo = localtime ( &rawtime );
-          //string a =fprintf( "The current date/time is: %s", asctime (timeinfo) );
-
-          /*
-          outfile << asctime (timeinfo);
-          outfile << "Detectou o id: " << id << std::endl;
-          outfile << "srv call-> X: "<< erro.x << " Y: "<< erro.y << " th: " << erro.theta << std::endl;
-          */
-
+          
           // call do servico que envia o calculo do erro para ser adicionado à odometria original
-          serciceCall(trueOdom,srv,client);
+          serciceCall(array,srv,client);
           client3.call(srv3);
 
           // cout para a consola
@@ -601,10 +590,11 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
           //lastTime = ros::Time::now();
 
           entrar = false;
+          
 
         }
 
-          printf("\n\n" );
+          array.data.clear();
           ros::spinOnce();
         }
   

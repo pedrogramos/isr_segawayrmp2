@@ -11,9 +11,6 @@ RMPISR/CMakeFiles/RMPISR_node.dir/src/CGP.cpp.o
  /home/rmp/catkin_ws/devel/include/RMPISR/markerdetected.h
  /home/rmp/catkin_ws/devel/include/RMPISR/markerdetectedRequest.h
  /home/rmp/catkin_ws/devel/include/RMPISR/markerdetectedResponse.h
- /home/rmp/catkin_ws/devel/include/RMPISR/odomError.h
- /home/rmp/catkin_ws/devel/include/RMPISR/odomErrorRequest.h
- /home/rmp/catkin_ws/devel/include/RMPISR/odomErrorResponse.h
  /home/rmp/catkin_ws/devel/include/RMPISR/stop.h
  /home/rmp/catkin_ws/devel/include/RMPISR/stopRequest.h
  /home/rmp/catkin_ws/devel/include/RMPISR/stopResponse.h

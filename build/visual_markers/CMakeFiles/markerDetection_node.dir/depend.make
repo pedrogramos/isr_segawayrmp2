@@ -85,6 +85,9 @@ visual_markers/CMakeFiles/markerDetection_node.dir/src/markerDetection.cpp.o: /o
 visual_markers/CMakeFiles/markerDetection_node.dir/src/markerDetection.cpp.o: /opt/ros/kinetic/include/ros/wall_timer.h
 visual_markers/CMakeFiles/markerDetection_node.dir/src/markerDetection.cpp.o: /opt/ros/kinetic/include/ros/wall_timer_options.h
 visual_markers/CMakeFiles/markerDetection_node.dir/src/markerDetection.cpp.o: /opt/ros/kinetic/include/rosconsole/macros_generated.h
+visual_markers/CMakeFiles/markerDetection_node.dir/src/markerDetection.cpp.o: /opt/ros/kinetic/include/std_msgs/Float32MultiArray.h
+visual_markers/CMakeFiles/markerDetection_node.dir/src/markerDetection.cpp.o: /opt/ros/kinetic/include/std_msgs/MultiArrayDimension.h
+visual_markers/CMakeFiles/markerDetection_node.dir/src/markerDetection.cpp.o: /opt/ros/kinetic/include/std_msgs/MultiArrayLayout.h
 visual_markers/CMakeFiles/markerDetection_node.dir/src/markerDetection.cpp.o: /opt/ros/kinetic/include/xmlrpcpp/XmlRpcDecl.h
 visual_markers/CMakeFiles/markerDetection_node.dir/src/markerDetection.cpp.o: /opt/ros/kinetic/include/xmlrpcpp/XmlRpcValue.h
 visual_markers/CMakeFiles/markerDetection_node.dir/src/markerDetection.cpp.o: /usr/include/ImageMagick-6/Magick++.h

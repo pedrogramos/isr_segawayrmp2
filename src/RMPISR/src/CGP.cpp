@@ -20,7 +20,6 @@
 #include "RMPISR/addpoint.h"
 #include "RMPISR/go.h"
 #include "RMPISR/stop.h"
-#include "RMPISR/odomError.h"
 #include "RMPISR/markerdetected.h"
 
 using namespace std;
@@ -33,8 +32,10 @@ float Kw = ang;
 enum states{GO,STOP,STOPPING,ADDPOINT};
 enum states state=GO;
 struct point { float xf; float yf;} new_point, aux_s, aux_d;
-queue<point> fila_pontos, fila_destino, aux_q;
+queue<point> fila_pontos, fila_destino, aux_q ;
 std::ofstream outfile, outfile2;
+
+
 
 
 class SendVelocity
@@ -52,7 +53,6 @@ public:
   bool def_go(RMPISR::go::Request&, RMPISR::go::Response&);
   bool def_addpoint(RMPISR::addpoint::Request&, RMPISR::addpoint::Response&);
   bool def_stop(RMPISR::stop::Request&, RMPISR::stop::Response&);
-  bool def_odomError(RMPISR::odomError::Request&, RMPISR::odomError::Response&);
   bool def_markerDetected(RMPISR::markerdetected::Request&, RMPISR::markerdetected::Response&);
   void vecCallback(const geometry_msgs::Point::ConstPtr&);
   bool opposite=false;
@@ -102,7 +102,6 @@ SendVelocity::SendVelocity(){
   service1 = nh.advertiseService("addpoint", &SendVelocity::def_addpoint, this);
   service2 = nh.advertiseService("stop",&SendVelocity::def_stop,this);
   service4 = nh.advertiseService("markerdetected",&SendVelocity::def_markerDetected,this);
-  //service3 = nh.advertiseService("odomError",&SendVelocity::def_odomError,this);
 
 }
 
@@ -256,7 +255,7 @@ void SendVelocity::goTo(float xf, float yf, float destX, float destY, float limi
     /*
     if(d1 > d2destiny-1.5 || d1 < 1.2){
       Kl=0.3;
-      Kw=0.4;
+      Kw=0.7;
       ROS_INFO("Viragem a acontecer");
     }
     else{
@@ -333,13 +332,12 @@ void SendVelocity::goTo(float xf, float yf, float destX, float destY, float limi
     fila_pontos.pop();
     //back = dxini*((xf-odomNew.x ) / d) + dyini * ((yf-odomNew.y ) / d);
 
-    state=STOP;
-    /*
-    if(cc<pow(limiar,2)){
+    
+    if(xf == destX && yf == destY){
       ROS_INFO("Chegou ao ponto destino: X= %f e Y= %f.",destX, destY);
       fila_destino.pop();
       state=STOP;
-    }*/
+    }
   }
 
     //state=GO;
@@ -364,6 +362,9 @@ bool SendVelocity::def_addpoint(RMPISR::addpoint::Request  &req_addpoint, RMPISR
   // usar a lista neste serviço
 
   ROS_INFO("ENTROU ADD SERVICE");
+
+//--------Pilha Objectivo-------------------------------------------------------------------------------------------------------------------
+
   int i = 0;
 for(i;i<req_addpoint.size;i++){
 
@@ -372,6 +373,7 @@ for(i;i<req_addpoint.size;i++){
     new_point.xf=req_addpoint.pointArray[i].x;
     new_point.yf=req_addpoint.pointArray[i].y;
     fila_pontos.push(new_point);
+
 
 
   }
@@ -387,21 +389,38 @@ for(i;i<req_addpoint.size;i++){
 
   }
 
+//--------Pilha Destino-------------------------------------------------------------------------------------------------------------------
+  int j = 1;
+  for(j;j<req_addpoint.size_dest;j++){
+    //adicionar ao fim da pilha
+    if(req_addpoint.type==false){
+      new_point.xf=req_addpoint.destArray[j].x;
+      new_point.yf=req_addpoint.destArray[j].y;
+      fila_destino.push(new_point);
+
+
+
+    }
+
+    //limpar a pilha e adicionar  
+    if(req_addpoint.type==true){
+      while (!fila_destino.empty()) fila_destino.pop();
+      new_point.xf=req_addpoint.destArray[j].x;
+      new_point.yf=req_addpoint.destArray[j].y;
+      fila_destino.push(new_point);
+    }
+  }
+
   // PRINTING QUEUE
   aux_q=fila_pontos;
-  //aux_s=aux_q.front();
+
   std::cout<< "PONTOS OBJECTIVO: " << endl;
   while (!aux_q.empty()){
     aux_s=aux_q.front();
     std::cout<< "X= " << aux_s.xf << " Y= " << aux_s.yf << endl;
     aux_q.pop();
   }
-
-  //parte nova para adiconar os pontos de destino
-  //new_point.xf=req_addpoint.pointArray[i].x;
-  //new_point.yf=req_addpoint.pointArray[i].y;
-  fila_destino.push(new_point);
-  std::cout<< "Ponto Destino: X= " << new_point.xf << " Y= " << new_point.yf << endl;
+  
 
     aux_q=fila_destino;
   //aux_s=aux_q.front();
@@ -435,25 +454,7 @@ bool SendVelocity::def_markerDetected(RMPISR::markerdetected::Request  &req_stop
   return true;
 }
 
-/*
-bool SendVelocity::def_odomError(RMPISR::odomError::Request  &req_error, RMPISR::odomError::Response &res_error)
-{
-  errorX = req_error.pose.x - odomX;
-  errorY = req_error.pose.y - odomY;
-  errorTheta = req_error.pose.theta - odomTheta;
-  ROS_INFO("Marker Odom: X= %f, Y= %f, e Theta= %f", req_error.pose.x,req_error.pose.y,req_error.pose.theta);
-  ROS_INFO("RMP Odom: X= %f, Y= %f, e Theta= %f", odomX,odomY,odomTheta);
-  ROS_INFO("Error: X= %f  Y= %f  Th= %f", errorX, errorY,errorTheta);
-  ros::Duration(0.5).sleep();
-  ROS_INFO("Odom Corrigida: X= %f  Y= %f  Th= %f", odomNew.x, odomNew.y,odomNew.theta);
-  
 
-
-  error_received=true;
-
-  return true;
-}
-*/
 
 int main(int argc, char** argv)
 {
@@ -461,7 +462,6 @@ int main(int argc, char** argv)
   ros::init(argc, argv, "velocityturtle1_node");
   // criação do objecto da classe
   SendVelocity rmp;
-
 
   state=STOP;
   printf("RMP ready!\n");

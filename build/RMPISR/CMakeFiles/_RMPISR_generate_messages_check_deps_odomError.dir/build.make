@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/rmp/catkin_ws/build
 include RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_odomError.dir/progress.make
 
 RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_odomError:
-	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py RMPISR /home/rmp/catkin_ws/src/RMPISR/srv/odomError.srv geometry_msgs/Pose2D
+	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py RMPISR /home/rmp/catkin_ws/src/RMPISR/srv/odomError.srv std_msgs/Float32MultiArray:std_msgs/MultiArrayDimension:std_msgs/MultiArrayLayout
 
 _RMPISR_generate_messages_check_deps_odomError: RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_odomError
 _RMPISR_generate_messages_check_deps_odomError: RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_odomError.dir/build.make

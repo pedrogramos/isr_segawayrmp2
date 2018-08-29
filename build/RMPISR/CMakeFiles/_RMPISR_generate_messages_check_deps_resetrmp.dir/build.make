@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/rmp/catkin_ws/build
 include RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_resetrmp.dir/progress.make
 
 RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_resetrmp:
-	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py RMPISR /home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv geometry_msgs/Pose2D
+	cd /home/rmp/catkin_ws/build/RMPISR && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py RMPISR /home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv std_msgs/Float32MultiArray:std_msgs/MultiArrayDimension:std_msgs/MultiArrayLayout
 
 _RMPISR_generate_messages_check_deps_resetrmp: RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_resetrmp
 _RMPISR_generate_messages_check_deps_resetrmp: RMPISR/CMakeFiles/_RMPISR_generate_messages_check_deps_resetrmp.dir/build.make

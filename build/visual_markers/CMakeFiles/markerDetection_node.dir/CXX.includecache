@@ -69,7 +69,7 @@ ros/builtin_message_traits.h
 -
 ros/message_operations.h
 -
-geometry_msgs/Pose2D.h
+std_msgs/Float32MultiArray.h
 -
 
 /home/rmp/catkin_ws/devel/include/RMPISR/odomErrorResponse.h
@@ -111,7 +111,7 @@ ros/builtin_message_traits.h
 -
 ros/message_operations.h
 -
-geometry_msgs/Pose2D.h
+std_msgs/Float32MultiArray.h
 -
 
 /home/rmp/catkin_ws/devel/include/RMPISR/resetrmpResponse.h
@@ -195,6 +195,8 @@ RMPISR/resetrmp.h
 /home/rmp/catkin_ws/src/visual_markers/src/RMPISR/resetrmp.h
 RMPISR/markerdetected.h
 /home/rmp/catkin_ws/src/visual_markers/src/RMPISR/markerdetected.h
+std_msgs/Float32MultiArray.h
+/home/rmp/catkin_ws/src/visual_markers/src/std_msgs/Float32MultiArray.h
 time.h
 -
 vector
@@ -1155,6 +1157,58 @@ ros/forwards.h
 /opt/ros/kinetic/include/ros/ros/forwards.h
 
 /opt/ros/kinetic/include/rosconsole/macros_generated.h
+
+/opt/ros/kinetic/include/std_msgs/Float32MultiArray.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+std_msgs/MultiArrayLayout.h
+-
+
+/opt/ros/kinetic/include/std_msgs/MultiArrayDimension.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+
+/opt/ros/kinetic/include/std_msgs/MultiArrayLayout.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+std_msgs/MultiArrayDimension.h
+-
 
 /opt/ros/kinetic/include/xmlrpcpp/XmlRpcDecl.h
 ros/macros.h
