@@ -516,11 +516,6 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
             if(id_ant != 45) entrar=true;
           }
 
-          else if (id==255){
-            M_use=Mk;
-            if(id_ant != 255) entrar=true;
-          }
-
 
           cTm = pose.getRT();
           
@@ -571,7 +566,7 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
           ros::Duration(1).sleep();
         }
 
-        //entrar = true;
+        entrar = true;
         if(entrar){
           printf("\nENTROU CHAMADA SERVICO!!  ID= %d \n", id );
           time ( &rawtime );

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from __future__ import division
 import sys
 import rospy
 from RMPISR.srv import *
@@ -9,6 +10,7 @@ from std_msgs.msg import Float32MultiArray
 import tf
 import time
 import numpy as np
+
 
 PI=3.14159265359
 PI_2=6.28318530718
@@ -48,6 +50,7 @@ class odomUpdater:
 		#matriz arranjada do array recebido
 		#inicialmente ficam as duas iguais, ate receber o servico do update
 		self.wTr_begin = np.array([(array1.data[0],array1.data[4],array1.data[8],array1.data[12]/1000),(array1.data[1],array1.data[5],array1.data[9],array1.data[13]/1000),(array1.data[2],array1.data[6],array1.data[10],array1.data[14]/1000),(array1.data[3],array1.data[7],array1.data[11],array1.data[15])])
+		self.inv_segway_M = np.linalg.inv(self.segway_M)
 		self.wTo_marker = self.wTo = np.dot(self.wTr_begin,self.inv_segway_M)
 
 		print "Posicao Inicial Recebida Com Sucesso!"
@@ -65,12 +68,28 @@ class odomUpdater:
 
 		#matriz arranjada do array recebido
 		self.wTr_update = np.array([(array1.data[0],array1.data[4],array1.data[8],array1.data[12]/1000),(array1.data[1],array1.data[5],array1.data[9],array1.data[13]/1000),(array1.data[2],array1.data[6],array1.data[10],array1.data[14]/1000),(array1.data[3],array1.data[7],array1.data[11],array1.data[15])])
-		self.wTo_marker=np.dot(self.wTr_update,self.inv_segway_M)
+		self.inv_segway_M = np.linalg.inv(self.segway_M)
 
+		# AQUI TIRAR A MeDIA
+		# wTo_marker = avg(wTo_marker_new, wTo_marker)
+		new_estimation = np.dot(self.wTr_update,self.inv_segway_M)
+		(roll_new, pitch_new, new_yaw) = tf.transformations.euler_from_matrix(new_estimation)
+		(roll, pitch, yaw) = tf.transformations.euler_from_matrix(self.wTo_marker)
+
+		#calculo da media
+		alpha = 0.2
+		meanx = (alpha*new_estimation[0][3] + (1-alpha)*self.wTo_marker[0][3])
+		meany = (alpha*new_estimation[1][3] + (1-alpha)*self.wTo_marker[1][3])
+		mean_yaw = (alpha*new_yaw + (1-alpha)*yaw)
+
+		self.wTo_marker = tf.transformations.compose_matrix(angles=np.array([0,0,mean_yaw]),translate=np.array([meanx,meany,0]))
 		#print a odom quando recebida a posicao do marcador
 		print "\nActualizacao Da Posicao Recebida Com Sucesso"
 		print "Segway2: X: %f Y: %f Theta: %f" % (self.segway2.x,self.segway2.y,self.segway2.theta)
+		print "Marcador:"
 		print self.wTr_update
+		print "wTo_marker:"
+		print self.wTo_marker
 		self.save = True
 
 
@@ -88,7 +107,6 @@ class odomUpdater:
 
 		#criar matriz a partir da odom recebida
 		self.segway_M = tf.transformations.compose_matrix(angles=np.array([roll,pitch,yaw]),translate=np.array([odomXrmp,odomYrmp,0]))
-		self.inv_segway_M = np.linalg.inv(self.segway_M)
 
 #---------------------------------------------------------------------------------------------------------------------------#
 
@@ -111,15 +129,19 @@ class odomUpdater:
 	def correctOdomPlusError(self):
 
 		odom_marker = np.dot(self.wTo_marker,self.segway_M)
-		(roll, pitch, self.odomNew.theta) = tf.transformations.euler_from_matrix(odom_marker)
+		(roll, pitch, yaw) = tf.transformations.euler_from_matrix(odom_marker)
 
 
 		self.odomNew.x = odom_marker[0][3]
 		self.odomNew.y = odom_marker[1][3]
+		self.odomNew.theta = yaw
+		#self.odomNew.theta = abs(yaw)
 
 		if(self.save):
 			print "Real Odom: X: %f Y: %f Theta: %f" % (self.odomNew.x,self.odomNew.y,self.odomNew.theta)
+			print odom_marker
 			print "\n\n"
+
 			self.save = False
 
 		self.new_odom_pub.publish(self.odomNew);

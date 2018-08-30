@@ -252,7 +252,7 @@ void SendVelocity::goTo(float xf, float yf, float destX, float destY, float limi
   // e ao detectar um marcador não querer voltar para trás
   while (d1>limiar && opposite == false){
 
-    /*
+    
     if(d1 > d2destiny-1.5 || d1 < 1.2){
       Kl=0.3;
       Kw=0.7;
@@ -262,7 +262,7 @@ void SendVelocity::goTo(float xf, float yf, float destX, float destY, float limi
       Kl=lin;
       Kw=ang;
       ROS_INFO("passou a viragem");
-    }*/
+    }
 
     //calculo vector atractivo normalizado
     d1=sqrt(pow((xf-odomNew.x),2)+pow((yf-odomNew.y),2));
@@ -390,7 +390,8 @@ for(i;i<req_addpoint.size;i++){
   }
 
 //--------Pilha Destino-------------------------------------------------------------------------------------------------------------------
-  int j = 1;
+// J= 1 para outros casos
+  int j = 0;
   for(j;j<req_addpoint.size_dest;j++){
     //adicionar ao fim da pilha
     if(req_addpoint.type==false){

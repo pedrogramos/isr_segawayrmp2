@@ -81,6 +81,7 @@ sys.path.insert(0,'/home/rmp/lib/python')
 MAP='/home/rmp/catkin_ws/src/RMPISR/scripts/novo.xml'
 import vstpPY
 traj1='/home/rmp/catkin_ws/src/RMPISR/scripts/cen11.csv'
+traj2='/home/rmp/catkin_ws/src/RMPISR/scripts/cen1.csv'
 
 class App(Tk):
 	def __init__(self):
@@ -428,6 +429,8 @@ class coordinator():
 			print "\nPontos Destino:"
 			print destArray
 
+			'''
+			#para usar o traj divider
 			objectiveArray = self.trajDivider(destArray,30)
 			objectiveArraySize = len(objectiveArray)
 
@@ -439,8 +442,28 @@ class coordinator():
 
 			print "\nPontos Objectivo:"
 			print objectiveArrayPoint
-			
-			
+			'''
+
+
+
+			#para usar uma segunda lista
+			objectiveArray = self.myList2
+			objectiveArraySize = len(self.myList2)
+
+			for elem in range(objectiveArraySize):
+				toappend = Point()
+				toappend.x = float(self.myList2[elem]['x'])
+				toappend.y = float(self.myList2[elem]['y'])
+				objectiveArrayPoint.append(toappend)
+
+			print "\nPontos Objectivo:"
+			print objectiveArrayPoint
+			#fim do uso da segunda lista
+		
+
+
+
+
 			'''
 			#code for vstp trajectory points
 			size=len(self.traj_points)
@@ -469,6 +492,12 @@ class coordinator():
 			for row in csv_DictReader:
 				self.myList.append(row)
 
+	def readFile2(self,filename):
+		self.myList2 = []
+		with open (filename,'r') as rf:
+			csv_DictReader = csv.DictReader(rf) 
+			for row in csv_DictReader:
+				self.myList2.append(row)
 #---------------------------------------------------------------------------------------------------------------------------#
 
 	def computeMapLimits(self):
@@ -667,6 +696,7 @@ if __name__ == "__main__":
 	print "Coordinator Initialization..."
 	boss=coordinator()
 	boss.readFile(traj1)
+	boss.readFile2(traj2)
 	#toThreadGui()
 	#boss.initScreen()
 	#boss.LoadMapNRobot()
