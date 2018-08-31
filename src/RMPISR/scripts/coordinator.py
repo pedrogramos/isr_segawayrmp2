@@ -59,7 +59,7 @@ rot2_3 = {'local':["Lab: Mobile Robotics"], 'pose':[0.91,10.2]}
 tour2_dic = [rot2_1,rot2_2,rot2_3]
 
 
-arrived_to = str()
+arrived_to = str(tour1_dic[0]['local'])
 tour1_bol = tour2_bol =  bool()
 
 places = {}
@@ -72,7 +72,7 @@ places ["Lab: Immersive Systems"] = [0.91,25.8]
 places ["Lab: Mechatronics"] = [21.21,10.2]
 places ["Accounting 2"] = [13,6.71]
 
-
+arrived_to2 = ''
 
 
 #no ISR
@@ -182,9 +182,10 @@ class PageTwo(Frame):
 			index=int(w.curselection()[0])
 			value = w.get(index)
 			self.result = places[value]
-			print value
-			arrived_to = str(value)
-			print arrived_to
+			#print value
+			global arrived_to2
+			arrived_to2 = value
+			#print arrived_to2
 
 		lb_places = Listbox(self, width=20, height=15, font=tkFont.Font(size=20))
 		lb_places.pack(padx=10, pady=20)
@@ -229,22 +230,20 @@ class PageThree(Frame):
 		if (tour2_bol):
 			print tour2_dic[0]['local']
 
-		texto = StringVar()
-		#You are heading to
-		s = "Heading to: %s" %(arrived_to)
-		print s
+		self.k = StringVar()
+
 		texto.set(s)
-		label = Label(self, text=texto, font=tkFont.Font(size=30))
+		label = Label(self, text=self.k, font=tkFont.Font(size=30))
 		label.pack(padx=10, pady=10)
 		page_one = Button(self, text="page4", command=lambda:controller.show_frame(PageFour))
 		page_one.pack()
 
 		
-		def validate(self):
-			print "yesss"
+		def run_at_call(self):
+			self.k = "Welcome to %s" % (arrived_to)
+			label.configure(text=self.k)
 
-
-		self.bind("<<ShowFrame>>", validate)
+		self.bind("<<ShowFrame>>", run_at_call)
 
 
 class PageFour(Frame):
@@ -252,14 +251,20 @@ class PageFour(Frame):
 		Frame.__init__(self, parent, background = "green")
 
 		def next_destiny():
-			p=coordinator()
+			#p=coordinator()
 			#p.go_client()
 			controller.show_frame(PageThree)
 
-		label = Label(self, text="You arrived to %f" , font=tkFont.Font(size=20))
+		label = Label(self, text=self.k , font=tkFont.Font(size=20))
 		label.pack(padx=10, pady=10)
 		tour1_go = Button(self, text="Next Destiny", command=next_destiny)
 		tour1_go.pack()
+
+		def run_at_call(self):
+			self.k = "Welcome to %s" % (arrived_to)
+			label.configure(text=self.k)
+
+		self.bind("<<ShowFrame>>", run_at_call)
 
 
 class PageFive(Frame):
@@ -270,21 +275,26 @@ class PageFive(Frame):
 		
 		#a = "hello"
 		#You are heading to
-		k = "Heading to: %s" % (arrived_to)
-		k1 = "Heading to: " + arrived_to
-		#print k
-		#texto.set(k)
-		label = Label(self, text=k1, font=tkFont.Font(size=30))
+		#self.k = "Heading to: %s" % (arrived_to2)
+		self.k = StringVar()
+		#self.k = "Heading to: " + str(arrived_to2)
+		label = Label(self, text=self.k, font=tkFont.Font(size=30))
 		label.pack(padx=10, pady=10)
 		page_six = Button(self, text="page6", command=lambda:controller.show_frame(PageSix))
 		page_six.pack()
 
 		
 
-		def validate(self):
-			print "yess also"
+		def run_at_call(self):
+			print "update pageSix"
+			self.k = "Heading to %s" % (arrived_to2)
+			print self.k
+			label.configure(text=self.k)
 
-		self.bind("<<ShowFrame>>", validate)
+			#self.text_update.set("Heading to: " + (arrived_to2))
+			#self.label['text'] = self.text_update
+
+		self.bind("<<ShowFrame>>", run_at_call)
 
 class PageSix(Frame):
 	def __init__(self, parent, controller):
@@ -301,12 +311,22 @@ class PageSix(Frame):
 		def send_place():
 			controller.show_frame(PageTwo)
 
-		label = Label(self, text="You arrived to ", font=tkFont.Font(size=20))
-		label.pack(padx=10, pady=10)
+		self.k = StringVar()
+		label1 = Label(self, text="You have arrived to your destination.", font=tkFont.Font(size=20))
+		label1.pack(padx=10, pady=10)
+		label = Label(self, text=self.k, font=tkFont.Font(size=20))
+		label.pack(padx=20, pady=20)
 		go_home = Button(self, text="Send Home", command=send_home)
 		go_home.pack()
 		go_place = Button(self, text="Go To Another Place", command=send_place)
 		go_place.pack()
+
+
+		def run_at_call(self):
+			self.k = "Welcome to %s" % (arrived_to2)
+			label.configure(text=self.k)
+
+		self.bind("<<ShowFrame>>", run_at_call)
 
 class MainMenu:
 	def __init__(self, master):
@@ -697,12 +717,12 @@ if __name__ == "__main__":
 	boss=coordinator()
 	boss.readFile(traj1)
 	boss.readFile2(traj2)
-	#toThreadGui()
+	toThreadGui()
 	#boss.initScreen()
 	#boss.LoadMapNRobot()
 
 	#boss.vstpFunc(4,0.5,0.9,25)
-	boss.addpoint_client(False)
+	##boss.addpoint_client(False)
 
 	print "Coordinator Ready!"
 	rospy.spin()
