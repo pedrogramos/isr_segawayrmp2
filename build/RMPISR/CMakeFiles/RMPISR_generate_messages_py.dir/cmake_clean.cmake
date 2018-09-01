@@ -5,6 +5,7 @@ file(REMOVE_RECURSE
   "/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_odomError.py"
   "/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_go.py"
   "/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_markerdetected.py"
+  "/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_arrivedDestiny.py"
   "/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_resetrmp.py"
   "/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/srv/_stop.py"
   "/home/rmp/catkin_ws/devel/lib/python2.7/dist-packages/RMPISR/msg/__init__.py"

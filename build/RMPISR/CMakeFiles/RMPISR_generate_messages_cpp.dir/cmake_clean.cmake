@@ -5,6 +5,7 @@ file(REMOVE_RECURSE
   "/home/rmp/catkin_ws/devel/include/RMPISR/odomError.h"
   "/home/rmp/catkin_ws/devel/include/RMPISR/go.h"
   "/home/rmp/catkin_ws/devel/include/RMPISR/markerdetected.h"
+  "/home/rmp/catkin_ws/devel/include/RMPISR/arrivedDestiny.h"
   "/home/rmp/catkin_ws/devel/include/RMPISR/resetrmp.h"
   "/home/rmp/catkin_ws/devel/include/RMPISR/stop.h"
 )

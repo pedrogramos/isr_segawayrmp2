@@ -21,6 +21,7 @@
 #include "RMPISR/go.h"
 #include "RMPISR/stop.h"
 #include "RMPISR/markerdetected.h"
+#include "RMPISR/arrivedDestiny.h"
 
 using namespace std;
 
@@ -72,6 +73,7 @@ private:
   ros::ServiceServer service2;
   ros::ServiceServer service3;
   ros::ServiceServer service4;
+  ros::ServiceClient client;
   //ros::Publisher vazio_pub;
   //ros::Subscriber vazio_sub;
   geometry_msgs::Twist vel;
@@ -102,6 +104,7 @@ SendVelocity::SendVelocity(){
   service1 = nh.advertiseService("addpoint", &SendVelocity::def_addpoint, this);
   service2 = nh.advertiseService("stop",&SendVelocity::def_stop,this);
   service4 = nh.advertiseService("markerdetected",&SendVelocity::def_markerDetected,this);
+  client = nh.serviceClient<RMPISR::arrivedDestiny>("arriveddestiny");
 
 }
 

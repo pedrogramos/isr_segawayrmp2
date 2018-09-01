@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "RMPISR: 1 messages, 6 services")
+message(STATUS "RMPISR: 1 messages, 7 services")
 
 set(MSG_I_FLAGS "-IRMPISR:/home/rmp/catkin_ws/src/RMPISR/msg;-Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg;-Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg")
 
@@ -40,6 +40,11 @@ add_custom_target(_RMPISR_generate_messages_check_deps_${_filename}
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/markerdetected.srv" NAME_WE)
 add_custom_target(_RMPISR_generate_messages_check_deps_${_filename}
   COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "RMPISR" "/home/rmp/catkin_ws/src/RMPISR/srv/markerdetected.srv" ""
+)
+
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/arrivedDestiny.srv" NAME_WE)
+add_custom_target(_RMPISR_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "RMPISR" "/home/rmp/catkin_ws/src/RMPISR/srv/arrivedDestiny.srv" ""
 )
 
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv" NAME_WE)
@@ -91,6 +96,12 @@ _generate_srv_cpp(RMPISR
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/RMPISR
 )
 _generate_srv_cpp(RMPISR
+  "/home/rmp/catkin_ws/src/RMPISR/srv/arrivedDestiny.srv"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/RMPISR
+)
+_generate_srv_cpp(RMPISR
   "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv"
   "${MSG_I_FLAGS}"
   "/opt/ros/kinetic/share/std_msgs/cmake/../msg/Float32MultiArray.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/MultiArrayDimension.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/MultiArrayLayout.msg"
@@ -124,6 +135,8 @@ add_dependencies(RMPISR_generate_messages_cpp _RMPISR_generate_messages_check_de
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/go.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_cpp _RMPISR_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/markerdetected.srv" NAME_WE)
+add_dependencies(RMPISR_generate_messages_cpp _RMPISR_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/arrivedDestiny.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_cpp _RMPISR_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_cpp _RMPISR_generate_messages_check_deps_${_filename})
@@ -172,6 +185,12 @@ _generate_srv_eus(RMPISR
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/RMPISR
 )
 _generate_srv_eus(RMPISR
+  "/home/rmp/catkin_ws/src/RMPISR/srv/arrivedDestiny.srv"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/RMPISR
+)
+_generate_srv_eus(RMPISR
   "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv"
   "${MSG_I_FLAGS}"
   "/opt/ros/kinetic/share/std_msgs/cmake/../msg/Float32MultiArray.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/MultiArrayDimension.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/MultiArrayLayout.msg"
@@ -205,6 +224,8 @@ add_dependencies(RMPISR_generate_messages_eus _RMPISR_generate_messages_check_de
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/go.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_eus _RMPISR_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/markerdetected.srv" NAME_WE)
+add_dependencies(RMPISR_generate_messages_eus _RMPISR_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/arrivedDestiny.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_eus _RMPISR_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_eus _RMPISR_generate_messages_check_deps_${_filename})
@@ -253,6 +274,12 @@ _generate_srv_lisp(RMPISR
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/RMPISR
 )
 _generate_srv_lisp(RMPISR
+  "/home/rmp/catkin_ws/src/RMPISR/srv/arrivedDestiny.srv"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/RMPISR
+)
+_generate_srv_lisp(RMPISR
   "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv"
   "${MSG_I_FLAGS}"
   "/opt/ros/kinetic/share/std_msgs/cmake/../msg/Float32MultiArray.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/MultiArrayDimension.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/MultiArrayLayout.msg"
@@ -286,6 +313,8 @@ add_dependencies(RMPISR_generate_messages_lisp _RMPISR_generate_messages_check_d
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/go.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_lisp _RMPISR_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/markerdetected.srv" NAME_WE)
+add_dependencies(RMPISR_generate_messages_lisp _RMPISR_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/arrivedDestiny.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_lisp _RMPISR_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_lisp _RMPISR_generate_messages_check_deps_${_filename})
@@ -334,6 +363,12 @@ _generate_srv_nodejs(RMPISR
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/RMPISR
 )
 _generate_srv_nodejs(RMPISR
+  "/home/rmp/catkin_ws/src/RMPISR/srv/arrivedDestiny.srv"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/RMPISR
+)
+_generate_srv_nodejs(RMPISR
   "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv"
   "${MSG_I_FLAGS}"
   "/opt/ros/kinetic/share/std_msgs/cmake/../msg/Float32MultiArray.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/MultiArrayDimension.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/MultiArrayLayout.msg"
@@ -367,6 +402,8 @@ add_dependencies(RMPISR_generate_messages_nodejs _RMPISR_generate_messages_check
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/go.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_nodejs _RMPISR_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/markerdetected.srv" NAME_WE)
+add_dependencies(RMPISR_generate_messages_nodejs _RMPISR_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/arrivedDestiny.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_nodejs _RMPISR_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_nodejs _RMPISR_generate_messages_check_deps_${_filename})
@@ -415,6 +452,12 @@ _generate_srv_py(RMPISR
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/RMPISR
 )
 _generate_srv_py(RMPISR
+  "/home/rmp/catkin_ws/src/RMPISR/srv/arrivedDestiny.srv"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/RMPISR
+)
+_generate_srv_py(RMPISR
   "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv"
   "${MSG_I_FLAGS}"
   "/opt/ros/kinetic/share/std_msgs/cmake/../msg/Float32MultiArray.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/MultiArrayDimension.msg;/opt/ros/kinetic/share/std_msgs/cmake/../msg/MultiArrayLayout.msg"
@@ -448,6 +491,8 @@ add_dependencies(RMPISR_generate_messages_py _RMPISR_generate_messages_check_dep
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/go.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_py _RMPISR_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/markerdetected.srv" NAME_WE)
+add_dependencies(RMPISR_generate_messages_py _RMPISR_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/arrivedDestiny.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_py _RMPISR_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/rmp/catkin_ws/src/RMPISR/srv/resetrmp.srv" NAME_WE)
 add_dependencies(RMPISR_generate_messages_py _RMPISR_generate_messages_check_deps_${_filename})

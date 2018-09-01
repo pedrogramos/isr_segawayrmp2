@@ -70,13 +70,14 @@ class odomUpdater:
 		self.wTr_update = np.array([(array1.data[0],array1.data[4],array1.data[8],array1.data[12]/1000),(array1.data[1],array1.data[5],array1.data[9],array1.data[13]/1000),(array1.data[2],array1.data[6],array1.data[10],array1.data[14]/1000),(array1.data[3],array1.data[7],array1.data[11],array1.data[15])])
 		self.inv_segway_M = np.linalg.inv(self.segway_M)
 
-		# AQUI TIRAR A MeDIA
-		# wTo_marker = avg(wTo_marker_new, wTo_marker)
 		new_estimation = np.dot(self.wTr_update,self.inv_segway_M)
-		(roll_new, pitch_new, new_yaw) = tf.transformations.euler_from_matrix(new_estimation)
-		(roll, pitch, yaw) = tf.transformations.euler_from_matrix(self.wTo_marker)
+		#(roll_new, pitch_new, new_yaw) = tf.transformations.euler_from_matrix(new_estimation)
+		#(roll, pitch, yaw) = tf.transformations.euler_from_matrix(self.wTo_marker)
+		(roll_new, pitch_new, new_yaw) = tf.transformations.euler_from_matrix(new_estimation[:3,:3])
+		(roll, pitch, yaw) = tf.transformations.euler_from_matrix(self.wTo_marker[:3,:3])
 
-		#calculo da media
+		#calculo da media  [:3,:3]
+		#quanto maior é o alpha mais importância se dá à nova leitura
 		alpha = 0.2
 		meanx = (alpha*new_estimation[0][3] + (1-alpha)*self.wTo_marker[0][3])
 		meany = (alpha*new_estimation[1][3] + (1-alpha)*self.wTo_marker[1][3])
@@ -114,7 +115,9 @@ class odomUpdater:
 	def correctOdom(self):
 
 		fake = np.dot(self.wTo,self.segway_M)
-		(roll, pitch, self.segway2.theta) = tf.transformations.euler_from_matrix(fake)
+		#(roll, pitch, self.segway2.theta) = tf.transformations.euler_from_matrix(fake)
+		(roll, pitch, self.segway2.theta) = tf.transformations.euler_from_matrix(fake[:3,:3])
+
 
 
 		self.segway2.x = fake[0][3]
@@ -129,7 +132,8 @@ class odomUpdater:
 	def correctOdomPlusError(self):
 
 		odom_marker = np.dot(self.wTo_marker,self.segway_M)
-		(roll, pitch, yaw) = tf.transformations.euler_from_matrix(odom_marker)
+		#(roll, pitch, yaw) = tf.transformations.euler_from_matrix(odom_marker)
+		(roll, pitch, yaw) = tf.transformations.euler_from_matrix(odom_marker[:3,:3])
 
 
 		self.odomNew.x = odom_marker[0][3]

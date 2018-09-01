@@ -5,6 +5,7 @@ file(REMOVE_RECURSE
   "/home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/odomError.js"
   "/home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/go.js"
   "/home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/markerdetected.js"
+  "/home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/arrivedDestiny.js"
   "/home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/resetrmp.js"
   "/home/rmp/catkin_ws/devel/share/gennodejs/ros/RMPISR/srv/stop.js"
 )

@@ -46,21 +46,24 @@ for elem in dictionary:
 '''
 
 
-rot1_1 = {'local':["Lab: Mobile Robotics"], 'pose':[0.91,10.2]}
-rot1_2 = {'local':["Lab: Immersive Systems"], 'pose':[0.91,25.8]}
-rot1_3 = {'local':["Lab: Computer Vision"], 'pose':[0.91,28.55]}
+rot1_1 = {'local':"Lab: Mobile Robotics", 'pose':[0.91,10.2]}
+rot1_2 = {'local':"Lab: Immersive Systems", 'pose':[0.91,25.8]}
+rot1_3 = {'local':"Lab: Computer Vision", 'pose':[0.91,28.55]}
 tour1_dic = [rot1_1,rot1_2,rot1_3]
 
 
 
-rot2_1 = {'local':["Accounting"], 'pose':[7.78,6.71]} 
-rot2_2 = {'local':["Lab: Mechatronics"], 'pose':[21.21,10.2]}
-rot2_3 = {'local':["Lab: Mobile Robotics"], 'pose':[0.91,10.2]}
+rot2_1 = {'local':"Accounting", 'pose':[7.78,6.71]} 
+rot2_2 = {'local':"Lab: Mechatronics", 'pose':[21.21,10.2]}
+rot2_3 = {'local':"Lab: Mobile Robotics", 'pose':[0.91,10.2]}
 tour2_dic = [rot2_1,rot2_2,rot2_3]
 
 
 arrived_to = str(tour1_dic[0]['local'])
 tour1_bol = tour2_bol =  bool()
+number = 0
+number_tour = 1
+size_tour = 3
 
 places = {}
 
@@ -73,6 +76,7 @@ places ["Lab: Mechatronics"] = [21.21,10.2]
 places ["Accounting 2"] = [13,6.71]
 
 arrived_to2 = ''
+serv_arrived = False
 
 
 #no ISR
@@ -97,34 +101,43 @@ class App(Tk):
 
 		self.frames = {}
 
-		for F in (StartPage, PageOne, PageTwo, PageThree, PageFour, PageFive, PageSix):
+		for F in (StartPage, PageOne, PageTwo, PageThree, PageFour, PageFive, PageSix, PageSeven):
 			frame = F(container, self)
 			self.frames[F] = frame
 			frame.grid(row=0, column=0, sticky="nsew")
 
+		
 		self.show_frame(StartPage)	
 	def show_frame(self, context):
-		frame = self.frames[context]
-		frame.tkraise()
-		frame.update()
-		frame.event_generate("<<ShowFrame>>")
+		self.frame = self.frames[context]
+		self.frame.tkraise()
+		self.frame.update()
+		self.frame.event_generate("<<ShowFrame>>")
+
+	def handle_arrivedDestiny(self,req):
+		self.frame.event_generate("<<chegou>>")
+		
+		return []
 
 class StartPage(Frame):
 	def __init__(self, parent, controller):
 		Frame.__init__(self, parent)
 
 		label = Label(self, text="Welcome to Instituto de Sistemas e Robotica!\n What do you want to do?", font=tkFont.Font(size=20))
-		label.pack(padx=10, pady=10)
+		label.place(x=400, y=0)
 
 		page_one = Button(self, text="Do a Visit", width=15, height=10, font=tkFont.Font(size=20), command=lambda:controller.show_frame(PageOne))
-		page_one.pack()
+		page_one.place(x=200,y=300)
+		#page_one = Button(self, text="Do a Visit", width=15, height=10, font=tkFont.Font(size=20), command=lambda:controller.show_frame(PageOne))
+		#page_one.place(x=200,y=300)
 		page_two = Button(self, text="Go to Place", width=15, height=10, font=tkFont.Font(size=20), command=lambda:controller.show_frame(PageTwo))
-		page_two.pack()
+		page_two.place(x=800,y=300)
+		
 		'''
-		img = ImageTk.PhotoImage(Image.open("/home/rmp/catkin_ws/src/RMPISR/scripts/segway.jpg"))
-		panel = Label(self, image = img)
+		self.img = ImageTk.PhotoImage(Image.open("/home/rmp/catkin_ws/src/RMPISR/scripts/ISRlogo.jpg"))
+		panel = Label(self, image = self.img)
 		#panel.img = img
-		panel.pack(side = "top", fill = "both", expand = "yes")
+		panel.pack()
 		'''
 		
 
@@ -133,8 +146,12 @@ class PageOne(Frame):
 		Frame.__init__(self, parent)
 
 		def tour1():
-			tour1_bol = True
-			tour2_bol = False
+			global number_tour
+			number_tour = 1
+			global size_tour
+			size_tour = len(tour1_dic)
+			global number
+			number = 0
 			p=coordinator()
 			#substituir pela odom
 			p.vstpFunc(0.5, 4, tour1_dic[0]['pose'][0], tour1_dic[0]['pose'][1])
@@ -149,27 +166,41 @@ class PageOne(Frame):
 			
 
 		def tour2():
-			tour1_bol = False
-			tour2_bol = True
+			global number_tour
+			number_tour = 2
+			global size_tour
+			size_tour = len(tour2_dic)
+			global number
+			number = 0
 			p=coordinator()
 			p.vstpFunc(0.5, 4, tour2_dic[0]['pose'][0], tour2_dic[0]['pose'][1])
 			
 			for i in xrange(1,len(tour2_dic)):
-				print 
-				print i
 				p.vstpFunc(tour2_dic[i-1]['pose'][0], tour2_dic[i-1]['pose'][1], tour2_dic[i]['pose'][0], tour2_dic[i]['pose'][1])
 				#p.addpoint_client(True)
 
 			controller.show_frame(PageThree)
 
-		tour1_lbl = Label(self, text="Tour 1: Lab Mobile Robotics, Lab Computer Vision, Lab Immersive Systems")
-		tour1_lbl.pack(padx=10, pady=10)
-		tour2_lbl = Label(self, text="Tour 2: Accounting, Lab Mechatronics, Lab Mobile Robotics")
-		tour2_lbl.pack(padx=20, pady=20)
-		tour1_start = Button(self, text="Start", command=tour1)
-		tour1_start.pack()
-		tour2_start = Button(self, text="Start", command=tour2)
-		tour2_start.pack()
+		tour1_lbl = Label(self, text="Choose one of the following tours:", font=tkFont.Font(size=30))
+		tour1_lbl.place(x=400, y=0)
+		tour1_lbl = Label(self, text="Tour 1: Lab Mobile Robotics, Lab Computer Vision, Lab Immersive Systems", font=tkFont.Font(size=30))
+		tour1_lbl.place(x=20, y=100)
+		tour2_lbl = Label(self, text="Tour 2: Accounting, Lab Mechatronics, Lab Mobile Robotics", font=tkFont.Font(size=30))
+		tour2_lbl.place(x=20, y=400)
+		tour1_start = Button(self, text="Start",width=15, height=5, command=tour1)
+		tour1_start.place(x= 1000,y=200 )
+		tour2_start = Button(self, text="Start",width=15, height=5, command=tour2)
+		tour2_start.place(x= 1000, y=500)
+		back = Button(self, text="Back",width=15, height=5, command=lambda:controller.show_frame(StartPage))
+		back.place(x=100, y=600)
+		'''
+		img = Image.open("/home/rmp/catkin_ws/src/RMPISR/scripts/ISRlogo.jpg")
+		img = img.resize((250,250), Image.ANTIALIAS)
+		img2 = ImageTk.PhotoImage(img)
+		panel = Label(self, image = img)
+		#panel.img = img
+		panel.pack(width=5, height=5)
+		'''
 
 class PageTwo(Frame):
 	def __init__(self, parent, controller):
@@ -188,7 +219,7 @@ class PageTwo(Frame):
 			#print arrived_to2
 
 		lb_places = Listbox(self, width=20, height=15, font=tkFont.Font(size=20))
-		lb_places.pack(padx=10, pady=20)
+		lb_places.place(x=500,y=40)
 		lb_places.bind('<<ListboxSelect>>',choose)
 
 
@@ -212,58 +243,74 @@ class PageTwo(Frame):
 
 
 		label = Label(self, text="Choose where do you want to go and press Start:", font=tkFont.Font(size=20))
-		label.pack(padx=10, pady=10)
-		back_btn = Button(self, text="Back", command=lambda:controller.show_frame(StartPage))
-		back_btn.pack()
-		page_one = Button(self, text="Start", command=start_button_f)
-		page_one.pack()
+		label.place(x=350,y=0)
+		back_btn = Button(self, text="Back", width=10, height=5, command=lambda:controller.show_frame(StartPage))
+		back_btn.place(x=500,y=550)
+		page_one = Button(self, text="Start", width=10, height=5, command=start_button_f)
+		page_one.place(x=740,y=550)
 
 class PageThree(Frame):
 	def __init__(self, parent, controller):
 		Frame.__init__(self, parent)
-		print "teste"
-		print tour1_bol
 
-		if (tour1_bol):
-			print tour1_dic[0]['local']
 
-		if (tour2_bol):
-			print tour2_dic[0]['local']
 
 		self.k = StringVar()
 
-		texto.set(s)
-		label = Label(self, text=self.k, font=tkFont.Font(size=30))
+		label = Label(self, text=self.k, font=tkFont.Font(size=40))
 		label.pack(padx=10, pady=10)
-		page_one = Button(self, text="page4", command=lambda:controller.show_frame(PageFour))
-		page_one.pack()
-
+		
+		#page_one = Button(self, text="page4", command=lambda:controller.show_frame(PageFour))
+		#page_one.pack()
+		
 		
 		def run_at_call(self):
-			self.k = "Welcome to %s" % (arrived_to)
+			global arrived_to
+			if (number_tour == 1):
+				arrived_to = str(tour1_dic[number]['local'])
+			else:
+				arrived_to = str(tour2_dic[number]['local'])
+			self.k = "Heading to %s" % (arrived_to)
 			label.configure(text=self.k)
+			print "page3"
+			print number
+
+		def service_teste(self):
+			controller.show_frame(PageFour)
 
 		self.bind("<<ShowFrame>>", run_at_call)
+		self.bind("<<chegou>>", service_teste)
 
 
 class PageFour(Frame):
 	def __init__(self, parent, controller):
-		Frame.__init__(self, parent, background = "green")
+		Frame.__init__(self, parent, background = "green2")
 
 		def next_destiny():
 			#p=coordinator()
 			#p.go_client()
+			global number
+			number = number + 1
+			print "page4"
+			print number
 			controller.show_frame(PageThree)
 
-		label = Label(self, text=self.k , font=tkFont.Font(size=20))
-		label.pack(padx=10, pady=10)
-		tour1_go = Button(self, text="Next Destiny", command=next_destiny)
-		tour1_go.pack()
+		self.k =StringVar()
+
+		label1 = Label(self, text = "You have arrived to your destination.", font=tkFont.Font(size=40), background="green2")
+		label1.place(x=200,y=0)
+		label = Label(self, text=self.k , font=tkFont.Font(size=40), background="green2")
+		label.place(x=200,y=70)
+		tour1_go = Button(self, text="Next Destiny",width=10, height=5, command=next_destiny)
+		tour1_go.place(x=1100,y=600)
 
 		def run_at_call(self):
 			self.k = "Welcome to %s" % (arrived_to)
 			label.configure(text=self.k)
-
+			
+			if (number+1 == size_tour):
+				controller.show_frame(PageSeven)
+			
 		self.bind("<<ShowFrame>>", run_at_call)
 
 
@@ -278,15 +325,15 @@ class PageFive(Frame):
 		#self.k = "Heading to: %s" % (arrived_to2)
 		self.k = StringVar()
 		#self.k = "Heading to: " + str(arrived_to2)
-		label = Label(self, text=self.k, font=tkFont.Font(size=30))
+		label = Label(self, text=self.k, font=tkFont.Font(size=40))
 		label.pack(padx=10, pady=10)
-		page_six = Button(self, text="page6", command=lambda:controller.show_frame(PageSix))
-		page_six.pack()
+		#page_six = Button(self, text="page6", command=lambda:controller.show_frame(PageSix))
+		#page_six.pack()
 
 		
 
 		def run_at_call(self):
-			print "update pageSix"
+			print "update pageSFive"
 			self.k = "Heading to %s" % (arrived_to2)
 			print self.k
 			label.configure(text=self.k)
@@ -294,11 +341,16 @@ class PageFive(Frame):
 			#self.text_update.set("Heading to: " + (arrived_to2))
 			#self.label['text'] = self.text_update
 
+		def service_teste(self):
+			print "chegueiiii no GUI"
+			controller.show_frame(PageSix)
+
 		self.bind("<<ShowFrame>>", run_at_call)
+		self.bind("<<chegou>>", service_teste)
 
 class PageSix(Frame):
 	def __init__(self, parent, controller):
-		Frame.__init__(self, parent, background = "green")
+		Frame.__init__(self, parent, background = "DarkOliveGreen2")
 
 		def send_home():
 			p = coordinator()
@@ -312,14 +364,16 @@ class PageSix(Frame):
 			controller.show_frame(PageTwo)
 
 		self.k = StringVar()
-		label1 = Label(self, text="You have arrived to your destination.", font=tkFont.Font(size=20))
-		label1.pack(padx=10, pady=10)
-		label = Label(self, text=self.k, font=tkFont.Font(size=20))
-		label.pack(padx=20, pady=20)
-		go_home = Button(self, text="Send Home", command=send_home)
-		go_home.pack()
-		go_place = Button(self, text="Go To Another Place", command=send_place)
-		go_place.pack()
+		label1 = Label(self, text = "You have arrived to your destination.", font=tkFont.Font(size=40), background="DarkOliveGreen2")
+		label1.place(x=200,y=0)
+		label = Label(self, text=self.k , font=tkFont.Font(size=40), background="DarkOliveGreen2")
+		label.place(x=200,y=70)
+		label1 = Label(self, text="What do you want to do now?", font=tkFont.Font(size=40), bg="DarkOliveGreen2")
+		label1.place(x=300, y=160)
+		go_home = Button(self, text="Send Home",width=10, height=5, command=send_home)
+		go_home.place(x=200, y=600)
+		go_place = Button(self, text="Go To\n Another Place",width=10, height=5, command=send_place)
+		go_place.place(x=1100, y=600)
 
 
 		def run_at_call(self):
@@ -328,17 +382,53 @@ class PageSix(Frame):
 
 		self.bind("<<ShowFrame>>", run_at_call)
 
+class PageSeven(Frame):
+	def __init__(self, parent, controller):
+		Frame.__init__(self, parent, background = "green2")
+
+		def send_home():
+			p = coordinator()
+			coord_home = places["Main Hall"]
+			p.vstpFunc(0.5, 4, coord_home[0], coord_home[1])
+			#p.addpoint_client(True)
+			#p.go_client()
+			controller.show_frame(StartPage)
+
+
+		self.k =StringVar()
+
+		label1 = Label(self, text="You have arrived to the end of your tour.", font=tkFont.Font(size=40), bg="green2")
+		label1.place(x=100, y=0)
+		label = Label(self, text=self.k, font=tkFont.Font(size=40), bg="green2" )
+		label.place(x=230, y=80)
+		label1 = Label(self, text="What do you want to do now?", font=tkFont.Font(size=40), bg="green2")
+		label1.place(x=280, y=160)
+		send_home = Button(self, text="Send Home",width=10, height=5, command=send_home)
+		send_home.place(x=1100, y=600)
+		back = Button(self, text="Back to \nMain Screen",width=10, height=5, command=lambda:controller.show_frame(StartPage))
+		back.place(x=100, y=600)
+
+		def run_at_call(self):
+			self.k = "Welcome to %s" % (arrived_to)
+			label.configure(text=self.k)
+			
+		self.bind("<<ShowFrame>>", run_at_call)
+
 class MainMenu:
 	def __init__(self, master):
 		menubar = Menu(master)
 		filemenu = Menu(menubar, tearoff=0)
 		filemenu.add_command(label="Exit", command=master.quit)
+		filemenu.add_command(label="Main Page", command=lambda:controller.show_frame(StartPage))
 		menubar.add_cascade(label="File", menu=filemenu)
 		master.config(menu=menubar)
 
 def criaGui():
 	app = App()
+	service2 = rospy.Service('arrivedDestiny', arrivedDestiny, app.handle_arrivedDestiny)
+	app.title("Recepcionist Robot")
 	app.mainloop()
+
 
 def toThreadGui():
 	guiThread = threading.Thread(target=criaGui)
@@ -373,7 +463,8 @@ class coordinator():
 		self.v=vstpPY.VSTP() #criacao do objeto
 		self.v.init(robotRadius,gridResolution,idealDist,maxDist)
 		self.mapsegs = self.v.loadMap(MAP)
-
+		
+		#self.serv_arrived = False
 
 
 		self.pose=Pose2D()
@@ -398,6 +489,10 @@ class coordinator():
 		self.trueodomX=data.x
 		self.trueodomY=data.y
 		self.trueodomTheta=data.theta
+
+#---------------------------------------------------------------------------------------------------------------------------#
+
+
 
 
 #---------------------------------------------------------------------------------------------------------------------------#
@@ -714,6 +809,7 @@ if __name__ == "__main__":
 
 	rospy.init_node("coordinator_node",anonymous=True)
 	print "Coordinator Initialization..."
+	#service2 = rospy.Service('arrivedDestiny', arrivedDestiny, handle_arrivedDestiny)
 	boss=coordinator()
 	boss.readFile(traj1)
 	boss.readFile2(traj2)

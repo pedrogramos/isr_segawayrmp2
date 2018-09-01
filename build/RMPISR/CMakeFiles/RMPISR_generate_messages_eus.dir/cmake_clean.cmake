@@ -5,6 +5,7 @@ file(REMOVE_RECURSE
   "/home/rmp/catkin_ws/devel/share/roseus/ros/RMPISR/srv/odomError.l"
   "/home/rmp/catkin_ws/devel/share/roseus/ros/RMPISR/srv/go.l"
   "/home/rmp/catkin_ws/devel/share/roseus/ros/RMPISR/srv/markerdetected.l"
+  "/home/rmp/catkin_ws/devel/share/roseus/ros/RMPISR/srv/arrivedDestiny.l"
   "/home/rmp/catkin_ws/devel/share/roseus/ros/RMPISR/srv/resetrmp.l"
   "/home/rmp/catkin_ws/devel/share/roseus/ros/RMPISR/srv/stop.l"
   "/home/rmp/catkin_ws/devel/share/roseus/ros/RMPISR/manifest.l"

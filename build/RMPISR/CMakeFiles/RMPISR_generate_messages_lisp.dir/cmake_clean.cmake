@@ -5,6 +5,7 @@ file(REMOVE_RECURSE
   "/home/rmp/catkin_ws/devel/share/common-lisp/ros/RMPISR/srv/odomError.lisp"
   "/home/rmp/catkin_ws/devel/share/common-lisp/ros/RMPISR/srv/go.lisp"
   "/home/rmp/catkin_ws/devel/share/common-lisp/ros/RMPISR/srv/markerdetected.lisp"
+  "/home/rmp/catkin_ws/devel/share/common-lisp/ros/RMPISR/srv/arrivedDestiny.lisp"
   "/home/rmp/catkin_ws/devel/share/common-lisp/ros/RMPISR/srv/resetrmp.lisp"
   "/home/rmp/catkin_ws/devel/share/common-lisp/ros/RMPISR/srv/stop.lisp"
 )

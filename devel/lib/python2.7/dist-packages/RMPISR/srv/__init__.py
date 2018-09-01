@@ -1,4 +1,5 @@
 from ._addpoint import *
+from ._arrivedDestiny import *
 from ._go import *
 from ._markerdetected import *
 from ._odomError import *

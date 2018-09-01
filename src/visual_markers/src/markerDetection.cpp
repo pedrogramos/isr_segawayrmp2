@@ -460,12 +460,6 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
           pose=locator->getMarkerPose(lk);
           id=locator->getMarkerId(lk);
 
-          /*
-          if (i!=0){
-            outfile << "Odom " << i << "-> X: "<< odomX << "Y: "<< odomY << "theta: " << odomTheta << std::endl;
-            i--;
-          }*/
-
           sprintf(msg3,"Measure to marker center: %f",pose.position.norm());
           cv::putText(frame,msg3,cvPoint(0,50),cv::FONT_HERSHEY_SIMPLEX,1,cv::Scalar::all(100),3,8);
           //M_use=Ma;
@@ -537,12 +531,12 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
           }
 
           
-          glm::vec4 novo =wTrmp*glm::vec4(1.0,0.0,0.0,0.0);
-          float norma = sqrt(pow(novo[0],2)+pow(novo[1],2));
+          //glm::vec4 novo =wTrmp*glm::vec4(1.0,0.0,0.0,0.0);
+          //float norma = sqrt(pow(novo[0],2)+pow(novo[1],2));
 
-          trueOdom.x = ((wTrmp[3][0])/1000);
-          trueOdom.y = ((wTrmp[3][1])/1000);
-          trueOdom.theta = (atan2((wTrmp[0][1]),(wTrmp[0][0])));
+          //trueOdom.x = ((wTrmp[3][0])/1000);
+          //trueOdom.y = ((wTrmp[3][1])/1000);
+          //trueOdom.theta = (atan2((wTrmp[0][1]),(wTrmp[0][0])));
           
 
         //printf("Xcam=  %f Ycam=  %f ThCam=  %f \n",(wTc[3][0])/1000, (wTc[3][1])/1000, atan2((wTc[0][1]),(wTc[0][0])) );
@@ -578,8 +572,6 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
 
           // cout para a consola
           std::cout << asctime (timeinfo);
-          //printf("MArker: X=  %f Y=  %f Th=  %f \n",(wTrmp[3][0])/1000), ((wTrmp[3][1])/1000), (atan2((wTrmp[0][1]),(wTrmp[0][0])));
-          //printf("Odom X= %f Y= %f Th= %f \n",odomX, odomY, odomTheta);
           std::cout << "srv call-> X: "<< trueOdom.x << " Y: "<< trueOdom.y << " Th: " << trueOdom.theta << std::endl;
           //i=2;
           //lastTime = ros::Time::now();
