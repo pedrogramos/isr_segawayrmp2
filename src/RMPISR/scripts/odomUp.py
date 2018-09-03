@@ -31,7 +31,8 @@ class odomUpdater:
 		#self.pose=Pose()
 		self.odomRMP_sub = rospy.Subscriber('/segway_rmp_node/odom', Odometry, self.callbackOdom) #odom do segway
 		#self.odom_sub = rospy.Subscriber('/turtle1/pose', Pose, self.callbackOdom)
-		self.odom_pub = rospy.Publisher('odomUpdater', Pose2D, queue_size=1) #incremento da odom do segway
+		#self.odom_pub = rospy.Publisher('odomUpdater', Pose2D, queue_size=1) #incremento da odom do segway
+		self.odom_pub = rospy.Publisher('my_odom', Pose2D, queue_size=1) #incremento da odom do segway
 		self.new_odom_pub = rospy.Publisher('new_odom',Pose2D, queue_size=1) #odom + error
 		#self.odom_pub = rospy.Publisher('odomUpdater', Pose, queue_size=10)
 		self.service = rospy.Service('resetRMP', resetrmp, self.handle_resetRMP) #server servico para posicao inicial
@@ -76,9 +77,8 @@ class odomUpdater:
 		(roll_new, pitch_new, new_yaw) = tf.transformations.euler_from_matrix(new_estimation[:3,:3])
 		(roll, pitch, yaw) = tf.transformations.euler_from_matrix(self.wTo_marker[:3,:3])
 
-		#calculo da media  [:3,:3]
-		#quanto maior é o alpha mais importância se dá à nova leitura
-		alpha = 0.2
+		#aplicação   [:3,:3]
+		alpha = 0.3
 		meanx = (alpha*new_estimation[0][3] + (1-alpha)*self.wTo_marker[0][3])
 		meany = (alpha*new_estimation[1][3] + (1-alpha)*self.wTo_marker[1][3])
 		mean_yaw = (alpha*new_yaw + (1-alpha)*yaw)

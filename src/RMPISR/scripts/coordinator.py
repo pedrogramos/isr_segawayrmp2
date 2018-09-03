@@ -53,7 +53,7 @@ tour1_dic = [rot1_1,rot1_2,rot1_3]
 
 
 
-rot2_1 = {'local':"Accounting", 'pose':[7.78,6.71]} 
+rot2_1 = {'local':"Lab: Computer Vision", 'pose':[0.91,28.55]} 
 rot2_2 = {'local':"Lab: Mechatronics", 'pose':[21.21,10.2]}
 rot2_3 = {'local':"Lab: Mobile Robotics", 'pose':[0.91,10.2]}
 tour2_dic = [rot2_1,rot2_2,rot2_3]
@@ -81,7 +81,7 @@ serv_arrived = False
 
 #no ISR
 sys.path.insert(0,'/home/rmp/lib/python')
-#MAP='/home/rmp/catkin_ws/src/RMPISR/scripts/ISRfile2.xml'
+MAP2='/home/rmp/catkin_ws/src/RMPISR/scripts/ISRfile2.xml'
 MAP='/home/rmp/catkin_ws/src/RMPISR/scripts/novo.xml'
 import vstpPY
 traj1='/home/rmp/catkin_ws/src/RMPISR/scripts/cen11.csv'
@@ -181,18 +181,27 @@ class PageOne(Frame):
 
 			controller.show_frame(PageThree)
 
-		tour1_lbl = Label(self, text="Choose one of the following tours:", font=tkFont.Font(size=30))
-		tour1_lbl.place(x=400, y=0)
-		tour1_lbl = Label(self, text="Tour 1: Lab Mobile Robotics, Lab Computer Vision, Lab Immersive Systems", font=tkFont.Font(size=30))
-		tour1_lbl.place(x=20, y=100)
-		tour2_lbl = Label(self, text="Tour 2: Accounting, Lab Mechatronics, Lab Mobile Robotics", font=tkFont.Font(size=30))
-		tour2_lbl.place(x=20, y=400)
+		labelframe1 = LabelFrame(self, text="Tour 1:", font=tkFont.Font(size=30))
+		labelframe1.pack(fill="both", expand="yes")
+		labelframe2 = LabelFrame(self, text="Tour 2:", font=tkFont.Font(size=30))
+		labelframe2.pack(fill="both", expand="yes")
+
+		#tour1_lbl = Label(self, text="Choose one of the following tours:", font=tkFont.Font(size=30))
+		#tour1_lbl.place(x=400, y=0)
+		tour1_lbl = Label(labelframe1, text="Lab Mobile Robotics\nLab Computer Vision\nLab Immersive Systems", font=tkFont.Font(size=30))
+		#tour1_lbl.place(x=20, y=100)
+		tour1_lbl.pack()
+		tour2_lbl = Label(labelframe2, text="Lab: Computer Vision\nLab Mechatronics\nLab Mobile Robotics", font=tkFont.Font(size=30))
+		#tour2_lbl.place(x=20, y=400)
+		tour2_lbl.pack()
+
+
 		tour1_start = Button(self, text="Start",width=15, height=5, command=tour1)
-		tour1_start.place(x= 1000,y=200 )
+		tour1_start.place(x= 1100,y=250 )
 		tour2_start = Button(self, text="Start",width=15, height=5, command=tour2)
-		tour2_start.place(x= 1000, y=500)
+		tour2_start.place(x= 1100, y=650)
 		back = Button(self, text="Back",width=15, height=5, command=lambda:controller.show_frame(StartPage))
-		back.place(x=100, y=600)
+		back.place(x=20, y=650)
 		'''
 		img = Image.open("/home/rmp/catkin_ws/src/RMPISR/scripts/ISRlogo.jpg")
 		img = img.resize((250,250), Image.ANTIALIAS)
@@ -301,7 +310,7 @@ class PageFour(Frame):
 		label1.place(x=200,y=0)
 		label = Label(self, text=self.k , font=tkFont.Font(size=40), background="green2")
 		label.place(x=200,y=70)
-		tour1_go = Button(self, text="Next Destiny",width=10, height=5, command=next_destiny)
+		tour1_go = Button(self, text="Next Destination",width=10, height=5, command=next_destiny)
 		tour1_go.place(x=1100,y=600)
 
 		def run_at_call(self):
@@ -350,7 +359,7 @@ class PageFive(Frame):
 
 class PageSix(Frame):
 	def __init__(self, parent, controller):
-		Frame.__init__(self, parent, background = "DarkOliveGreen2")
+		Frame.__init__(self, parent, background = "green2")
 
 		def send_home():
 			p = coordinator()
@@ -364,11 +373,11 @@ class PageSix(Frame):
 			controller.show_frame(PageTwo)
 
 		self.k = StringVar()
-		label1 = Label(self, text = "You have arrived to your destination.", font=tkFont.Font(size=40), background="DarkOliveGreen2")
+		label1 = Label(self, text = "You have arrived to your destination.", font=tkFont.Font(size=40), background="green2")
 		label1.place(x=200,y=0)
-		label = Label(self, text=self.k , font=tkFont.Font(size=40), background="DarkOliveGreen2")
+		label = Label(self, text=self.k , font=tkFont.Font(size=40), background="green2")
 		label.place(x=200,y=70)
-		label1 = Label(self, text="What do you want to do now?", font=tkFont.Font(size=40), bg="DarkOliveGreen2")
+		label1 = Label(self, text="What do you want to do now?", font=tkFont.Font(size=40), bg="green2")
 		label1.place(x=300, y=160)
 		go_home = Button(self, text="Send Home",width=10, height=5, command=send_home)
 		go_home.place(x=200, y=600)
@@ -446,8 +455,8 @@ STATE TABLE:
 class coordinator():
 	#robotRadius = 0.65, why 0.74 
 	def __init__(self,robotRadius=0.35,gridResolution=0.1,idealDist=0.5,maxDist=1):
-		'''
 		self.robotRadius=robotRadius
+		'''
 		self.gridResolution=gridResolution
 		self.idealDist=idealDist
 		self.maxDist=maxDist
@@ -462,7 +471,7 @@ class coordinator():
 		self.new_odom_sub = rospy.Subscriber('/new_odom',Pose2D,self.callbackOdom)
 		self.v=vstpPY.VSTP() #criacao do objeto
 		self.v.init(robotRadius,gridResolution,idealDist,maxDist)
-		self.mapsegs = self.v.loadMap(MAP)
+		self.mapsegs = self.v.loadMap(MAP2)
 		
 		#self.serv_arrived = False
 
@@ -643,8 +652,8 @@ class coordinator():
 					maxy=self.mapsegs[i].y0 
 				else: maxy=self.mapsegs[i].y1 #equal to 2nd
 
-		self.mapminx=minx
-		self.mapminy=miny
+		self.mapminx=minx-2
+		self.mapminy=miny-2
 		self.mapmaxx=maxx
 		self.mapmaxy=maxy
 		print "minX: %f, minY: %f, MAXX: %f, MAXY: %f" % (self.mapminx,self.mapminy,self.mapmaxx,self.mapmaxy)
@@ -677,10 +686,13 @@ class coordinator():
 
 #---------------------------------------------------------------------------------------------------------------------------#
 		
-	def criaMapa(self,displayx=800,displayy=480):
+	def criaMapa(self,displayx=850,displayy=500):
 	
-		raciox=(displayx-5)/(self.mapmaxx-self.mapminx)
-		racioy=(displayy-5)/(self.mapmaxy-self.mapminy)
+		#raciox=(displayx-5)/(self.mapmaxx-self.mapminx)
+		#racioy=(displayy-5)/(self.mapmaxy-self.mapminy)
+
+		raciox=(800)/(self.mapmaxx-self.mapminx)
+		racioy=(480)/(self.mapmaxy-self.mapminy)
 
 		#gamepy inicialization window
 		screen = pygame.display.set_mode((displayx, displayy))
@@ -708,9 +720,9 @@ class coordinator():
 					pygame.draw.line(screen, (0, 255,255), ((self.new_traj[i-1].x-self.mapminx)*raciox, (self.new_traj[i-1].y-self.mapminy)*racioy),  ((self.new_traj[i].x-self.mapminx)*raciox, (self.new_traj[i].y-self.mapminy)*racioy))
 				
 				#real odometry representation
-				pygame.draw.circle(screen, (255, 0, 0), [int((self.trueodomX-self.mapminx)*raciox), int((self.trueodomY-self.mapminy)*racioy)], int(self.robotRadius*raciox))
+				#pygame.draw.circle(screen, (255, 0, 0), [int((self.trueodomX-self.mapminx)*raciox), int((self.trueodomY-self.mapminy)*racioy)], int(self.robotRadius*raciox))
 				#false odometry representation
-				pygame.draw.circle(screen, (255, 0, 0), [int((self.falseodomX-self.mapminx)*raciox), int((self.falseodomY-self.mapminy)*racioy)], int(self.robotRadius*raciox))
+				#pygame.draw.circle(screen, (255, 0, 0), [int((self.falseodomX-self.mapminx)*raciox), int((self.falseodomY-self.mapminy)*racioy)], int(self.robotRadius*raciox))
 
 
 
@@ -813,6 +825,8 @@ if __name__ == "__main__":
 	boss=coordinator()
 	boss.readFile(traj1)
 	boss.readFile2(traj2)
+	#boss.computeMapLimits()
+	#boss.toThreadMap()
 	toThreadGui()
 	#boss.initScreen()
 	#boss.LoadMapNRobot()

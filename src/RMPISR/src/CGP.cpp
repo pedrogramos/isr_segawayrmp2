@@ -26,8 +26,8 @@
 using namespace std;
 
 #define PI 3.141592
-#define lin 0.6 //0.2 0.3 0.6 0.7
-#define ang 0.4 //0.5 0.5 0.4 0.45
+#define lin 0.3 //0.2 0.3 0.6 0.7  0.8
+#define ang 0.5 //0.5 0.5 0.4 0.45 0.5
 float Kl = lin; 
 float Kw = ang; 
 enum states{GO,STOP,STOPPING,ADDPOINT};
@@ -104,7 +104,7 @@ SendVelocity::SendVelocity(){
   service1 = nh.advertiseService("addpoint", &SendVelocity::def_addpoint, this);
   service2 = nh.advertiseService("stop",&SendVelocity::def_stop,this);
   service4 = nh.advertiseService("markerdetected",&SendVelocity::def_markerDetected,this);
-  client = nh.serviceClient<RMPISR::arrivedDestiny>("arriveddestiny");
+  client = nh.serviceClient<RMPISR::arrivedDestiny>("arrivedDestiny");
 
 }
 
@@ -164,7 +164,6 @@ void SendVelocity::vecCallback(const geometry_msgs::Point::ConstPtr& data){
 
   repulsive.x = data->x;
   repulsive.y = data->y;
-
 }
 
 //---------------------------------------------------------------------------------------------------------------------------#
@@ -256,15 +255,15 @@ void SendVelocity::goTo(float xf, float yf, float destX, float destY, float limi
   while (d1>limiar && opposite == false){
 
     
-    if(d1 > d2destiny-1.5 || d1 < 1.2){
+    if(d1 > d2destiny-1 || d1 < 1.2){
       Kl=0.3;
       Kw=0.7;
-      ROS_INFO("Viragem a acontecer");
+      ROS_INFO("Aproximacao à paragem");
     }
     else{
       Kl=lin;
       Kw=ang;
-      ROS_INFO("passou a viragem");
+      ROS_INFO("roda livre");
     }
 
     //calculo vector atractivo normalizado
@@ -280,7 +279,7 @@ void SendVelocity::goTo(float xf, float yf, float destX, float destY, float limi
     float dx = (pDesvioX - odomNew.x ) / d;
     float dy = (pDesvioY - odomNew.y) / d;
 
-    //ROS_INFO("New coordinates: X: %f Y: %f", pDesvioX, pDesvioY );
+    ROS_INFO("New coordinates: X: %f Y: %f", pDesvioX, pDesvioY );
 
     outfile << pDesvioX << "," << pDesvioY << std::endl;
     outfile2 << xf << "," << yf << std::endl;

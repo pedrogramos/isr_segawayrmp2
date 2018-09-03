@@ -571,8 +571,8 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
           client3.call(srv3);
 
           // cout para a consola
-          std::cout << asctime (timeinfo);
-          std::cout << "srv call-> X: "<< trueOdom.x << " Y: "<< trueOdom.y << " Th: " << trueOdom.theta << std::endl;
+          //std::cout << asctime (timeinfo);
+          //std::cout << "srv call-> X: "<< trueOdom.x << " Y: "<< trueOdom.y << " Th: " << trueOdom.theta << std::endl;
           //i=2;
           //lastTime = ros::Time::now();
 
