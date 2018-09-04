@@ -70,15 +70,16 @@ class odomUpdater:
 		#matriz arranjada do array recebido
 		self.wTr_update = np.array([(array1.data[0],array1.data[4],array1.data[8],array1.data[12]/1000),(array1.data[1],array1.data[5],array1.data[9],array1.data[13]/1000),(array1.data[2],array1.data[6],array1.data[10],array1.data[14]/1000),(array1.data[3],array1.data[7],array1.data[11],array1.data[15])])
 		self.inv_segway_M = np.linalg.inv(self.segway_M)
-
+		# para apenas usar os valores dos marcadores, comentar a partir do roll_new
+		# e new_estimation passar a ser o self.wTo_marker
 		new_estimation = np.dot(self.wTr_update,self.inv_segway_M)
 		#(roll_new, pitch_new, new_yaw) = tf.transformations.euler_from_matrix(new_estimation)
 		#(roll, pitch, yaw) = tf.transformations.euler_from_matrix(self.wTo_marker)
 		(roll_new, pitch_new, new_yaw) = tf.transformations.euler_from_matrix(new_estimation[:3,:3])
 		(roll, pitch, yaw) = tf.transformations.euler_from_matrix(self.wTo_marker[:3,:3])
 
-		#aplicação   [:3,:3]
-		alpha = 0.3
+		#aplicacao filtro [:3,:3]
+		alpha = 0.2
 		meanx = (alpha*new_estimation[0][3] + (1-alpha)*self.wTo_marker[0][3])
 		meany = (alpha*new_estimation[1][3] + (1-alpha)*self.wTo_marker[1][3])
 		mean_yaw = (alpha*new_yaw + (1-alpha)*yaw)
@@ -87,10 +88,10 @@ class odomUpdater:
 		#print a odom quando recebida a posicao do marcador
 		print "\nActualizacao Da Posicao Recebida Com Sucesso"
 		print "Segway2: X: %f Y: %f Theta: %f" % (self.segway2.x,self.segway2.y,self.segway2.theta)
-		print "Marcador:"
-		print self.wTr_update
-		print "wTo_marker:"
-		print self.wTo_marker
+		#print "Marcador:"
+		#print self.wTr_update
+		#print "wTo_marker:"
+		#print self.wTo_marker
 		self.save = True
 
 

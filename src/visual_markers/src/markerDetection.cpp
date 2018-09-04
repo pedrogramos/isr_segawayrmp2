@@ -130,6 +130,8 @@ return aux;
 
 }
 
+
+
 /*
 void odomCallback(const geometry_msgs::Pose2D::ConstPtr& msg){
 odomX=msg->x;
@@ -159,7 +161,8 @@ int main(int argc, char **argv){
   std::ofstream outfile ("test.txt");
   time_t rawtime;
   struct tm * timeinfo;
-
+  int tabid[9] = {111,127,200,78,135,1,134,45,102};
+  int sizeid = 9;
 
 
 
@@ -370,9 +373,9 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
   oaShader * shader1;
   shader1=engine.loadShaders("texture.vs","texture.fs");
  
-  window.SetViewingAngle(glm::radians((float)viewangle));
+  //window.SetViewingAngle(glm::radians((float)viewangle));
 
-  window.SetWindowTitle("MarkerLocator");
+  //window.SetWindowTitle("MarkerLocator");
 
   start = System::GetTicks();
   //SDL_EnableKeyRepeat(50, 50);
@@ -410,7 +413,7 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
   //cam->setCamPose(Pose(0,0,0,1,0,0,M_PI));
   cam->lookat(0,0,0,0,0,1,0,-1,0);
   
-  window.SetCamera(cam);
+  //window.SetCamera(cam);
   
   //window.camera->setIntrinsics(cammodel,800,600,1,50000);
   
@@ -460,91 +463,55 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
           pose=locator->getMarkerPose(lk);
           id=locator->getMarkerId(lk);
 
-          sprintf(msg3,"Measure to marker center: %f",pose.position.norm());
-          cv::putText(frame,msg3,cvPoint(0,50),cv::FONT_HERSHEY_SIMPLEX,1,cv::Scalar::all(100),3,8);
+          //sprintf(msg3,"Measure to marker center: %f",pose.position.norm());
+          //cv::putText(frame,msg3,cvPoint(0,50),cv::FONT_HERSHEY_SIMPLEX,1,cv::Scalar::all(100),3,8);
           //M_use=Ma;
 
           if (id==111){
             M_use=Ma;
-              if(id != 111) entrar=true;
           }
 
           else if (id==127){
             M_use=Mb;
-            if(id_ant != 127) entrar=true;
           }
 
           else if (id==200){
             M_use=Md;
-            if(id_ant != 200) entrar=true;
-
           }
 
           else if (id==150){
             M_use=Mc;
-            if(id_ant != 150) entrar=true;
           }
 
           else if (id==134){
             M_use=Mi;
-            if(id_ant != 134) entrar=true;
           }
 
           else if (id==78){
             M_use=Me;
-            if(id_ant != 78) entrar=true;
           }
 
-          else if (id==135){
+          else if (id==102){
             M_use=Mf;
-            if(id_ant != 135) entrar=true;
           }
 
           else if (id==1){
             M_use=Mh;
-            if(id_ant != 1) entrar=true;
           }
 
           else if (id==45){
             M_use=Mj;
-            if(id_ant != 45) entrar=true;
           }
-
-
-          cTm = pose.getRT();
-          
-          inv_cTm=glm::inverse(cTm);
-
-          wTc=M_use*inv_cTm;
-          
-          
-          rmpTm=rmpTc*cTm;
-          mTrmp=glm::inverse(rmpTm);
-          wTrmp=M_use*mTrmp;
-
-          
-          for (int i=0; i<=3; i++){
-            for(int j=0; j<=3; j++){
-
-              array.data.push_back(wTrmp[i][j]);
-            }
-          }
-
-          
+      
           //glm::vec4 novo =wTrmp*glm::vec4(1.0,0.0,0.0,0.0);
           //float norma = sqrt(pow(novo[0],2)+pow(novo[1],2));
-
-          //trueOdom.x = ((wTrmp[3][0])/1000);
-          //trueOdom.y = ((wTrmp[3][1])/1000);
-          //trueOdom.theta = (atan2((wTrmp[0][1]),(wTrmp[0][0])));
           
 
         //printf("Xcam=  %f Ycam=  %f ThCam=  %f \n",(wTc[3][0])/1000, (wTc[3][1])/1000, atan2((wTc[0][1]),(wTc[0][0])) );
-        //printf("OLD: x=  %f y=  %f theta=  %f \n",((wTrmp[3][0])/1000), ((wTrmp[3][1])/1000), (atan2((wTrmp[0][1]),(wTrmp[0][0]))) );
         //printf("NOVO: x=  %f y=  %f theta=  %f \n",((wTrmp[3][0])/1000), ((wTrmp[3][1])/1000), atan2((wTrmp[0][1]/norma),(wTrmp[0][0]/norma)) );
 
-        sprintf(msg4,"x=  %f y=  %f theta=  %f ",((wTrmp[3][0])/1000), ((wTrmp[3][1])/1000), (atan2((wTrmp[0][1]),(wTrmp[0][0]))) );
-        cv::putText(frame,msg4,cvPoint(0,100),cv::FONT_HERSHEY_SIMPLEX,1,cv::Scalar::all(100),3,8);
+        //sprintf(msg4,"x=  %f y=  %f theta=  %f ",((wTrmp[3][0])/1000), ((wTrmp[3][1])/1000), (atan2((wTrmp[0][1]),(wTrmp[0][0]))) );
+        //cv::putText(frame,msg4,cvPoint(0,100),cv::FONT_HERSHEY_SIMPLEX,1,cv::Scalar::all(100),3,8);
 
         //printf("M_use %s \n", glm::to_string(M_use).c_str() );
 
@@ -552,15 +519,40 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
           
         id_ant=id;
 
-        if (once){
+        for (int i = 0; i < sizeid; i++)
+        {
+          if(id == tabid[i]){
+            cTm = pose.getRT();
+            inv_cTm=glm::inverse(cTm);
+            wTc=M_use*inv_cTm;
+            
+            
+            rmpTm=rmpTc*cTm;
+            mTrmp=glm::inverse(rmpTm);
+            wTrmp=M_use*mTrmp;
+
+            
+            for (int i=0; i<=3; i++){
+              for(int j=0; j<=3; j++){
+
+                array.data.push_back(wTrmp[i][j]);
+              }
+            }
+
+            entrar=true;
+            break;
+           }           
+        }
+
+        if (once && entrar){
           printf("Inicializacao da odometria!    ID= %d \n", id);
           serciceCallOnce(array,srv2,client2);
           once = false;
-          entrar = false;
+          printf("x=  %f y=  %f theta=  %f \n",((wTrmp[3][0])/1000), ((wTrmp[3][1])/1000), (atan2((wTrmp[0][1]),(wTrmp[0][0]))) );
           ros::Duration(1).sleep();
         }
 
-        entrar = true;
+
         if(entrar){
           printf("\nENTROU CHAMADA SERVICO!!  ID= %d \n", id );
           time ( &rawtime );
@@ -569,33 +561,31 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
           // call do servico que envia o calculo do erro para ser adicionado à odometria original
           serciceCall(array,srv,client);
           client3.call(srv3);
-
-          // cout para a consola
-          //std::cout << asctime (timeinfo);
-          //std::cout << "srv call-> X: "<< trueOdom.x << " Y: "<< trueOdom.y << " Th: " << trueOdom.theta << std::endl;
-          //i=2;
-          //lastTime = ros::Time::now();
-
-          entrar = false;
+          printf("x=  %f y=  %f theta=  %f \n",((wTrmp[3][0])/1000), ((wTrmp[3][1])/1000), (atan2((wTrmp[0][1]),(wTrmp[0][0]))) );
           
 
+        } else{
+          printf("\nID não reconhecido!");
         }
 
+
           array.data.clear();
+          entrar = false;
           ros::spinOnce();
         }
   
   //cv::putText(frame,msg,cvPoint(10,50),cv::FONT_HERSHEY_SIMPLEX,1, cv::Scalar::all(255),3,8);
   // set it as the opengl scene background
 
-  engine.SetBGImage(frame);
+  //engine.SetBGImage(frame);
   
 
-  engine.renderScene(&window);
-/*
+  //engine.renderScene(&window);
+
   SDL_Event ev;
   while(SDL_PollEvent(&ev)) {
-    switch(ev.type) {
+    switch (ev.key.keysym.sym){
+    case  SDLK_ESCAPE:
       case SDL_QUIT:
         return 0;
       break;
@@ -604,11 +594,11 @@ setValues = readFile("/home/rmp/catkin_ws/src/visual_markers/src/markersSettings
         return 0;
 
       default:
-        std::cout << "key"<< std::endl;
+        //std::cout << "key"<< std::endl;
       break;
     }
     break;
-  }*/
+  }
 
 
   }

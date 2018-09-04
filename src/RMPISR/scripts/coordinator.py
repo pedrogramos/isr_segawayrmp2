@@ -124,7 +124,7 @@ class StartPage(Frame):
 		Frame.__init__(self, parent)
 
 		label = Label(self, text="Welcome to Instituto de Sistemas e Robotica!\n What do you want to do?", font=tkFont.Font(size=20))
-		label.place(x=400, y=0)
+		label.place(x=350, y=0)
 
 		page_one = Button(self, text="Do a Visit", width=15, height=10, font=tkFont.Font(size=20), command=lambda:controller.show_frame(PageOne))
 		page_one.place(x=200,y=300)
@@ -173,11 +173,14 @@ class PageOne(Frame):
 			global number
 			number = 0
 			p=coordinator()
+			#limpar os pontos existentes primeiro
+			#p.addpoint_client(True)
 			p.vstpFunc(0.5, 4, tour2_dic[0]['pose'][0], tour2_dic[0]['pose'][1])
 			
 			for i in xrange(1,len(tour2_dic)):
 				p.vstpFunc(tour2_dic[i-1]['pose'][0], tour2_dic[i-1]['pose'][1], tour2_dic[i]['pose'][0], tour2_dic[i]['pose'][1])
-				#p.addpoint_client(True)
+				#adicionar os pontos ao fim da pilha
+				#p.addpoint_client(False)
 
 			controller.show_frame(PageThree)
 
@@ -188,10 +191,10 @@ class PageOne(Frame):
 
 		#tour1_lbl = Label(self, text="Choose one of the following tours:", font=tkFont.Font(size=30))
 		#tour1_lbl.place(x=400, y=0)
-		tour1_lbl = Label(labelframe1, text="Lab Mobile Robotics\nLab Computer Vision\nLab Immersive Systems", font=tkFont.Font(size=30))
+		tour1_lbl = Label(labelframe1, text="Lab: Mobile Robotics\nLab: Computer Vision\nLab: Immersive Systems", font=tkFont.Font(size=30))
 		#tour1_lbl.place(x=20, y=100)
 		tour1_lbl.pack()
-		tour2_lbl = Label(labelframe2, text="Lab: Computer Vision\nLab Mechatronics\nLab Mobile Robotics", font=tkFont.Font(size=30))
+		tour2_lbl = Label(labelframe2, text="Lab: Computer Vision\nLab: Mechatronics\nLab: Mobile Robotics", font=tkFont.Font(size=30))
 		#tour2_lbl.place(x=20, y=400)
 		tour2_lbl.pack()
 
@@ -262,12 +265,18 @@ class PageThree(Frame):
 	def __init__(self, parent, controller):
 		Frame.__init__(self, parent)
 
+		def stop_robot():
+			p=coordinator()
+			#p.stop_client()
+			controller.show_frame(StartPage)
 
 
 		self.k = StringVar()
 
 		label = Label(self, text=self.k, font=tkFont.Font(size=40))
 		label.pack(padx=10, pady=10)
+		stop_robot = Button(self, text="Stop Robot", width=10, height=5, command=stop_robot)
+		stop_robot.place(x=40,y=600)
 		
 		#page_one = Button(self, text="page4", command=lambda:controller.show_frame(PageFour))
 		#page_one.pack()
@@ -304,6 +313,11 @@ class PageFour(Frame):
 			print number
 			controller.show_frame(PageThree)
 
+		def stop_tour():
+			p=coordinator()
+			#p.stop_client()
+			controller.show_frame(StartPage)
+
 		self.k =StringVar()
 
 		label1 = Label(self, text = "You have arrived to your destination.", font=tkFont.Font(size=40), background="green2")
@@ -312,6 +326,8 @@ class PageFour(Frame):
 		label.place(x=200,y=70)
 		tour1_go = Button(self, text="Next Destination",width=10, height=5, command=next_destiny)
 		tour1_go.place(x=1100,y=600)
+		tour1_stop = Button(self, text="Stop Tour",width=10, height=5, command=stop_tour)
+		tour1_stop.place(x=200,y=600)
 
 		def run_at_call(self):
 			self.k = "Welcome to %s" % (arrived_to)
@@ -327,6 +343,11 @@ class PageFive(Frame):
 	def __init__(self, parent, controller):
 		Frame.__init__(self, parent)
 
+
+		def stop_robot():
+			p=coordinator()
+			#p.stop_client()
+			controller.show_frame(StartPage)
 		#texto = StringVar()
 		
 		#a = "hello"
@@ -336,8 +357,11 @@ class PageFive(Frame):
 		#self.k = "Heading to: " + str(arrived_to2)
 		label = Label(self, text=self.k, font=tkFont.Font(size=40))
 		label.pack(padx=10, pady=10)
+		stop_robot = Button(self, text="Stop Robot", width=10, height=5, command=stop_robot)
+		stop_robot.place(x=40,y=600)
 		#page_six = Button(self, text="page6", command=lambda:controller.show_frame(PageSix))
 		#page_six.pack()
+
 
 		
 
@@ -374,19 +398,19 @@ class PageSix(Frame):
 
 		self.k = StringVar()
 		label1 = Label(self, text = "You have arrived to your destination.", font=tkFont.Font(size=40), background="green2")
-		label1.place(x=200,y=0)
+		label1.place(x=150,y=0)
 		label = Label(self, text=self.k , font=tkFont.Font(size=40), background="green2")
-		label.place(x=200,y=70)
+		label.place(x=150,y=70)
 		label1 = Label(self, text="What do you want to do now?", font=tkFont.Font(size=40), bg="green2")
-		label1.place(x=300, y=160)
+		label1.place(x=230, y=160)
 		go_home = Button(self, text="Send Home",width=10, height=5, command=send_home)
-		go_home.place(x=200, y=600)
+		go_home.place(x=100, y=600)
 		go_place = Button(self, text="Go To\n Another Place",width=10, height=5, command=send_place)
 		go_place.place(x=1100, y=600)
 
 
 		def run_at_call(self):
-			self.k = "Welcome to %s" % (arrived_to2)
+			self.k = "  Welcome to %s" % (arrived_to2)
 			label.configure(text=self.k)
 
 		self.bind("<<ShowFrame>>", run_at_call)
