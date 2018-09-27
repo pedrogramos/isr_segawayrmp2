@@ -447,20 +447,6 @@ void TeleopWiimote::wiimoteStateCallback(const wiimote::State::ConstPtr& wiistat
   }
 
 
-
-  //MEUS COMANDOS
-
-  if (wiistate->buttons[MSG_BTN_PLUS]){
-
-    ros::Duration(0.5).sleep();
-    client1.call(GO_handler);
-  }
-
-  if (wiistate->buttons[MSG_BTN_MINUS]){
-
-    ros::Duration(0.5).sleep();
-    client1.call(STOP_handler);
-  }
 }
 
 

@@ -109,7 +109,7 @@ TeleopWiimote::TeleopWiimote()
   nh_private.setParam("angular/x/throttle_percent", percent_angular_throttle_);
   ROS_INFO("Angular Z Throttle Percent: %3.0f", percent_angular_throttle_ * 100.0);
 
-  vel_pub_ = nh.advertise<geometry_msgs::Twist>("/segway_rmp_node/cmd_vel", 1);
+  vel_pub_ = nh.advertise<geometry_msgs::Twist>("/cmd_vel", 1);
   //vel_pub_ = nh.advertise<geometry_msgs::Twist>("/cmd_vel", 1);
   joy_pub_ = nh.advertise<sensor_msgs::JoyFeedbackArray>("joy/set_feedback", 1);
 

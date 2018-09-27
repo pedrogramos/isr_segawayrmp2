@@ -47,8 +47,8 @@ for elem in dictionary:
 
 
 rot1_1 = {'local':"Lab: Mobile Robotics", 'pose':[0.91,10.2]}
-rot1_2 = {'local':"Lab: Immersive Systems", 'pose':[0.91,25.8]}
-rot1_3 = {'local':"Lab: Computer Vision", 'pose':[0.91,28.55]}
+rot1_2 = {'local':"Lab: Computer Vision", 'pose':[0.91,28.55]}
+rot1_3 = {'local':"Lab: Immersive Systems", 'pose':[0.91,25.8]}
 tour1_dic = [rot1_1,rot1_2,rot1_3]
 
 

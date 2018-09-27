@@ -31,6 +31,8 @@ ros/message_operations.h
 -
 geometry_msgs/Point.h
 -
+geometry_msgs/Point.h
+-
 
 /home/rmp/catkin_ws/devel/include/RMPISR/addpointResponse.h
 string
